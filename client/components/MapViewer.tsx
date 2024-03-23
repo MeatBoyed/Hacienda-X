@@ -2,7 +2,7 @@
 
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import { Icon, LatLngExpression } from "leaflet";
-import PinIcon from "../Imgs/MapPin.png";
+import PinIcon from "../app/Lib/Imgs/MapPin.png";
 import "leaflet/dist/leaflet.css";
 
 interface marker {
