@@ -1,5 +1,5 @@
 import Image from "next/image";
-import MapViewer from "./Lib/Components/MapViewer";
+import MapViewer from "../components/MapViewer";
 
 export default function Home() {
   return (
