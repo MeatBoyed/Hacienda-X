@@ -18,9 +18,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <div className="min-h-screen bg-background font-sans antialiased tracking-wider">
-          <main className="flex min-h-screen flex-col items-center justify-between p-10">
-            {children}
-          </main>
+          <main className="App pt-2 bg-black">{children}</main>
         </div>
       </body>
     </html>
