@@ -1,5 +1,4 @@
 import React from "react";
-import "./Contact.css";
 import data from "../lib/contactslider.json";
 
 const Contact = () => {
