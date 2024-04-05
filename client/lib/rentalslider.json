@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Bolivia Amazea",
+    "price": "1000",
+    "detail": "Garden Road Street, Avenue. Pulo Gadung, Jakarta Timur",
+    "image": "./r1.png"
+  },
+  {
+    "name": "BMW Plaza City",
+    "price": "5000",
+    "detail": "Kalua Street No.300, Beloga, Timona, Sika, Jep Room",
+    "image": "./r2.png"
+  },
+  {
+    "name": "Pilo Pelo Sringe",
+    "price": "3500",
+    "detail": "Kukp Link Dina Residence Block 24, Kamni Road, Circless, Sika",
+    "image": "./r3.png"
+  },
+  {
+    "name": "Aliva Priva Jardin",
+    "price": "4000",
+    "detail": "Palun Road, Klina. Pulo Gadung, DKI Jakarta",
+    "image": "./r1.png"
+  },
+  {
+    "name": "Komi Garden",
+    "price": "6600",
+    "detail": "Nihav Street, Chima, Luva, Kapa, Jawa Barat",
+    "image": "./r2.png"
+  },
+  {
+    "name": "Duna Serang",
+    "price": "3500",
+    "detail": "Bella ConaBlock A7, Lingkar Street, Ciracas, Serang, Banten",
+    "image": "./r3.png"
+  }
+]
