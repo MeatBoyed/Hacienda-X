@@ -411,3 +411,111 @@ h-menu > *:hover {
   justify-content: flex-start;
   align-items: flex-start;
 }
+
+/* Stylesheet for About US Section*/
+
+.about {
+  padding: 5rem 0;
+  text-align: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.about h1 {
+  font-weight: 900;
+  margin-bottom: 5rem;
+  text-transform: uppercase;
+  color: #333;
+}
+
+.about p {
+  color: white;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.card {
+  display: flex;
+  flex-basis: calc(100% - 2rem);
+  align-items: center;
+  margin: 1rem;
+  padding: 1rem;
+  background: #fff;
+  border: 2px solid #ccc;
+  box-shadow: 0 4px 10px rgba(0, 122, 255, 0.25),
+    0 4px 10px rgba(0, 122, 255, 0.24);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  cursor: pointer;
+}
+
+.card:nth-child(even) {
+  flex-direction: row-reverse;
+}
+
+.card:nth-child(odd) {
+  flex-direction: row;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0, 122, 255, 0.25),
+    0 6px 6px rgba(0, 122, 255, 0.22);
+}
+
+.card img {
+  width: 40%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 5px;
+  box-shadow: 0 4px 10px rgba(0, 122, 255, 0.25),
+    0 4px 10px rgba(0, 122, 255, 0.24);
+  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.card:hover img {
+  transform: translateY(-10px);
+}
+
+.card p {
+  font-size: 1.2rem;
+  line-height: 1.5;
+  color: #333;
+  padding: 1rem;
+}
+
+@media (max-width: 768px) {
+  .card-container {
+    flex-direction: column;
+  }
+
+  .card {
+    flex-basis: 100%;
+    height: 500px;
+  }
+
+  .card img {
+    width: 100%;
+    height: 50%;
+    object-position: top;
+  }
+
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 122, 255, 0.25),
+      0 6px 6px rgba(0, 122, 255, 0.22);
+  }
+
+  .card:hover img {
+    transform: translateY(0);
+  }
+
+  .card p {
+    padding: 1rem;
+    height: 50%;
+    overflow-y: auto;
+  }
+}
