@@ -1,0 +1,32 @@
+[
+  {
+    "name": "John Doe",
+    "image": "https://via.placeholder.com/150",
+    "phone": "123-456-7890"
+  },
+  {
+    "name": "Jane Smith",
+    "image": "https://via.placeholder.com/150",
+    "phone": "098-765-4321"
+  },
+  {
+    "name": "John Doe",
+    "image": "https://via.placeholder.com/150",
+    "phone": "123-456-7890"
+  },
+  {
+    "name": "Jane Smith",
+    "image": "https://via.placeholder.com/150",
+    "phone": "098-765-4321"
+  },
+  {
+    "name": "John Doe",
+    "image": "https://via.placeholder.com/150",
+    "phone": "123-456-7890"
+  },
+  {
+    "name": "Jane Smith",
+    "image": "https://via.placeholder.com/150",
+    "phone": "098-765-4321"
+  }
+]

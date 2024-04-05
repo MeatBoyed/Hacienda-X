@@ -1,6 +1,6 @@
 import React from "react";
 import "./Contact.css";
-import data from "../../utils/contactslider.json";
+import data from "../lib/contactslider.json";
 
 const Contact = () => {
   return (
