@@ -6,6 +6,7 @@ import Residencies from "@/components/Residencies";
 import Rentals from "@/components/Rentals";
 import AboutUs from "@/components/AboutUs";
 import Contact from "@/components/Contacts";
+import CallToAction from "@/components/CallToAction";
 
 export default function Home() {
   return (
@@ -20,6 +21,7 @@ export default function Home() {
         <Rentals />
         <AboutUs />
         <Contact />
+        <CallToAction />
       </div>
     </main>
   );
