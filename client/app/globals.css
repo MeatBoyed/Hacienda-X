@@ -680,3 +680,30 @@ h-menu > *:hover {
   font-size: 1rem; /* Adjust font size as needed */
   padding: 50px 10px; /* Adjust padding as needed */
 }
+
+/*CSS code for CallToAction section on Landing page*/
+/* CallToAction.css */
+.call-to-action {
+  margin-top: 300px;
+  padding: 40px;
+  background-color: #f2f2f2;
+  max-width: 1200px; /* Set maximum width */
+  margin: 0 auto; /* Center the section */
+  text-align: center;
+}
+
+.learn-more-button {
+  padding: 20px 40px; /* Increase button padding */
+  font-size: 1.2rem; /* Increase button text size */
+  border-radius: 10px; /* Increase button border radius */
+  background-color: #ff7c4a;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  margin-top: 30px;
+}
+
+.learn-more-button:hover {
+  transform: scale(1.05); /* Scale up button on hover */
+}
