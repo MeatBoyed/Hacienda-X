@@ -687,7 +687,7 @@ h-menu > *:hover {
   margin-top: 300px;
   padding: 40px;
   background-color: #f2f2f2;
-  max-width: 1200px; /* Set maximum width */
+  /* Set maximum width */
   margin: 0 auto; /* Center the section */
   text-align: center;
 }
