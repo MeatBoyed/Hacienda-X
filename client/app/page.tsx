@@ -7,6 +7,7 @@ import Rentals from "@/components/Rentals";
 import AboutUs from "@/components/AboutUs";
 import Contact from "@/components/Contacts";
 import CallToAction from "@/components/CallToAction";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
@@ -22,6 +23,7 @@ export default function Home() {
         <AboutUs />
         <Contact />
         <CallToAction />
+        <Footer />
       </div>
     </main>
   );
