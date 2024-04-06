@@ -5,6 +5,7 @@ import Hero from "@/components/Hero";
 import Residencies from "@/components/Residencies";
 import Rentals from "@/components/Rentals";
 import AboutUs from "@/components/AboutUs";
+import Contact from "@/components/Contacts";
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
         <Residencies />
         <Rentals />
         <AboutUs />
+        <Contact />
       </div>
     </main>
   );
