@@ -2,8 +2,8 @@ import houselogo1 from "../app/Lib/Imgs/houselogo1.jpg";
 // import {HiLocationMarker} from "react-icons";
 export default function Navbar() {
   return (
-    <section className="hero-wrapper">
-      <div className="paddings innerWidth flexCenter hero-container ">
+    <section className="text-primary-foreground">
+      <div className="innerWidth w-full flex justify-between items-end ">
         {/*left side hero section*/}
         <div className="flexColStart hero-left">
           <div className="hero-title">

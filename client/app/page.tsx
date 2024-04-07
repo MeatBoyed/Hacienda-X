@@ -11,20 +11,17 @@ import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
-    <main className="App">
-      <div className="App">
-        <div>
-          <div className="white-gradient" />
-          <Navbar />
-          <Hero />
-        </div>
-        <Residencies />
-        <Rentals />
-        <AboutUs />
-        <Contact />
-        <CallToAction />
-        <Footer />
+    <div className="w-full">
+      <div>
+        <div className="white-gradient" />
+        {/* <Navbar /> */}
+        <Hero />
       </div>
-    </main>
+      <Residencies />
+      <Rentals />
+      <AboutUs />
+      <Contact />
+      <CallToAction />
+    </div>
   );
 }

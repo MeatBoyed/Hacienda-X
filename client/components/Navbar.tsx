@@ -1,10 +1,11 @@
 import logo from "../app/Lib/Imgs/logo.png";
+import { Button } from "./ui/button";
 export default function Navbar() {
   return (
-    <nav className="h-wrapper">
-      <div className="flexCenter paddings innerWidth h-container">
+    <nav className="text-primary-foreground mb-16">
+      <div className="flex justify-between items-center w-full ">
         <img src={logo.src} alt="logo" width={100}></img>
-        <div className="flexCenter h-menu">
+        <div className="flex justify-center items-center gap-8">
           <a className="valuestransition" href="">
             Residencies
           </a>
@@ -17,9 +18,12 @@ export default function Navbar() {
           <a className="valuestransition" href="">
             Get Started
           </a>
-          <button className="button">
-            <a href="">Contact</a>
-          </button>
+          <Button
+            className="rounded-sm font-medium tracking-widest pl-6 pr-6 pt-2 pb-2 buttonTail"
+            size={"lg"}
+          >
+            <a href="/contact">Contact</a>
+          </Button>
         </div>
       </div>
     </nav>
