@@ -12,11 +12,7 @@ import Footer from "@/components/Footer";
 export default function Home() {
   return (
     <div className="w-full">
-      <div>
-        <div className="white-gradient" />
-        {/* <Navbar /> */}
-        <Hero />
-      </div>
+      <Hero />
       <Residencies />
       <Rentals />
       <AboutUs />

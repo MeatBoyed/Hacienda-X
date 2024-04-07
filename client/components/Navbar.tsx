@@ -1,5 +1,6 @@
 import logo from "../app/Lib/Imgs/logo.png";
 import { Button } from "./ui/button";
+import PrimaryButton from "./ui/Custom/PrimaryButton";
 export default function Navbar() {
   return (
     <nav className="text-primary-foreground mb-16">
@@ -15,15 +16,7 @@ export default function Navbar() {
           <a className="valuestransition" href="">
             Contact Us
           </a>
-          <a className="valuestransition" href="">
-            Get Started
-          </a>
-          <Button
-            className="rounded-sm font-medium tracking-widest pl-6 pr-6 pt-2 pb-2 buttonTail"
-            size={"lg"}
-          >
-            <a href="/contact">Contact</a>
-          </Button>
+          <PrimaryButton content="Get started" />
         </div>
       </div>
     </nav>

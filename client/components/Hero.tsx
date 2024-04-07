@@ -1,39 +1,42 @@
 import houselogo1 from "../app/Lib/Imgs/houselogo1.jpg";
+import Searchbar from "./Searchbar";
 // import {HiLocationMarker} from "react-icons";
 export default function Navbar() {
   return (
     <section className="text-primary-foreground">
-      <div className="innerWidth w-full flex justify-between items-end ">
+      <div className="white-gradient" />
+      <div className="w-full flex justify-between items-end ">
         {/*left side hero section*/}
-        <div className="flexColStart hero-left">
-          <div className="hero-title">
-            <h1>
-              Discover <br />
-              Your <br /> Next Home
-            </h1>
-          </div>
+        <div className="flex justify-center items-start flex-col gap-12 ">
+          {/* <div className="hero-title"> */}
+          <h1 className="font-semibold text-6xl">
+            Discover <br />
+            Your <br /> Next Home
+          </h1>
+          {/* </div> */}
 
-          <div className="flexColStart hero-des">
-            <span className="secondaryText">
+          {/* <div className="flexColStart hero-des"> */}
+          <div className="flex justify-center items-start flex-col ">
+            <span className="text-base text-primary-foreground opacity-60">
               Find a variety of properties that suit your everyday needs
             </span>
-            <span className="secondaryText">
+            <span className="text-base text-primary-foreground opacity-60">
               Forget all difficulties in finding your next home
             </span>
           </div>
 
-          <div className="flexCenter search-bar">
-            {/* <HiLocationMarker color="var(--blue)" size={25} /> */}
-            <input type="text" placeholder="Location"></input>
-            <button className="button">Search</button>
-          </div>
+          <Searchbar />
         </div>
 
         {/*right side hero section*/}
-        <div className="flexCenter hero-right">
-          <div className="image-container">
-            <img src={houselogo1.src} alt="hero image" />
-          </div>
+        <div className="flex justify-center items-center ">
+          {/* <div className="image-container"> */}
+          <img
+            src={houselogo1.src}
+            alt="hero image"
+            className="rounded-xl  w-[40rem] h-[30rem]"
+          />
+          {/* </div> */}
         </div>
       </div>
     </section>

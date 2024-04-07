@@ -18,7 +18,7 @@
     --primary-foreground: 210 40% 98%;
 
     --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --<BS><BS><BS><BS><BS><BS><BS><BS><BS><BS>foreground: 222.2 47.4% 11.2%;
 
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
@@ -271,7 +271,7 @@ h-menu > *:hover {
   background-color: white;
   color: #131110;
   border-radius: 5px;
-  border: 3px solid rgba(120, 120, 120, 0.374);
+  border: 3px solid #7878785f;
   padding: 0.5rem 1rem;
   justify-content: space-between;
   width: 90%;
