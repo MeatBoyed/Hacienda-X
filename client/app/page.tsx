@@ -1,30 +1,20 @@
-import Image from "next/image";
 import MapViewer from "../components/MapViewer";
-import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import Residencies from "@/components/Residencies";
-import Rentals from "@/components/Rentals";
 import AboutUs from "@/components/AboutUs";
 import Contact from "@/components/Contacts";
 import CallToAction from "@/components/CallToAction";
-import Footer from "@/components/Footer";
+import PropertyRender from "@/components/PropertyRender";
+import data from "../lib/rentalslider.json";
 
 export default function Home() {
   return (
-    <main className="App">
-      <div className="App">
-        <div>
-          <div className="white-gradient" />
-          <Navbar />
-          <Hero />
-        </div>
-        <Residencies />
-        <Rentals />
-        <AboutUs />
-        <Contact />
-        <CallToAction />
-        <Footer />
-      </div>
-    </main>
+    <div className="w-full flex justify-center items-center flex-col gap-20">
+      <Hero />
+      <PropertyRender title={"Popular Rentals"} properties={data} />
+      <PropertyRender title={"Popular Sales"} properties={data} />
+      <AboutUs />
+      <Contact />
+      <CallToAction />
+    </div>
   );
 }
