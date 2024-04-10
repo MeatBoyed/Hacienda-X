@@ -14,14 +14,12 @@ interface props {
   title: string;
 }
 
-export default function Residencies({ properties, title }: props) {
+export default function PropertyRender({ properties, title }: props) {
   return (
     <section className="w-full flex flex-col overflow-hidden gap-10">
       <div className="mt-8 flex flex-col justify-start items-start gap-1  ">
-        <span className="text-orange-500 text-2xl font-semibold">
-          Best Choices
-        </span>
-        <span className="text-[#1f3e72] font-bold text-4xl">{title}</span>
+        <p className="text-orange-500 text-2xl font-semibold">Best Choices</p>
+        <h2 className="text-[#1f3e72] font-bold text-4xl">{title}</h2>
       </div>
 
       <div className="flex justify-start items-start">
