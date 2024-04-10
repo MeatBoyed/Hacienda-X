@@ -16,9 +16,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body
+        className={inter.className}
+        style={{ margin: 0, padding: 0, overflowX: "hidden" }}
+      >
         <div className="min-h-screen bg-background font-sans antialiased tracking-wider">
-          <main className="App pt-2 bg-black">{children}</main>
+          <main className="App pt-2 bg-black" style={{ minHeight: "100vh" }}>
+            {children}
+          </main>
         </div>
       </body>
     </html>

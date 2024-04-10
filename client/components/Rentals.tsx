@@ -1,4 +1,7 @@
+// components/Rentals.tsx
+
 import React from "react";
+import Link from "next/link";
 import data from "../lib/rentalslider.json";
 
 const Rentals = () => {
@@ -13,15 +16,15 @@ const Rentals = () => {
         <div className="r-card-container flexRowStart">
           {data.map((card, i) => (
             <div key={i} className="flexColStart r-card">
-              <img src={card.image} alt="home" />
-
-              <span className="secondaryText r-price">
-                <span>$</span>
-                <span>{card.price}</span>
-              </span>
-
-              <span className="primaryText">{card.name}</span>
-              <span className="secondaryText">{card.detail}</span>
+              <Link href="/property" passHref>
+                <img src={card.image} alt="home" />
+                <span className="secondaryText r-price">
+                  <span>$</span>
+                  <span>{card.price}</span>
+                </span>
+                <span className="primaryText">{card.name}</span>
+                <span className="secondaryText">{card.detail}</span>
+              </Link>
             </div>
           ))}
         </div>

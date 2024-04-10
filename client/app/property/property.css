@@ -1,0 +1,68 @@
+/* Add this CSS to your existing property.css file */
+
+/* Styles for the Rentals section */
+.r-wrapper {
+  background-color: #f0f0f0;
+  padding: 20px 0;
+}
+
+.r-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.r-head {
+  margin-bottom: 20px;
+}
+
+.r-card-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.r-card {
+  width: 23%; /* Set width to occupy approximately one fourth of the container */
+  margin-right: 2%; /* Add some space between cards */
+  margin-bottom: 20px; /* Add space between rows */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add shadow effect */
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.r-card:last-child {
+  margin-right: 0; /* Remove margin from last card in a row */
+}
+
+.r-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.r-price {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #007bff;
+  color: white;
+  padding: 5px 0;
+  font-weight: bold;
+}
+
+.r-price span {
+  margin-right: 5px;
+}
+
+.r-price span:first-child {
+  margin-left: 5px;
+}
+
+.r-card span {
+  display: block;
+  padding: 10px;
+}
+
+.button {
+  display: block;
+  margin: 0 auto;
+}
