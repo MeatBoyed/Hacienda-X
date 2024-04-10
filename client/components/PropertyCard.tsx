@@ -1,4 +1,5 @@
 // PRICE MUST BE NUMBER!
+// CONVERT PROPERTY CARD PROPERLY
 interface props {
   name: string;
   detail: string;
@@ -8,7 +9,7 @@ interface props {
 
 export default function PropertyCard({ name, detail, image, price }: props) {
   return (
-    <div className="flexColStart r-card">
+    <div className="flex flex-col justify-center items-start r-card">
       <img src={image} alt="home" />
 
       <span className="secondaryText r-price">

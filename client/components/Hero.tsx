@@ -1,6 +1,7 @@
 import houselogo1 from "../app/Lib/Imgs/houselogo1.jpg";
 import Searchbar from "./Searchbar";
 // import {HiLocationMarker} from "react-icons";
+
 export default function Navbar() {
   return (
     <section className="w-full text-primary-foreground">
