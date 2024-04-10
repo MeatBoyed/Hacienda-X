@@ -1,6 +1,5 @@
 import MapViewer from "../components/MapViewer";
 import Hero from "@/components/Hero";
-import Rentals from "@/components/Rentals";
 import AboutUs from "@/components/AboutUs";
 import Contact from "@/components/Contacts";
 import CallToAction from "@/components/CallToAction";
