@@ -18,16 +18,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-<<<<<<< HEAD
-      <body
-        className={inter.className}
-        style={{ margin: 0, padding: 0, overflowX: "hidden" }}
-      >
-        <div className="min-h-screen bg-background font-sans antialiased tracking-wider">
-          <main className="App pt-2 bg-black" style={{ minHeight: "100vh" }}>
-            {children}
-          </main>
-=======
       <body className={inter.className}>
         <div className="min-h-screen bg-background font-sans antialiased tracking-wider w-full">
           <div className="pt-5 pr-20 pl-20 bg-background w-full">
@@ -35,7 +25,6 @@ export default function RootLayout({
             <main className="w-full">{children}</main>
             <Footer />
           </div>
->>>>>>> d23ab02ea820264bf0e33569a91cec91dcf189f1
         </div>
       </body>
     </html>

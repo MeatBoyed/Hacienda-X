@@ -1,15 +1,4 @@
 import React from "react";
-<<<<<<< HEAD
-import Link from "next/link";
-
-const CallToAction = () => {
-  return (
-    <section className="call-to-action">
-      <h1 className="primaryText">Want To Add Your Properties?</h1>
-      <Link href="/priceplan">
-        <button className="learn-more-button">Learn More</button>
-      </Link>
-=======
 import PrimaryButton from "./ui/Custom/PrimaryButton";
 
 const CallToAction = () => {
@@ -19,7 +8,6 @@ const CallToAction = () => {
         Want To Add Your Properties?
       </h1>
       <PrimaryButton content="Start Now" />
->>>>>>> d23ab02ea820264bf0e33569a91cec91dcf189f1
     </section>
   );
 };
