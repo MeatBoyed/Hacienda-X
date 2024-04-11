@@ -1,76 +1,53 @@
 import React from "react";
-import "./property.css"; // Import CSS file
-import Rentals from "../../components/Rentals";
+import Searchbar from "@/components/Searchbar";
+import PropertyCard from "@/components/PropertyCard";
+import data from "@/lib/slider.json";
+import "./property.css";
 
-const PropertyPage: React.FC = () => {
+export default function PropertyPage() {
+  // Function to chunk the data into arrays of size 4
+  const chunkArray = (arr: any[], size: number) => {
+    // Explicitly define types
+    const chunkedArr = [];
+    for (let i = 0; i < arr.length; i += size) {
+      chunkedArr.push(arr.slice(i, i + size));
+    }
+    return chunkedArr;
+  };
+
+  // Chunk the data into arrays of size 4
+  const chunkedProperties = chunkArray(data, 4);
+
   return (
-    <div className="search-bar">
-      {/* Location search */}
-      <div className="input-group location-input">
-        <label htmlFor="location">Location:</label>
-        <input type="text" id="location" placeholder="Location" />
+    <div className="wrapper">
+      <div className="flexColCenter paddings innerWidth properties-container">
+        <Searchbar />
+      </div>
+      <div className="residenciestext">
+        <h1>For Sale</h1>
       </div>
 
-      {/* Min Price dropdown */}
-      <div className="input-group">
-        <label htmlFor="min-price">Min Price:</label>
-        <select id="min-price">
-          <option value="">Any</option>
-          <option value="100000">100,000</option>
-          <option value="200000">200,000</option>
-          {/* Add more options as needed */}
-        </select>
-      </div>
-
-      {/* Max Price dropdown */}
-      <div className="input-group">
-        <label htmlFor="max-price">Max Price:</label>
-        <select id="max-price">
-          <option value="">Any</option>
-          <option value="500000">500,000</option>
-          <option value="1000000">1,000,000</option>
-          {/* Add more options as needed */}
-        </select>
-      </div>
-
-      {/* Bedrooms dropdown */}
-      <div className="input-group">
-        <label htmlFor="bedrooms">Bedrooms:</label>
-        <select id="bedrooms">
-          <option value="">Any</option>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          {/* Add more options as needed */}
-        </select>
-      </div>
-
-      {/* Bathrooms dropdown */}
-      <div className="input-group">
-        <label htmlFor="bathrooms">Bathrooms:</label>
-        <select id="bathrooms">
-          <option value="">Any</option>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          {/* Add more options as needed */}
-        </select>
-      </div>
-
-      {/* Patio checkbox */}
-      <div className="input-group">
-        <input type="checkbox" id="patio" />
-        <label htmlFor="patio">Patio</label>
-      </div>
-
-      {/* Search button */}
-      <div className="input-group">
-        <button className="button search-button">Search</button>
-      </div>
-      <div>
-        {/* Rentals section */}
-        <Rentals />
-      </div>
+      {/* Iterate over the chunked properties and render them in rows */}
+      {chunkedProperties.map((row, index) => (
+        <div key={index} className="flex justify-start items-start">
+          {" "}
+          {/* Add "flex-start" to ensure items are aligned from the start */}
+          {row.map(
+            (
+              property: any,
+              i: number // Explicitly define types
+            ) => (
+              <PropertyCard
+                key={i}
+                name={property.name}
+                detail={property.detail}
+                image={property.image}
+                price={property.price}
+              />
+            )
+          )}
+        </div>
+      ))}
     </div>
   );
-};
-
-export default PropertyPage;
+}

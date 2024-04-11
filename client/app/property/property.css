@@ -1,68 +1,27 @@
-/* Add this CSS to your existing property.css file */
-
-/* Styles for the Rentals section */
-.r-wrapper {
-  background-color: #f0f0f0;
-  padding: 20px 0;
+.properties-container {
+  gap: 2rem;
 }
 
-.r-container {
-  max-width: 1200px;
-  margin: 0 auto;
+.properties-container .search-bar {
+  width: clamp(12rem, 100%, 28rem);
+  border-radius: 30px;
+  border: 1px solid rgba(120, 120, 120, 0.374);
+  flex-wrap: nowrap;
 }
 
-.r-head {
-  margin-bottom: 20px;
+.properties-container .search-bar .button {
+  border-radius: 30px;
+  font-size: 12px;
+  padding: 10px 15px;
 }
 
-.r-card-container {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.r-card {
-  width: 23%; /* Set width to occupy approximately one fourth of the container */
-  margin-right: 2%; /* Add some space between cards */
-  margin-bottom: 20px; /* Add space between rows */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add shadow effect */
-  border-radius: 5px;
-  overflow: hidden;
-}
-
-.r-card:last-child {
-  margin-right: 0; /* Remove margin from last card in a row */
-}
-
-.r-card img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
-.r-price {
-  display: flex;
-  align-items: center;
+.residenciestext {
+  color: orange;
+  font-size: 40px;
   justify-content: center;
-  background-color: #007bff;
-  color: white;
-  padding: 5px 0;
+  align-items: center;
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 20px;
   font-weight: bold;
-}
-
-.r-price span {
-  margin-right: 5px;
-}
-
-.r-price span:first-child {
-  margin-left: 5px;
-}
-
-.r-card span {
-  display: block;
-  padding: 10px;
-}
-
-.button {
-  display: block;
-  margin: 0 auto;
 }
