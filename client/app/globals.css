@@ -18,7 +18,7 @@
     --primary-foreground: 210 40% 98%;
 
     --secondary: 210 40% 96.1%;
-    --<BS><BS><BS><BS><BS><BS><BS><BS><BS><BS>foreground: 222.2 47.4% 11.2%;
+    --foreground: 222.2 47.4% 11.2%;
 
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
@@ -758,3 +758,89 @@ h-menu > *:hover {
   text-align: center;
   margin-top: 30px;
 }
+
+/*Pricing plan css*/
+.container {
+  background-color: #e0e5ec; /* Blueish background */
+  padding: 20px;
+  text-align: center;
+  height: 100vh; /* Make the container take up the full height of the viewport */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.title {
+  font-size: 32px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.pricingPlans {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px; /* Add space between the title and the pricing plans */
+}
+
+.pricingPlanCard {
+  flex: 1;
+  margin: 0 10px; /* Add space between cards */
+}
+
+.pricingPlan {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  transition: transform 0.3s;
+}
+
+.pricingPlan:hover {
+  transform: translateY(-5px);
+}
+
+.planHeader {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.planHeader h2 {
+  margin: 0;
+  font-size: 24px;
+  color: #333;
+}
+
+.planHeader p {
+  margin: 5px 0;
+  font-size: 18px;
+  color: #666;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: #888;
+}
+
+.button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.button:hover {
+  background-color: #555;
+}
+
+/*CSS code for property page*/
