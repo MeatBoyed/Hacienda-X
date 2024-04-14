@@ -3,6 +3,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { ClerkProvider } from "@clerk/nextjs";
+import { dark } from "@clerk/themes";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,16 +19,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <div className="min-h-screen bg-background font-sans antialiased tracking-wider w-full">
-          <div className="pt-5 pr-20 pl-20 bg-background w-full">
-            <Navbar />
-            <main className="w-full">{children}</main>
-            <Footer />
+    <ClerkProvider appearance={{ baseTheme: dark }} afterSignUpUrl="/">
+      <html lang="en">
+        <body className={inter.className}>
+          <div className="min-h-screen bg-background font-sans antialiased tracking-wider w-full">
+            <div className="pt-5 pr-20 pl-20 bg-background w-full">
+              <Navbar />
+              <main className="w-full">{children}</main>
+              <Footer />
+            </div>
           </div>
-        </div>
-      </body>
-    </html>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
