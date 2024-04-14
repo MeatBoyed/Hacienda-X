@@ -1,7 +1,5 @@
-import React from "react";
-import logo from "../app/public/HaciendaLogo.jpeg";
-import { Button } from "./ui/button";
-import PrimaryButton from "./ui/Custom/PrimaryButton";
+import logo from "../app/Lib/Imgs/logo.png";
+import NavbarAuth from "@/lib/Navbar";
 export default function Navbar() {
   return (
     <nav className="text-primary-foreground mb-16">
@@ -20,7 +18,7 @@ export default function Navbar() {
           <a className="valuestransition" href="#about">
             Contact Us
           </a>
-          <PrimaryButton content="Get started" />
+          <NavbarAuth />
         </div>
       </div>
     </nav>
