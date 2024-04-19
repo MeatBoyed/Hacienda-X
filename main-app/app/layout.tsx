@@ -24,7 +24,6 @@ export default function RootLayout({
         <ReactQueryProvider>
           <div style={{ background: "var(--black)", overflow: "hidden" }}>
             <Header />
-
             {children}
           </div>
           <Footer />
