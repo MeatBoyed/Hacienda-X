@@ -3,6 +3,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { QueryClient, QueryClientProvider } from "react-query";
+import ReactQueryProvider from "@/Utils/ReactQueryProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,14 +21,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <>
+        <ReactQueryProvider>
           <div style={{ background: "var(--black)", overflow: "hidden" }}>
             <Header />
 
             {children}
           </div>
           <Footer />
-        </>
+        </ReactQueryProvider>
       </body>
     </html>
   );
