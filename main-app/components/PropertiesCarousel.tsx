@@ -6,7 +6,11 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { useSwiper } from "swiper/react";
 import PropertyCard from "./PropertyCard";
 
-export default function PropertiesCarousel({ data }: { data: Property[] }) {
+export default function PropertiesCarousel({
+  data,
+}: {
+  data: Property[] | null;
+}) {
   return (
     <Swiper {...sliderSettings}>
       <SlideNextButton />

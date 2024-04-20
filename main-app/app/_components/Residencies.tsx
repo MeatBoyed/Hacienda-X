@@ -12,25 +12,6 @@ import { Property } from "@prisma/client";
 import { useProperties } from "@/Utils/Hooks/useProperties";
 import PropertiesCarousel from "@/components/PropertiesCarousel";
 
-// async function createProperty() {
-//   const response = await db.property.create({
-//     data: {
-//       title: "Modern Apartment in Downtown",
-//       description:
-//         "A stylish and modern 2-bedroom apartment located in the heart of the city.",
-//       price: 200000,
-//       address: "123 Main St",
-//       city: "New York",
-//       country: "USA",
-//       image: "https://example.com/apartment1.jpg",
-//       facilities: ["parking", "gym", "pool"],
-//       // userEmail: "",
-//     },
-//   });
-
-//   return response;
-// }
-
 export async function getAllProperties() {
   return await db.property.findMany();
 }
@@ -39,33 +20,39 @@ export default async function Residencies() {
   // const { data, isError, isLoading } = useProperties();
   // console.log(createResult);
 
-  const data = await getAllProperties();
-  console.log(data);
+  let isLoading: boolean = true;
+  let data: Property[] | null = null;
+  let isError: boolean | null = null;
 
-  // const data = await createProperty();
-  // console.log(data);
+  try {
+    data = await getAllProperties();
+    isLoading = false;
+  } catch (error) {
+    isError = true;
+    console.error(error); // eslint-disable-line no-console
+  }
 
-  //   if (isError) {
-  //     return (
-  //       <div className="wrapper">
-  //         <span>Error while fetching data</span>
-  //       </div>
-  //     );
-  //   }
+  if (isError) {
+    return (
+      <div className="wrapper">
+        <span>Error while fetching data</span>
+      </div>
+    );
+  }
 
-  //   if (isLoading) {
-  //     return (
-  //       <div className="wrapper flexCenter" style={{ height: "60vh" }}>
-  //         <PuffLoader
-  //           //   height={80}
-  //           //   width="80"
-  //           //   radius={1}
-  //           color="#4066ff"
-  //           aria-label="puff-loading"
-  //         />
-  //       </div>
-  //     );
-  //   }
+  if (isLoading) {
+    return (
+      <div className="wrapper flexCenter" style={{ height: "60vh" }}>
+        <PuffLoader
+          //   height={80}
+          //   width="80"
+          //   radius={1}
+          color="#4066ff"
+          aria-label="puff-loading"
+        />
+      </div>
+    );
+  }
 
   return (
     <div id="residencies" className="r-wrapper">
