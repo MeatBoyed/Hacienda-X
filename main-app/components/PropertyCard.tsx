@@ -1,5 +1,5 @@
 // Add Heart
-"use client"
+// "use client"
 import React from "react";
 import "./PropertyCard.css";
 import { AiFillHeart } from "react-icons/ai";
@@ -8,11 +8,11 @@ import { truncate } from "lodash";
 import { useRouter } from "next/router";
 
 const PropertyCard = ({ card }: { card: any }) => {
-  const router = useRouter();
+  // const router = useRouter();
   return (
     <div
       className="flexColStart r-card"
-      onClick={() => router.push(`../properties/${card.id}`)}
+      // onClick={() => router.push(`../properties/${card.id}`)}
     >
       {/* <Heart id={card?.id}/> */}
       <img src={card.image} alt="home" />
