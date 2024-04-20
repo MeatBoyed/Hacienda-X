@@ -1,15 +1,11 @@
 // Implement Data fetching
 
 import React from "react";
-// import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
 import "swiper/css";
 import "./Residencies.css";
 import { PuffLoader } from "react-spinners";
-import PropertyCard from "@/components/PropertyCard";
-import { sliderSettings } from "@/Utils/common";
 import db from "@/Utils/db";
 import { Property } from "@prisma/client";
-import { useProperties } from "@/Utils/Hooks/useProperties";
 import PropertiesCarousel from "@/components/PropertiesCarousel";
 
 export async function getAllProperties() {
@@ -17,9 +13,6 @@ export async function getAllProperties() {
 }
 
 export default async function Residencies() {
-  // const { data, isError, isLoading } = useProperties();
-  // console.log(createResult);
-
   let isLoading: boolean = true;
   let data: Property[] | null = null;
   let isError: boolean | null = null;

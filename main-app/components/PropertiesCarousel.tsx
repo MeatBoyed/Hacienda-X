@@ -15,9 +15,9 @@ export default function PropertiesCarousel({
     <Swiper {...sliderSettings}>
       <SlideNextButton />
       {/* slider */}
-      {data?.slice(0, 8).map((card, i) => (
+      {data?.slice(0, 8).map((property, i) => (
         <SwiperSlide key={i}>
-          <PropertyCard card={card} />
+          <PropertyCard property={property} />
         </SwiperSlide>
       ))}
     </Swiper>
