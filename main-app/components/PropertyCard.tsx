@@ -12,12 +12,12 @@ const PropertyCard = ({ property }: { property: Property }) => {
   return (
     <div className="flexColStart r-card">
       {/* <Heart id={card?.id}/> */}
-      {/* <img src={property.image} alt="home" /> */}
+      <img src={property.image} alt="home" />
       <span className="secondaryText r-price">
         <span style={{ color: "orange" }}>$</span>
-        {/* <span>{property.price}</span> */}
+        <span>{property.price}</span>
       </span>
-      <Link href={`../propeties/${property.title}`}>
+      <Link href={`../property-for-sale/${property.title}`}>
         <span className="primaryText">
           {truncate(property.title, { length: 15 })}
         </span>
