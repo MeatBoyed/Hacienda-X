@@ -1,6 +1,5 @@
 "use client";
-import React, { useContext, useState } from "react";
-import { useMutation, useQuery } from "react-query";
+import React from "react";
 // import { useLocation } from "react-router-dom";
 // import { getProperty, removeBooking } from "../../utils/api";
 import { PuffLoader } from "react-spinners";
@@ -12,43 +11,21 @@ import { AiTwotoneCar } from "react-icons/ai";
 import { MdLocationPin, MdMeetingRoom } from "react-icons/md";
 import Map from "@/components/Map";
 // import Map from "../../components/Map/Map";
-// import useAuthCheck from "../../hooks/useAuthCheck";
-// import { useAuth0 } from "@auth0/auth0-react";
-// import BookingModal from "../../components/BookingModal/BookingModal";
-// import UserDetailContext from "../../context/UserDetailContext.js";
 // import { Button } from "@mantine/core";
 // import { toast } from "react-toastify";
 // import Heart from "../../components/Heart/Heart";
+import { usePathname } from "next/navigation";
 
 const Property = () => {
-  //   const { pathname } = useLocation();
-  //   const id = pathname.split("/").slice(-1)[0];
-  //   const { data, isLoading, isError } = useQuery(["resd", id], () =>
-  //     getProperty(id)
-  //   );
+  const pathname = usePathname();
+  const id = pathname.split("/").slice(-1)[0];
 
-  const [modalOpened, setModalOpened] = useState(false);
-  //   const { validateLogin } = useAuthCheck();
-  //   const { user } = useAuth0();
+  console.log("ID: ", id);
+  // const { data, isLoading, isError } = useQuery(["resd", id], () =>
+  //   getProperty(id)
+  // );
 
-  // Auth
-  //   const {
-  //     userDetails: { token, bookings },
-  //     setUserDetails,
-  //   } = useContext(UserDetailContext);
-
-  // Bookings
-  //   const { mutate: cancelBooking, isLoading: cancelling } = useMutation({
-  //     mutationFn: () => removeBooking(id, user?.email, token),
-  //     onSuccess: () => {
-  //       setUserDetails((prev) => ({
-  //         ...prev,
-  //         bookings: prev.bookings.filter((booking) => booking?.id !== id),
-  //       }));
-
-  //       toast.success("Booking cancelled", { position: "bottom-right" });
-  //     },
-  //   });
+  // const [modalOpened, setModalOpened] = useState(false);
 
   //   if (isLoading) {
   //     return (
@@ -166,7 +143,7 @@ const Property = () => {
 
           {/* right side */}
           <div className="map">
-            <Map address={""} city={""} country={""} />
+            {/* <Map address={""} city={""} country={""} /> */}
           </div>
         </div>
       </div>
