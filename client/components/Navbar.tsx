@@ -12,7 +12,7 @@ export default function Navbar() {
           <a className="valuestransition" href="/property">
             Residencies
           </a>
-          <a className="valuestransition" href="#about">
+          <a className="valuestransition" href="/AboutPage">
             Our Values
           </a>
           <a className="valuestransition" href="#about">
