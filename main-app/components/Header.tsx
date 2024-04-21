@@ -4,6 +4,7 @@ import { BiMenuAltRight } from "react-icons/bi";
 import Link from "next/link";
 import { SignUpButton, UserButton } from "@clerk/nextjs";
 import { auth } from "@clerk/nextjs/server";
+// import NavbarAuth from "@/app/lib/Navbar";
 // import { getMenuStyles } from "../../utils/common";
 // import useHeaderColor from "../../hooks/useHeaderColor";
 // import OutsideClickHandler from "react-outside-click-handler";
@@ -32,9 +33,22 @@ const Header = () => {
     <nav className="h-wrapper" style={{ background: undefined }}>
       <div className="flexCenter innerWidth paddings h-container">
         {/* logo */}
-        <Link href="/">
-          <img src="./logo.png" alt="logo" width={100} />
+        <Link href="/" className="valuestransition">
+          <img src="./HaciendaLogo.jpeg" alt="logo" width={100} />
         </Link>
+
+        <div className="flex justify-center items-center gap-8">
+          <a className="valuestransition" href="/property">
+            Residencies
+          </a>
+          <a className="valuestransition" href="/AboutPage">
+            Our Values
+          </a>
+          <a className="valuestransition" href="#about">
+            Contact Us
+          </a>
+          {/* <NavbarAuth /> */}
+        </div>
 
         {/* menu */}
         {/* <OutsideClickHandler

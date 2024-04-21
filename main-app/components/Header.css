@@ -1,4 +1,5 @@
 .h-wrapper {
+  color: white;
   z-index: 99;
   position: sticky;
   top: 0;
@@ -19,6 +20,8 @@
 .menu-icon {
   display: none;
 }
+
+/* So basically this is for the Navbar css styling */
 
 @media (max-width: 768px) {
   .menu-icon {

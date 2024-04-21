@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import ReactQueryProvider from "@/Utils/ReactQueryProvider";
 import { ClerkProvider } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
+import { Suspense } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,11 +25,13 @@ export default function RootLayout({
       <body className={inter.className}>
         <ReactQueryProvider>
           <ClerkProvider appearance={{}}>
-            <div style={{ background: "var(--black)", overflow: "hidden" }}>
-              <Header />
-              {children}
-            </div>
-            <Footer />
+            <Suspense fallback={<div>Loading...</div>}>
+              <div style={{ background: "var(--black)", overflow: "hidden" }}>
+                <Header />
+                {children}
+              </div>
+              <Footer />
+            </Suspense>
           </ClerkProvider>
         </ReactQueryProvider>
       </body>
