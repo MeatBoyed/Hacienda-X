@@ -1,30 +1,29 @@
 // Add Heart
-"use client"
+// "use client"
 import React from "react";
 import "./PropertyCard.css";
 import { AiFillHeart } from "react-icons/ai";
 import { truncate } from "lodash";
 // import Heart from "../Heart/Heart";
-import { useRouter } from "next/router";
+import Link from "next/link";
+import { Property } from "@prisma/client";
 
-const PropertyCard = ({ card }: { card: any }) => {
-  const router = useRouter();
+const PropertyCard = ({ property }: { property: Property }) => {
   return (
-    <div
-      className="flexColStart r-card"
-      onClick={() => router.push(`../properties/${card.id}`)}
-    >
+    <div className="flexColStart r-card">
       {/* <Heart id={card?.id}/> */}
-      <img src={card.image} alt="home" />
+      {/* <img src={property.image} alt="home" /> */}
       <span className="secondaryText r-price">
         <span style={{ color: "orange" }}>$</span>
-        <span>{card.price}</span>
+        {/* <span>{property.price}</span> */}
       </span>
-      <span className="primaryText">
-        {truncate(card.title, { length: 15 })}
-      </span>
+      <Link href={`../propeties/${property.title}`}>
+        <span className="primaryText">
+          {truncate(property.title, { length: 15 })}
+        </span>
+      </Link>
       <span className="secondaryText">
-        {truncate(card.description, { length: 80 })}
+        {truncate(property.description, { length: 80 })}
       </span>
     </div>
   );

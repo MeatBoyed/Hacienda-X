@@ -1,41 +1,51 @@
-"use client";
-
 // Implement Data fetching
 
 import React from "react";
-import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
-// Import Swiper styles
 import "swiper/css";
 import "./Residencies.css";
 import { PuffLoader } from "react-spinners";
-import useProperties from "@/Utils/Hooks/useProperties";
-import PropertyCard from "@/components/PropertyCard";
-import { sliderSettings } from "@/Utils/common";
+import db from "@/Utils/db";
+import { Property } from "@prisma/client";
+import PropertiesCarousel from "@/components/PropertiesCarousel";
 
-const Residencies = () => {
-  //   const { data, isError, isLoading } = useProperties();
+export async function getAllProperties() {
+  return await db.property.findMany();
+}
 
-  //   if (isError) {
-  //     return (
-  //       <div className="wrapper">
-  //         <span>Error while fetching data</span>
-  //       </div>
-  //     );
-  //   }
+export default async function Residencies() {
+  let isLoading: boolean = true;
+  let data: Property[] | null = null;
+  let isError: boolean | null = null;
 
-  //   if (isLoading) {
-  //     return (
-  //       <div className="wrapper flexCenter" style={{ height: "60vh" }}>
-  //         <PuffLoader
-  //           //   height={80}
-  //           //   width="80"
-  //           //   radius={1}
-  //           color="#4066ff"
-  //           aria-label="puff-loading"
-  //         />
-  //       </div>
-  //     );
-  //   }
+  try {
+    data = await getAllProperties();
+    isLoading = false;
+  } catch (error) {
+    isError = true;
+    console.error(error); // eslint-disable-line no-console
+  }
+
+  if (isError) {
+    return (
+      <div className="wrapper">
+        <span>Error while fetching data</span>
+      </div>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <div className="wrapper flexCenter" style={{ height: "60vh" }}>
+        <PuffLoader
+          //   height={80}
+          //   width="80"
+          //   radius={1}
+          color="#4066ff"
+          aria-label="puff-loading"
+        />
+      </div>
+    );
+  }
 
   return (
     <div id="residencies" className="r-wrapper">
@@ -44,32 +54,8 @@ const Residencies = () => {
           <span className="orangeText">Best Choices</span>
           <span className="primaryText">Popular Residencies</span>
         </div>
-        <Swiper {...sliderSettings}>
-          <SlideNextButton />
-          {/* slider */}
-          {/* {data.slice(0, 8).map((card, i) => (
-            <SwiperSlide key={i}>
-              <PropertyCard card={card} />
-            </SwiperSlide>
-          ))} */}
-        </Swiper>
+        <PropertiesCarousel data={data} />
       </div>
     </div>
   );
-};
-
-export default Residencies;
-
-const SlideNextButton = () => {
-  const swiper = useSwiper();
-  return (
-    <div className="flexCenter r-buttons">
-      <button onClick={() => swiper.slidePrev()} className="r-prevButton">
-        &lt;
-      </button>
-      <button onClick={() => swiper.slideNext()} className="r-nextButton">
-        &gt;
-      </button>
-    </div>
-  );
-};
+}

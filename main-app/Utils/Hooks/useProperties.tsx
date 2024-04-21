@@ -1,26 +1,18 @@
 "use client";
 import React from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { createProperty, getAllProperties } from "../api/api";
 
-const useProperties = () => {
-  // const { data, isLoading, isError, refetch } = useQuery(
-  //   "allProperties",
-  //   getAllProperties,
-  //   // { refetchOnWindowFocus: false }
-  // );
+export const useProperties = () => {
+  const { data, isLoading, isError, refetch } = useQuery({
+    queryFn: async () => await getAllProperties(),
+    queryKey: ["data"], //Array according to Documentation
+  });
 
-  // return {
-  //   data,
-  //   isError,
-  //   isLoading,
-  //   refetch,
-  // };
-  return;
+  return {
+    data,
+    isError,
+    isLoading,
+    refetch,
+  };
 };
-
-function getAllProperties() {
-  // Database query to fetch Prioritized Properties
-  return;
-}
-
-export default useProperties;

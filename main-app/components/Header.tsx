@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import "./Header.css";
 import { BiMenuAltRight } from "react-icons/bi";
 import Link from "next/link";
+import { SignUpButton, UserButton } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 // import { getMenuStyles } from "../../utils/common";
 // import useHeaderColor from "../../hooks/useHeaderColor";
 // import OutsideClickHandler from "react-outside-click-handler";
@@ -23,8 +25,11 @@ const Header = () => {
   //       setModalOpened(true);
   //     }
   //   };
+
+  const { userId } = auth();
+
   return (
-    <section className="h-wrapper" style={{ background: undefined }}>
+    <nav className="h-wrapper" style={{ background: undefined }}>
       <div className="flexCenter innerWidth paddings h-container">
         {/* logo */}
         <Link href="/">
@@ -50,13 +55,7 @@ const Header = () => {
         {/* <div onClick={handleAddPropertyClick}>Add Property</div>
             <AddPropertyModal opened={modalOpened} setOpened={setModalOpened} /> */}
         {/* login button */}
-        {/* {!isAuthenticated ? (
-              <button className="button" onClick={loginWithRedirect}>
-                Login
-              </button>
-            ) : (
-              <ProfileMenu user={user} logout={logout} />
-            )} */}
+        {!userId ? <SignUpButton>Get Started</SignUpButton> : <UserButton />}
         {/* </div>
         </OutsideClickHandler> */}
 
@@ -68,7 +67,7 @@ const Header = () => {
           <BiMenuAltRight size={30} />
         </div>
       </div>
-    </section>
+    </nav>
   );
 };
 
