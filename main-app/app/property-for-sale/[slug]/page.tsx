@@ -7,10 +7,16 @@ import { MdLocationPin, MdMeetingRoom } from "react-icons/md";
 import Map from "@/components/Map";
 import Residency from "@/Utils/Residency.json";
 
+// Handler for the API request (Server Side)
 async function fetchProperty(title: string) {
+  // Example standard Fetch request to the API
   // const res = await fetch('https://api.example.com/posts');
-  const res = Residency.find((prop) => prop.title === title);
+  const res = Residency.find((prop) => prop.title === title); // using dummy json data for now
 
+  // Handle Errors
+  // - Property Not Found
+  // - Data fetching error
+  // - Catch all
   // if (!res.ok) {
   //   throw new Error('Failed to fetch data');
   // }
@@ -18,6 +24,7 @@ async function fetchProperty(title: string) {
     throw new Error("Failed to fetch data");
   }
 
+  // Return the data on success
   // return res.json();
   return res;
 }
@@ -29,6 +36,9 @@ export default async function PropertyPage({
 }) {
   const title = decodeURIComponent(params.slug);
 
+  // Client Request to the API
+  // - Should include/handle Loading, Error, and Success states
+  // - Should redirect to 404 or show custom page for non-existing properties
   const data = await fetchProperty(title);
 
   // const { data, isLoading, isError } = useQuery(["resd", id], () =>

@@ -16,6 +16,7 @@ export default function PropertiesCarousel({
     <Swiper {...sliderSettings}>
       <SlideNextButton />
       {/* slider */}
+      {/* Temp: Using the JSON dummy data, should use the passed "data" prop in production */}
       {Residency?.slice(0, 8).map((property, i) => (
         <SwiperSlide key={i}>
           <PropertyCard property={property} />
