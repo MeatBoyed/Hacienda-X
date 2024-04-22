@@ -7,7 +7,7 @@ import { MdLocationPin, MdMeetingRoom } from "react-icons/md";
 import Map from "@/components/Map";
 import Residency from "@/Utils/Residency.json";
 
-async function fetchPosts(title: string) {
+async function fetchProperty(title: string) {
   // const res = await fetch('https://api.example.com/posts');
   const res = Residency.find((prop) => prop.title === title);
 
@@ -29,7 +29,7 @@ export default async function PropertyPage({
 }) {
   const title = decodeURIComponent(params.slug);
 
-  const data = await fetchPosts(title);
+  const data = await fetchProperty(title);
 
   // const { data, isLoading, isError } = useQuery(["resd", id], () =>
   //   getProperty(id)

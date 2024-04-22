@@ -1,14 +1,31 @@
-"use client";
-
 import React, { useState } from "react";
 import "./Properties.css";
 import { PuffLoader } from "react-spinners";
 import PropertyCard from "@/components/PropertyCard";
 import SearchBar from "@/components/SearchBar";
+import Residency from "@/Utils/Residency.json";
+import SearchProperty from "./_components/SearchProperty";
 
-export default function Properties() {
+async function fetchProperties() {
+  // const res = await fetch('https://api.example.com/posts');
+  const res = Residency;
+
+  // if (!res.ok) {
+  //   throw new Error('Failed to fetch data');
+  // }
+  if (!res) {
+    throw new Error("Failed to fetch data");
+  }
+
+  // return res.json();
+  return res;
+}
+
+export default async function PropertiesSearch() {
   //   const { data, isError, isLoading } = useProperties();
-  const [filter, setFilter] = useState("");
+
+  const data = await fetchProperties();
+
   //   if (isError) {
   //     return (
   //       <div className="wrapper">
@@ -30,26 +47,11 @@ export default function Properties() {
   //       </div>
   //     );
   //   }
+
   return (
     <div className="wrapper">
       <div className="flexColCenter paddings innerWidth properties-container">
-        <SearchBar filter={filter} setFilter={setFilter} />
-
-        <div className="paddings flexCenter properties">
-          {
-            // data.map((card, i)=> (<PropertyCard card={card} key={i}/>))
-            // data
-            //   .filter(
-            //     (property) =>
-            //       property.title.toLowerCase().includes(filter.toLowerCase()) ||
-            //       property.city.toLowerCase().includes(filter.toLowerCase()) ||
-            //       property.country.toLowerCase().includes(filter.toLowerCase())
-            //   )
-            //   .map((card, i) => (
-            //     <PropertyCard card={card} key={i} />
-            //   ))
-          }
-        </div>
+        <SearchProperty properties={data} />
       </div>
     </div>
   );
