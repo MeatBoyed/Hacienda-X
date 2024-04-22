@@ -18,7 +18,8 @@ export default async function Residencies() {
   let isError: boolean | null = null;
 
   try {
-    data = await getAllProperties();
+    // data = await getAllProperties();
+    data = [];
     isLoading = false;
   } catch (error) {
     isError = true;
