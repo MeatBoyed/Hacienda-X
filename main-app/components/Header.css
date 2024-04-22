@@ -12,7 +12,7 @@
 }
 
 .h-menu {
-  gap: 2rem;
+  gap: 3rem;
 }
 .h-menu > *:hover {
   cursor: pointer;
@@ -21,6 +21,13 @@
   display: none;
 }
 
+.fontsizemenu {
+  font-size: 22px;
+}
+
+.sizemenu {
+  size: 30px;
+}
 /* So basically this is for the Navbar css styling */
 
 @media (max-width: 768px) {
