@@ -1,14 +1,41 @@
-"use client";
-
 import React, { useState } from "react";
 import "./Properties.css";
 import { PuffLoader } from "react-spinners";
 import PropertyCard from "@/components/PropertyCard";
 import SearchBar from "@/components/SearchBar";
+import Residency from "@/Utils/Residency.json";
+import SearchProperty from "./_components/SearchProperty";
 
-export default function Properties() {
+// Handler for the API request (Server Side)
+async function fetchProperties() {
+  // Example standard Fetch request to the API
+  // const res = await fetch('https://api.example.com/posts');
+  const res = Residency; // using dummy json data for now
+
+  // Handle Errors
+  // - Property Not Found
+  // - Data fetching error
+  // - Catch all
+  // if (!res.ok) {
+  //   throw new Error('Failed to fetch data');
+  // }
+  if (!res) {
+    throw new Error("Failed to fetch data");
+  }
+
+  // Return the data on success
+  // return res.json();
+  return res;
+}
+
+export default async function PropertiesSearch() {
   //   const { data, isError, isLoading } = useProperties();
-  const [filter, setFilter] = useState("");
+
+  // Client Request to the API
+  // - Should include/handle Loading, Error, and Success states
+  // - Should redirect to 404 or show custom page for non-existing properties
+  const data = await fetchProperties();
+
   //   if (isError) {
   //     return (
   //       <div className="wrapper">
@@ -30,26 +57,12 @@ export default function Properties() {
   //       </div>
   //     );
   //   }
+
   return (
     <div className="wrapper">
       <div className="flexColCenter paddings innerWidth properties-container">
-        <SearchBar filter={filter} setFilter={setFilter} />
-
-        <div className="paddings flexCenter properties">
-          {
-            // data.map((card, i)=> (<PropertyCard card={card} key={i}/>))
-            // data
-            //   .filter(
-            //     (property) =>
-            //       property.title.toLowerCase().includes(filter.toLowerCase()) ||
-            //       property.city.toLowerCase().includes(filter.toLowerCase()) ||
-            //       property.country.toLowerCase().includes(filter.toLowerCase())
-            //   )
-            //   .map((card, i) => (
-            //     <PropertyCard card={card} key={i} />
-            //   ))
-          }
-        </div>
+        {/* Hanldes the Client Side functionality of Searching Properties */}
+        <SearchProperty properties={data} />
       </div>
     </div>
   );

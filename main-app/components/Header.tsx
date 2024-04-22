@@ -12,7 +12,6 @@ import NavbarAuth from "@/app/lib/Navbar";
 // import { useAuth0 } from "@auth0/auth0-react";
 // import ProfileMenu from "../ProfileMenu/ProfileMenu";
 // import AddPropertyModal from "../AddPropertyModal/AddPropertyModal";
-// import useAuthCheck from "../../hooks/useAuthCheck.jsx";
 
 const Header = () => {
   //   const [menuOpened, setMenuOpened] = useState(false);
@@ -38,7 +37,7 @@ const Header = () => {
         </Link>
 
         <div className="flex justify-center items-center gap-8">
-          <a className="valuestransition fontsizemenu" href="/property">
+          <a className="valuestransition" href="/property-for-sale">
             Residencies
           </a>
           <a className="valuestransition fontsizemenu" href="/AboutPage">
