@@ -2,19 +2,20 @@ import asyncHandler from "express-async-handler";
 import { prisma } from "../config/prismaConfig.js";
 
 export const createUser = asyncHandler(async (req, res) => {
-  console.log("creating a user");
+  console.log("Creating a user");
 
-  let { email } = req.body;
+  let { email, password } = req.body;
 
   const userExists = await prisma.user.findUnique({ where: { email: email } });
 
   if (!userExists) {
-    const user = await prisma.user.create({ data: req.body });
-    res.send({
-      message: "User registered successfully",
-      user: user,
+    const user = await prisma.user.create({
+      data: { username: email, email: email, password: password },
     });
-  } else res.status(201).send({ message: "User already registered" });
+    res.send({ message: "User registered successfully" });
+  } else {
+    res.status(201).send({ message: "User already registered" });
+  }
 });
 
 export const bookVisit = asyncHandler(async (req, res) => {
@@ -48,7 +49,7 @@ export const bookVisit = asyncHandler(async (req, res) => {
   }
 });
 
-//function to get all bookings for a user
+// Function to get all bookings for a user
 export const getAllBookings = asyncHandler(async (req, res) => {
   const { email } = req.body;
   try {
@@ -62,7 +63,7 @@ export const getAllBookings = asyncHandler(async (req, res) => {
   }
 });
 
-//function to cancel the booking
+// Function to cancel the booking
 export const cancelBooking = asyncHandler(async (req, res) => {
   const { email } = req.body;
   const { id } = req.params;
@@ -87,7 +88,7 @@ export const cancelBooking = asyncHandler(async (req, res) => {
   }
 });
 
-//function to add a residency in favorite list of a user
+// Function to add a residency to the favorite list of a user
 export const toFav = asyncHandler(async (req, res) => {
   const { email } = req.body;
   const { rid } = req.params;
@@ -124,7 +125,7 @@ export const toFav = asyncHandler(async (req, res) => {
   }
 });
 
-//function to get all favorites
+// Function to get all favorites
 export const getAllFavorites = asyncHandler(async (req, res) => {
   const { email } = req.body;
   try {
