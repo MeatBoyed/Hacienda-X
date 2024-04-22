@@ -8,7 +8,8 @@ import { truncate } from "lodash";
 import Link from "next/link";
 import { Property } from "@prisma/client";
 
-const PropertyCard = ({ property }: { property: Property }) => {
+// const PropertyCard = ({ property }: { property: Property }) => {
+const PropertyCard = ({ property }: { property: any }) => {
   return (
     <div className="flexColStart r-card">
       {/* <Heart id={card?.id}/> */}

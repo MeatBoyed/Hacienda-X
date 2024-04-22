@@ -5,6 +5,7 @@ import { Property } from "@prisma/client";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useSwiper } from "swiper/react";
 import PropertyCard from "./PropertyCard";
+import Residency from "@/Utils/Residency.json";
 
 export default function PropertiesCarousel({
   data,
@@ -15,7 +16,7 @@ export default function PropertiesCarousel({
     <Swiper {...sliderSettings}>
       <SlideNextButton />
       {/* slider */}
-      {data?.slice(0, 8).map((property, i) => (
+      {Residency?.slice(0, 8).map((property, i) => (
         <SwiperSlide key={i}>
           <PropertyCard property={property} />
         </SwiperSlide>
