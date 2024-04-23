@@ -45,7 +45,12 @@ model Property {
   title        String
   description  String?
   price        Float?
-  location     String
+  address      String
+  city         String
+  country      String
+  bathrooms    Int?       // Number of bathrooms can create dropdown for user to select number
+  rooms        Int?       // Number of rooms
+  pool         Boolean   @default(false)
   images       PropertyImage[]
   latitude     Float?     // New latitude column
   longitude    Float?     // New longitude column
