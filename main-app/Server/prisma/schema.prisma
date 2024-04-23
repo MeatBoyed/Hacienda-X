@@ -38,15 +38,18 @@ model Subscription {
 }
 
 model Property {
-  property_id Int        @id @default(autoincrement())
-  agent       User       @relation(fields: [agent_id], references: [user_id])
-  agent_id    Int
-  title       String
-  description String?
-  price       Float?
-  location    String
-  images      PropertyImage[]
+  property_id  Int        @id @default(autoincrement())
+  agent        User       @relation(fields: [agent_id], references: [user_id])
+  agent_id     Int
+  title        String
+  description  String?
+  price        Float?
+  location     String
+  images       PropertyImage[]
+  latitude     Float?     // New latitude column
+  longitude    Float?     // New longitude column
 }
+
 
 model PropertyImage {
   image_id        Int      @id @default(autoincrement())
