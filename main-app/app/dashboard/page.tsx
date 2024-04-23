@@ -2,7 +2,7 @@
 export default function Dashbaord() {
   return (
     <div>
-      <h1> Real Estate Agent's dashboard</h1>
+      <h1> Real Estate Agents dashboard</h1>
     </div>
   );
 }
