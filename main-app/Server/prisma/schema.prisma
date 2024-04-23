@@ -37,6 +37,7 @@ model Subscription {
   payment_status String
 }
 
+// Features row needed ("2 Toilets", "3 Bedroom", ect)
 model Property {
   property_id  Int        @id @default(autoincrement())
   agent        User       @relation(fields: [agent_id], references: [user_id])
