@@ -1,5 +1,52 @@
 import asyncHandler from "express-async-handler";
 import { prisma } from "../config/prismaConfig.js";
+import { SignUp } from "@clerk/nextjs";
+import bcrypt from 'bcrypt';
+
+async function clerkSignUp(userData) {
+  try {
+
+    const signUpResponse = await clerk.signUp(userData);
+    
+    return signUpResponse;
+  } catch (error) {
+
+    console.error('Error during sign-up:', error);
+    throw new Error('Sign-up failed')
+  }
+}
+
+export default clerkSignUp;
+
+export const handleSignUpWithClerk = asyncHandler(async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    // Hash the password before storing it
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Sign up the user with Clerk
+    const clerkResponse = await clerkSignUp({ email, password: hashedPassword });
+
+    // Extract necessary user information from Clerk's response
+    const { email: clerkEmail } = clerkResponse.user;
+
+    // Create a new user record in your database
+    const newUser = await prisma.user.create({
+      data: {
+        email: clerkEmail,
+        password: hashedPassword,
+        // Additional fields as needed
+      },
+    });
+
+    // Respond with success message and user information
+    res.status(201).json({ message: 'User created successfully', user: { email: newUser.email } });
+  } catch (error) {
+    console.error('Error during sign-up:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
 
 export const createUser = asyncHandler(async (req, res) => {
   console.log("Creating a user");
