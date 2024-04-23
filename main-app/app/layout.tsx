@@ -7,6 +7,7 @@ import ReactQueryProvider from "@/Utils/ReactQueryProvider";
 import { ClerkProvider } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
 import { Suspense } from "react";
+import { cn } from "@/lib/utils";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,7 +23,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body
+        className={cn(
+          "min-h-screen bg-background font-sans antialiased",
+         inter 
+        )}
+      >
         <ReactQueryProvider>
           <ClerkProvider appearance={{}}>
             <Suspense fallback={<div>Loading...</div>}>
