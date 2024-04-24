@@ -13,10 +13,12 @@ const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export default function Residencies() {
   // Hanldes all data fetching states, calls the Fetching Handler
-  const { data, error, isLoading } = useSWR(
-    "http://localhost:8000/api/residency/allresd",
-    fetcher
-  );
+  // const { data, error, isLoading } = useSWR(
+  //   "http://localhost:8000/api/residency/allresd",
+  //   fetcher
+  // );
+  const { data, error, isLoading } = useSWR("/api/hello", fetcher);
+  console.log(data);
 
   // if (error) {
   //   return (
@@ -65,7 +67,7 @@ export default function Residencies() {
             </p>
           </div>
         )}
-        {data && <PropertiesCarousel data={data} />}
+        {/* {data && <PropertiesCarousel data={data} />} */}
       </div>
     </div>
   );
