@@ -17,22 +17,8 @@ export default function Residencies() {
   //   "http://localhost:8000/api/residency/allresd",
   //   fetcher
   // );
-  // const { data, error, isLoading } = useSWR("/api/properties", fetcher);
-  // console.log(data);
-
-  // if (isLoading) {
-  //   return (
-  //     <div className="wrapper flexCenter" style={{ height: "60vh" }}>
-  //       <PuffLoader
-  //         //   height={80}
-  //         //   width="80"
-  //         //   radius={1}
-  //         color="#4066ff"
-  //         aria-label="puff-loading"
-  //       />
-  //     </div>
-  //   );
-  // }
+  const { data, error, isLoading } = useSWR("/api/properties", fetcher);
+  console.log(data);
 
   return (
     <div id="residencies" className="r-wrapper">
@@ -41,7 +27,7 @@ export default function Residencies() {
           <span className="orangeText">Best Choices</span>
           <span className="primaryText">Popular Residencies</span>
         </div>
-        {/* {isLoading && (
+        {isLoading && (
           <div className="wrapper flexCenter" style={{ height: "60vh" }}>
             <PuffLoader
               //   height={80}
@@ -58,8 +44,8 @@ export default function Residencies() {
               An error occured. Please Try again
             </p>
           </div>
-        )} */}
-        {/* {data && <PropertiesCarousel data={data} />} */}
+        )}
+        {data && <PropertiesCarousel data={data.results} />}
       </div>
     </div>
   );
