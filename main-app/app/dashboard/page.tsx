@@ -1,8 +1,11 @@
+import CreatePropertyForm from "./_components/CreatePropertyForm";
+
 // Real Estate agent's dashboard
 export default function Dashbaord() {
   return (
-    <div>
-      <h1> Real Estate Agent's dashboard</h1>
+    <div className="flex justify-center items-center flex-col px-40">
+      <h1> Real Estate Agents dashboard</h1>
+      <CreatePropertyForm />
     </div>
   );
 }

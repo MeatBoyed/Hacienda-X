@@ -6,6 +6,7 @@ import { AiTwotoneCar } from "react-icons/ai";
 import { MdLocationPin, MdMeetingRoom } from "react-icons/md";
 import Map from "@/components/Map";
 import Residency from "@/Utils/Residency.json";
+import { redirect } from "next/navigation";
 
 // Handler for the API request (Server Side)
 async function fetchProperty(title: string) {
@@ -46,6 +47,10 @@ export default async function PropertyPage({
   // );
 
   // const [modalOpened, setModalOpened] = useState(false);
+
+  if (!data) {
+    return redirect("/404");
+  }
 
   //   if (isLoading) {
   //     return (

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Header.css";
 import { BiMenuAltRight } from "react-icons/bi";
 import Link from "next/link";
