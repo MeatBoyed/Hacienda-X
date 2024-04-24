@@ -7,18 +7,17 @@ import "./Residencies.css";
 import { PuffLoader } from "react-spinners";
 import useSWR from "swr";
 import PropertiesCarousel from "@/components/PropertiesCarousel";
+import { GenericPropertyResponse } from "../api/[[...route]]/utils";
 
-// Handles calling Fetch API
+// Handles calling Fetch API (This is an example, it has been extracted into the Utils file)
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export default function Residencies() {
   // Hanldes all data fetching states, calls the Fetching Handler
-  // const { data, error, isLoading } = useSWR(
-  //   "http://localhost:8000/api/residency/allresd",
-  //   fetcher
-  // );
-  const { data, error, isLoading } = useSWR("/api/properties", fetcher);
-  console.log(data);
+  const { data, error, isLoading } = useSWR<GenericPropertyResponse>(
+    "/api/properties",
+    fetcher
+  );
 
   return (
     <div id="residencies" className="r-wrapper">
