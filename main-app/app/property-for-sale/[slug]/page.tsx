@@ -6,7 +6,6 @@ import "./Property.css";
 import { FaShower } from "react-icons/fa";
 import { AiTwotoneCar } from "react-icons/ai";
 import { MdLocationPin, MdMeetingRoom } from "react-icons/md";
-import Map from "@/components/Map";
 import { notFound, useParams } from "next/navigation";
 import { fetcher } from "@/lib/utils";
 import useSWR from "swr";

@@ -10,7 +10,7 @@ export default function SearchBar({
   setFilter?: any;
 }) {
   return (
-    <div className="flexCenter search-bar">
+    <div className="flexCenter search-bar border border-black">
       <HiLocationMarker color="var(--blue)" size={25} />
       <input
         placeholder="Search by title/city/country..."

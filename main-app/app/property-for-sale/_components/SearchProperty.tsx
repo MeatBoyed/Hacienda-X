@@ -6,6 +6,7 @@ import { fetcher } from "@/lib/utils";
 import { useState } from "react";
 import { PuffLoader } from "react-spinners";
 import useSWR from "swr";
+import { MapViewer } from "@/components/Map";
 
 export default function SearchProperty() {
   // Hanldes all data fetching states, calls the Fetching Handler
@@ -17,9 +18,15 @@ export default function SearchProperty() {
   const [filter, setFilter] = useState("");
 
   return (
-    <div className="flexColCenter paddings innerWidth properties-container">
-      <SearchBar filter={filter} setFilter={setFilter} />
-      <div className="paddings flexCenter properties">
+    <div className="w-full flex flex-col justify-center items-center gap-5 pb-32">
+      <div className="w-full h-full " id="MapContainer">
+        {data && <MapViewer properties={data.results} />}
+      </div>
+      <div className="px-5">
+        <SearchBar filter={filter} setFilter={setFilter} />
+      </div>
+      {/* Make the last item stick to the left side, not centered - FOR Daniel */}
+      <div className="flex justify-center items-center px-3 gap-3 flex-wrap w-full md:items-start">
         {isLoading && (
           <div className="wrapper flexCenter" style={{ height: "60vh" }}>
             <PuffLoader

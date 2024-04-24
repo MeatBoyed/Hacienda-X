@@ -52,8 +52,8 @@ model Property {
   rooms        Int?       // Number of rooms
   pool         Boolean   @default(false)
   images       PropertyImage[]
-  latitude     Float?     // New latitude column
-  longitude    Float?     // New longitude column
+  latitude     Float     // New latitude column
+  longitude    Float     // New longitude column
 }
 
 
