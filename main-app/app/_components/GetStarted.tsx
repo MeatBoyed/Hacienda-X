@@ -6,14 +6,14 @@ export default function GetStarted() {
     <div id="get-started" className="g-wrapper">
       <div className="paddings innerWidth g-container">
         <div className="flexColCenter inner-container">
-          <span className="primaryText">Get started with Homyz</span>
+          <span className="primaryText">Want To Sell Your Property?</span>
           <span className="secondaryText">
-            Subscribe and find super attractive price quotes from us.
+            Sell Your Properties With Hacienda.
             <br />
-            Find your residence soon
+            Click now to get started
           </span>
           <button className="button">
-            <a href="mailto:zainkeepscode@gmail.com">Get Started</a>
+            <a href="./pricingplan">Get Started</a>
           </button>
         </div>
       </div>

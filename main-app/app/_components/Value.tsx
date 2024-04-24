@@ -26,13 +26,13 @@ export default function Value() {
         {/* left side */}
         <div className="v-left">
           <div className="image-container">
-            <img src="./value.png" alt="" />
+            <img src="./r1.png" alt="hero image" />
           </div>
         </div>
 
         {/* right */}
         <div className="flexColStart v-right">
-          <span className="orangeText">Our Value</span>
+          <span className="orangeText headingtext">Our Value</span>
 
           <span className="primaryText">Value We Give to You</span>
 

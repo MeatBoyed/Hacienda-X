@@ -1,0 +1,161 @@
+/* filter.css */
+
+.bubble-element {
+  overflow: visible;
+}
+
+.bubble-element.Group {
+  display: flex;
+}
+
+.baTaKtaP {
+  justify-content: flex-start;
+  border-radius: 0px;
+  padding: 40px 24px 20px;
+  opacity: 1;
+  align-self: center;
+  min-width: 0px;
+  max-width: 1200px;
+  order: 5;
+  min-height: 0px;
+  height: max-content;
+  flex-grow: 0;
+  flex-shrink: 0;
+  width: calc(100% + 0px);
+  margin: 0px;
+  z-index: 6;
+}
+
+.baTaKws0 {
+  border-radius: 0px;
+  align-self: flex-start;
+  min-width: 0px;
+  order: 2;
+  min-height: 0px;
+  height: max-content;
+  flex-grow: 0;
+  flex-shrink: 0;
+  width: calc(100% + 0px);
+  margin: 0px;
+  z-index: 9;
+}
+
+.baTaKtt {
+  justify-content: flex-start;
+  gap: 16px;
+  border-radius: 0px;
+  place-self: center;
+  min-width: 0px;
+  max-width: 720px;
+  min-height: 0px;
+  width: calc(100% + 0px);
+  height: max-content;
+  margin: 0px;
+  z-index: 6;
+}
+
+.baTaLaZaL {
+  white-space: pre-wrap;
+  overflow: visible;
+  font-family: var(--font_default);
+  font-size: 16px;
+  font-weight: 600;
+  color: rgb(0, 0, 0);
+  line-height: 1;
+  border-radius: 0px;
+  opacity: 1;
+  align-self: center;
+  min-width: 0px;
+  order: 1;
+  min-height: 14px;
+  width: max-content;
+  flex-grow: 0;
+  height: max-content;
+  margin: 0px;
+  z-index: 8;
+}
+
+.dropdown-chevron {
+  align-self: flex-start;
+  min-width: 0px;
+  min-height: 48px;
+  max-height: 48px;
+  width: 0px;
+  flex-grow: 1;
+  height: 48px;
+  margin: 0px;
+  z-index: 5;
+  display: block;
+  border: 1px solid rgb(209, 209, 209);
+  background-color: transparent;
+  color: rgb(0, 0, 0);
+  font-family: var(--font_default);
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 5px;
+  padding: 6px 12px;
+  opacity: 1;
+  transition: border-color 400ms ease 0s;
+}
+
+.baTaKuh {
+  background: none rgb(0, 0, 0);
+  font-family: var(--font_default);
+  font-size: 16px;
+  font-weight: 500;
+  color: rgb(255, 255, 255);
+  text-align: center;
+  line-height: 1.5;
+  border-radius: 4px;
+  padding: 0px 20px;
+  opacity: 1;
+  transition: border-color 400ms ease 0s, background 400ms ease 0s;
+  cursor: pointer;
+  align-self: flex-start;
+  min-width: 0px;
+  min-height: 48px;
+  width: max-content;
+  flex-grow: 0;
+  height: max-content;
+  margin: 0px;
+  z-index: 7;
+}
+
+.baTaLaZaR {
+  white-space: pre-wrap;
+  overflow: visible;
+  font-family: var(--font_default);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--color_bTJCz_default);
+  line-height: 1;
+  border-radius: 0px;
+  opacity: 1;
+  cursor: pointer;
+  align-self: center;
+  min-width: 0px;
+  order: 8;
+  min-height: 14px;
+  width: max-content;
+  flex-grow: 0;
+  height: max-content;
+  margin: 0px;
+  z-index: 8;
+}
+
+/* filter.css */
+
+/* Add this CSS to style the container for the filter elements */
+.filter-container {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  align-items: center; /* Align items vertically */
+}
+
+/* Remove the width and height properties from the dropdowns to allow them to shrink */
+.dropdown-chevron {
+  /* Remove width and height */
+  width: auto;
+  height: auto;
+}

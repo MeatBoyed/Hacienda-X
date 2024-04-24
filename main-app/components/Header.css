@@ -13,6 +13,7 @@
 
 .h-menu {
   gap: 3rem;
+  margin-right: 100px;
 }
 .h-menu > *:hover {
   cursor: pointer;
