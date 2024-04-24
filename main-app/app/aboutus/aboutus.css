@@ -1,21 +1,9 @@
 .v-container .image-container {
-  border: none;
-  padding-right: 40px;
+  border: 8px solid rgb(232 232 232 / 93%);
 }
 .v-container > div {
   flex: 1;
 }
-
-.headingtext {
-  font-size: 25px;
-  align-items: center;
-  align-content: center;
-}
-
-.vstyle {
-  padding-right: 40px;
-}
-
 .v-right {
   gap: 0.5rem;
 }

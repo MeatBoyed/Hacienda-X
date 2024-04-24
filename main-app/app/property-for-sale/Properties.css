@@ -1,6 +1,7 @@
 .properties-container {
   gap: 2rem;
 }
+
 .properties-container .search-bar {
   width: clamp(12rem, 100%, 28rem);
   border-radius: 30px;
@@ -14,25 +15,13 @@
   padding: 10px 15px;
 }
 
-.properties-container .search-bar input {
-  width: 70%;
-}
-
-.properties-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
-}
-
-.property-card {
-  width: calc(25% - 1rem); /* Adjust width to fit four cards per row with gap */
-  margin-bottom: 2rem; /* Add margin to bottom for vertical spacing */
-}
-
-.property-card:nth-child(4n) {
-  margin-right: 0; /* Remove right margin for the last item in each row */
-}
-
-.property-card .card-content {
-  height: 100%; /* Ensure card content fills the height */
+.residenciestext {
+  color: orange;
+  font-size: 40px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  font-weight: bold;
 }

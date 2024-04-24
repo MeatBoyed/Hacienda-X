@@ -14,7 +14,7 @@ import {
   MdOutlineArrowDropDown,
   MdOutlineArrowDropDownCircle,
 } from "react-icons/md";
-import "./Value.css";
+import "./aboutus.css";
 import data from "@/Utils/accordion";
 // Demo styles, see 'Styles' section below for some notes on use.
 
@@ -22,16 +22,9 @@ export default function Value() {
   return (
     <section id="value" className="v-wrapper">
       <div className="paddings innerWidth flexCenter v-container">
-        {/* left side */}
-        <div className="v-left">
-          <div className="image-container">
-            <img src="./r1.png" alt="hero image" />
-          </div>
-        </div>
-
         {/* right */}
         <div className="flexColStart v-right">
-          <span className="orangeText headingtext">Our Value</span>
+          <span className="orangeText">Our Value</span>
 
           <span className="primaryText">Value We Give to You</span>
 
@@ -58,12 +51,12 @@ export default function Value() {
                     <AccordionItemButton className="flexCenter accordionButton ">
                       {/* just for getting state of item */}
                       {/* <AccordionItemState>
-                        {({ expanded }) =>
-                          expanded
-                            ? setClassName("expanded")
-                            : setClassName("collapsed")
-                        }
-                      </AccordionItemState> */}
+                    {({ expanded }) =>
+                      expanded
+                        ? setClassName("expanded")
+                        : setClassName("collapsed")
+                    }
+                  </AccordionItemState> */}
                       <div className="flexCenter icon">{item.icon}</div>
                       <span className="primaryText">{item.heading}</span>
                       <div className="flexCenter icon">
