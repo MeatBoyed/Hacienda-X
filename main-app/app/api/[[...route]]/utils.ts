@@ -7,6 +7,6 @@ export interface GenericPropertyResponse {
 }
 
 export interface SelectPropertyResponse {
-  results: Property & PropertyImage;
+  results: Property;
   status: number;
 }
