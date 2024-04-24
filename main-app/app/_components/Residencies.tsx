@@ -1,52 +1,44 @@
 // Implement Data fetching
+"use client";
 
 import React from "react";
 import "swiper/css";
 import "./Residencies.css";
 import { PuffLoader } from "react-spinners";
-import db from "@/Utils/db";
-import { Property } from "@prisma/client";
+import useSWR from "swr";
 import PropertiesCarousel from "@/components/PropertiesCarousel";
 
-export async function getAllProperties() {
-  return await db.property.findMany();
-}
+// Handles calling Fetch API
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
-export default async function Residencies() {
-  let isLoading: boolean = true;
-  let data: Property[] | null = null;
-  let isError: boolean | null = null;
+export default function Residencies() {
+  // Hanldes all data fetching states, calls the Fetching Handler
+  const { data, error, isLoading } = useSWR(
+    "http://localhost:8000/api/residency/allresd",
+    fetcher
+  );
 
-  try {
-    // data = await getAllProperties();
-    data = [];
-    isLoading = false;
-  } catch (error) {
-    isError = true;
-    console.error(error); // eslint-disable-line no-console
-  }
+  // if (error) {
+  //   return (
+  //     <div className="flex justify-center items-center py-20">
+  //       <p className="text-black text-lg">An error occured. Please Try again</p>
+  //     </div>
+  //   );
+  // }
 
-  if (isError) {
-    return (
-      <div className="wrapper">
-        <span>Error while fetching data</span>
-      </div>
-    );
-  }
-
-  if (isLoading) {
-    return (
-      <div className="wrapper flexCenter" style={{ height: "60vh" }}>
-        <PuffLoader
-          //   height={80}
-          //   width="80"
-          //   radius={1}
-          color="#4066ff"
-          aria-label="puff-loading"
-        />
-      </div>
-    );
-  }
+  // if (isLoading) {
+  //   return (
+  //     <div className="wrapper flexCenter" style={{ height: "60vh" }}>
+  //       <PuffLoader
+  //         //   height={80}
+  //         //   width="80"
+  //         //   radius={1}
+  //         color="#4066ff"
+  //         aria-label="puff-loading"
+  //       />
+  //     </div>
+  //   );
+  // }
 
   return (
     <div id="residencies" className="r-wrapper">
@@ -55,7 +47,25 @@ export default async function Residencies() {
           <span className="orangeText">Best Choices</span>
           <span className="primaryText">Popular Residencies</span>
         </div>
-        <PropertiesCarousel data={data} />
+        {isLoading && (
+          <div className="wrapper flexCenter" style={{ height: "60vh" }}>
+            <PuffLoader
+              //   height={80}
+              //   width="80"
+              //   radius={1}
+              color="#4066ff"
+              aria-label="puff-loading"
+            />
+          </div>
+        )}
+        {error && (
+          <div className="flex justify-center items-center py-20">
+            <p className="text-black text-lg">
+              An error occured. Please Try again
+            </p>
+          </div>
+        )}
+        {data && <PropertiesCarousel data={data} />}
       </div>
     </div>
   );

@@ -1,1 +1,7 @@
 packages.txt
+/main-app/node_modules
+main-app/node_modules/
+/main-app/Server/node_modules
+main-app/Server/node_modules/
+/Full-stack-real-estate-youtube/node_modules/
+Full-stack-real-estate-youtube/node_modules/
