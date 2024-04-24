@@ -40,12 +40,9 @@ export const createResidency = asyncHandler(async (req, res) => {
 
 export const getAllResidencies = asyncHandler(async (req, res) => {
   try {
-    const residencies = await prisma.property.findMany({
-      // orderBy: {
-      //   createdAt: "desc",
-      // },
-    });
-    res.send({ residencies });
+    const properties = await prisma.property.findMany();
+
+    res.send(properties);
   } catch (err) {
     if (err.code === "P2002") {
       throw new Error("A residency with address already there and Error");
