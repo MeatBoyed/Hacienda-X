@@ -19,6 +19,7 @@ import data from "@/Utils/accordion";
 // Demo styles, see 'Styles' section below for some notes on use.
 
 export default function Value() {
+  const [className, setClassName] = useState<string | null>(null);
   return (
     <section id="value" className="v-wrapper">
       <div className="paddings innerWidth flexCenter v-container">
@@ -40,7 +41,6 @@ export default function Value() {
             preExpanded={[0]}
           >
             {data.map((item, i) => {
-              const [className, setClassName] = useState<string | null>(null);
               return (
                 <AccordionItem
                   className={`accordionItem ${className}`}

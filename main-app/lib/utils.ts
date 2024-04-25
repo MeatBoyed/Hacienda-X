@@ -1,12 +1,10 @@
-// Import necessary dependencies
-import { ClassValue, clsx } from "clsx";
+import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
 // Define the cn utility function
 export function cn(...inputs: ClassValue[]) {
-  // Merge class names using clsx
-  const mergedClassNames = clsx(...inputs);
-
-  // Merge Tailwind CSS class names using twMerge
-  return twMerge(mergedClassNames);
+  return twMerge(clsx(inputs));
 }
+
+// Handles calling Querying to the API
+export const fetcher = (url: string) => fetch(url).then((res) => res.json());

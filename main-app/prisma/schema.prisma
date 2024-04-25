@@ -1,37 +1,125 @@
-generator client {
-  provider = "prisma-client-js"
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client{
+    provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+    provider = "postgresql"
+    url = env("DATABASE_URL")
+    directUrl = env("DIRECT_URL")
 }
 
 model User {
-  id               String     @id @default(cuid())
-  clerkId            String     @unique
-  name             String?
-  email            String     @unique
-  image            String?
-  bookedVisits     Json[]
-  favResidenciesID String[]
-  // ownedResidencies Property[] @relation("Owner")
+  user_id      String      @id @default(cuid())
+  username     String      @unique
+  email        String      @unique
+  password     String
+  Subscription Subscription[]
+  Property      Property[]
+  Message       Message[]
+  Analytics     Analytics[]
+  Ad            Ad[]
+  Invoice       Invoice[]
 }
 
-model Property {
-  id          String   @id @default(cuid())
-  title       String
-  description String
-  price       Int
-  address     String
-  city        String
-  country     String
-  image       String
-  facilities  Json
-  // userEmail   String
-  // owner       User     @relation("Owner", fields: [userEmail], references: [email])
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+model Subscription {
+  subscription_id Int         @id @default(autoincrement())
+  user            User        @relation(fields: [user_id], references: [user_id])
+  user_id         String      // Changed type to String with cuid() default
+  start_date      DateTime
+  end_date        DateTime
+  plan_type       String
+  payment_status  String
+}
 
-  @@unique(fields: [address ])
+
+model Property {
+  property_id  String        @id @default(cuid())
+  agent        User       @relation(fields: [agent_id], references: [user_id])
+  agent_id     String      // Match the type of user_id in the User model
+  title        String
+  description  String?
+  price        Float?
+  address      String
+  city         String
+  country      String
+  bathrooms    Int?       // Number of bathrooms can create dropdown for user to select number
+  rooms        Int?       // Number of rooms
+  pool         Boolean   @default(false)
+  images       PropertyImage[]
+  latitude     Float     // New latitude column
+  longitude    Float     // New longitude column
+}
+
+
+model PropertyImage {
+  image_id        Int      @id @default(autoincrement())
+  property        Property @relation(fields: [property_id], references: [property_id])
+  property_id     String
+  image_url       String
+  image_description String?
+}
+
+model Message {
+  message_id     Int      @id @default(autoincrement())
+  //sender         User     @relation(fields: [sender_id], references: [user_id])
+  sender_id      Int
+  receiver       User     @relation(fields: [receiver_id], references: [user_id])
+  receiver_id    String
+  message_content String
+  timestamp      DateTime @default(now())
+}
+
+model Analytics {
+  analytics_id Int     @id @default(autoincrement())
+  agent        User    @relation(fields: [agent_id], references: [user_id])
+  agent_id     String
+  graph_type   String
+  data_points  String
+  timestamp    DateTime @default(now())
+}
+
+model Ad {
+  ad_id          Int     @id @default(autoincrement())
+  agent          User    @relation(fields: [agent_id], references: [user_id])
+  agent_id       String
+  ad_title       String
+  ad_content     String
+  ad_type        String
+  creation_date  DateTime
+  expiration_date DateTime
+}
+
+model Invoice {
+  invoice_id      Int     @id @default(autoincrement())
+  agent           User    @relation(fields: [agent_id], references: [user_id])
+  agent_id        String
+  invoice_date    DateTime
+  invoice_amount  Float
+  payment_status  String
+  payment_date    DateTime?
+}
+
+model PropertyCategory {
+  category_id         Int             @id @default(autoincrement())
+  category_name       String
+  //parent_category     PropertyCategory? @relation("ChildCategory", fields: [parent_category_id], references: [category_id])
+  parent_category_id  Int?
+}
+
+model Language {
+  language_id   Int     @id @default(autoincrement())
+  language_name String
+  language_code String
+}
+
+
+enum Role {
+  agent
+  user
 }
