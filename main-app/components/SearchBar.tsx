@@ -2,6 +2,7 @@
 import React, { Dispatch, SetStateAction } from "react";
 import { HiLocationMarker } from "react-icons/hi";
 import { Input } from "./ui/input";
+import { SearchIcon } from "lucide-react";
 
 export function SearchBar({
   filter,
@@ -41,6 +42,18 @@ export function SearchBox({
         onChange={(e) => setFilter(e.target.value)}
       />
       <button className="text-black">Go</button>
+    </div>
+  );
+}
+
+export function SearchBoxNonFunc() {
+  return (
+    <div className="w-full flex justify-center items-center rounded-md ">
+      {/* <MapPinIcon /> */}
+      <Input
+        placeholder="Search town, city, provience"
+        className="border-0  ring-offset-0 focus-visible:ring-offset-0 text-black shadow-lg "
+      />
     </div>
   );
 }

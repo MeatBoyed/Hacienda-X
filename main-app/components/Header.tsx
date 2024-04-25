@@ -11,10 +11,7 @@ export const Header = () => {
   const { userId } = auth();
 
   return (
-    <nav
-      className="fixed w-full bg-background z-10 "
-      style={{ background: undefined }}
-    >
+    <nav className="fixed w-full bg-background z-10 ">
       <div className="py-4 justify-between flex gap-8 items-center flex-wrap px-4">
         {/* logo */}
         <Link href="/" className="valuestransition">
@@ -54,7 +51,7 @@ function NavSlider() {
             account and remove your data from our servers.
           </SheetDescription>
         </SheetHeader> */}
-        <Link href="/properties-for-sale">
+        <Link href="/property-for-sale">
           <p className="text-xl ">Search</p>
         </Link>
         <Link href="/favourites">
