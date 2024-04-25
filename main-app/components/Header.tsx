@@ -43,7 +43,7 @@ const Header = () => {
           <a className="valuestransition fontsizemenu" href="/aboutus">
             Our Values
           </a>
-          <a className="valuestransition fontsizemenu" href="#about">
+          <a className="valuestransition fontsizemenu" href="/contactforum">
             Contact Us
           </a>
           <div className="valuestransition sizemenu">

@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import "./Properties.css";
 import { PuffLoader } from "react-spinners";

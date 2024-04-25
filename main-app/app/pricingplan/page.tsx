@@ -1,98 +1,91 @@
-import React from "react";
+// pricingplan.tsx
+"use client";
+// pricingplan.tsx// pricingplan.tsx
+import React, { useState } from "react";
 import "./pricingplan.css";
+import Popup from "reactjs-popup";
+import "reactjs-popup/dist/index.css";
 
 const PricingPlan = () => {
+  const [selectMonthly, setSelectMonthly] = useState(true);
+
   return (
-    <div className="container">
-      <header>
-        <div className="pricingHeader">
-          <h1 className="heading">Pricing</h1>
-          <p className="subheading">
-            Quickly build an effective pricing table for your potential
-            customers. It’s built with minimal styling for easy customization.
-          </p>
-        </div>
-      </header>
-
-      <main>
-        {/* Pricing Cards */}
-        <div className="pricingCards">
-          <div className="card">
-            <h2>Starter</h2>
-            <p>$0/month</p>
-            <ul>
-              <li>10 users included</li>
-              <li>2 GB of storage</li>
-              <li>Email support</li>
-              <li>Help center access</li>
-            </ul>
-            <button>Sign up for free</button>
+    <div className="PricingApp">
+      <div className="app-container">
+        {/* header */}
+        <header>
+          <h1 className="header-topic">
+            Our Pricing Plans For Floof Cloud Sharing
+          </h1>
+          <div className="header-row">
+            <p>Annually</p>
+            <label className="price-switch">
+              <input
+                className="price-checkbox"
+                onChange={() => {
+                  setSelectMonthly((prev) => !prev);
+                }}
+                type="checkbox"
+              />
+              <div className="switch-slider"></div>
+            </label>
+            <p>Monthly</p>
           </div>
-          <div className="card">
-            <h2>Pro</h2>
-            <p>$15/month</p>
-            <ul>
-              <li>20 users included</li>
-              <li>10 GB of storage</li>
-              <li>Priority email support</li>
-              <li>Help center access</li>
-            </ul>
-            <button>Get started</button>
+        </header>
+        <div className="pricing-cards">
+          <div className="PricingCard">
+            <header>
+              <p className="card-title">Basic</p>
+              <h1 className="card-price">
+                {selectMonthly ? "$2.99" : "$35.88"}
+              </h1>
+            </header>
+            {/* features */}
+            <div className="card-features">
+              <div className="card-storage">100 GB Storage</div>
+              <div className="card-users-allowed">Up To 5 users</div>
+            </div>
+            {/* text popup when pressing button */}
+            <Popup trigger={<button className="card-btn">READ MORE</button>}>
+              <div>This app was made in React.js</div>
+            </Popup>
           </div>
-          <div className="card">
-            <h2>Enterprise</h2>
-            <p>$29/month</p>
-            <ul>
-              <li>30 users included</li>
-              <li>15 GB of storage</li>
-              <li>Phone and email support</li>
-              <li>Help center access</li>
-            </ul>
-            <button>Contact us</button>
+          <div className="PricingCard">
+            <header>
+              <p className="card-title">Premium (Most Popular!)</p>
+              <h1 className="card-price">
+                {selectMonthly ? "$9.99" : "$119.88"}
+              </h1>
+            </header>
+            {/* features */}
+            <div className="card-features">
+              <div className="card-storage">500 GB Storage</div>
+              <div className="card-users-allowed">Up to 10 users</div>
+            </div>
+            {/* text popup when pressing button */}
+            <Popup trigger={<button className="card-btn">READ MORE</button>}>
+              <div>This app was made in React.js</div>
+            </Popup>
+          </div>
+          <div className="PricingCard">
+            <header>
+              <p className="card-title">Professional</p>
+              <h1 className="card-price">
+                {selectMonthly ? "$19.99" : "$239.88"}
+              </h1>
+            </header>
+            {/* features */}
+            <div className="card-features">
+              <div className="card-storage">1 TB Storage</div>
+              <div className="card-users-allowed">Up to 20 users</div>
+            </div>
+            {/* text popup when pressing button */}
+            <Popup trigger={<button className="card-btn">READ MORE</button>}>
+              <div>This app was made in React.js</div>
+            </Popup>
           </div>
         </div>
-
-        {/* Pricing Comparison Table */}
-        <h2 className="comparisonHeader">Compare plans</h2>
-        <div className="tableResponsive">
-          <table className="comparisonTable">
-            <thead>
-              <tr>
-                <th></th>
-                <th>Starter</th>
-                <th>Pro</th>
-                <th>Enterprise</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Users included</td>
-                <td>10</td>
-                <td>20</td>
-                <td>30</td>
-              </tr>
-              <tr>
-                <td>Storage</td>
-                <td>2 GB</td>
-                <td>10 GB</td>
-                <td>15 GB</td>
-              </tr>
-              <tr>
-                <td>Support</td>
-                <td>Email</td>
-                <td>Priority email</td>
-                <td>Phone and email</td>
-              </tr>
-              <tr>
-                <td>Help center access</td>
-                <td>✔️</td>
-                <td>✔️</td>
-                <td>✔️</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </main>
+      </div>
     </div>
   );
 };
