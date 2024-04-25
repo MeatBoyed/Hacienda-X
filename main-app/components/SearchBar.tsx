@@ -3,6 +3,16 @@ import React, { Dispatch, SetStateAction } from "react";
 import { HiLocationMarker } from "react-icons/hi";
 import { Input } from "./ui/input";
 import { SearchIcon } from "lucide-react";
+import SearchFilters from "@/app/_components/SearchFilters";
+import { Button } from "./ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 export function SearchBar({
   filter,
@@ -48,12 +58,43 @@ export function SearchBox({
 
 export function SearchBoxNonFunc() {
   return (
-    <div className="w-full flex justify-center items-center rounded-md ">
+    <div className="w-full flex justify-center items-center flex-col gap-5">
       {/* <MapPinIcon /> */}
       <Input
         placeholder="Search town, city, provience"
         className="border-0  ring-offset-0 focus-visible:ring-offset-0 text-black shadow-lg "
       />
+
+      <div className="flex justify-center w-full items-center gap-3 ">
+        <Dialog>
+          <DialogTrigger className="bg-transparent w-full border-background border hover:bg-background hover:text-black hover: rounded-md">
+            {/* <p className="text-lg bg-prima">Filter</p> */}
+            <Button
+              size={"sm"}
+              className="bg-transparent text-primary w-full text-white hover:text-black"
+            >
+              Filter
+            </Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Filter your search</DialogTitle>
+            </DialogHeader>
+
+            <div className="mt-5">
+              <SearchFilters />
+            </div>
+          </DialogContent>
+        </Dialog>
+
+        <Button
+          size={"sm"}
+          className="bg-background w-full text-black hover:border-background hover:border hover:text-primary shadow-lg"
+        >
+          Search
+        </Button>
+      </div>
+      {/* <SearchFilters /> */}
     </div>
   );
 }

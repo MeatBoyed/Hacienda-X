@@ -16,7 +16,6 @@ export default function Home() {
           <div className="white-gradient" />
           <Hero />
         </div>
-        <SearchFilters />
         <Residencies />
         <Value />
         <Contact />
