@@ -15,6 +15,8 @@ import {
   CarouselPrevious,
 } from "./ui/carousel";
 import { Card, CardContent } from "./ui/card";
+import React from "react";
+import Autoplay from "embla-carousel-autoplay";
 
 export default function PropertiesCarousel({
   data,
@@ -51,12 +53,19 @@ const SlideNextButton = () => {
 };
 
 export function PropertyCarousel2({ data }: { data: Property[] | null }) {
+  const plugin = React.useRef(
+    Autoplay({ delay: 4000, stopOnInteraction: true })
+  );
+
   return (
     <Carousel
       opts={{
         align: "start",
       }}
-      className="w-full "
+      plugins={[plugin.current]}
+      onMouseEnter={plugin.current.stop}
+      onMouseLeave={plugin.current.reset}
+      className="w-full max-w-xs md:max-w-full"
     >
       <CarouselContent className="w-full gap-5 -ml-4">
         {/* {Array.from({ length: 5 }).map((_, index) => ( */}
@@ -67,7 +76,7 @@ export function PropertyCarousel2({ data }: { data: Property[] | null }) {
           </div>
         ))}
       </CarouselContent>
-      <CarouselPrevious />
+      <CarouselPrevious className="visible" />
       <CarouselNext />
     </Carousel>
   );
