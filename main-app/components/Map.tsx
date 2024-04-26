@@ -45,7 +45,7 @@ export function MapViewer({ properties }: { properties: Property[] }) {
   });
 
   return (
-    <div className="w-full h-[50vh] md:h-[35vh]">
+    <div className="w-full h-[50vh] md:h-[75vh]">
       <MapContainer
         center={center}
         zoom={13}

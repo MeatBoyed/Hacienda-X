@@ -33,13 +33,13 @@ export default function SearchProperty() {
           setMapActive={setMapActive}
         />
         {mapActive && data && (
-          <div className="w-full h-[25vh]" id="MapContainer">
+          <div className="w-full h-[75vh]" id="MapContainer">
             <MapViewer properties={data.results} />
           </div>
         )}
       </div>
       {/* Make the last item stick to the left side, not centered - FOR Daniel */}
-      <div className="flex justify-center items-center px-3 gap-3 flex-wrap w-full md:items-start">
+      <div className="flex justify-center items-center px-3 gap-5 flex-wrap w-full md:items-start">
         {isLoading && (
           <div className="wrapper flexCenter" style={{ height: "60vh" }}>
             <PuffLoader color="#4066ff" aria-label="puff-loading" />
@@ -60,7 +60,11 @@ export default function SearchProperty() {
                 property.city.toLowerCase().includes(filter.toLowerCase()) ||
                 property.country.toLowerCase().includes(filter.toLowerCase())
             )
-            .map((card, i) => <PropertyCard property={card} key={i} />)}
+            .map((card, i) => (
+              <div className="w-fit">
+                <PropertyCard property={card} key={i} />
+              </div>
+            ))}
       </div>
     </div>
   );

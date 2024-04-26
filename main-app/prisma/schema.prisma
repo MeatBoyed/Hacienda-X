@@ -43,17 +43,17 @@ model Property {
   agent           User      @relation(fields: [agent_id], references: [user_id])
   agent_id        String
   title           String
-  description     String?
-  price           Float?
+  description     String
+  price           Float
   address         String
   city            String
   country         String
-  bathrooms       Int?
-  rooms           Int?
+  bathrooms       Int
+  rooms           Int
   pool            Boolean   @default(false)
   images          String[]  // New field to store image URLs directly
-  latitude        Float?
-  longitude       Float?
+  latitude        Float
+  longitude       Float
 }
 
 model Message {
