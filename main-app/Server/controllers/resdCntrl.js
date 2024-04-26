@@ -13,13 +13,12 @@ export const createProperty = asyncHandler(async (req, res) => {
     bathrooms,
     rooms,
     pool,
-    images, // Assuming images is an array of objects with image_urls and image_description
+    images, // Assuming images is an array of image URLs
     latitude,
     longitude,
   } = req.body;
 
   try {
-    // Create property with agent and other data
     const property = await prisma.property.create({
       data: {
         agent: { connect: { user_id: agent_id } },
@@ -32,14 +31,9 @@ export const createProperty = asyncHandler(async (req, res) => {
         bathrooms,
         rooms,
         pool,
+        images, // Store image URLs directly
         latitude,
         longitude,
-        images: { // Create images for the property
-          create: images.map((image) => ({
-            image_urls: image.image_urls,
-            image_description: image.image_description,
-          })),
-        },
       },
     });
 
