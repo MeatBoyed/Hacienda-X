@@ -11,7 +11,7 @@ export const Header = () => {
   const { userId } = auth();
 
   return (
-    <nav className="fixed w-full bg-background z-10 ">
+    <nav className="fixed w-full bg-background z-50 ">
       <div className="py-4 justify-between flex gap-8 items-center flex-wrap px-4">
         {/* logo */}
         <Link href="/" className="valuestransition">

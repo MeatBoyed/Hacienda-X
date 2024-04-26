@@ -58,11 +58,11 @@ export function SearchBox({
 
 export function SearchBoxNonFunc() {
   return (
-    <div className="w-full flex justify-center items-center flex-col gap-5">
+    <div className="w-full flex justify-center items-center flex-col gap-2">
       {/* <MapPinIcon /> */}
       <Input
         placeholder="Search town, city, provience"
-        className="border-0  ring-offset-0 focus-visible:ring-offset-0 text-black shadow-lg "
+        className="border-0 bg-white text-black shadow-lg "
       />
 
       <div className="flex justify-center w-full items-center gap-3 ">

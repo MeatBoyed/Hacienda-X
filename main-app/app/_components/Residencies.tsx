@@ -22,9 +22,11 @@ export default function Residencies() {
   return (
     <div id="residencies" className="r-wrapper">
       <div className="paddings innerWidth r-container">
-        <div className="flexColStart r-head">
-          <span className="orangeText">Best Choices</span>
-          <span className="primaryText">Popular Residencies</span>
+        <div className="flex justify-center items-start flex-col gap-1">
+          <p className="text-lg font-semibold opacity-80">Best Choices</p>
+          <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
+            Popular Residencies
+          </h2>
         </div>
         {isLoading && (
           <div className="wrapper flexCenter" style={{ height: "60vh" }}>
@@ -44,7 +46,9 @@ export default function Residencies() {
             </p>
           </div>
         )}
-        {data && <PropertiesCarousel data={data.results} />}
+        <div className="w-full h-full mt-10">
+          {data && <PropertiesCarousel data={data.results} />}
+        </div>
       </div>
     </div>
   );
