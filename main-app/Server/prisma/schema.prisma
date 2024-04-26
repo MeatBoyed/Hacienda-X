@@ -60,7 +60,7 @@ model PropertyImage {
   image_id        Int      @id @default(autoincrement())
   property        Property @relation(fields: [property_id], references: [property_id])
   property_id     String
-  image_url       String
+  image_urls        String[]
   image_description String?
 }
 
