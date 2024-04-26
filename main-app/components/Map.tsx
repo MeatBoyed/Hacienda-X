@@ -45,12 +45,12 @@ export function MapViewer({ properties }: { properties: Property[] }) {
   });
 
   return (
-    <div className="w-full h-[25vh] md:h-[35vh]">
+    <div className="w-full h-[50vh] md:h-[35vh]">
       <MapContainer
         center={center}
         zoom={13}
         scrollWheelZoom={false}
-        className="w-full h-full"
+        className="w-full h-full z-10"
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -79,12 +79,6 @@ export function MapViewer({ properties }: { properties: Property[] }) {
           </Marker>
         ))} */}
       </MapContainer>
-      {/* <div className="absolute bg-black text-white opacity-80 w-full h-full flex justify-center items-center flex-col gap-5 top-[50%] bottom-[50%] z-30  translate-x-[-50%] translate-y-[-50%]">
-        <p className="text-base">Find Properties in your area</p>
-        <button className="border border-white bg-white text-black hover:text-white hover:bg-black px-2 py-2 text-sm">
-          Search Now
-        </button>
-      </div> */}
     </div>
   );
 }

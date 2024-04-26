@@ -2,7 +2,14 @@
 import React, { Dispatch, SetStateAction } from "react";
 import { HiLocationMarker } from "react-icons/hi";
 import { Input } from "./ui/input";
-import { SearchIcon } from "lucide-react";
+import {
+  Filter,
+  MapPin,
+  Search,
+  SearchIcon,
+  Settings,
+  SlidersHorizontal,
+} from "lucide-react";
 import SearchFilters from "@/app/_components/SearchFilters";
 import { Button } from "./ui/button";
 import {
@@ -71,9 +78,9 @@ export function SearchBoxNonFunc() {
             {/* <p className="text-lg bg-prima">Filter</p> */}
             <Button
               size={"sm"}
-              className="bg-transparent text-primary w-full text-white hover:text-black"
+              className="bg-transparent text-primary w-full text-white hover:text-black gap-3"
             >
-              Filter
+              <SlidersHorizontal size={15} /> Filter
             </Button>
           </DialogTrigger>
           <DialogContent>
@@ -89,9 +96,71 @@ export function SearchBoxNonFunc() {
 
         <Button
           size={"sm"}
-          className="bg-background w-full text-black hover:border-background hover:border hover:text-primary shadow-lg"
+          className="bg-background w-full text-black hover:border-background hover:border hover:text-primary shadow-lg gap-3"
         >
-          Search
+          <MapPin size={15} /> Map Search
+        </Button>
+        <Button
+          size={"sm"}
+          className="bg-white w-full text-black hover:border-background hover:border hover:text-primary shadow-lg gap-3"
+        >
+          <Search size={15} /> Search
+        </Button>
+      </div>
+      {/* <SearchFilters /> */}
+    </div>
+  );
+}
+
+export function SearchBoxNonFuncSearchPage({
+  mapActive,
+  setMapActive,
+}: {
+  mapActive: boolean;
+  setMapActive: Dispatch<SetStateAction<boolean>>;
+}) {
+  return (
+    <div className="w-full flex justify-center items-center flex-col gap-2">
+      {/* <MapPinIcon /> */}
+      <Input
+        placeholder="Search town, city, provience"
+        className="border-0 bg-white text-black shadow-lg "
+      />
+
+      <div className="flex justify-center w-full items-center gap-3 ">
+        <Dialog>
+          <DialogTrigger className=" w-full">
+            {/* <p className="text-lg bg-prima">Filter</p> */}
+            <Button
+              size={"sm"}
+              className="bg-white w-full text-black hover:border-background hover:border hover:text-primary shadow-lg gap-3"
+            >
+              <SlidersHorizontal size={15} /> Filter
+            </Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Filter your search</DialogTitle>
+            </DialogHeader>
+
+            <div className="mt-5">
+              <SearchFilters />
+            </div>
+          </DialogContent>
+        </Dialog>
+
+        <Button
+          size={"sm"}
+          className="bg-white w-full text-black hover:border-background hover:border hover:text-primary shadow-lg gap-3"
+          onClick={() => setMapActive(!mapActive)}
+        >
+          <MapPin size={15} /> Map Search
+        </Button>
+        <Button
+          size={"sm"}
+          className="bg-white w-full text-black hover:border-background hover:border hover:text-primary shadow-lg gap-3"
+        >
+          <Search size={15} /> Search
         </Button>
       </div>
       {/* <SearchFilters /> */}
