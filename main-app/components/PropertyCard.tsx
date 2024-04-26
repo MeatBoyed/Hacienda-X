@@ -15,17 +15,17 @@ const PropertyCard = ({ property }: { property: any }) => {
       {/* <Heart id={card?.id}/> */}
       <img src={property.image} alt="home" />
       <span className="secondaryText r-price">
-        <span style={{ color: "orange" }}>$</span>
-        <span>{property.price}</span>
+        <p className="">$ {property.price}</p>
       </span>
       <Link href={`../property-for-sale/${property.title}`}>
-        <span className="primaryText">
-          {truncate(property.title, { length: 15 })}
-        </span>
+        <p className="">
+          {/* {truncate(property.title, { length: 15 })} */}
+          {property.title}
+        </p>
       </Link>
-      <span className="secondaryText">
+      <p className="secondaryText">
         {truncate(property.description, { length: 80 })}
-      </span>
+      </p>
     </div>
   );
 };
