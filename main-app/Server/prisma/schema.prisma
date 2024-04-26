@@ -36,7 +36,7 @@ model Subscription {
   payment_status  String
 }
 
-
+//Note at later stage save images with description as a .JSON file to the proeprty table.
 model Property {
  property_id     String    @id @default(cuid())
   agent           User      @relation(fields: [agent_id], references: [user_id])
