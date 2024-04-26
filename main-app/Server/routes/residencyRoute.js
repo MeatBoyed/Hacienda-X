@@ -1,14 +1,14 @@
 import express from "express";
 import { createUser } from "../controllers/userCntrl.js";
 import {
-  createResidency,
-  getAllResidencies,
-  getResidency,
+  createProperty,
+  getAllProperties,
+  getPropertyById,
 } from "../controllers/resdCntrl.js";
 
 const router = express.Router();
 
-router.post("/create", createResidency);
-router.get("/allresd", getAllResidencies);
-router.get("/:id", getResidency);
+router.post("/create", createProperty);
+router.get("/allresd", getAllProperties);
+router.get("/:id", getPropertyById);
 export { router as residencyRoute };
