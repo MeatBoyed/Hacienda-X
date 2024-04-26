@@ -1,9 +1,13 @@
 "use client";
 import { GenericPropertyResponse } from "@/app/api/[[...route]]/utils";
 import PropertyCard from "@/components/PropertyCard";
-import { SearchBar, SearchBox } from "@/components/SearchBar";
+import {
+  SearchBox,
+  SearchBoxNonFunc,
+  SearchBoxNonFuncSearchPage,
+} from "@/components/SearchBar";
 import { fetcher } from "@/lib/utils";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PuffLoader } from "react-spinners";
 import useSWR from "swr";
 import { MapViewer } from "@/components/Map";
@@ -16,28 +20,29 @@ export default function SearchProperty() {
   );
 
   const [filter, setFilter] = useState("");
+  const [mapActive, setMapActive] = useState<boolean>(false);
 
   return (
     // Add padding for desktop & tablet devices
-    <div className="w-full flex flex-col justify-center items-center gap-5 pb-32">
-      <div className="w-full h-full " id="MapContainer">
-        {data && <MapViewer properties={data.results} />}
-      </div>
-      <div className="px-5 w-full">
+    <div className="w-full flex flex-col justify-center items-center gap-20 pb-32">
+      <div className="px-5 w-full gap-3 flex justify-center items-center flex-col ">
         {/* <SearchBar filter={filter} setFilter={setFilter} /> */}
-        <SearchBox filter={filter} setFilter={setFilter} />
+        {/* <SearchBox filter={filter} setFilter={setFilter} /> */}
+        <SearchBoxNonFuncSearchPage
+          mapActive={mapActive}
+          setMapActive={setMapActive}
+        />
+        {mapActive && data && (
+          <div className="w-full h-[75vh]" id="MapContainer">
+            <MapViewer properties={data.results} />
+          </div>
+        )}
       </div>
       {/* Make the last item stick to the left side, not centered - FOR Daniel */}
-      <div className="flex justify-center items-center px-3 gap-3 flex-wrap w-full md:items-start">
+      <div className="flex justify-center items-center px-3 gap-5 flex-wrap w-full md:items-start">
         {isLoading && (
           <div className="wrapper flexCenter" style={{ height: "60vh" }}>
-            <PuffLoader
-              //   height={80}
-              //   width="80"
-              //   radius={1}
-              color="#4066ff"
-              aria-label="puff-loading"
-            />
+            <PuffLoader color="#4066ff" aria-label="puff-loading" />
           </div>
         )}
         {error && (
@@ -47,16 +52,19 @@ export default function SearchProperty() {
             </p>
           </div>
         )}
-        {data?.results
-          ?.filter(
-            (property) =>
-              property.title.toLowerCase().includes(filter.toLowerCase()) ||
-              property.city.toLowerCase().includes(filter.toLowerCase()) ||
-              property.country.toLowerCase().includes(filter.toLowerCase())
-          )
-          .map((card, i) => (
-            <PropertyCard property={card} key={i} />
-          ))}
+        {!mapActive &&
+          data?.results
+            ?.filter(
+              (property) =>
+                property.title.toLowerCase().includes(filter.toLowerCase()) ||
+                property.city.toLowerCase().includes(filter.toLowerCase()) ||
+                property.country.toLowerCase().includes(filter.toLowerCase())
+            )
+            .map((card, i) => (
+              <div className="w-fit" key={i}>
+                <PropertyCard property={card} />
+              </div>
+            ))}
       </div>
     </div>
   );

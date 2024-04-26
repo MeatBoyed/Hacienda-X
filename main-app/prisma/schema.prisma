@@ -11,7 +11,7 @@ generator client{
 datasource db {
     provider = "postgresql"
     url = env("DATABASE_URL")
-    directUrl = env("DIRECT_URL")
+    // directUrl = env("DIRECT_URL")
 }
 
 model User {
@@ -37,32 +37,23 @@ model Subscription {
   payment_status  String
 }
 
-
+//Note at later stage save images with description as a .JSON file to the proeprty table.
 model Property {
-  property_id  String        @id @default(cuid())
-  agent        User       @relation(fields: [agent_id], references: [user_id])
-  agent_id     String      // Match the type of user_id in the User model
-  title        String
-  description  String?
-  price        Float?
-  address      String
-  city         String
-  country      String
-  bathrooms    Int?       // Number of bathrooms can create dropdown for user to select number
-  rooms        Int?       // Number of rooms
-  pool         Boolean   @default(false)
-  images       PropertyImage[]
-  latitude     Float     // New latitude column
-  longitude    Float     // New longitude column
-}
-
-
-model PropertyImage {
-  image_id        Int      @id @default(autoincrement())
-  property        Property @relation(fields: [property_id], references: [property_id])
-  property_id     String
-  image_url       String
-  image_description String?
+ property_id     String    @id @default(cuid())
+  agent           User      @relation(fields: [agent_id], references: [user_id])
+  agent_id        String
+  title           String
+  description     String
+  price           Float
+  address         String
+  city            String
+  country         String
+  bathrooms       Int
+  rooms           Int
+  pool            Boolean   @default(false)
+  images          String[]  // New field to store image URLs directly
+  latitude        Float
+  longitude       Float
 }
 
 model Message {

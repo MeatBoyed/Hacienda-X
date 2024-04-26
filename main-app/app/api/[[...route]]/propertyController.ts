@@ -36,7 +36,6 @@ app.get("/:slug", async (c) => {
     // Database query (obvs)
     const prop = await db.property.findFirst({
       where: { title: slug }, // Property needs a Slug field in DB
-      include: { images: true }, // Should be a single direct field on Property table for easier querying
     });
 
     // Let the Client (Front-End) decide what to do with a 404

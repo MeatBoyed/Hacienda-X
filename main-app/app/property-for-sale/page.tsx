@@ -7,7 +7,7 @@ export default async function PropertiesSearch() {
 
   return (
     <div className="bg-background">
-      <div className="flex justify-center items-center w-full">
+      <div className="flex justify-center items-center w-full pt-20">
         {/* Hanldes the Client Side functionality of Searching Properties */}
         <SearchProperty />
       </div>

@@ -16,31 +16,42 @@ import {
 } from "react-icons/md";
 import "./Value.css";
 import data from "@/Utils/accordion";
+import Image from "next/image";
+import ValueImage from "@/public/r1.png";
 // Demo styles, see 'Styles' section below for some notes on use.
 
 export default function Value() {
   const [className, setClassName] = useState<string | null>(null);
   return (
-    <section id="value" className="v-wrapper">
+    <section
+      id="value"
+      className="my-12 w-full flex justify-between items-center px-5 md:px-10 lg:px-32"
+    >
       <div className="paddings innerWidth flexCenter v-container">
         {/* left side */}
         <div className="v-left">
           <div className="image-container">
-            <img src="./r1.png" alt="hero image" />
+            <Image src={ValueImage} alt="hero image" />
           </div>
         </div>
 
         {/* right */}
         <div className="flexColStart v-right">
-          <span className="orangeText headingtext">Our Value</span>
+          <div className="flex justify-center items-start flex-col gap-5 w-full">
+            <div className="flex justify-center items-start flex-col gap-1 w-full">
+              <p className="text-lg font-semibold opacity-80 text-accent  w-full">
+                Our Value
+              </p>
+              <h2 className="scroll-m-20 text-3xl font-semibold tracking-tight first:mt-0 w-full">
+                Value We Give to You
+              </h2>
+            </div>
 
-          <span className="primaryText">Value We Give to You</span>
-
-          <span className="secondaryText">
-            We always ready to help by providijng the best services for you.
-            <br />
-            We beleive a good blace to live can make your life better
-          </span>
+            <p className="leading-7 w-full text-muted-foreground">
+              We always ready to help by providijng the best services for you.
+              We beleive a good blace to live can make your life better
+            </p>
+          </div>
 
           <Accordion
             className="accordion"
