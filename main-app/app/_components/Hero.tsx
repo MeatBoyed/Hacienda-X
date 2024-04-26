@@ -1,77 +1,77 @@
-"use client";
+// Hero.tsx
 
 import "./Hero.css";
-import CountUp from "react-countup";
-import { motion } from "framer-motion";
-import SearchBar from "@/components/SearchBar";
+import React from "react";
+import BannerImage from "@/public/bannerImg.jpg";
+import Image from "next/image";
+import { SearchBoxNonFunc } from "@/components/SearchBar";
 
 export default function Hero() {
   return (
-    <section className="hero-wrapper">
-      <div className="paddings innerWidth flexCenter hero-container">
-        {/* left side */}
-        <div className="flexColStart hero-left">
-          <div className="hero-title">
-            <div className="orange-circle" />
-            <motion.h1
-              initial={{ y: "2rem", opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{
-                duration: 2,
-                type: "ease-in",
-              }}
-            >
-              Discover <br />
-              Most Suitable
-              <br /> Property
-            </motion.h1>
-          </div>
-          <div className="flexColStart secondaryText flexhero-des">
-            <span>Find a variety of properties that suit you very easilty</span>
-            <span>Forget all difficulties in finding a residence for you</span>
-          </div>
-
-          <SearchBar />
-
-          <div className="flexCenter stats">
-            <div className="flexColCenter stat">
-              <span>
-                <CountUp start={8800} end={9000} duration={4} /> <span>+</span>
-              </span>
-              <span className="secondaryText">Premium Product</span>
-            </div>
-
-            <div className="flexColCenter stat">
-              <span>
-                <CountUp start={1950} end={2000} duration={4} /> <span>+</span>
-              </span>
-              <span className="secondaryText">Happy Customer</span>
-            </div>
-
-            <div className="flexColCenter stat">
-              <span>
-                <CountUp end={28} /> <span>+</span>
-              </span>
-              <span className="secondaryText">Awards Winning</span>
-            </div>
-          </div>
+    <section
+      id="hero"
+      className="w-full h-[60vh] flex justify-center items-center"
+    >
+      <div className="flex justify-center items-center w-full flex-col z-10 gap-8 text-white">
+        <div className="flex justify-center items-center flex-col gap-2">
+          <h1 className="text-center scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
+            Find the Perfect Home
+          </h1>
+          <p className="text-lg font-semibold text-center">
+            Discover Properties That Match Your Lifestyle
+          </p>
         </div>
 
-        {/* right side */}
-        <div className="flexCenter hero-right">
-          <motion.div
-            initial={{ x: "7rem", opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{
-              duration: 2,
-              type: "ease-in",
-            }}
-            className="image-container"
-          >
-            <img src="./hero-image.png" alt="houses" />
-          </motion.div>
+        <div className="w-[80%]">
+          <SearchBoxNonFunc />
         </div>
       </div>
+      <div className="bg-black w-full opacity-60 absolute z-0 h-[60vh]">
+        <Image
+          src={BannerImage}
+          alt="Hero Image"
+          className="w-full bg-cover object-cover h-[60vh]"
+          priority
+        />
+      </div>
     </section>
+  );
+}
+
+function Hero0() {
+  return (
+    <div className="hero-wrapper">
+      <div
+        className="bubble-element Group baTaKsaT bubble-r-container flex column"
+        style={{
+          maxWidth: "unset",
+          maxHeight: "unset",
+          backgroundColor: "rgba(255, 255, 255, 0)",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center center",
+          backgroundSize: "cover",
+          backgroundImage:
+            "url('https://d1muf25xaso8hp.cloudfront.net/https%3A%2F%2F0460680b1035424a401b6fc2a5844d47.cdn.bubble.io%2Ff1704496205509x573597491559759040%2Fcover-hd.png?w=1536&h=684&auto=compress&fit=crop&dpr=1')",
+        }}
+      >
+        <div
+          className="bubble-element Group baTaKrd bubble-r-container flex column"
+          style={{
+            backgroundColor: "rgba(var(--color_text_default_rgb), 0.4)",
+          }}
+        >
+          <div className="">
+            <h1 className="bubble-element Text baTaKri">
+              Find the Perfect Home
+            </h1>
+            <div className="bubble-element Text baTaKrj">
+              Discover Properties
+              <br />
+              That Match Your Lifestyle
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }

@@ -1,95 +1,73 @@
 import React from "react";
-import "./Header.css";
-import { BiMenuAltRight } from "react-icons/bi";
 import Link from "next/link";
 import { SignUpButton, UserButton } from "@clerk/nextjs";
 import { auth } from "@clerk/nextjs/server";
-import NavbarAuth from "@/app/lib/Navbar";
-// import { getMenuStyles } from "../../utils/common";
-// import useHeaderColor from "../../hooks/useHeaderColor";
-// import OutsideClickHandler from "react-outside-click-handler";
-// import { Link, NavLink } from "react-router-dom";
-// import { useAuth0 } from "@auth0/auth0-react";
-// import ProfileMenu from "../ProfileMenu/ProfileMenu";
-// import AddPropertyModal from "../AddPropertyModal/AddPropertyModal";
+import { Sheet, SheetTrigger, SheetContent } from "./ui/sheet";
+import { MenuIcon } from "lucide-react";
+import Image from "next/image";
+import Logo from "@/public/HaciendaLogo.jpeg";
 
-const Header = () => {
-  //   const [menuOpened, setMenuOpened] = useState(false);
-  //   const headerColor = useHeaderColor();
-  //   const [modalOpened, setModalOpened] = useState(false);
-  //   const { loginWithRedirect, isAuthenticated, user, logout } = useAuth0();
-  //   const { validateLogin } = useAuthCheck();
-
-  //   const handleAddPropertyClick = () => {
-  //     if (validateLogin()) {
-  //       setModalOpened(true);
-  //     }
-  //   };
-
+export const Header = () => {
   const { userId } = auth();
 
   return (
-    <nav className="h-wrapper" style={{ background: undefined }}>
-      <div className="flexCenter innerWidth paddings h-container">
+    <nav className="fixed w-full bg-background z-50 ">
+      <div className="py-4 justify-between flex gap-8 items-center flex-wrap px-4">
         {/* logo */}
         <Link href="/" className="valuestransition">
-          <img src="./HaciendaLogo.jpeg" alt="logo" width={50} />
+          <Image src={Logo} alt="HaciendaX Logo" width={30} height={30} />
         </Link>
 
         <div className="flex justify-center items-center gap-8">
-          <a className="valuestransition" href="/property-for-sale">
-            Residencies
-          </a>
-          <a className="valuestransition fontsizemenu" href="/AboutPage">
-            Our Values
-          </a>
-          <a className="valuestransition fontsizemenu" href="#about">
-            Contact Us
-          </a>
           <div className="valuestransition sizemenu">
             {!userId ? (
-              <SignUpButton>Get Started</SignUpButton>
+              <SignUpButton mode="modal">
+                <p className="text-base">Sign Up</p>
+              </SignUpButton>
             ) : (
               <UserButton />
             )}
           </div>
-        </div>
-
-        {/* menu */}
-        {/* <OutsideClickHandler
-          onOutsideClick={() => {
-            setMenuOpened(false);
-          }}
-        >
-          <div
-            // ref={menuRef}
-            className="flexCenter h-menu"
-            style={getMenuStyles(menuOpened)}
-          > */}
-        {/* <NavLink to="/properties">Properties</NavLink>
-
-            <a href="mailto:zainkeepscode@gmail.com">Contact</a> */}
-
-        {/* add property */}
-        {/* <div onClick={handleAddPropertyClick}>Add Property</div>
-            <AddPropertyModal opened={modalOpened} setOpened={setModalOpened} /> */}
-        {/* login button */}
-        {/* <div className="fontsizemenu">
-          {!userId ? <SignUpButton>Get Started</SignUpButton> : <UserButton />}
-        </div> */}
-        {/* </div>
-        </OutsideClickHandler> */}
-
-        {/* for medium and small screens */}
-        <div
-          className="menu-icon "
-          //   onClick={() => setMenuOpened((prev) => !prev)}
-        >
-          <BiMenuAltRight size={30} />
+          <NavSlider />
         </div>
       </div>
     </nav>
   );
 };
 
-export default Header;
+function NavSlider() {
+  "use client";
+
+  return (
+    <Sheet>
+      <SheetTrigger>
+        <MenuIcon size={25} />
+      </SheetTrigger>
+      <SheetContent className="flex justify-between py-80 items-start flex-col shadow-lg">
+        {/* <SheetHeader>
+          <SheetTitle >Are you absolutely sure?</SheetTitle>
+          <SheetDescription>
+            This action cannot be undone. This will permanently delete your
+            account and remove your data from our servers.
+          </SheetDescription>
+        </SheetHeader> */}
+        <Link href="/property-for-sale">
+          <p className="text-xl ">Search</p>
+        </Link>
+        <Link href="/favourites">
+          <p className="text-xl">Favourites</p>
+        </Link>
+        {/* Onboarding */}
+        <Link href="/dashboard">
+          <p className="text-xl ">Sell your Property</p>
+        </Link>
+        <Link href="/pricing">
+          <p className="text-xl ">Pricing</p>
+        </Link>
+        <Link href="/contact">
+          <p className="text-xl">Contact & Support</p>
+        </Link>
+      </SheetContent>
+    </Sheet>
+  );
+}

@@ -10,7 +10,7 @@ export const config = {
   matcher: [
     "/((?!.*\\..*|_next).*)",
     "/",
-    "/property-for-sale",
+    "/property-for-sale(.*)",
     "/(api|trpc)(.*)",
   ],
 };

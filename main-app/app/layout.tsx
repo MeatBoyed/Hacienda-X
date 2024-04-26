@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/Header";
+import { Header } from "@/components/Header";
 import Footer from "@/components/Footer";
 import ReactQueryProvider from "@/Utils/ReactQueryProvider";
 import { ClerkProvider } from "@clerk/nextjs";
@@ -26,7 +26,7 @@ export default function RootLayout({
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased",
-         inter 
+          inter
         )}
       >
         <ReactQueryProvider>

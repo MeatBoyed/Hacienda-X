@@ -1,0 +1,180 @@
+/* Pricing Plan Container */
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.title {
+  font-size: 24px;
+  color: #fff; /* Updated to white text color */
+}
+
+.nav {
+  display: flex;
+}
+
+.navLink {
+  margin-left: 20px;
+  text-decoration: none;
+  color: #fff; /* Updated to white text color */
+  font-size: 18px;
+}
+
+/* Pricing Header */
+.pricingHeader {
+  background-color: #007bff;
+  border-radius: 5px;
+  padding: 30px;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.heading {
+  font-size: 36px;
+  margin-bottom: 20px;
+  color: #fff; /* Updated to white text color */
+}
+
+.subheading {
+  font-size: 18px;
+  color: #fff; /* Updated to white text color */
+}
+
+/* Pricing Cards */
+.pricingCards {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 50px;
+}
+
+.card {
+  flex: 1;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 30px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+}
+
+.card h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.card p {
+  font-size: 20px;
+  margin-bottom: 20px;
+  color: #333; /* Updated to black text color */
+}
+
+.card ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 30px;
+}
+
+.card ul li {
+  margin-bottom: 10px;
+  color: #333; /* Updated to black text color */
+}
+
+.card button {
+  display: block;
+  width: 100%;
+  padding: 15px 0;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.card button:hover {
+  background-color: #0056b3;
+}
+
+/* Comparison Table */
+.comparisonHeader {
+  font-size: 24px;
+  margin-bottom: 30px;
+  color: #333; /* Updated to black text color */
+}
+
+.tableResponsive {
+  overflow-x: auto;
+}
+
+.comparisonTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.comparisonTable th,
+.comparisonTable td {
+  border: 1px solid #ccc;
+  padding: 15px;
+  text-align: left;
+}
+
+.comparisonTable th {
+  background-color: #f5f5f5;
+  color: #333; /* Updated to black text color */
+}
+
+.comparisonTable td:first-child {
+  font-weight: bold;
+  color: #333; /* Updated to black text color */
+}
+
+/* Footer */
+.footer {
+  margin-top: 50px;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.footerContent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.footerContent img {
+  width: 40px;
+  margin-right: 10px;
+}
+
+.footer p {
+  margin: 0;
+  font-size: 16px;
+  color: #333; /* Updated to black text color */
+}
+
+.footerLinks {
+  display: flex;
+  justify-content: center;
+}
+
+.footerLinks a {
+  margin: 0 10px;
+  text-decoration: none;
+  color: #333;
+  font-size: 16px;
+}
+
+.footerLinks a:hover {
+  text-decoration: underline;
+}

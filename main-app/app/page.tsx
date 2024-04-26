@@ -5,6 +5,7 @@ import GetStarted from "./_components/GetStarted";
 import Contact from "./_components/Contact";
 import Value from "./_components/Value";
 import Residencies from "./_components/Residencies";
+import SearchFilters from "./_components/SearchFilters";
 import { Suspense } from "react";
 
 export default function Home() {
@@ -15,7 +16,6 @@ export default function Home() {
           <div className="white-gradient" />
           <Hero />
         </div>
-        <Companies />
         <Residencies />
         <Value />
         <Contact />

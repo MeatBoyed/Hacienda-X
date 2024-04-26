@@ -2,7 +2,7 @@
 import React, { useContext, useState } from "react";
 import { PuffLoader } from "react-spinners";
 import "../property-for-sale/Properties.css";
-import SearchBar from "@/components/SearchBar";
+import { SearchBar } from "@/components/SearchBar";
 
 export default function Favourites() {
   //   const { data, isError, isLoading } = useProperties();
