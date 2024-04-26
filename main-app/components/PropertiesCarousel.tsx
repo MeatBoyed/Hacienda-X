@@ -71,8 +71,8 @@ export function PropertyCarousel2({ data }: { data: Property[] | null }) {
         {/* {Array.from({ length: 5 }).map((_, index) => ( */}
         {/* {data?.slice(0, 8).map((property, index) => ( */}
         {data?.map((property, index) => (
-          <div className="pl-4 w-full h-full">
-            <PropertyCard property={property} key={index} />
+          <div className="pl-4 w-full h-full" key={index}>
+            <PropertyCard property={property} />
           </div>
         ))}
       </CarouselContent>

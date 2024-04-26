@@ -1,4 +1,4 @@
-import { Property, PropertyImage } from "@prisma/client";
+import { Property } from "@prisma/client";
 
 // API Response Types
 export interface GenericPropertyResponse {

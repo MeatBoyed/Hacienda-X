@@ -61,8 +61,8 @@ export default function SearchProperty() {
                 property.country.toLowerCase().includes(filter.toLowerCase())
             )
             .map((card, i) => (
-              <div className="w-fit">
-                <PropertyCard property={card} key={i} />
+              <div className="w-fit" key={i}>
+                <PropertyCard property={card} />
               </div>
             ))}
       </div>
