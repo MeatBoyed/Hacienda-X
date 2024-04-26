@@ -22,12 +22,14 @@ export default function Residencies() {
   );
 
   return (
-    <section id="residencies" className="mt-12 w-full px-5 md:px-10 lg:px-32">
+    <section id="residencies" className="my-12 w-full px-5 md:px-10 lg:px-32">
       <div className="flex justify-center items-start flex-col gap-10 w-full">
         <div className="flex justify-between items-center w-full">
           <div className="flex justify-center items-start flex-col gap-1">
-            <p className="text-lg font-semibold opacity-80">Best Choices</p>
-            <h2 className="scroll-m-20 text-2xl font-semibold tracking-tight">
+            <p className="text-lg font-semibold opacity-80 text-accent">
+              Featured Properties
+            </p>
+            <h2 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0">
               Popular Residencies
             </h2>
           </div>
