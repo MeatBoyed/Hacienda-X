@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import {
   Carousel,
   CarouselContent,
@@ -20,7 +19,7 @@ export default function Head({
   return (
     <section
       id="head"
-      className="flex justify-center items-center flex-col w-full my-12 gap-14"
+      className="flex justify-center items-center flex-col w-full my-5 gap-14"
     >
       {/* Title, Share & Links */}
       <div className="w-full flex justify-center items-start sm:items-end flex-col gap-5 sm:flex-row sm:justify-between">
