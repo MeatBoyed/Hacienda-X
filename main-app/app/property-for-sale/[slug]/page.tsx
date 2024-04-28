@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import "./Property.css";
+// import "./Property.css";
 
 import { FaShower } from "react-icons/fa";
 import { AiTwotoneCar } from "react-icons/ai";
@@ -11,6 +11,7 @@ import { fetcher } from "@/lib/utils";
 import useSWR from "swr";
 import { SelectPropertyResponse } from "@/app/api/[[...route]]/utils";
 import { PuffLoader } from "react-spinners";
+import Head from "./_components/Head";
 
 // Handler for the API request (Server Side)
 export default function PropertyPage() {
@@ -26,8 +27,6 @@ export default function PropertyPage() {
     fetcher
   );
   console.log(data);
-
-  // const [modalOpened, setModalOpened] = useState(false);
 
   // Return to 404 Page if Property doesn't exists
   // if (!data?.results && isLoading === false) {
@@ -55,73 +54,83 @@ export default function PropertyPage() {
   }
 
   return (
-    <div className="wrapper">
-      <div className="flexColStart paddings innerWidth property-container text-black">
-        {/* like button */}
-        <div className="like">{/* <Heart id={id} /> */}</div>
+    <>
+      <section
+        id={`${data?.results.title} page`}
+        className="w-full flex flex-col justify-center items-center gap-20 bg-background pt-20"
+      >
+        <div className="w-full gap-3 flex justify-center items-center flex-col px-4 pt-5 sm:max-w-3xl sm:px-2 sm:pt-0 lg:max-w-5xl">
+          <Head title={data?.results.title} images={data?.results.images} />
+        </div>
+      </section>
+      <div className="wrapper">
+        <div className="flexColStart paddings innerWidth property-container text-black">
+          {/* like button */}
+          <div className="like">{/* <Heart id={id} /> */}</div>
 
-        {/* image */}
-        {/* Must be a carousel, and or, use slideshow features */}
-        <img src={""} alt="home image" />
+          {/* image */}
+          {/* Must be a carousel, and or, use slideshow features */}
+          <img src={""} alt="home image" />
 
-        <div className="flexCenter property-details">
-          {/* left */}
-          <div className="flexColStart left">
-            {/* head */}
-            <div className="flexStart head">
-              <span className="primaryText">{data?.results.title}</span>
-              <span className="orangeText" style={{ fontSize: "1.5rem" }}>
-                $ {data?.results.price}
+          <div className="flexCenter property-details">
+            {/* left */}
+            <div className="flexColStart left">
+              {/* head */}
+              <div className="flexStart head">
+                <span className="primaryText">{data?.results.title}</span>
+                <span className="orangeText" style={{ fontSize: "1.5rem" }}>
+                  $ {data?.results.price}
+                </span>
+              </div>
+
+              {/* facilities */}
+              <div className="flexStart facilities">
+                {/* bathrooms */}
+                <div className="flexStart facility">
+                  <FaShower size={20} color="#1F3E72" />
+                  <span>{data?.results.bathrooms} Bathrooms</span>
+                </div>
+
+                {/* parkings */}
+                <div className="flexStart facility">
+                  <AiTwotoneCar size={20} color="#1F3E72" />
+                  <span>{"Not a Field"} Parking</span>
+                </div>
+
+                {/* rooms */}
+                <div className="flexStart facility">
+                  <MdMeetingRoom size={20} color="#1F3E72" />
+                  <span>{data?.results.bathrooms} Room/s</span>
+                </div>
+              </div>
+
+              {/* description */}
+              <span className="secondaryText" style={{ textAlign: "justify" }}>
+                {data?.results.description}
               </span>
-            </div>
 
-            {/* facilities */}
-            <div className="flexStart facilities">
-              {/* bathrooms */}
-              <div className="flexStart facility">
-                <FaShower size={20} color="#1F3E72" />
-                <span>{data?.results.bathrooms} Bathrooms</span>
-              </div>
-
-              {/* parkings */}
-              <div className="flexStart facility">
-                <AiTwotoneCar size={20} color="#1F3E72" />
-                <span>{"Not a Field"} Parking</span>
-              </div>
-
-              {/* rooms */}
-              <div className="flexStart facility">
-                <MdMeetingRoom size={20} color="#1F3E72" />
-                <span>{data?.results.bathrooms} Room/s</span>
+              {/* address */}
+              <div className="flexStart" style={{ gap: "1rem" }}>
+                <MdLocationPin size={25} />
+                <span className="secondaryText">
+                  {data?.results.address} {data?.results.city}{" "}
+                  {data?.results.country}
+                </span>
               </div>
             </div>
 
-            {/* description */}
-            <span className="secondaryText" style={{ textAlign: "justify" }}>
-              {data?.results.description}
-            </span>
-
-            {/* address */}
-            <div className="flexStart" style={{ gap: "1rem" }}>
-              <MdLocationPin size={25} />
-              <span className="secondaryText">
-                {data?.results.address} {data?.results.city}{" "}
-                {data?.results.country}
-              </span>
-            </div>
-          </div>
-
-          {/* right side */}
-          <div className="map">
-            {/* <Map
+            {/* right side */}
+            <div className="map">
+              {/* <Map
               address={data?.results.address}
               city={data?.results.city}
               country={data?.results.country}
             /> */}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
