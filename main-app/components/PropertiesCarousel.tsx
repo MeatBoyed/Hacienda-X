@@ -65,7 +65,7 @@ export function PropertyCarousel2({ data }: { data: Property[] | null }) {
       plugins={[plugin.current]}
       onMouseEnter={plugin.current.stop}
       onMouseLeave={plugin.current.reset}
-      className="w-full max-w-xs md:max-w-full"
+      className="w-full sm:max-w-full flex justify-center items-center"
     >
       <CarouselContent className="w-full gap-5 -ml-4">
         {/* {Array.from({ length: 5 }).map((_, index) => ( */}
@@ -76,8 +76,8 @@ export function PropertyCarousel2({ data }: { data: Property[] | null }) {
           </div>
         ))}
       </CarouselContent>
-      <CarouselPrevious className="visible" />
-      <CarouselNext />
+      <CarouselPrevious size={"sm"} />
+      <CarouselNext size={"sm"} />
     </Carousel>
   );
 }

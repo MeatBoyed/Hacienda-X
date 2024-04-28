@@ -72,7 +72,7 @@ export function SearchBoxNonFunc() {
         className="border-0 bg-white text-black shadow-lg "
       />
 
-      <div className="flex justify-center w-full items-center gap-3 ">
+      <div className="flex justify-center w-full items-center gap-3 flex-col sm:flex-row">
         <Dialog>
           <DialogTrigger className="bg-transparent w-full border-background border hover:bg-background hover:text-black hover: rounded-md">
             {/* <p className="text-lg bg-prima">Filter</p> */}

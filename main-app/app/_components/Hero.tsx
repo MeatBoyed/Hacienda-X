@@ -10,9 +10,9 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="w-full h-[60vh] flex justify-center items-center"
+      className="w-full h-[70vh] flex justify-center items-center"
     >
-      <div className="flex justify-center items-center w-full flex-col z-10 gap-8 text-white">
+      <div className="flex justify-center items-center w-full flex-col z-10 gap-8 text-white px-4 pt-5 sm:max-w-2xl sm:px-2 sm:pt-0 lg:max-w-4xl">
         <div className="flex justify-center items-center flex-col gap-2">
           <h1 className="text-center scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
             Find the Perfect Home
@@ -22,15 +22,15 @@ export default function Hero() {
           </p>
         </div>
 
-        <div className="w-[80%]">
+        <div className="w-full">
           <SearchBoxNonFunc />
         </div>
       </div>
-      <div className="bg-black w-full opacity-60 absolute z-0 h-[60vh]">
+      <div className="bg-black w-full opacity-60 absolute z-0 h-[70vh]">
         <Image
           src={BannerImage}
           alt="Hero Image"
-          className="w-full bg-cover object-cover h-[60vh]"
+          className="w-full bg-cover object-cover h-[70vh]"
           priority
         />
       </div>
