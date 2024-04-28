@@ -74,11 +74,11 @@ export function SearchBoxNonFunc() {
 
       <div className="flex justify-center w-full items-center gap-3 flex-col sm:flex-row">
         <Dialog>
-          <DialogTrigger className="bg-transparent w-full border-background border hover:bg-background hover:text-black hover: rounded-md">
+          <DialogTrigger className="bg-white w-full shadow-lg text-black hover:border-background hover:border hover:text-primary hover: rounded-md">
             {/* <p className="text-lg bg-prima">Filter</p> */}
             <Button
               size={"sm"}
-              className="bg-transparent text-primary w-full text-white hover:text-black gap-3"
+              className="bg-transparent text-text w-full hover:text-primary gap-3"
             >
               <SlidersHorizontal size={15} /> Filter
             </Button>
@@ -96,13 +96,13 @@ export function SearchBoxNonFunc() {
 
         <Button
           size={"sm"}
-          className="bg-background w-full text-black hover:border-background hover:border hover:text-primary shadow-lg gap-3"
+          className="bg-white w-full text-black hover:border-background hover:border hover:text-primary shadow-lg gap-3"
         >
           <MapPin size={15} /> Map Search
         </Button>
         <Button
           size={"sm"}
-          className="bg-white w-full text-black hover:border-background hover:border hover:text-primary shadow-lg gap-3"
+          className="bg-accent w-full text-white hover:border-background hover:border hover:text-primary shadow-lg gap-3"
         >
           <Search size={15} /> Search
         </Button>

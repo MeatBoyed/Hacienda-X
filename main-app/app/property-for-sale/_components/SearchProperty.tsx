@@ -24,13 +24,13 @@ export default function SearchProperty() {
 
   return (
     // Add padding for desktop & tablet devices
-    <div className="w-full flex flex-col justify-center items-center gap-20 pb-32">
-      <div className="px-5 w-full gap-3 flex justify-center items-center flex-col ">
+    <div className="w-full flex flex-col justify-center items-center gap-20 ">
+      <div className="w-full gap-3 flex justify-center items-center flex-col px-4 pt-5 sm:max-w-2xl sm:px-2 sm:pt-0 lg:max-w-4xl">
         {/* <SearchBar filter={filter} setFilter={setFilter} /> */}
         {/* <SearchBox filter={filter} setFilter={setFilter} /> */}
-        <SearchBoxNonFuncSearchPage
-          mapActive={mapActive}
-          setMapActive={setMapActive}
+        <SearchBoxNonFunc
+        // mapActive={mapActive}
+        // setMapActive={setMapActive}
         />
         {mapActive && data && (
           <div className="w-full h-[75vh]" id="MapContainer">
@@ -39,7 +39,7 @@ export default function SearchProperty() {
         )}
       </div>
       {/* Make the last item stick to the left side, not centered - FOR Daniel */}
-      <div className="flex justify-center items-center px-3 gap-5 flex-wrap w-full md:items-start">
+      <div className="flex justify-center items-center w-full">
         {isLoading && (
           <div className="wrapper flexCenter" style={{ height: "60vh" }}>
             <PuffLoader color="#4066ff" aria-label="puff-loading" />
@@ -52,19 +52,22 @@ export default function SearchProperty() {
             </p>
           </div>
         )}
-        {!mapActive &&
-          data?.results
-            ?.filter(
-              (property) =>
-                property.title.toLowerCase().includes(filter.toLowerCase()) ||
-                property.city.toLowerCase().includes(filter.toLowerCase()) ||
-                property.country.toLowerCase().includes(filter.toLowerCase())
-            )
-            .map((card, i) => (
-              <div className="w-fit" key={i}>
-                <PropertyCard property={card} />
-              </div>
-            ))}
+        {!mapActive && (
+          <div className="grid w-full grid-cols-1 gap-x-4 gap-y-10 lg:grid-cols-3 md:grid-cols-2 px-4 sm:max-w-2xl lg:max-w-5xl">
+            {data?.results
+              ?.filter(
+                (property) =>
+                  property.title.toLowerCase().includes(filter.toLowerCase()) ||
+                  property.city.toLowerCase().includes(filter.toLowerCase()) ||
+                  property.country.toLowerCase().includes(filter.toLowerCase())
+              )
+              .map((card, i) => (
+                <div className="w-fit" key={i}>
+                  <PropertyCard property={card} />
+                </div>
+              ))}
+          </div>
+        )}
       </div>
     </div>
   );
