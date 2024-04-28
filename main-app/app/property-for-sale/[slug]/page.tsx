@@ -13,7 +13,7 @@ import { SelectPropertyResponse } from "@/app/api/[[...route]]/utils";
 import { PuffLoader } from "react-spinners";
 import Head from "./_components/Head";
 import PropertyDetails from "./_components/PropertyDetails";
-import AgentDetails from "./_components/AgentDetails";
+import BottomNavbar from "./_components/BottomNavbar";
 
 // Handler for the API request (Server Side)
 export default function PropertyPage() {
@@ -68,6 +68,7 @@ export default function PropertyPage() {
           bedrooms={data?.results.rooms}
         />
       </div>
+      <BottomNavbar price={data?.results.price} />
     </section>
   );
 }

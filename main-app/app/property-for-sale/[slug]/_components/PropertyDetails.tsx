@@ -16,8 +16,8 @@ export default function PropertyDetails({
   bedrooms,
 }: {
   description?: string;
-  bathrooms?: string;
-  bedrooms?: string;
+  bathrooms?: number;
+  bedrooms?: number;
 }) {
   return (
     <section
@@ -25,7 +25,7 @@ export default function PropertyDetails({
       className="flex justify-center items-center flex-col w-full py-10"
     >
       <div className="border-t border-b border-[#dddddd] py-5 flex justify-center items-start flex-col w-full gap-5">
-        <p className="text-sm text-muted-foreground">
+        <p className="text-sm">
           Climb – Hike – Bike – Fish – Relax...Tegwaan is the perfect place to
           stay if you want access to a lot of fun outdoor activities while
           staying in a comfortable place! Immersed in nature, Tegwaan is a
@@ -57,7 +57,7 @@ export default function PropertyDetails({
       </div>
 
       <div className="border-t border-b border-[#dddddd] py-5 flex justify-center items-start flex-col w-full gap-5">
-        <h3 className="scroll-m-20 text-xl font-semibold tracking-tight">
+        <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
           Meet your agent
         </h3>
 
@@ -83,11 +83,11 @@ function OffersList({
   bathrooms,
   bedrooms,
 }: {
-  bathrooms?: string;
-  bedrooms?: string;
+  bathrooms?: number;
+  bedrooms?: number;
 }) {
   return (
-    <div className="flex justify-center items-start flex-col w-full">
+    <div className="flex justify-center items-start flex-col w-full gap-3">
       <div className="flex justify-center items-center gap-5">
         <Bed size={20} />
         <p className="leading-7">{bedrooms} Bedrooms</p>
