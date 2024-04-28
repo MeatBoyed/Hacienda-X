@@ -1,11 +1,7 @@
 "use client";
 import { GenericPropertyResponse } from "@/app/api/[[...route]]/utils";
 import PropertyCard from "@/components/PropertyCard";
-import {
-  SearchBox,
-  SearchBoxNonFunc,
-  SearchBoxNonFuncSearchPage,
-} from "@/components/SearchBar";
+import { SearchBar } from "@/components/SearchBar";
 import { fetcher } from "@/lib/utils";
 import { useEffect, useState } from "react";
 import { PuffLoader } from "react-spinners";
@@ -28,9 +24,11 @@ export default function SearchProperty() {
       <div className="w-full gap-3 flex justify-center items-center flex-col px-4 pt-5 sm:max-w-2xl sm:px-2 sm:pt-0 lg:max-w-4xl">
         {/* <SearchBar filter={filter} setFilter={setFilter} /> */}
         {/* <SearchBox filter={filter} setFilter={setFilter} /> */}
-        <SearchBoxNonFunc
-        // mapActive={mapActive}
-        // setMapActive={setMapActive}
+        <SearchBar
+          mapActive={mapActive}
+          setMapActive={setMapActive}
+          filter={filter}
+          setFilter={setFilter}
         />
         {mapActive && data && (
           <div className="w-full h-[75vh]" id="MapContainer">

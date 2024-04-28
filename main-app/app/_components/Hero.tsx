@@ -4,7 +4,7 @@ import "./Hero.css";
 import React from "react";
 import BannerImage from "@/public/bannerImg.jpg";
 import Image from "next/image";
-import { SearchBoxNonFunc } from "@/components/SearchBar";
+import { SearchBar } from "@/components/SearchBar";
 
 export default function Hero() {
   return (
@@ -23,7 +23,7 @@ export default function Hero() {
         </div>
 
         <div className="w-full">
-          <SearchBoxNonFunc />
+          <SearchBar />
         </div>
       </div>
       <div className="bg-black w-full opacity-60 absolute z-0 h-[70vh]">
