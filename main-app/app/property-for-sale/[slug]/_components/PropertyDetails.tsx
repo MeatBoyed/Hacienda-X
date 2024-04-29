@@ -22,7 +22,7 @@ export default function PropertyDetails({
   return (
     <section
       id="propertyDetails"
-      className="flex justify-center items-center flex-col w-full pt-5"
+      className="flex justify-center items-center flex-col w-full "
     >
       {/* Description */}
       <div className="border-t border-b border-[#dddddd] py-10 flex justify-center items-start flex-col w-full gap-5">
@@ -46,25 +46,6 @@ export default function PropertyDetails({
         </div>
       </div>
 
-      {/* Offer / Features */}
-      <div className="border-t border-b border-[#dddddd] py-10 flex justify-center items-start flex-col w-full gap-5">
-        <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
-          What this place offers
-        </h3>
-
-        <OffersList bathrooms={bathrooms} bedrooms={bedrooms} />
-      </div>
-
-      <div className="border-t border-b border-[#dddddd] py-5 flex justify-center items-start flex-col w-full gap-5">
-        <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
-          Where it is
-        </h3>
-        <div className="w-full h-32 bg-black rounded-lg" />
-        <Button variant="link" className="text-text ">
-          Find properties in this area
-        </Button>
-      </div>
-
       {/* About the Agent (Agent Details) */}
       <div className="border-t border-b border-[#dddddd] py-10 flex justify-center items-start flex-col w-full gap-5">
         <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
@@ -84,6 +65,26 @@ export default function PropertyDetails({
             <p className="leading-7 text-xs">Card Description</p>
           </div>
         </div>
+      </div>
+
+      {/* Offer / Features */}
+      <div className="border-t border-b border-[#dddddd] py-10 flex justify-center items-start flex-col w-full gap-5">
+        <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
+          What this place offers
+        </h3>
+
+        <OffersList bathrooms={bathrooms} bedrooms={bedrooms} />
+      </div>
+
+      {/* Property location */}
+      <div className="border-t border-b border-[#dddddd] py-5 flex justify-center items-start flex-col w-full gap-5">
+        <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
+          Where it is
+        </h3>
+        <div className="w-full h-32 bg-black rounded-lg" />
+        <Button variant="link" className="text-text ">
+          Find properties in this area
+        </Button>
       </div>
     </section>
   );
