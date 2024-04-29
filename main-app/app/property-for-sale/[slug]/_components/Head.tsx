@@ -60,6 +60,7 @@ export default function Head({
             style={{
               width: "100%",
             }}
+            priority
           />
         )}
       </div>
