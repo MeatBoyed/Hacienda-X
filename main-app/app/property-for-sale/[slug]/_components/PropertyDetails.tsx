@@ -22,23 +22,32 @@ export default function PropertyDetails({
   return (
     <section
       id="propertyDetails"
-      className="flex justify-center items-center flex-col w-full py-10"
+      className="flex justify-center items-center flex-col w-full pt-5"
     >
-      <div className="border-t border-b border-[#dddddd] py-5 flex justify-center items-start flex-col w-full gap-5">
-        <p className="text-sm">
-          Climb – Hike – Bike – Fish – Relax...Tegwaan is the perfect place to
-          stay if you want access to a lot of fun outdoor activities while
-          staying in a comfortable place! Immersed in nature, Tegwaan is a
-          little ecosystem of its own: with fresh water springs, several fish
-          ponds and a creek, the grass is always green, the trees are tall and
-          the birds are happy! :-). The Studio is a big open plan room, ideal
-          for couples or families who want a bit more space than a tiny house.
-        </p>
-        <Button className="text-text p-0" variant={"link"}>
-          See More <ChevronRight size={15} />
-        </Button>
+      {/* Description */}
+      <div className="border-t border-b border-[#dddddd] py-10 flex justify-center items-start flex-col w-full gap-5">
+        <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
+          About the property
+        </h3>
+
+        <div className="flex justify-center items-start flex-col gap-2">
+          <p className="text-sm">
+            Climb – Hike – Bike – Fish – Relax...Tegwaan is the perfect place to
+            stay if you want access to a lot of fun outdoor activities while
+            staying in a comfortable place! Immersed in nature, Tegwaan is a
+            little ecosystem of its own: with fresh water springs, several fish
+            ponds and a creek, the grass is always green, the trees are tall and
+            the birds are happy! :-). The Studio is a big open plan room, ideal
+            for couples or families who want a bit more space than a tiny house.
+          </p>
+          <Button className="text-text p-0" variant={"link"}>
+            See More <ChevronRight size={15} />
+          </Button>
+        </div>
       </div>
-      <div className="border-t border-b border-[#dddddd] py-5 flex justify-center items-start flex-col w-full gap-5">
+
+      {/* Offer / Features */}
+      <div className="border-t border-b border-[#dddddd] py-10 flex justify-center items-start flex-col w-full gap-5">
         <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
           What this place offers
         </h3>
@@ -56,7 +65,8 @@ export default function PropertyDetails({
         </Button>
       </div>
 
-      <div className="border-t border-b border-[#dddddd] py-5 flex justify-center items-start flex-col w-full gap-5">
+      {/* About the Agent (Agent Details) */}
+      <div className="border-t border-b border-[#dddddd] py-10 flex justify-center items-start flex-col w-full gap-5">
         <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
           Meet your agent
         </h3>

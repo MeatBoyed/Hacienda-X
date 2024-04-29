@@ -14,6 +14,7 @@ import { PuffLoader } from "react-spinners";
 import Head from "./_components/Head";
 import PropertyDetails from "./_components/PropertyDetails";
 import BottomNavbar from "./_components/BottomNavbar";
+import TopNavbar from "./_components/TopNavbar";
 
 // Handler for the API request (Server Side)
 export default function PropertyPage() {
@@ -60,13 +61,16 @@ export default function PropertyPage() {
       id={`${data?.results.title} page`}
       className="w-full flex flex-col justify-center items-center gap-2 bg-background pt-16 bg-[#fff]"
     >
-      <div className="w-full flex justify-center items-center flex-col px-4 pt-5 sm:max-w-3xl sm:px-2 sm:pt-0 lg:max-w-5xl">
-        <Head title={data?.results.title} images={data?.results.images} />
+      <TopNavbar />
+      <Head title={data?.results.title} images={data?.results.images} />
+      <div className="w-full flex justify-center items-center flex-col px-4 sm:max-w-3xl lg:max-w-5xl">
         <PropertyDetails
           description={data?.results.description}
           bathrooms={data?.results.bathrooms}
           bedrooms={data?.results.rooms}
         />
+        {/* Final CTA should be placed here */}
+        {/* After page is functional, add more content to increase SEO Ranking */}
       </div>
       <BottomNavbar price={data?.results.price} />
     </section>
