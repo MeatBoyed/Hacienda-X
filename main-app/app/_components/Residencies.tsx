@@ -6,12 +6,10 @@ import "swiper/css";
 import "./Residencies.css";
 import { PuffLoader } from "react-spinners";
 import useSWR from "swr";
-import PropertiesCarousel, {
-  PropertyCarousel2,
-} from "@/components/PropertiesCarousel";
 import { GenericPropertyResponse } from "../api/[[...route]]/utils";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import PropertyCarousel from "@/components/PropertyCarousel";
 
 // Handles calling Fetch API (This is an example, it has been extracted into the Utils file)
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
@@ -68,7 +66,7 @@ export default function Residencies() {
         )}
         <div className="w-full h-full ">
           {/* {data && <PropertiesCarousel data={data.results} />} */}
-          {data && <PropertyCarousel2 data={data.results} />}
+          {data && <PropertyCarousel data={data.results} />}
         </div>
       </div>
     </section>
