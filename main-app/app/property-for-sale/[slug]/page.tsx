@@ -11,6 +11,7 @@ import PropertyDetails from "./_components/PropertyDetails";
 import BottomNavbar from "./_components/BottomNavbar";
 import TopNavbar from "./_components/TopNavbar";
 import LeadForm from "./_components/LeadForm";
+import Residencies from "@/app/_components/Residencies";
 
 // Handler for the API request (Server Side)
 export default function PropertyPage() {
@@ -34,20 +35,16 @@ export default function PropertyPage() {
 
   if (isLoading) {
     return (
-      <div className="wrapper">
-        <div className="flexCenter paddings">
-          <PuffLoader />
-        </div>
+      <div className="w-full flex justify-center items-center h-[100vh] bg-[#ffff]">
+        <PuffLoader />
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="wrapper">
-        <div className="flexCenter paddings text-black text-lg">
-          <span>Error while fetching the property details</span>
-        </div>
+      <div className="w-full flex justify-center items-center h-[100vh] bg-[#ffff]">
+        <span>Error while fetching the property details</span>
       </div>
     );
   }
@@ -69,6 +66,7 @@ export default function PropertyPage() {
         {/* Final CTA should be placed here */}
         {/* After page is functional, add more content to increase SEO Ranking */}
       </div>
+      <Residencies />
       <BottomNavbar price={data?.results.price} />
     </section>
   );

@@ -53,12 +53,12 @@ export default function Head({
           <Image
             src={images[0]}
             alt={`property-image-${1}`}
-            className="w-full object-cover"
-            width={500}
-            height={700}
+            // Height is responsive, should be okay to use when implementing slider
+            className="w-full object-cover h-[40vh] sm:h-[50vh] md:h-[60vh]"
+            width={600}
+            height={500}
             style={{
               width: "100%",
-              height: "14rem",
             }}
           />
         )}
