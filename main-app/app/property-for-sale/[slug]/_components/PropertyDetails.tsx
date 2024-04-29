@@ -59,9 +59,7 @@ export default function PropertyDetails({
           </Avatar>
 
           <div className="flex justify-center items-start gap-2 flex-col">
-            <p className="text-sm font-semibold leading-none">
-              Hughie Cameltoe'
-            </p>
+            <p className="text-sm font-semibold leading-none">Hughe Cameltoe</p>
             <p className="leading-7 text-xs">Card Description</p>
           </div>
         </div>

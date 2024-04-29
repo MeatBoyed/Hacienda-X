@@ -65,7 +65,7 @@ export default function LeadForm() {
     <Card className="w-[70%] shadow-lg hidden sm:block">
       <CardHeader className="flex justify-center items-center">
         <CardTitle>Contact Agent</CardTitle>
-        <CardDescription>Our agent's are here to assist you</CardDescription>
+        <CardDescription>Our agents are here to assist you</CardDescription>
       </CardHeader>
       <CardContent>
         <Form {...form}>
