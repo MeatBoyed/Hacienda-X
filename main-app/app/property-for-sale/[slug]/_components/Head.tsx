@@ -8,6 +8,8 @@ import {
 } from "@/components/ui/carousel";
 import { Heart, Share } from "lucide-react";
 import Image from "next/image";
+import { toast } from "@/components/ui/use-toast";
+import handleCopyClick from "@/components/CopyToClipboard";
 
 export default function Head({
   title,
@@ -16,6 +18,9 @@ export default function Head({
   title?: string;
   images?: string[];
 }) {
+  const siteurl = process.env.NEXT_PUBLIC_SITE_URL;
+  const url = siteurl + "/property-for-sale/" + encodeURIComponent(title || "");
+
   return (
     <section
       id="head"
@@ -34,6 +39,19 @@ export default function Head({
             <Button
               className="text-text bg-transparent gap-3 p-0 underline"
               size={"sm"}
+              onClick={async () =>
+                (await handleCopyClick(url))
+                  ? toast({
+                      title: "Saved to clipboard!",
+                      description:
+                        "Share the link on your favourite social media.",
+                    })
+                  : toast({
+                      title: "Couldn't save to clipboard.",
+                      description:
+                        "Sorry, something went wrong. Please try again.",
+                    })
+              }
             >
               <Share size={15} /> Share
             </Button>
@@ -47,7 +65,7 @@ export default function Head({
         </div>
       </div>
 
-      <div className="flex justify-center items-center w-full sm:max-w-3xl sm:px-4 sm:pt-0 lg:max-w-5xl">
+      <div className="flex justify-center items-center w-full mt-4 sm:max-w-3xl sm:px-4 sm:pt-0 lg:max-w-5xl">
         {/* <ImageSlider images={images} /> */}
         {images && (
           <Image
@@ -68,31 +86,31 @@ export default function Head({
   );
 }
 
-function ImageSlider({ images }: { images?: string[] }) {
-  "use client";
+// function ImageSlider({ images }: { images?: string[] }) {
+//   "use client";
 
-  return (
-    <Carousel className="w-full sm:max-w-full flex justify-center items-center">
-      <CarouselContent className="w-full gap-5 -ml-4 flex justify-center items-center">
-        {images?.map((image, index) => (
-          <CarouselItem key={index} className="pl-4 w-full h-full">
-            {/* Add Better SEO alt tag naming */}
-            <Image
-              src={image}
-              alt={`property-image-${index}`}
-              className="w-full object-cover"
-              width={500}
-              height={700}
-              style={{
-                width: "100%",
-                height: "14rem",
-              }}
-            />
-          </CarouselItem>
-        ))}
-      </CarouselContent>
-      <CarouselPrevious />
-      <CarouselNext />
-    </Carousel>
-  );
-}
+//   return (
+//     <Carousel className="w-full sm:max-w-full flex justify-center items-center">
+//       <CarouselContent className="w-full gap-5 -ml-4 flex justify-center items-center">
+//         {images?.map((image, index) => (
+//           <CarouselItem key={index} className="pl-4 w-full h-full">
+//             {/* Add Better SEO alt tag naming */}
+//             <Image
+//               src={image}
+//               alt={`property-image-${index}`}
+//               className="w-full object-cover"
+//               width={500}
+//               height={700}
+//               style={{
+//                 width: "100%",
+//                 height: "14rem",
+//               }}
+//             />
+//           </CarouselItem>
+//         ))}
+//       </CarouselContent>
+//       <CarouselPrevious />
+//       <CarouselNext />
+//     </Carousel>
+//   );
+// }
