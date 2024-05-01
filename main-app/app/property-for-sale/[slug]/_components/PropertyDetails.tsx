@@ -73,17 +73,6 @@ export default function PropertyDetails({
 
         <OffersList bathrooms={bathrooms} bedrooms={bedrooms} />
       </div>
-
-      {/* Property location */}
-      <div className="border-t border-b border-[#dddddd] py-5 flex justify-center items-start flex-col w-full gap-5">
-        <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
-          Where it is
-        </h3>
-        <div className="w-full h-32 bg-black rounded-lg" />
-        <Button variant="link" className="text-text ">
-          Find properties in this area
-        </Button>
-      </div>
     </section>
   );
 }

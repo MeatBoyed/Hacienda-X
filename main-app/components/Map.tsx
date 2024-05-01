@@ -7,13 +7,20 @@ import { Icon, LatLngExpression } from "leaflet";
 import PinIcon from "@/public/MapPin.png";
 import "leaflet/dist/leaflet.css";
 import { Property } from "@prisma/client";
+import { cn } from "@/lib/utils";
 
 interface marker {
   geocode: LatLngExpression;
   message: string;
 }
 
-export function MapViewer({ properties }: { properties: Property[] }) {
+export function MapViewer({
+  properties,
+  classname,
+}: {
+  properties: Property[];
+  classname: string;
+}) {
   // const center: LatLngExpression = [-26.1045525, 28.0545147];
   const center: LatLngExpression = [
     properties[0].latitude,
@@ -45,7 +52,7 @@ export function MapViewer({ properties }: { properties: Property[] }) {
   });
 
   return (
-    <div className="w-full h-[50vh] md:h-[75vh]">
+    <div className={cn("w-full", classname)} id="Map">
       <MapContainer
         center={center}
         zoom={13}

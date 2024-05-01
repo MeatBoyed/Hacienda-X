@@ -31,9 +31,10 @@ export default function SearchProperty() {
           setFilter={setFilter}
         />
         {mapActive && data && (
-          <div className="w-full h-[75vh]" id="MapContainer">
-            <MapViewer properties={data.results} />
-          </div>
+          <MapViewer
+            classname="h-[50vh] md:h-[75vh]"
+            properties={data.results}
+          />
         )}
       </div>
       {/* Make the last item stick to the left side, not centered - FOR Daniel */}
