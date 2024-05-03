@@ -13,11 +13,15 @@ import TopNavbar from "./_components/TopNavbar";
 import LeadForm from "./_components/LeadForm";
 import Residencies from "@/app/_components/Residencies";
 import LocationSection from "./_components/LocationSection";
+import { useAuth } from "@clerk/nextjs";
+import { usePostHog } from "posthog-js/react";
 
 // Handler for the API request (Server Side)
 export default function PropertyPage() {
   // Get the slug (/properties/:slug)
+  const posthog = usePostHog();
   const params = useParams();
+
   const slug = decodeURIComponent(
     typeof params.slug === "string" ? params.slug : ""
   );
@@ -28,6 +32,11 @@ export default function PropertyPage() {
     fetcher
   );
   console.log(data);
+
+  const { userId } = useAuth();
+  if (userId) {
+    posthog.identify(userId);
+  }
 
   // Return to 404 Page if Property doesn't exists
   // if (!data?.results && isLoading === false) {
