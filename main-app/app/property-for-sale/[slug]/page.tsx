@@ -68,7 +68,7 @@ export default function PropertyPage() {
         {/* After page is functional, add more content to increase SEO Ranking */}
       </div>
       <div className="w-full flex justify-center items-start gap-10 lg:gap-20 pt-5 px-4 sm:max-w-3xl lg:max-w-5xl">
-        <LocationSection properties={data?.results.longitude} />
+        {/* <LocationSection properties={data?.results.longitude} /> */}
       </div>
       <Residencies />
       <BottomNavbar price={data?.results.price} />
