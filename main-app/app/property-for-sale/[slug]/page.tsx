@@ -19,7 +19,7 @@ import { usePostHog } from "posthog-js/react";
 // Handler for the API request (Server Side)
 export default function PropertyPage() {
   // Get the slug (/properties/:slug)
-  const posthog = usePostHog();
+  // const posthog = usePostHog();
   const params = useParams();
 
   const slug = decodeURIComponent(
@@ -33,10 +33,10 @@ export default function PropertyPage() {
   );
   console.log(data);
 
-  const { userId } = useAuth();
-  if (userId) {
-    posthog.identify(userId);
-  }
+  // const { userId } = useAuth();
+  // if (userId) {
+  //   posthog.identify(userId);
+  // }
 
   // Return to 404 Page if Property doesn't exists
   // if (!data?.results && isLoading === false) {

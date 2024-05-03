@@ -11,14 +11,14 @@ import PostHogClient from "@/components/Posthog";
 import { auth } from "@clerk/nextjs/server";
 
 export default async function Home() {
-  const { userId } = auth();
-  const posthog = PostHogClient();
+  // const { userId } = auth();
+  // const posthog = PostHogClient();
 
-  if (userId) {
-    posthog.identify({
-      distinctId: userId, // replace with a user's distinct ID
-    });
-  }
+  // if (userId) {
+  //   posthog.identify({
+  //     distinctId: userId, // replace with a user's distinct ID
+  //   });
+  // }
 
   return (
     <Suspense fallback={<div>Loading...</div>}>

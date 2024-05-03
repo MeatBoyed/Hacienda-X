@@ -1,10 +1,12 @@
 import { Webhook } from "svix";
 import { headers } from "next/headers";
 import { WebhookEvent } from "@clerk/nextjs/server";
+import PostHogClient from "@/components/Posthog";
 
 export async function POST(req: Request) {
   // You can find this in the Clerk Dashboard -> Webhooks -> choose the webhook
   const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET;
+  const posthog = PostHogClient();
 
   if (!WEBHOOK_SECRET) {
     throw new Error(
@@ -52,16 +54,41 @@ export async function POST(req: Request) {
   const { id } = evt.data;
   const eventType = evt.type;
 
+  if (!id) {
+    return new Response("Error occured. UserId undefined in event data", {
+      status: 400,
+    });
+  }
+
   switch (eventType) {
     case "user.created":
       console.log(`Webhook with and ID of ${id} and type of ${eventType}`);
       console.log("Webhook body:", body);
+
+      posthog.capture({
+        distinctId: id,
+        event: "user-signed-up",
+      });
       break;
     case "user.deleted":
       // Run Delete User func from DB
+
+      posthog.capture({
+        distinctId: id,
+        event: "user-deleted-account",
+      });
       break;
     case "user.updated":
       // run Update User func from DB
+      break;
+    case "session.created":
+      // User logs in, track
+      posthog.identify({
+        distinctId: id,
+      });
+      break;
+    case "session.ended":
+      // User logs out end tracking
       break;
     default:
       return new Response(
