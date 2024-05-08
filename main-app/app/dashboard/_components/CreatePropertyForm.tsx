@@ -21,7 +21,7 @@ const propertySchema = z.object({
   location: z.string(),
 });
 
-export default function CreateProertyForm() {
+export default function CreatePropertyForm() {
   const form = useForm<z.infer<typeof propertySchema>>({
     resolver: zodResolver(propertySchema),
     defaultValues: {
@@ -32,10 +32,24 @@ export default function CreateProertyForm() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof propertySchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof propertySchema>) {
+    try {
+      const response = await fetch("/api/residency/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+      });
+      if (response.ok) {
+        alert("Property created successfully!");
+        form.reset();
+      } else {
+        alert("Failed to create property. Please try again.");
+      }
+    } catch (error) {
+      alert("An error occurred. Please try again later.");
+    }
   }
 
   return (

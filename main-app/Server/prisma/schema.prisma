@@ -38,22 +38,40 @@ model Subscription {
 
 //Note at later stage save images with description as a .JSON file to the proeprty table.
 model Property {
- property_id     String    @id @default(cuid())
-  agent           User      @relation(fields: [agent_id], references: [user_id])
-  agent_id        String
+  property_id     String        @id @default(cuid())
+  agent           User          @relation(fields: [agent_id], references: [user_id])
+  agent_id        String        // Match the type of user_id in the User model
   title           String
   description     String?
   price           Float?
-  address         String
+  address         Address       @relation(fields: [address_id], references: [address_id])
+  address_id      String        // Added address_id field
   city            String
   country         String
-  bathrooms       Int?
-  rooms           Int?
-  pool            Boolean   @default(false)
-  images          String[]  // New field to store image URLs directly
+  latitude        Float         // New latitude column
+  longitude       Float         // New longitude column
+  created_at      DateTime      @default(now())  // New field for creation time
+  updated_at      DateTime      @updatedAt        // New field for update time
+  is_public       Boolean       @default(true)    // Added "isPublic" field
+  sold            Boolean       @default(false)   // Added "Sold" field
+  bedrooms        Int?          // Changed from "rooms" to "bedrooms"
+  pool            Boolean       @default(false)
+  extra_features  String[]      // Added "Extra Features" field for agents
+  // Add more core features as needed
+}
+
+model Address {
+  address_id      String      @id @default(cuid())
+  street          String
+  city            String
+  country         String
   latitude        Float?
   longitude       Float?
+  properties      Property[]  // One-to-many relation with Property model
 }
+
+
+
 
 model Message {
   message_id     Int      @id @default(autoincrement())

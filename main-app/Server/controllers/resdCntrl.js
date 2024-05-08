@@ -7,33 +7,58 @@ export const createProperty = asyncHandler(async (req, res) => {
     title,
     description,
     price,
-    address,
+    street, // Address fields
     city,
     country,
     bathrooms,
     rooms,
     pool,
-    images, // Assuming images is an array of image URLs
+    images, // Assuming images is an array of image files
     latitude,
     longitude,
   } = req.body;
 
   try {
+    // Upload images to Supabase Storage
+    const imageUrls = [];
+    for (const image of images) {
+      const { data, error } = await supabase.storage
+        .from("property-images")
+        .upload(`property-images/${image.name}`, image);
+
+      if (error) {
+        throw new Error("Failed to upload image");
+      }
+      imageUrls.push(data?.url);
+    }
+
+    // Create the address first
+    const address = await prisma.address.create({
+      data: {
+        street,
+        city,
+        country,
+        latitude,
+        longitude,
+      },
+    });
+
+    // Create the property and associate it with the address
     const property = await prisma.property.create({
       data: {
         agent: { connect: { user_id: agent_id } },
         title,
         description,
         price,
-        address,
-        city,
-        country,
+        address: { connect: { address_id: address.address_id } }, // Connect the property to the address
         bathrooms,
         rooms,
         pool,
-        images, // Store image URLs directly
-        latitude,
-        longitude,
+        images: { set: imageUrls }, // Set the image URLs
+        created_at: new Date(), // Use the current date/time for created_at
+        updated_at: new Date(), // Use the current date/time for updated_at
+        is_public: true, // Default value for is_public
+        sold: false, // Default value for sold
       },
     });
 
