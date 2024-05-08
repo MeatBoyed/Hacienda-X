@@ -25,6 +25,7 @@ model User {
   Analytics     Analytics[]
   Ad            Ad[]
   Invoice       Invoice[]
+  role          Role @default(viewer) // ensures if user doesn't follow /Onboarding they're a viewer and can interact/change role
 }
 
 model Subscription {
@@ -111,6 +112,8 @@ model Language {
 
 
 enum Role {
+  viewer
   agent
-  user
+  admin
+  dev
 }

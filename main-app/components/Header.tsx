@@ -11,8 +11,8 @@ export const Header = () => {
   const { userId } = auth();
 
   return (
-    <nav className="fixed w-full bg-background z-50 ">
-      <div className="py-4 justify-between flex gap-8 items-center flex-wrap px-4">
+    <nav className="fixed w-full bg-background z-50 flex justify-center items-center border-b shadow-sm">
+      <div className="py-4 justify-between flex gap-8 items-center flex-wrap px-4 w-full sm:max-w-3xl lg:max-w-5xl">
         {/* logo */}
         <Link href="/" className="valuestransition">
           <Image src={Logo} alt="HaciendaX Logo" width={30} height={30} />

@@ -4,13 +4,14 @@ import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import { Icon, LatLngExpression } from "leaflet";
 import PinIcon from "../app/Lib/Imgs/MapPin.png";
 import "leaflet/dist/leaflet.css";
+import { cn } from "@/lib/utils";
 
 interface marker {
   geocode: LatLngExpression;
   message: string;
 }
 
-export default function MapViewer() {
+export default function MapViewer({ className }: { className: string }) {
   const center: LatLngExpression = [-26.1045525, 28.0545147];
 
   const markers: marker[] = [
@@ -38,7 +39,8 @@ export default function MapViewer() {
   });
 
   return (
-    <div className="w-full h-[80vh]">
+    // <div className="w-full h-[80vh]">
+    <div id="Map" className={cn("w-full", className)}>
       <MapContainer
         center={center}
         zoom={13}

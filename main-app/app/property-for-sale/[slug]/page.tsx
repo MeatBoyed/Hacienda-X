@@ -1,21 +1,27 @@
 "use client";
 
 import React from "react";
-import "./Property.css";
-
-import { FaShower } from "react-icons/fa";
-import { AiTwotoneCar } from "react-icons/ai";
-import { MdLocationPin, MdMeetingRoom } from "react-icons/md";
-import { notFound, useParams } from "next/navigation";
+import { useParams } from "next/navigation";
 import { fetcher } from "@/lib/utils";
 import useSWR from "swr";
 import { SelectPropertyResponse } from "@/app/api/[[...route]]/utils";
 import { PuffLoader } from "react-spinners";
+import Head from "./_components/Head";
+import PropertyDetails from "./_components/PropertyDetails";
+import BottomNavbar from "./_components/BottomNavbar";
+import TopNavbar from "./_components/TopNavbar";
+import LeadForm from "./_components/LeadForm";
+import Residencies from "@/app/_components/Residencies";
+import LocationSection from "./_components/LocationSection";
+import { useAuth } from "@clerk/nextjs";
+import { usePostHog } from "posthog-js/react";
 
 // Handler for the API request (Server Side)
 export default function PropertyPage() {
   // Get the slug (/properties/:slug)
+  // const posthog = usePostHog();
   const params = useParams();
+
   const slug = decodeURIComponent(
     typeof params.slug === "string" ? params.slug : ""
   );
@@ -27,7 +33,10 @@ export default function PropertyPage() {
   );
   console.log(data);
 
-  // const [modalOpened, setModalOpened] = useState(false);
+  // const { userId } = useAuth();
+  // if (userId) {
+  //   posthog.identify(userId);
+  // }
 
   // Return to 404 Page if Property doesn't exists
   // if (!data?.results && isLoading === false) {
@@ -36,92 +45,45 @@ export default function PropertyPage() {
 
   if (isLoading) {
     return (
-      <div className="wrapper">
-        <div className="flexCenter paddings">
-          <PuffLoader />
-        </div>
+      <div className="w-full flex justify-center items-center h-[100vh] bg-[#ffff] text-accent">
+        <PuffLoader />
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="wrapper">
-        <div className="flexCenter paddings text-black text-lg">
-          <span>Error while fetching the property details</span>
-        </div>
+      <div className="w-full flex justify-center items-center h-[100vh] bg-[#ffff]">
+        <span>Error while fetching the property details</span>
       </div>
     );
   }
 
   return (
-    <div className="wrapper">
-      <div className="flexColStart paddings innerWidth property-container text-black">
-        {/* like button */}
-        <div className="like">{/* <Heart id={id} /> */}</div>
-
-        {/* image */}
-        {/* Must be a carousel, and or, use slideshow features */}
-        <img src={""} alt="home image" />
-
-        <div className="flexCenter property-details">
-          {/* left */}
-          <div className="flexColStart left">
-            {/* head */}
-            <div className="flexStart head">
-              <span className="primaryText">{data?.results.title}</span>
-              <span className="orangeText" style={{ fontSize: "1.5rem" }}>
-                $ {data?.results.price}
-              </span>
-            </div>
-
-            {/* facilities */}
-            <div className="flexStart facilities">
-              {/* bathrooms */}
-              <div className="flexStart facility">
-                <FaShower size={20} color="#1F3E72" />
-                <span>{data?.results.bathrooms} Bathrooms</span>
-              </div>
-
-              {/* parkings */}
-              <div className="flexStart facility">
-                <AiTwotoneCar size={20} color="#1F3E72" />
-                <span>{"Not a Field"} Parking</span>
-              </div>
-
-              {/* rooms */}
-              <div className="flexStart facility">
-                <MdMeetingRoom size={20} color="#1F3E72" />
-                <span>{data?.results.bathrooms} Room/s</span>
-              </div>
-            </div>
-
-            {/* description */}
-            <span className="secondaryText" style={{ textAlign: "justify" }}>
-              {data?.results.description}
-            </span>
-
-            {/* address */}
-            <div className="flexStart" style={{ gap: "1rem" }}>
-              <MdLocationPin size={25} />
-              <span className="secondaryText">
-                {data?.results.address} {data?.results.city}{" "}
-                {data?.results.country}
-              </span>
-            </div>
-          </div>
-
-          {/* right side */}
-          <div className="map">
-            {/* <Map
-              address={data?.results.address}
-              city={data?.results.city}
-              country={data?.results.country}
-            /> */}
-          </div>
-        </div>
+    <section
+      id={`${data?.results.title} page`}
+      className="w-full flex flex-col justify-center items-center gap-2 pt-16 bg-[#fff]"
+    >
+      <TopNavbar />
+      <Head title={data?.results.title} images={data?.results.images} />
+      <div className="w-full flex justify-center items-start gap-10 lg:gap-20 pt-5 px-4 sm:max-w-3xl lg:max-w-5xl">
+        <PropertyDetails
+          description={data?.results.description}
+          bathrooms={data?.results.bathrooms}
+          bedrooms={data?.results.rooms}
+        />
+        <LeadForm />
+        {/* Final CTA should be placed here */}
+        {/* After page is functional, add more content to increase SEO Ranking */}
       </div>
-    </div>
+      {data && (
+        <div className="w-full flex justify-center items-start gap-10 lg:gap-20 pt-5 px-4 sm:max-w-3xl lg:max-w-5xl">
+          <LocationSection property={data?.results} />
+        </div>
+      )}
+      {/* <Residencies /> */}
+      <BottomNavbar price={data?.results.price} />
+    </section>
   );
 }
 

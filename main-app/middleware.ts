@@ -11,6 +11,7 @@ export const config = {
     "/((?!.*\\..*|_next).*)",
     "/",
     "/property-for-sale(.*)",
+    "/api/webhooks(.*)",
     "/(api|trpc)(.*)",
   ],
 };
