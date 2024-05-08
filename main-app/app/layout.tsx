@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils";
 import { Toaster } from "@/components/ui/toaster";
 import { PHProvider } from "@/components/PostHogProvider";
 import dynamic from "next/dynamic";
+import "mapbox-gl/dist/mapbox-gl.css";
 
 const inter = Inter({ subsets: ["latin"] });
 

@@ -16,34 +16,15 @@ interface marker {
 
 export function MapViewer({
   properties,
-  classname,
+  className,
 }: {
   properties: Property[];
-  classname: string;
+  className: string;
 }) {
   // const center: LatLngExpression = [-26.1045525, 28.0545147];
   const center: LatLngExpression = [
     properties[0].latitude,
     properties[0].longitude,
-  ];
-
-  const markers: marker[] = [
-    {
-      geocode: [-26.09358, 28.04788],
-      message: "Varsity College Sandton",
-    },
-    {
-      geocode: [-26.10922, 28.05284],
-      message: "Sandton City",
-    },
-    {
-      geocode: [-26.10581, 28.05323],
-      message: "Virgin Action Sandton",
-    },
-    {
-      geocode: [-26.09464, 28.05486],
-      message: "Midiclinic Morningside",
-    },
   ];
 
   const customIcon = new Icon({
@@ -52,7 +33,7 @@ export function MapViewer({
   });
 
   return (
-    <div className={cn("w-full", classname)} id="Map">
+    <div className={cn("w-full", className)} id="Map">
       <MapContainer
         center={center}
         zoom={13}
