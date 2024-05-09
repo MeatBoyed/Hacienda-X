@@ -15,7 +15,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { cn } from "@/lib/utils";
+import { cn, fetcher } from "@/lib/utils";
 import {
   Card,
   CardHeader,
@@ -28,6 +28,10 @@ import useSWRMutation from "swr/mutation";
 import { RoleRequest } from "@/app/api/[[...route]]/userController";
 import { toast } from "@/components/ui/use-toast";
 import Link from "next/link";
+import { SelectUserResponse } from "@/app/api/[[...route]]/utils";
+import useSWR from "swr";
+import { PuffLoader } from "react-spinners";
+import { $Enums } from "@prisma/client";
 
 const propertySchema = z.object({
   role: z.string(),
@@ -38,7 +42,7 @@ const propertySchema = z.object({
 
 async function sendRequest(
   url: string,
-  { arg }: { arg: { userId: string; role: "viewer" | "agent" } }
+  { arg }: { arg: { role: "viewer" | "agent" } }
 ) {
   return fetch(url, {
     method: "POST",
@@ -49,6 +53,7 @@ async function sendRequest(
   }).then((res) => res.json());
 }
 
+// TODO: Highlight what role the user current is
 export default function OnBoardingForm({
   userId,
   firstName,
@@ -56,11 +61,29 @@ export default function OnBoardingForm({
   userId: string;
   firstName: string | null;
 }) {
-  const [isAgent, setIsAgent] = useState(false);
-  const { trigger, isMutating, data } = useSWRMutation(
-    "/api/user/updateRole",
-    sendRequest /* options */
-  );
+  // Check if User is in DB, if they are - show selected option
+  const { data } = useSWR<SelectUserResponse>(`/api/user/${userId}`, fetcher, {
+    // Ensure request is only made 1
+    revalidateOnFocus: true,
+    revalidateOnMount: false,
+    revalidateOnReconnect: true,
+    refreshWhenOffline: true,
+    refreshWhenHidden: false,
+    refreshInterval: 0,
+    onError: () => {
+      // Implies user is new, so welcome them
+      toast({
+        title: "Welcome! We are glad you joined.",
+        description: "Get started by telling us about yourself.",
+      });
+    },
+    onSuccess: () => {
+      toast({
+        title: "Hey there! Lets finish up",
+        description: "Get started by telling us about yourself.",
+      });
+    },
+  });
 
   return (
     <div className="flex justify-center items-center flex-col gap-8">
@@ -78,57 +101,82 @@ export default function OnBoardingForm({
           You can change these settings at any time
         </h3>
       </div>
-      <CustomerOrAgentSelect
-        onChange={async () => {
-          try {
-            await trigger({ userId: userId, role: "agent" } /* options */);
-            toast({
-              title: "Thanks for joining!",
-              description: (
-                <Link href="/dashboard">Checkout your Dashboard</Link>
-              ),
-              duration: 20000,
-            });
-          } catch (e) {
-            // error handling
-            toast({
-              title: "Something unexpected happened.",
-              description: "Please try again...",
-              duration: 10000,
-            });
-          }
-        }}
-      />
+      <CustomerOrAgentSelect isCreated={data?.results} />
     </div>
   );
 }
 
-function CustomerOrAgentSelect({ onChange }: { onChange: () => void }) {
+function CustomerOrAgentSelect({ isCreated }: { isCreated?: $Enums.Role }) {
+  const [role, setRole] = useState<$Enums.Role | undefined>(isCreated);
   const router = useRouter();
+
+  const { trigger, isMutating } = useSWRMutation(
+    "/api/user/updateRole",
+    sendRequest /* options */,
+    {
+      onError: () => {
+        toast({
+          title: "Something unexpected happened.",
+          description: "Please try again...",
+          duration: 10000,
+        });
+      },
+
+      onSuccess: () => {
+        // Show a success screen
+        toast({
+          title: "Thanks for joining!",
+          description: <Link href="/dashboard">Checkout your Dashboard</Link>,
+          duration: 20000,
+        });
+      },
+    }
+  );
+
   return (
     <div className="flex justify-center items-center gap-4 flex-col w-full sm:flex-row sm:max-w-3xl lg:max-w-5xl">
-      <Card
-        className={cn(
-          "min-w-sm flex w-full justify-center items-center flex-col text-center px-4 py-4 gap-5 h-52"
-        )}
-        onClick={() => router.push("/")}
-      >
-        <p>Icon of an Viewer</p>
-        <CardTitle>Customer</CardTitle>
-        <CardDescription>
-          View properties in your area, and make enquires...
-        </CardDescription>
-      </Card>
-      <Card
-        className={cn(
-          "min-w-sm flex w-full justify-center items-center flex-col text-center px-4 py-4 gap-5 hover:cursor-pointer h-52"
-        )}
-        onClick={onChange}
-      >
-        <p>Icon of an Agent/House</p>
-        <CardTitle>Agent</CardTitle>
-        <CardDescription>Post Properties for free...</CardDescription>
-      </Card>
+      {isMutating && (
+        <div className="flex justify-center items-center w-full py-20">
+          <div className="wrapper flexCenter" style={{ height: "60vh" }}>
+            <PuffLoader
+              //   height={80}
+              //   width="80"
+              //   radius={1}
+              color="#4066ff"
+              aria-label="puff-loading"
+            />
+          </div>
+        </div>
+      )}
+      {!isMutating && (
+        <>
+          <Card
+            className={cn(
+              "min-w-sm flex w-full justify-center items-center flex-col text-center px-4 py-4 gap-5 h-52"
+            )}
+            onClick={() => router.push("/")}
+          >
+            <p>Icon of an Viewer</p>
+            <CardTitle>Customer</CardTitle>
+            <CardDescription>
+              View properties in your area, and make enquires...
+            </CardDescription>
+          </Card>
+          <Card
+            className={cn(
+              "min-w-sm flex w-full justify-center items-center flex-col text-center px-4 py-4 gap-5 hover:cursor-pointer h-52"
+            )}
+            onClick={async () => {
+              await trigger({ role: "agent" } /* options */);
+              setRole("agent");
+            }}
+          >
+            <p>Icon of an Agent/House</p>
+            <CardTitle>Agent</CardTitle>
+            <CardDescription>Post Properties for free...</CardDescription>
+          </Card>
+        </>
+      )}
     </div>
   );
 }
