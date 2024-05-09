@@ -21,7 +21,7 @@ export const Header = () => {
         <div className="flex justify-center items-center gap-8">
           <div className="valuestransition sizemenu">
             {!userId ? (
-              <SignUpButton mode="modal">
+              <SignUpButton mode="modal" forceRedirectUrl={"/onboarding"}>
                 <p className="text-base">Sign Up</p>
               </SignUpButton>
             ) : (

@@ -54,6 +54,8 @@ export async function POST(req: Request) {
   const { id } = evt.data;
   const eventType = evt.type;
 
+  console.log("Running");
+
   if (!id) {
     return new Response("Error occured. UserId undefined in event data", {
       status: 400,
@@ -69,6 +71,7 @@ export async function POST(req: Request) {
       //   distinctId: id,
       //   event: "user-signed-up",
       // });
+
       break;
     case "user.deleted":
       // Run Delete User func from DB
