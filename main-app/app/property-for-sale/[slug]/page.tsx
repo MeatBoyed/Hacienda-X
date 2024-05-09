@@ -70,7 +70,7 @@ export default function PropertyPage() {
         <PropertyDetails
           description={data?.results.description}
           bathrooms={data?.results.bathrooms}
-          bedrooms={data?.results.rooms}
+          bedrooms={data?.results.bedrooms}
         />
         <LeadForm />
         {/* Final CTA should be placed here */}

@@ -55,12 +55,14 @@ export default function PropertyCard({ property }: { property: Property }) {
             <Bath size={15} />
           </div>
           <div className="flex justify-center items-center gap-3">
-            <p className="text-sm font-medium leading-none">{property.rooms}</p>
+            <p className="text-sm font-medium leading-none">
+              {property.bedrooms}
+            </p>
             <Bed size={15} />
           </div>
         </div>
 
-        <p className="text-base text-muted-foreground">{property.address}</p>
+        {/* <p className="text-base text-muted-foreground">{property.address}</p> */}
       </div>
     </div>
   );

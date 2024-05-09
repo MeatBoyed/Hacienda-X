@@ -8,7 +8,7 @@ const ContactForm = () => {
         <h1>contact us</h1>
       </div>
       <div className="row">
-        <h4 style={{ textAlign: "center" }}>We'd love to hear from you!</h4>
+        <h4 style={{ textAlign: "center" }}>We would love to hear from you!</h4>
       </div>
       <div className="row input-container">
         <div className="col-xs-12">

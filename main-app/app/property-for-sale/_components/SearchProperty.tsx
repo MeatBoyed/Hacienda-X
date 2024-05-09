@@ -6,7 +6,7 @@ import { fetcher } from "@/lib/utils";
 import { useEffect, useState } from "react";
 import { PuffLoader } from "react-spinners";
 import useSWR from "swr";
-import { MapViewer } from "@/components/Map";
+// import { MapComp } from "@/components/Map";
 
 export default function SearchProperty() {
   // Hanldes all data fetching states, calls the Fetching Handler
@@ -21,21 +21,23 @@ export default function SearchProperty() {
   return (
     // Add padding for desktop & tablet devices
     <div className="w-full flex flex-col justify-center items-center gap-20 ">
-      <div className="w-full gap-3 flex justify-center items-center flex-col px-4 pt-5 sm:max-w-2xl sm:px-2 sm:pt-0 lg:max-w-4xl">
-        {/* <SearchBar filter={filter} setFilter={setFilter} /> */}
-        {/* <SearchBox filter={filter} setFilter={setFilter} /> */}
+      <div className="w-full gap-3 flex justify-center items-center flex-col px-4 md:px-0 mt-5 sm:max-w-2xl lg:max-w-5xl">
         <SearchBar
           mapActive={mapActive}
           setMapActive={setMapActive}
           filter={filter}
           setFilter={setFilter}
         />
-        {mapActive && data && (
-          <MapViewer
-            classname="h-[50vh] md:h-[75vh]"
-            properties={data.results}
-          />
-        )}
+        {/* {mapActive && data && (
+          // <MapViewer
+          //   classname="h-[50vh] md:h-[75vh]"
+          //   properties={data.results}
+          // />
+          // <MapComp
+          //   focusedProperty={data.results[0]}
+          //   properties={data.results}
+          // />
+        )} */}
       </div>
       {/* Make the last item stick to the left side, not centered - FOR Daniel */}
       <div className="flex justify-center items-center w-full">
@@ -53,7 +55,7 @@ export default function SearchProperty() {
         )}
         {!mapActive && (
           <div className="grid w-full grid-cols-1 gap-x-4 gap-y-10 lg:grid-cols-3 md:grid-cols-2 px-4 sm:max-w-2xl lg:max-w-5xl">
-            {data?.results
+            {/* {data?.results
               ?.filter(
                 (property) =>
                   property.title.toLowerCase().includes(filter.toLowerCase()) ||
@@ -64,7 +66,7 @@ export default function SearchProperty() {
                 <div className="w-fit" key={i}>
                   <PropertyCard property={card} />
                 </div>
-              ))}
+              ))} */}
           </div>
         )}
       </div>

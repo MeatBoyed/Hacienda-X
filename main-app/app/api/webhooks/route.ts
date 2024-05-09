@@ -65,10 +65,10 @@ export async function POST(req: Request) {
       console.log(`Webhook with and ID of ${id} and type of ${eventType}`);
       console.log("Webhook body:", body);
 
-      posthog.capture({
-        distinctId: id,
-        event: "user-signed-up",
-      });
+      // posthog.capture({
+      //   distinctId: id,
+      //   event: "user-signed-up",
+      // });
       break;
     case "user.deleted":
       // Run Delete User func from DB

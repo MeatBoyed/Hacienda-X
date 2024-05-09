@@ -26,7 +26,10 @@ export function SearchBar({
   setFilter?: Dispatch<SetStateAction<string>>;
 }) {
   return (
-    <div className="w-full flex justify-center items-center flex-col gap-2">
+    <div
+      id="searchbar"
+      className="w-full flex justify-center items-center flex-col gap-2"
+    >
       <Input
         placeholder="Search town, city, provience"
         className="border-0 bg-white text-black shadow-lg "
