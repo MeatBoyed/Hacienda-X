@@ -14,7 +14,7 @@ const CallToAction: React.FC = () => {
             <h2>Sign Up Today</h2>
             <p>
               Sign Up Now! Personalized property alerts, and insider tips from
-              our expert agents. Don't miss out on your dream home – join our
+              our expert agents. Do not miss out on your dream home – join our
               community today!
             </p>
             <a href="./sign-in" className="button1 read-more">
@@ -74,7 +74,7 @@ const CallToAction: React.FC = () => {
           <div className="article-body">
             <h2>Discover Our Story!</h2>
             <p>
-              We're your trusted partners in finding your perfect home. <br />
+              We are your trusted partners in finding your perfect home. <br />
               Discover our story and let us help you write the next chapter of
               yours.
             </p>
