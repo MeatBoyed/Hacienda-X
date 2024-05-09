@@ -3,20 +3,16 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import Footer from "@/components/Footer";
-import ReactQueryProvider from "@/Utils/ReactQueryProvider";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Suspense } from "react";
 import { cn } from "@/lib/utils";
 import { Toaster } from "@/components/ui/toaster";
-import { PHProvider } from "@/components/PostHogProvider";
+import { PHProvider } from "@/components/Providers/PostHogProvider";
 import dynamic from "next/dynamic";
 import "mapbox-gl/dist/mapbox-gl.css";
+import Providers from "@/components/Providers/Providers";
 
 const inter = Inter({ subsets: ["latin"] });
-
-const PostHogPageView = dynamic(() => import("./PostHogPageView"), {
-  ssr: false,
-});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -30,28 +26,28 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <PHProvider>
+      {/* <PHProvider> */}
+      <Providers>
         <body
           className={cn(
             "min-h-screen bg-background font-sans antialiased",
             inter
           )}
         >
-          <ReactQueryProvider>
-            <ClerkProvider appearance={{}}>
-              <PostHogPageView />
-              <Suspense fallback={<div>Loading...</div>}>
-                <div style={{ background: "var(--black)", overflow: "hidden" }}>
-                  <Header />
-                  {children}
-                  <Toaster />
-                </div>
-                <Footer />
-              </Suspense>
-            </ClerkProvider>
-          </ReactQueryProvider>
+          {/* <ClerkProvider appearance={{}}> */}
+          {/* <PostHogPageView /> */}
+          <Suspense fallback={<div>Loading...</div>}>
+            <div style={{ background: "var(--black)", overflow: "hidden" }}>
+              <Header />
+              {children}
+              <Toaster />
+            </div>
+            <Footer />
+          </Suspense>
+          {/* </ClerkProvider> */}
         </body>
-      </PHProvider>
+      </Providers>
+      {/* </PHProvider> */}
     </html>
   );
 }
