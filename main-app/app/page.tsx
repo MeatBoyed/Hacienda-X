@@ -5,6 +5,7 @@ import GetStarted from "./_components/GetStarted";
 import Contact from "./_components/Contact";
 import Value from "./_components/Value";
 import Residencies from "./_components/Residencies";
+import Cta from "./_components/Cta";
 import SearchFilters from "./_components/SearchFilters";
 import { Suspense } from "react";
 import PostHogClient from "@/components/Posthog";
@@ -30,6 +31,7 @@ export default async function Home() {
         <Residencies />
         <Value />
         <Contact />
+        <Cta />
         <GetStarted />
       </div>
     </Suspense>

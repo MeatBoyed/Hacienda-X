@@ -5,3 +5,6 @@ main-app/node_modules/
 main-app/Server/node_modules/
 /Full-stack-real-estate-youtube/node_modules/
 Full-stack-real-estate-youtube/node_modules/
+/node_modules
+/package.json
+/package-lock.json
