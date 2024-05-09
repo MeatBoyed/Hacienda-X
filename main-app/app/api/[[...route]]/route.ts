@@ -9,7 +9,7 @@ import { clerkMiddleware } from "@hono/clerk-auth";
 
 const app = new Hono().basePath("/api");
 
-app.use("*", clerkMiddleware());
+// app.use(clerkMiddleware());
 app.route("/properties", propertyController);
 app.route("/user", userController);
 // app.route("/webhooks", webhooks);
