@@ -1,119 +1,134 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
-generator client{
-    provider = "prisma-client-js"
+generator client {
+  provider = "prisma-client-js"
 }
 
 datasource db {
-    provider = "postgresql"
-    url = env("DATABASE_URL")
-    // directUrl = env("DIRECT_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model User {
-  user_id      String      @id @default(cuid())
-  username     String      @unique
-  email        String      @unique
-  password     String
-  Subscription Subscription[]
-  Property      Property[]
-  Message       Message[]
-  Analytics     Analytics[]
-  Ad            Ad[]
-  Invoice       Invoice[]
-  role          Role @default(viewer) // ensures if user doesn't follow /Onboarding they're a viewer and can interact/change role
+  user_id      String   @unique    @default(cuid())
+  public_id   String   @unique
+  email        String?  
+  Ad           Ad[]
+  analytics    Analytics[]
+  nvoices      Invoice[]
+  leads      Lead[]
+  properties     Property[]
+  // Subscriptions Subscription[]
+  role         Role   @default(viewer)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@id([user_id, public_id])
 }
 
 model Subscription {
-  subscription_id Int         @id @default(autoincrement())
-  user            User        @relation(fields: [user_id], references: [user_id])
-  user_id         String      // Changed type to String with cuid() default
+  subscription_id Int      @id @default(autoincrement())
+  user_id         String
   start_date      DateTime
   end_date        DateTime
   plan_type       String
   payment_status  String
+  // user            User     @relation(fields: [user_id], references: [user_id])
 }
 
-//Note at later stage save images with description as a .JSON file to the proeprty table.
 model Property {
- property_id     String    @id @default(cuid())
-  agent           User      @relation(fields: [agent_id], references: [user_id])
-  agent_id        String
-  title           String
-  description     String
-  price           Float
-  address         String
-  city            String
-  country         String
-  bathrooms       Int
-  rooms           Int
-  pool            Boolean   @default(false)
-  images          String[]  // New field to store image URLs directly
-  latitude        Float
-  longitude       Float
+  property_id String   @id @default(cuid())
+  agent_id    String
+  title       String
+  description String
+  price       Float
+  latitude    Float
+  longitude   Float
+  address     String
+  bathrooms   Int
+  city        String
+  country     String
+  pool        Boolean  @default(false)
+  bedrooms    Int
+  extraFeatures String[]
+  saleType    SaleType
+  sold        Boolean @default(false)
+  images      String[]
+  visibility  Visibility @default(Public)
+  agent       User     @relation(fields: [agent_id], references: [public_id])
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 }
 
-model Message {
-  message_id     Int      @id @default(autoincrement())
-  //sender         User     @relation(fields: [sender_id], references: [user_id])
-  sender_id      Int
-  receiver       User     @relation(fields: [receiver_id], references: [user_id])
-  receiver_id    String
-  message_content String
-  timestamp      DateTime @default(now())
+// Direct Link to User, as User's accounts must never be deleted for data integrity
+// Always save the Clerk Public ID for relations
+model Lead {
+  lead_id       Int      @id @default(autoincrement())
+  user_id       String
+  property_id   String
+  message       String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  user          User     @relation(fields: [user_id], references: [public_id])
 }
 
 model Analytics {
-  analytics_id Int     @id @default(autoincrement())
-  agent        User    @relation(fields: [agent_id], references: [user_id])
+  analytics_id Int      @id @default(autoincrement())
   agent_id     String
   graph_type   String
   data_points  String
   timestamp    DateTime @default(now())
+  agent        User     @relation(fields: [agent_id], references: [public_id])
 }
 
 model Ad {
-  ad_id          Int     @id @default(autoincrement())
-  agent          User    @relation(fields: [agent_id], references: [user_id])
-  agent_id       String
-  ad_title       String
-  ad_content     String
-  ad_type        String
-  creation_date  DateTime
+  ad_id           Int      @id @default(autoincrement())
+  agent_id        String
+  ad_title        String
+  ad_content      String
+  ad_type         String
+  creation_date   DateTime
   expiration_date DateTime
+  agent           User     @relation(fields: [agent_id], references: [public_id])
 }
 
 model Invoice {
-  invoice_id      Int     @id @default(autoincrement())
-  agent           User    @relation(fields: [agent_id], references: [user_id])
-  agent_id        String
-  invoice_date    DateTime
-  invoice_amount  Float
-  payment_status  String
-  payment_date    DateTime?
+  invoice_id     Int       @id @default(autoincrement())
+  agent_id       String
+  invoice_date   DateTime
+  invoice_amount Float
+  payment_status String
+  payment_date   DateTime?
+  agent          User      @relation(fields: [agent_id], references: [public_id])
 }
 
 model PropertyCategory {
-  category_id         Int             @id @default(autoincrement())
-  category_name       String
-  //parent_category     PropertyCategory? @relation("ChildCategory", fields: [parent_category_id], references: [category_id])
-  parent_category_id  Int?
+  category_id        Int    @id @default(autoincrement())
+  category_name      String
+  parent_category_id Int?
 }
 
 model Language {
-  language_id   Int     @id @default(autoincrement())
+  language_id   Int    @id @default(autoincrement())
   language_name String
   language_code String
 }
 
-
 enum Role {
-  viewer
   agent
+  user
+  viewer
   admin
   dev
+}
+
+enum Visibility {
+  Public
+  Private
+  Draft
+  Deleted
+}
+
+enum SaleType {
+  Sale
+  Rent
+  Auction
 }
