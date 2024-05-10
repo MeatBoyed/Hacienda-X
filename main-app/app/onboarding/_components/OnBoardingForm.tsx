@@ -62,28 +62,32 @@ export default function OnBoardingForm({
   firstName: string | null;
 }) {
   // Check if User is in DB, if they are - show selected option
-  const { data } = useSWR<SelectUserResponse>(`/api/user/${userId}`, fetcher, {
-    // Ensure request is only made 1
-    revalidateOnFocus: true,
-    revalidateOnMount: false,
-    revalidateOnReconnect: true,
-    refreshWhenOffline: true,
-    refreshWhenHidden: false,
-    refreshInterval: 0,
-    onError: () => {
-      // Implies user is new, so welcome them
-      toast({
-        title: "Welcome! We are glad you joined.",
-        description: "Get started by telling us about yourself.",
-      });
-    },
-    onSuccess: () => {
-      toast({
-        title: "Hey there! Lets finish up",
-        description: "Get started by telling us about yourself.",
-      });
-    },
-  });
+  const { data, isLoading } = useSWR<SelectUserResponse>(
+    `/api/user/${userId}`,
+    fetcher,
+    {
+      // Ensure request is only made 1
+      revalidateOnFocus: true,
+      revalidateOnMount: false,
+      revalidateOnReconnect: true,
+      refreshWhenOffline: true,
+      refreshWhenHidden: false,
+      refreshInterval: 0,
+      onError: () => {
+        // Implies user is new, so welcome them
+        toast({
+          title: "Welcome! We are glad you joined.",
+          description: "Get started by telling us about yourself.",
+        });
+      },
+      onSuccess: () => {
+        toast({
+          title: "Hey there! Lets finish up",
+          description: "Get started by telling us about yourself.",
+        });
+      },
+    }
+  );
 
   return (
     <div className="flex justify-center items-center flex-col gap-8">
@@ -101,16 +105,33 @@ export default function OnBoardingForm({
           You can change these settings at any time
         </h3>
       </div>
-      <CustomerOrAgentSelect isCreated={data?.results} />
+      {isLoading && (
+        <div className="flex justify-center items-center w-full py-20">
+          <div className="wrapper flexCenter" style={{ height: "60vh" }}>
+            <PuffLoader
+              //   height={80}
+              //   width="80"
+              //   radius={1}
+              color="#4066ff"
+              aria-label="puff-loading"
+            />
+          </div>
+        </div>
+      )}
+      {!isLoading && <CustomerOrAgentSelect isCreated={data?.results} />}
     </div>
   );
 }
 
 function CustomerOrAgentSelect({ isCreated }: { isCreated?: $Enums.Role }) {
-  const [role, setRole] = useState<$Enums.Role | undefined>(isCreated);
   const router = useRouter();
+  const [role, setRole] = useState<$Enums.Role | undefined>(isCreated);
+  const [toastMessage, setToastMessage] = useState<{
+    message: string;
+    link: string;
+  } | null>();
 
-  const { trigger, isMutating } = useSWRMutation(
+  const { trigger, isMutating, data } = useSWRMutation(
     "/api/user/updateRole",
     sendRequest /* options */,
     {
@@ -123,10 +144,13 @@ function CustomerOrAgentSelect({ isCreated }: { isCreated?: $Enums.Role }) {
       },
 
       onSuccess: () => {
-        // Show a success screen
         toast({
           title: "Thanks for joining!",
-          description: <Link href="/dashboard">Checkout your Dashboard</Link>,
+          description: (
+            <Link href={toastMessage?.link || ""}>
+              {toastMessage?.message || ""}
+            </Link>
+          ),
           duration: 20000,
         });
       },
@@ -154,7 +178,14 @@ function CustomerOrAgentSelect({ isCreated }: { isCreated?: $Enums.Role }) {
             className={cn(
               "min-w-sm flex w-full justify-center items-center flex-col text-center px-4 py-4 gap-5 h-52"
             )}
-            onClick={() => router.push("/")}
+            onClick={async () => {
+              setToastMessage({
+                message: "Checkout properties in your area",
+                link: "/properties-for-sale",
+              });
+              await trigger({ role: "viewer" });
+              // router.push("/")
+            }}
           >
             <p>Icon of an Viewer</p>
             <CardTitle>Customer</CardTitle>
@@ -167,6 +198,10 @@ function CustomerOrAgentSelect({ isCreated }: { isCreated?: $Enums.Role }) {
               "min-w-sm flex w-full justify-center items-center flex-col text-center px-4 py-4 gap-5 hover:cursor-pointer h-52"
             )}
             onClick={async () => {
+              setToastMessage({
+                message: "Checkout your dashboard",
+                link: "/dashboard",
+              });
               await trigger({ role: "agent" } /* options */);
               setRole("agent");
             }}
