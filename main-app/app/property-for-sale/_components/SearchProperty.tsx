@@ -1,5 +1,6 @@
 "use client";
 import { GenericPropertyResponse } from "@/app/api/[[...route]]/utils";
+import { MapComp } from "@/components/Map";
 import PropertyCard from "@/components/PropertyCard";
 import { SearchBar } from "@/components/SearchBar";
 import { fetcher } from "@/lib/utils";
@@ -28,16 +29,12 @@ export default function SearchProperty() {
           filter={filter}
           setFilter={setFilter}
         />
-        {/* {mapActive && data && (
-          // <MapViewer
-          //   classname="h-[50vh] md:h-[75vh]"
-          //   properties={data.results}
-          // />
-          // <MapComp
-          //   focusedProperty={data.results[0]}
-          //   properties={data.results}
-          // />
-        )} */}
+        {mapActive && data && (
+          <MapComp
+            focusedProperty={data.results[0]}
+            properties={data.results}
+          />
+        )}
       </div>
       {/* Make the last item stick to the left side, not centered - FOR Daniel */}
       <div className="flex justify-center items-center w-full">
