@@ -42,7 +42,10 @@ export default function SearchProperty() {
       {/* Make the last item stick to the left side, not centered - FOR Daniel */}
       <div className="flex justify-center items-center w-full">
         {isLoading && (
-          <div className="wrapper flexCenter" style={{ height: "60vh" }}>
+          <div
+            className="w-full h-full flex justify-center items-center"
+            style={{ height: "30vh" }}
+          >
             <PuffLoader color="#4066ff" aria-label="puff-loading" />
           </div>
         )}
@@ -55,18 +58,22 @@ export default function SearchProperty() {
         )}
         {!mapActive && (
           <div className="grid w-full grid-cols-1 gap-x-4 gap-y-10 lg:grid-cols-3 md:grid-cols-2 px-4 sm:max-w-2xl lg:max-w-5xl">
-            {/* {data?.results
+            {data?.results
               ?.filter(
                 (property) =>
                   property.title.toLowerCase().includes(filter.toLowerCase()) ||
-                  property.city.toLowerCase().includes(filter.toLowerCase()) ||
-                  property.country.toLowerCase().includes(filter.toLowerCase())
+                  property.Address?.city
+                    .toLowerCase()
+                    .includes(filter.toLowerCase()) ||
+                  property.Address?.country
+                    .toLowerCase()
+                    .includes(filter.toLowerCase())
               )
               .map((card, i) => (
                 <div className="w-fit" key={i}>
                   <PropertyCard property={card} />
                 </div>
-              ))} */}
+              ))}
           </div>
         )}
       </div>
