@@ -3,21 +3,21 @@ import { MdCancel, MdAnalytics } from "react-icons/md";
 const data = [
   {
     icon: <HiShieldCheck />,
-    heading: "Best interest rates on the market",
+    heading: "Our Mission:",
     detail:
-      "Exercitation in fugiat est ut ad ea cupidatat ut in cupidatat occaecat ut occaecat consequat est minim minim esse tempor laborum consequat esse adipisicing eu reprehenderit enim.",
+      "Learn about our mission to redefine the real estate experience. We're committed to empowering buyers and sellers with knowledge, support, and personalized service. At Hacienda, our passion for people and properties drives us to exceed expectations and create lasting relationships.",
   },
   {
     icon: <MdCancel />,
-    heading: "Prevent unstable prices",
+    heading: "Unbeatable Prices:",
     detail:
-      "Exercitation in fugiat est ut ad ea cupidatat ut in cupidatat occaecat ut occaecat consequat est minim minim esse tempor laborum consequat esse adipisicing eu reprehenderit enim.",
+      "Explore our listings featuring unbeatable prices and incredible deals. From cozy starter homes to luxurious estates, find your perfect property without breaking the bank. At Hacienda, affordability meets quality, making your dream home more attainable than ever.",
   },
   {
     icon: <MdAnalytics />,
-    heading: "Best price on the market",
+    heading: "What We Strive For:",
     detail:
-      "Exercitation in fugiat est ut ad ea cupidatat ut in cupidatat occaecat ut occaecat consequat est minim minim esse tempor laborum consequat esse adipisicing eu reprehenderit enim.",
+      "Discover what sets us apart at [Agency Name]. We strive for excellence in every transaction, aiming to surpass industry standards and client expectations. With a focus on integrity, transparency, and professionalism, we're dedicated to achieving your real estate goals and earning your trust.",
   },
 ];
 export default data;

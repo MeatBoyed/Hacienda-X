@@ -87,6 +87,9 @@ export default function Value() {
               </AccordionItem>
             ))}
           </Accordion>
+          <div className="learn-more-button">
+            <button className="button">Learn more</button>
+          </div>
         </div>
       </div>
     </section>

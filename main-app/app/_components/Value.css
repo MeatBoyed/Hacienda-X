@@ -19,6 +19,29 @@
 .v-right {
   gap: 0.5rem;
 }
+/* Value.css */
+
+.learn-more-button {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.learn-more-button .button {
+  padding: 10px 20px;
+  background-color: #1d4388;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.learn-more-button .button:hover {
+  background-color: #2769be;
+}
+
 .accordion {
   margin-top: 2rem;
   border: none;

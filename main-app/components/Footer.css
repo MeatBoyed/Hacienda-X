@@ -10,6 +10,17 @@
   margin-top: 1.5rem;
   font-weight: 500;
 }
+.bg-blueish {
+  background-color: #cfdfff; /* Adjust the color code as needed */
+}
+.footer-bg {
+  background: linear-gradient(to right, #65c7f7 0%, #0052d4 100%);
+}
+.imageholder {
+  height: 100px;
+  width: 100px;
+}
+
 @media (max-width: 768px) {
   .f-container {
     justify-content: center;
