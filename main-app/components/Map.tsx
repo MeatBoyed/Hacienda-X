@@ -14,6 +14,8 @@ import Map, {
 import Link from "next/link";
 import { PropertyWithAddress } from "@/app/api/[[...route]]/utils";
 
+// FIX Popup's state not resetting
+
 export function MapComp({
   focusedProperty,
   properties,
@@ -51,30 +53,30 @@ export function MapComp({
   const propertiesMarkers = useMemo(
     () => (
       <>
-        {properties && (
-          <>
-            {properties.map((property, index) => (
-              <>
-                {property.Address && (
-                  <Marker
-                    longitude={property.Address.longitude}
-                    latitude={property.Address.latitude}
-                    anchor="center"
-                    onClick={(e) => {
-                      e.originalEvent.stopPropagation();
-                      setPopupInfo(property);
-                    }}
-                    key={index}
-                  >
-                    <div className="bg-background p-2 rounded-full shadow-md">
-                      <Home size={18} className="text-red-500" />
-                    </div>
-                  </Marker>
-                )}
-              </>
-            ))}
-          </>
-        )}
+        {properties &&
+          properties.map((property, index) => (
+            <>
+              {property.Address && (
+                <Marker
+                  longitude={property.Address.longitude}
+                  latitude={property.Address.latitude}
+                  anchor="center"
+                  onClick={(e) => {
+                    e.originalEvent.stopPropagation();
+                    setPopupInfo(property);
+                  }}
+                  key={index}
+                >
+                  <div className="bg-background p-2 rounded-full shadow-md">
+                    {/* <Home size={18} className="text-red-500" /> */}
+                    <p className="text-base font-semibold">
+                      $ {property.price.toLocaleString()}
+                    </p>
+                  </div>
+                </Marker>
+              )}
+            </>
+          ))}
       </>
     ),
     []
@@ -114,7 +116,7 @@ export function MapComp({
         >
           <p className="leading-7">{focusedProperty.title}</p>
           <p className="text-lg font-semibold">
-            {focusedProperty.price.toLocaleString()}
+            $ {focusedProperty.price.toLocaleString()}
           </p>
           <Link
             className="leading-7"
@@ -134,7 +136,9 @@ export function MapComp({
           className="w-32 h-20"
         >
           <p className="leading-7">{focusedProperty.title}</p>
-          <p className="text-lg font-semibold">{focusedProperty.price}</p>
+          <p className="text-lg font-semibold">
+            $ {focusedProperty.price.toLocaleString()}
+          </p>
           <Link
             className="leading-7"
             href={`/property-for-sale/${focusedProperty.title}`}

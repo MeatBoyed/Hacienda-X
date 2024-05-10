@@ -4,7 +4,7 @@ import { MapComp } from "@/components/Map";
 import PropertyCard from "@/components/PropertyCard";
 import { SearchBar } from "@/components/SearchBar";
 import { fetcher } from "@/lib/utils";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { PuffLoader } from "react-spinners";
 import useSWR from "swr";
 // import { MapComp } from "@/components/Map";
@@ -54,7 +54,7 @@ export default function SearchProperty() {
           </div>
         )}
         {!mapActive && (
-          <div className="grid w-full grid-cols-1 gap-x-4 gap-y-10 lg:grid-cols-3 md:grid-cols-2 px-4 sm:max-w-2xl lg:max-w-5xl">
+          <div className="grid w-full grid-cols-1 gap-x-4 gap-y-10 lg:grid-cols-3 md:grid-cols-2 px-4 sm:gap-x-0 sm:px-0 sm:max-w-2xl lg:max-w-5xl">
             {data?.results
               ?.filter(
                 (property) =>
