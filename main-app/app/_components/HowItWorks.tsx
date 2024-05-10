@@ -1,10 +1,10 @@
 import React from "react";
-import "./cta.css"; // Import CSS file
+import "./HowItWorks.css"; // Import CSS file
 import cta1 from "@/ctapic1/r1.jpg";
 
-const CallToAction: React.FC = () => {
+export default function HowItWorks() {
   return (
-    <section className="articles">
+    <section className="articles pt-14 gap-5">
       <article>
         <div className="article-wrapper">
           <figure>
@@ -99,6 +99,4 @@ const CallToAction: React.FC = () => {
       </article>
     </section>
   );
-};
-
-export default CallToAction;
+}

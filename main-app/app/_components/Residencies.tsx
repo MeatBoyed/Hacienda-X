@@ -26,7 +26,7 @@ export default function Residencies() {
       id="residencies"
       className="my-12 w-full flex justify-center items-center flex-col gap-10"
     >
-      <div className="flex justify-between items-center w-full px-4 sm:max-3xl lg:max-w-5xl">
+      <div className="flex justify-between items-center w-full px-4 sm:px-0 sm:max-3xl lg:max-w-5xl xl:max-w-6xl">
         <div className="flex justify-center items-start flex-col gap-1">
           <p className="text-lg font-semibold opacity-80 text-accent">
             Featured Properties
@@ -43,7 +43,7 @@ export default function Residencies() {
           <Link href="/property-for-sale">See more</Link>
         </Button>
       </div>
-      <div className="flex justify-center items-start flex-col w-full  px-4 sm:max-w-2xl lg:max-w-5xl">
+      <div className="flex justify-center items-start flex-col w-full  px-4 sm:px-0 sm:max-w-2xl lg:max-w-5xl xl:max-w-6xl">
         {error && (
           <div className="flex justify-center items-center w-full py-20">
             <p className="text-black text-lg">

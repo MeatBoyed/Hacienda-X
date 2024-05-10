@@ -11,7 +11,7 @@ export default function Contact() {
   return (
     <div
       id="contact-us"
-      className="my-12 w-full flex justify-between items-center px-5 md:px-10 lg:px-32"
+      className="w-full flex justify-between items-center px-5 md:px-10 lg:px-32"
     >
       <div className="paddings innerWidth flexCenter c-container">
         {/* left side */}

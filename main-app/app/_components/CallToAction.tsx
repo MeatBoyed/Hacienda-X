@@ -1,7 +1,7 @@
 import React from "react";
-import "./GetStarted.css";
+import "./CallToAction.css";
 
-export default function GetStarted() {
+export default function CallToAction() {
   return (
     <div id="get-started" className="g-wrapper">
       <div className="paddings innerWidth g-container">
