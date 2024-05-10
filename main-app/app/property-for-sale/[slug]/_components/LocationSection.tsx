@@ -11,12 +11,14 @@ import Map, {
 } from "react-map-gl";
 import { useState, useMemo } from "react";
 import Link from "next/link";
-// import { MapComp } from "@/components/Map";
+import { MapComp } from "@/components/Map";
+import { PropertyWithAddress } from "@/app/api/[[...route]]/utils";
 
-export default function LocationSection({ property }: { property: Property }) {
-  if (!process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN) {
-    return <h1>Error...</h1>;
-  }
+export default function LocationSection({
+  property,
+}: {
+  property: PropertyWithAddress;
+}) {
   return (
     <section className="flex justify-center items-center w-full flex-col">
       <div className="border-t border-b border-[#dddddd] py-5 flex justify-center items-start flex-col w-full gap-5">
@@ -24,7 +26,7 @@ export default function LocationSection({ property }: { property: Property }) {
           Where it is
         </h3>
         <div className="w-full h-full mb-8">
-          {/* <MapComp property={property} /> */}
+          <MapComp focusedProperty={property} properties={[]} />
         </div>
         <Button variant="link" className="text-text ">
           Find properties in this area
