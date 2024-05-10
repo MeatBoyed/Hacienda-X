@@ -52,8 +52,8 @@ export default function Residencies() {
           </div>
         )}
         {isLoading && (
-          <div className="flex justify-center items-center w-full py-20">
-            <div className="wrapper flexCenter" style={{ height: "60vh" }}>
+          <div className="flex justify-center items-center w-full py-5">
+            <div className="wrapper flexCenter" style={{ height: "20vh" }}>
               <PuffLoader
                 //   height={80}
                 //   width="80"

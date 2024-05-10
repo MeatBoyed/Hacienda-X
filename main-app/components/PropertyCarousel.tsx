@@ -11,11 +11,12 @@ import {
 } from "./ui/carousel";
 import React from "react";
 import Autoplay from "embla-carousel-autoplay";
+import { PropertyWithAddress } from "@/app/api/[[...route]]/utils";
 
 export default function PropertyCarousel({
   data,
 }: {
-  data: Property[] | null;
+  data: PropertyWithAddress[] | null;
 }) {
   const plugin = React.useRef(
     Autoplay({ delay: 4000, stopOnInteraction: true })

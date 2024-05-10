@@ -3,12 +3,9 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import Footer from "@/components/Footer";
-import { ClerkProvider } from "@clerk/nextjs";
 import { Suspense } from "react";
 import { cn } from "@/lib/utils";
 import { Toaster } from "@/components/ui/toaster";
-import { PHProvider } from "@/components/Providers/PostHogProvider";
-import dynamic from "next/dynamic";
 import "mapbox-gl/dist/mapbox-gl.css";
 import Providers from "@/components/Providers/Providers";
 

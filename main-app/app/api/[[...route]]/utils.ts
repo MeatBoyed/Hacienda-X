@@ -1,13 +1,17 @@
-import { $Enums, Property } from "@prisma/client";
+import { $Enums, Prisma, Property } from "@prisma/client";
+
+export type PropertyWithAddress = Prisma.PropertyGetPayload<{
+  include: { Address: true };
+}>;
 
 // API Response Types
 export interface GenericPropertyResponse {
-  results: Property[];
+  results: PropertyWithAddress[];
   status: number;
 }
 
 export interface SelectPropertyResponse {
-  results: Property;
+  results: PropertyWithAddress;
   status: number;
 }
 

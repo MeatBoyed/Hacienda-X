@@ -31,12 +31,8 @@ export default function PropertyPage() {
     `/api/properties/${slug}`,
     fetcher
   );
-  console.log(data);
-
-  // const { userId } = useAuth();
-  // if (userId) {
-  //   posthog.identify(userId);
-  // }
+  console.log("Data: ", data);
+  console.log("Error: ", error);
 
   // Return to 404 Page if Property doesn't exists
   // if (!data?.results && isLoading === false) {

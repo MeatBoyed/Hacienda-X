@@ -17,8 +17,13 @@ import {
 } from "@/components/ui/card";
 import Image from "next/image";
 import { Bath, Bed } from "lucide-react";
+import { PropertyWithAddress } from "@/app/api/[[...route]]/utils";
 
-export default function PropertyCard({ property }: { property: Property }) {
+export default function PropertyCard({
+  property,
+}: {
+  property: PropertyWithAddress;
+}) {
   return (
     <div className="min-w-[17rem] flex justify-center items-center flex-col gap-5 w-full">
       <Link href={`../property-for-sale/${property.title}`}>
@@ -62,7 +67,9 @@ export default function PropertyCard({ property }: { property: Property }) {
           </div>
         </div>
 
-        {/* <p className="text-base text-muted-foreground">{property.address}</p> */}
+        <p className="text-base text-muted-foreground">
+          {property.Address?.address}
+        </p>
       </div>
     </div>
   );
