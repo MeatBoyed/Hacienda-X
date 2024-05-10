@@ -31,54 +31,57 @@ export default function PropertyPage() {
     `/api/properties/${slug}`,
     fetcher
   );
-  console.log("Data: ", data);
-  console.log("Error: ", error);
 
   // Return to 404 Page if Property doesn't exists
-  // if (!data?.results && isLoading === false) {
-  //   return notFound();
-  // }
-
-  if (isLoading) {
-    return (
-      <div className="w-full flex justify-center items-center h-[100vh] bg-[#ffff] text-accent">
-        <PuffLoader />
-      </div>
-    );
-  }
-
-  if (error) {
+  if (data?.notFound) {
     return (
       <div className="w-full flex justify-center items-center h-[100vh] bg-[#ffff]">
-        <span>Error while fetching the property details</span>
+        <span>
+          This property does not exist. It may have been removed by the agent
+        </span>
+        <p>Checkout other properties that are available</p>
       </div>
     );
   }
 
   return (
     <section
-      id={`${data?.results.title} page`}
+      id={"view-property"}
       className="w-full flex flex-col justify-center items-center gap-2 pt-16 bg-[#fff]"
     >
-      <TopNavbar />
-      <Head title={data?.results.title} images={data?.results.images} />
-      <div className="w-full flex justify-center items-start gap-10 lg:gap-20 pt-5 px-4 sm:max-w-3xl lg:max-w-5xl">
-        <PropertyDetails
-          description={data?.results.description}
-          bathrooms={data?.results.bathrooms}
-          bedrooms={data?.results.bedrooms}
-        />
-        <LeadForm />
-        {/* Final CTA should be placed here */}
-        {/* After page is functional, add more content to increase SEO Ranking */}
-      </div>
-      {data && (
-        <div className="w-full flex justify-center items-start gap-10 lg:gap-20 pt-5 px-4 sm:max-w-3xl lg:max-w-5xl">
-          <LocationSection property={data?.results} />
+      {error && (
+        <div className="w-full flex justify-center items-center h-[100vh] bg-[#ffff]">
+          <span>Error while fetching the property details</span>
         </div>
       )}
-      {/* <Residencies /> */}
-      <BottomNavbar price={data?.results.price} />
+      {isLoading && (
+        <div className="w-full flex justify-center items-center h-[100vh] bg-[#ffff] text-accent">
+          <PuffLoader />
+        </div>
+      )}
+      {data?.results && (
+        <>
+          <TopNavbar />
+          <Head title={data.results.title} images={data.results.images} />
+          <div className="w-full flex justify-center items-start gap-10 lg:gap-20 pt-5 px-4 sm:max-w-3xl lg:max-w-5xl">
+            <PropertyDetails
+              description={data.results.description}
+              bathrooms={data.results.bathrooms}
+              bedrooms={data.results.bedrooms}
+            />
+            <LeadForm />
+            {/* Final CTA should be placed here */}
+            {/* After page is functional, add more content to increase SEO Ranking */}
+          </div>
+          {data && (
+            <div className="w-full flex justify-center items-start gap-10 lg:gap-20 pt-5 px-4 sm:max-w-3xl lg:max-w-5xl">
+              <LocationSection property={data.results} />
+            </div>
+          )}
+          {/* <Residencies /> */}
+          <BottomNavbar price={data.results.price} />
+        </>
+      )}
     </section>
   );
 }

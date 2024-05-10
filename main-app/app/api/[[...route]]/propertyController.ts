@@ -27,7 +27,7 @@ app.get("/", async (c) => {
 
     // Respond with an Error for Client "error" state
     throw new HTTPException(500, {
-      message: "Error: Unexpected error occured",
+      message: "An Unexpected error occurred",
     });
   }
 });
@@ -38,13 +38,6 @@ app.get("/:slug", async (c) => {
   try {
     const slug = c.req.param("slug");
 
-    // Easy Prisma Types - https://stackoverflow.com/questions/68366105/get-full-type-on-prisma-client
-    // type PropertyWithAddress = Prisma.<{
-    //   include: {
-    //     cars: true;
-    //   };
-    // }>;
-
     // Database query (obvs)
     const property = await db.property.findFirst({
       where: { title: slug }, // Property needs a Slug field in DB
@@ -53,24 +46,23 @@ app.get("/:slug", async (c) => {
 
     // Let the Client (Front-End) decide what to do with a 404
     if (!property) {
-      throw new HTTPException(404, { message: "Property not found" });
+      return c.json({ results: undefined, notFound: true }, { status: 200 });
     }
 
     // Response object
     return c.json(
-      { results: property },
+      { results: property, notFound: false },
       {
         status: 200,
       }
     );
   } catch (error: any) {
     // Use as a "Catch-All" error handler
-
     // Show error in console for Debugging (Realistically this should be logged used a package)
     console.log(error);
 
     // Respond with an Error for Client "error" state
-    throw new Error("Something went wrong. Error: ", error);
+    throw new HTTPException(500, { message: "An unexpected error occured" });
   }
 });
 

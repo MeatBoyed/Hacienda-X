@@ -13,6 +13,7 @@ export interface GenericPropertyResponse {
 export interface SelectPropertyResponse {
   results: PropertyWithAddress;
   status: number;
+  notFound: boolean;
 }
 
 export interface SelectUserResponse {
