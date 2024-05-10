@@ -1,6 +1,9 @@
 import React from "react";
 import "./Footer.css";
 import Link from "next/link";
+import { Facebook } from "lucide-react";
+import Image from "next/image";
+import Logo from "@/public/HaciendaLogo.jpeg";
 
 export default function Footer() {
   return (
@@ -9,10 +12,12 @@ export default function Footer() {
         <div className="sm:flex sm:items-center sm:justify-between">
           <div className="text-teal-600 dark:text-teal-300">
             <div className="image-container imageholder">
-              <img
-                src="./HaciendaLogo.jpeg"
-                alt="hero image"
-                className="imageholder"
+              <Image
+                src={Logo} // or Logo.src
+                alt="Logo"
+                // width={100}
+                // height={100}
+                className="w-full h-full"
               />
             </div>
           </div>
@@ -23,12 +28,13 @@ export default function Footer() {
                 href="#"
                 rel="noreferrer"
                 target="_blank"
-                className="text-black font-medium transition-all duration-300 hover:text-xl hover:scale-30000 dark:text-gray-200 link"
+                className="text-black font-medium transition-all duration-300 hover:text-xl  dark:text-gray-200 link"
               >
                 <span className="sr-only">Facebook</span>
 
                 <svg
-                  className="h-6 w-6 transition-all duration-300 hover:text-lg hover:scale-110"
+                  // Use W-width and H-height for hover
+                  className="h-6 w-6 transition-all duration-300 hover:text-lg hover:w-10 hover:h-10"
                   fill="#000000"
                   viewBox="0 0 24 24"
                   aria-hidden="true"
