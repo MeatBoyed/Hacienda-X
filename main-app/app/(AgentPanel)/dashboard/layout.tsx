@@ -21,7 +21,7 @@ export default function RootLayout({
     <Suspense fallback={<div>Loading...</div>}>
       <div className="w-full justify-center flex items-center flex-col  bg-[#ffff]">
         <Navbar />
-        <section className="w-full h-full flex justify-center items-center lg:max-w-7xl bg-[#ffff]">
+        <section id="dashboard" className="w-full h-full flex justify-center items-center lg:max-w-6xl bg-[#ffff]">
           {children}
         </section>
         <Toaster />

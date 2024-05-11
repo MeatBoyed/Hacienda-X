@@ -8,6 +8,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
+import { auth, currentUser } from "@clerk/nextjs/server";
 import { Search } from "lucide-react";
 import Image from "next/image";
 
@@ -16,9 +17,9 @@ export default function Navbar() {
     <nav className="w-full h-full flex justify-center items-center pb-3 mt-5 border-b">
       <div className="w-full flex justify-center items-center gap-5 flex-col lg:max-w-7xl">
         <div className="w-full flex justify-between items-center">
-          <p className="scroll-m-20 text-xl font-semibold tracking-tight">
+          <h2 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight">
             Hacienda X
-          </p>
+          </h2>
 
           <div className=" flex justify-center items-center gap-4">
             <div className="relative ml-auto flex-1 md:grow-0">
@@ -45,7 +46,9 @@ export default function Navbar() {
   );
 }
 
-function UserActions() {
+async function UserActions() {
+  const user = await currentUser();
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -55,7 +58,7 @@ function UserActions() {
           className="overflow-hidden rounded-full"
         >
           <Image
-            src="/placeholder-user.jpg"
+            src={user?.imageUrl || ""}
             width={36}
             height={36}
             alt="Avatar"
