@@ -8,6 +8,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
+import { SignOutButton } from "@clerk/nextjs";
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { Search } from "lucide-react";
 import Image from "next/image";
@@ -72,7 +73,9 @@ async function UserActions() {
         <DropdownMenuItem>Settings</DropdownMenuItem>
         <DropdownMenuItem>Support</DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>Logout</DropdownMenuItem>
+        <DropdownMenuItem>
+          <SignOutButton>Logout</SignOutButton>
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
