@@ -20,12 +20,14 @@ export default function Dashboard() {
 
       <section className="w-full flex justify-between items-start ">
         {/* Left Side */}
-        <div className="flex justify-center items-start flex-col w-full">
+        <div className="flex justify-center items-start flex-col">
           <div className=" flex justify-center items-center gap-4">
             <InsightCard />
             <InsightCard />
             <InsightCard />
           </div>
+
+          <div className="w-full h-[40vh] bg-gray-600 mt-10 rounded-lg" />
         </div>
 
         {/* Right */}
@@ -38,7 +40,7 @@ export default function Dashboard() {
       <p className="scroll-m-20 text-2xl font-semibold tracking-tight">
         Your properties
       </p>
-      <div className="w-full flex justify-center items-center gap-4 mt-">
+      <div className="flex justify-center items-center gap-4">
         <PropertyInsightCard />
         <PropertyInsightCard />
         <PropertyInsightCard />
