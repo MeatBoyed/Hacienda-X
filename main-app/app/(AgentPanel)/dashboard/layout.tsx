@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 import { Suspense } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import "mapbox-gl/dist/mapbox-gl.css";
+import Navbar from "./_components/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
@@ -18,12 +19,14 @@ export default function RootLayout({
 }>) {
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <div style={{ background: "var(--black)", overflow: "hidden" }}>
-        {/* <Header /> */}
-        {children}
+      <div className="w-full justify-center flex items-center flex-col  bg-[#ffff]">
+        <Navbar />
+        <section className="w-full h-full flex justify-center items-center lg:max-w-7xl bg-[#ffff]">
+          {children}
+        </section>
         <Toaster />
+        {/* <Footer /> */}
       </div>
-      {/* <Footer /> */}
     </Suspense>
   );
 }
