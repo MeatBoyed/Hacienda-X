@@ -27,14 +27,14 @@ export default function Value() {
           <span className="block">HaciendaX Real Estate</span>
         </h2>
         <p className="text-md mt-4 text-gray-400">
-          We're committed to empowering buyers and sellers with knowledge,
+          We are committed to empowering buyers and sellers with knowledge,
           support, and personalized service. At Hacienda, our passion for people
           and properties drives us to exceed expectations and create lasting
           relationships. <br />
           Discover what sets us apart at Hacienda. We strive for excellence in
           every transaction, aiming to surpass industry standards and client
           expectations. With a focus on integrity, transparency, and
-          professionalism, we're dedicated to achieving your real estate goals
+          professionalism, we are dedicated to achieving your real estate goals
           and earning your trust.
         </p>
         <div className="lg:mt-0 lg:flex-shrink-0">
