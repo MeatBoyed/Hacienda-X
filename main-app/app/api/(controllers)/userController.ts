@@ -1,5 +1,5 @@
 import { Hono } from "hono";
-import db from "./db";
+import db from "../(utils)/db";
 import { Role } from "@prisma/client";
 import { auth } from "@clerk/nextjs/server";
 import { zValidator } from "@hono/zod-validator";

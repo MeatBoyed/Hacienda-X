@@ -1,5 +1,5 @@
 import { Hono } from "hono";
-import db from "./db";
+import db from "../(utils)/db";
 import { Prisma } from "@prisma/client";
 import { HTTPException } from "hono/http-exception";
 

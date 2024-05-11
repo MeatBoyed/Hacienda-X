@@ -25,7 +25,7 @@ import {
 } from "@/components/ui/card";
 import { useRouter } from "next/navigation";
 import useSWRMutation from "swr/mutation";
-import { RoleRequest } from "@/app/api/[[...route]]/userController";
+import { RoleRequest } from "@/app/api/(controllers)/userController";
 import { toast } from "@/components/ui/use-toast";
 import Link from "next/link";
 import { SelectUserResponse } from "@/app/api/[[...route]]/utils";

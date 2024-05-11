@@ -14,7 +14,6 @@ import HowItWorks from "./_components/HowItWorks";
 
 export default async function Home() {
   // const { userId } = auth();
-  // const posthog = PostHogClient();
 
   // if (userId) {
   //   posthog.identify({
