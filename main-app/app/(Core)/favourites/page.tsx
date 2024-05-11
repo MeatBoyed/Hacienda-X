@@ -1,7 +1,7 @@
 "use client";
 import React, { useContext, useState } from "react";
 import { PuffLoader } from "react-spinners";
-import "../property-for-sale/Properties.css";
+import "../(Property)/property-for-sale/Properties.css";
 import { SearchBar } from "@/components/SearchBar";
 
 export default function Favourites() {

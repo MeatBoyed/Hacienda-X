@@ -70,27 +70,9 @@ import {
 } from "@/components/ui/tooltip";
 import useSWR from "swr";
 
-const fetcher = (url: string) =>
-  fetch(url, {
-    method: "GET",
-    // body: JSON.stringify({
-    //   personal_api_key: "phc_K6QFhmIUxOpo0Ia7pgqKAHPh5xWzgyqEa2YP7yrzJST",
-    // }),
-    headers: {
-      Authorization: "Bearer phx_eTkOAA1w4HI4VFniW2NzBkawZQp2z4o8ZrlOb4H1FJN",
-    },
-  }).then((res) => res.json());
+// Tremor for Analytics Components - https://www.tremor.so/
 
 export default function Dashboard() {
-  // Hanldes all data fetching states, calls the Fetching Handler
-  const { data, error, isLoading } = useSWR(
-    "https://us.posthog.com/api/projects/67000/insights/?short_id=2AKoWwKU/",
-    fetcher
-  );
-
-  console.log("Data: ", data);
-  console.log("Error: ", error);
-
   return (
     <TooltipProvider>
       <div className="flex min-h-screen w-full flex-col bg-muted/40">
