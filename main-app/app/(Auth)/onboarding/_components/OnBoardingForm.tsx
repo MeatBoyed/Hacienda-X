@@ -32,6 +32,7 @@ import { SelectUserResponse } from "@/app/api/[[...route]]/utils";
 import useSWR from "swr";
 import { PuffLoader } from "react-spinners";
 import { $Enums } from "@prisma/client";
+import PostHogClient from "@/components/Posthog";
 
 const propertySchema = z.object({
   role: z.string(),
@@ -118,12 +119,20 @@ export default function OnBoardingForm({
           </div>
         </div>
       )}
-      {!isLoading && <CustomerOrAgentSelect isCreated={data?.results} />}
+      {!isLoading && (
+        <CustomerOrAgentSelect isCreated={data?.results} userId={userId} />
+      )}
     </div>
   );
 }
 
-function CustomerOrAgentSelect({ isCreated }: { isCreated?: $Enums.Role }) {
+function CustomerOrAgentSelect({
+  isCreated,
+  userId,
+}: {
+  isCreated?: $Enums.Role;
+  userId: string;
+}) {
   const router = useRouter();
   const [role, setRole] = useState<$Enums.Role | undefined>(isCreated);
   const [toastMessage, setToastMessage] = useState<{
@@ -144,6 +153,14 @@ function CustomerOrAgentSelect({ isCreated }: { isCreated?: $Enums.Role }) {
       },
 
       onSuccess: () => {
+        // Identify User Role
+        const posthog = PostHogClient();
+        posthog.identify({
+          distinctId: userId, // replace with a user's distinct ID
+          properties: { role: role },
+        });
+
+        // Show message
         toast({
           title: "Thanks for joining!",
           description: (
@@ -184,6 +201,7 @@ function CustomerOrAgentSelect({ isCreated }: { isCreated?: $Enums.Role }) {
                 link: "/properties-for-sale",
               });
               await trigger({ role: "viewer" });
+              setRole("viewer");
               // router.push("/")
             }}
           >
