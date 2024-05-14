@@ -8,6 +8,7 @@ import {
 import { Eye, TrendingUp } from "lucide-react";
 import NewLeads from "./_components/NewLeads";
 import PropertyInsightCard from "./_components/PropertyInsightCard";
+import InsightCard from "./_components/InsightCard";
 
 // Tremor for Analytics Components - https://www.tremor.so/
 
@@ -25,8 +26,8 @@ export default function Dashboard() {
         <div className="flex justify-center items-start flex-col">
           <div className=" flex justify-center items-center gap-4">
             <InsightCard />
-            <InsightCard />
-            <InsightCard />
+            {/* <InsightCard />
+            <InsightCard /> */}
           </div>
 
           <div className="w-full h-[40vh] bg-gray-600 mt-10 rounded-lg" />
@@ -48,22 +49,6 @@ export default function Dashboard() {
         <PropertyInsightCard />
       </div>
     </div>
-  );
-}
-
-function InsightCard() {
-  const views = 3500;
-  return (
-    <Card className="min-w-md">
-      <CardHeader className="gap-2 flex-row items-end">
-        <CardTitle className="text-4xl">{views.toLocaleString()}</CardTitle>
-        <CardDescription>Views</CardDescription>
-      </CardHeader>
-      <CardContent className="flex justify-center items-center gap-3">
-        <TrendingUp />
-        <p className="text-xs text-muted-foreground">+25% from last week</p>
-      </CardContent>
-    </Card>
   );
 }
 

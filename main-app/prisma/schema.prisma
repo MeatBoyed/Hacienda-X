@@ -49,6 +49,7 @@ model Property {
   title         String
   description   String
   price         Float
+  
   bathrooms     Int
   bedrooms      Int
   pool          Boolean  @default(false)
@@ -58,6 +59,7 @@ model Property {
   // Sales Data
   saleType SaleType // For Rent or For Sale
   sold     Boolean  @default(false)
+  
 
   // Meta 2
   visibility Visibility @default(Public)
