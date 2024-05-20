@@ -17,7 +17,7 @@ const data = [
     icon: <MdAnalytics />,
     heading: "What We Strive For:",
     detail:
-      "Discover what sets us apart at [Agency Name]. We strive for excellence in every transaction, aiming to surpass industry standards and client expectations. With a focus on integrity, transparency, and professionalism, we're dedicated to achieving your real estate goals and earning your trust.",
+      "Discover what sets us apart at Hacienda. We strive for excellence in every transaction, aiming to surpass industry standards and client expectations. With a focus on integrity, transparency, and professionalism, we're dedicated to achieving your real estate goals and earning your trust.",
   },
 ];
 export default data;
