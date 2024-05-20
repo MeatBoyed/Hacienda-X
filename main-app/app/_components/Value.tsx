@@ -21,74 +21,55 @@ import ValueImage from "@/public/r1.png";
 // Demo styles, see 'Styles' section below for some notes on use.
 
 export default function Value() {
-  const [className, setClassName] = useState<string | null>(null);
   return (
     <section
       id="value"
       className="my-12 w-full flex justify-between items-center px-5 md:px-10 lg:px-32"
     >
       <div className="paddings innerWidth flexCenter v-container">
-        {/* left side */}
-        <div className="v-left">
-          <div className="image-container">
-            <Image src={ValueImage} alt="hero image" />
-          </div>
-        </div>
-
-        {/* right */}
-        <div className="flexColStart v-right">
-          <div className="flex justify-center items-start flex-col gap-5 w-full">
-            <div className="flex justify-center items-start flex-col gap-1 w-full">
-              <p className="text-lg font-semibold opacity-80 text-accent  w-full">
-                Our Value
-              </p>
-              <h2 className="scroll-m-20 text-3xl font-semibold tracking-tight first:mt-0 w-full">
-                Value We Give to You
-              </h2>
+        <div className="sm:flex items-center max-w-screen-xl">
+          <div className="sm:w-1/2 p-10">
+            <div className="image object-center text-center ">
+              <Image
+                src="https://i.imgur.com/WbQnbas.png"
+                alt="Side Image"
+                width={400} // Replace with the actual width of the image
+                height={300} // Replace with the actual height of the image
+              />
             </div>
-
-            <p className="leading-7 w-full text-muted-foreground">
-              We always ready to help by providijng the best services for you.
-              We beleive a good blace to live can make your life better
-            </p>
           </div>
-
-          <Accordion
-            className="accordion"
-            allowMultipleExpanded={false}
-            preExpanded={[0]}
-          >
-            {data.map((item, i) => (
-              <AccordionItem
-                className={`accordionItem ${className}`}
-                uuid={i}
-                key={i}
-              >
-                <AccordionItemHeading>
-                  <AccordionItemButton className="flexCenter accordionButton ">
-                    {/* just for getting state of item */}
-                    {/* <AccordionItemState>
-                        {({ expanded }) =>
-                          expanded
-                            ? setClassName("expanded")
-                            : setClassName("collapsed")
-                        }
-                      </AccordionItemState> */}
-                    <div className="flexCenter icon">{item.icon}</div>
-                    <span className="primaryText">{item.heading}</span>
-                    <div className="flexCenter icon">
-                      <MdOutlineArrowDropDown size={20} />
-                    </div>
-                  </AccordionItemButton>
-                </AccordionItemHeading>
-                <AccordionItemPanel>
-                  <p className="secondaryText">{item.detail}</p>
-                </AccordionItemPanel>
-              </AccordionItem>
-            ))}
-          </Accordion>
-          <div className="learn-more-button">
-            <button className="button">Learn more</button>
+          <div className="sm:w-1/2 p-5">
+            <div className="text">
+              <span className="text-gray-500 border-b-2 border-indigo-600 uppercase">
+                About us
+              </span>
+              <h2 className="my-4 font-bold text-3xl  sm:text-4xl ">
+                About <span className="text-indigo-600">Our Company</span>
+              </h2>
+              <p className="text-gray-700">
+                <h4 className="font-bold ">Our Mission:</h4> <br />
+                We're committed to empowering buyers and sellers with knowledge,
+                support, and personalized service. At Hacienda, our passion for
+                people and properties drives us to exceed expectations and
+                create lasting relationships.
+                <br />
+                <br />
+                <h4 className="font-bold ">Unbeatable Prices:</h4> <br />
+                Explore our listings featuring unbeatable prices and incredible
+                deals. From cozy starter homes to luxurious estates, find your
+                perfect property without breaking the bank. At Hacienda,
+                affordability meets quality, making your dream home more
+                attainable than ever.
+                <br />
+                <br />
+                <h4 className="font-bold ">What We Strive For:</h4> <br />
+                Discover what sets us apart at Hacienda. We strive for
+                excellence in every transaction, aiming to surpass industry
+                standards and client expectations. With a focus on integrity,
+                transparency, and professionalism, we're dedicated to achieving
+                your real estate goals and earning your trust.
+              </p>
+            </div>
           </div>
         </div>
       </div>
