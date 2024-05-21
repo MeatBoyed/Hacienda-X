@@ -18,6 +18,7 @@ import "./Value.css";
 import data from "@/Utils/accordion";
 import Image from "next/image";
 import ValueImage from "@/public/r1.png";
+import Link from "next/link"; // Import Link from next/linkimport Link from "next/link"; // Import Link from next/link
 // Demo styles, see 'Styles' section below for some notes on use.
 
 export default function Value() {
@@ -48,27 +49,27 @@ export default function Value() {
               </h2>
               <p className="text-gray-700">
                 <h4 className="font-bold ">Our Mission:</h4> <br />
-                We're committed to empowering buyers and sellers with knowledge,
-                support, and personalized service. At Hacienda, our passion for
-                people and properties drives us to exceed expectations and
-                create lasting relationships.
+                <span className="font-bold text-blue-500">At Hacienda</span>,
+                our mission is to empower buyers and sellers with knowledge,
+                support, and personalized service. Driven by a passion for
+                people and properties, we strive to exceed expectations and
+                build lasting relationships. Our listings feature unbeatable
+                prices and incredible deals, making it easy to find your perfect
+                home without breaking the bank. Whether you're looking for a
+                cozy starter home or a luxurious estate, Hacienda combines
+                affordability with quality. We are committed to excellence in
+                every transaction, focusing on integrity, transparency, and
+                professionalism to achieve your real estate goals and earn your
+                trust. Discover what sets us apart at Hacienda.
                 <br />
                 <br />
-                <h4 className="font-bold ">Unbeatable Prices:</h4> <br />
-                Explore our listings featuring unbeatable prices and incredible
-                deals. From cozy starter homes to luxurious estates, find your
-                perfect property without breaking the bank. At Hacienda,
-                affordability meets quality, making your dream home more
-                attainable than ever.
-                <br />
-                <br />
-                <h4 className="font-bold ">What We Strive For:</h4> <br />
-                Discover what sets us apart at Hacienda. We strive for
-                excellence in every transaction, aiming to surpass industry
-                standards and client expectations. With a focus on integrity,
-                transparency, and professionalism, we're dedicated to achieving
-                your real estate goals and earning your trust.
               </p>
+              <Link
+                href="/learn-more"
+                className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700"
+              >
+                Learn More
+              </Link>
             </div>
           </div>
         </div>

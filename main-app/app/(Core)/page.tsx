@@ -5,6 +5,7 @@ import Residencies from "../_components/Residencies";
 import Value from "../_components/Value";
 import CallToAction from "../_components/CallToAction";
 import Contact from "../_components/Contact";
+import OfferedSection from "../_components/OfferedSection";
 
 export default async function Home() {
   return (
@@ -17,6 +18,7 @@ export default async function Home() {
         <HowItWorks />
         <Residencies />
         <Value />
+        <OfferedSection />
         <CallToAction />
         <Contact />
       </div>
