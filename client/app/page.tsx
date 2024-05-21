@@ -24,6 +24,7 @@ export default async function Home() {
       <PropertyRender title={"Popular Rentals"} properties={data} />
       <PropertyRender title={"Popular Sales"} properties={data} />
       <AboutUs />
+
       <Contact />
       <CallToAction />
     </div>
