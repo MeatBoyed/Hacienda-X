@@ -5,11 +5,11 @@ import { MdCall } from "react-icons/md";
 import { BsFillChatDotsFill } from "react-icons/bs";
 import Image from "next/image";
 import ContactImage from "@/public/contact.jpg";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-// import { HiChatBubbleBottomCenter } from "react-icons/hi2";
+import { useToast } from "@/components/ui/use-toast";
 
 export default function Contact() {
+  const { toast } = useToast();
+
   const handleButtonClick = (text: any) => {
     copyTextcall(text);
     showToast();
@@ -19,6 +19,13 @@ export default function Contact() {
     copyText(text);
     showToast();
   };
+
+  const showToast = () => {
+    toast({
+      description: "Copied Successfully",
+    });
+  };
+
   return (
     <div
       id="contact-us"
@@ -29,7 +36,7 @@ export default function Contact() {
         <div className="flexColStart c-left">
           <div className="flex justify-center items-start flex-col gap-5 w-full">
             <div className="flex justify-center items-start flex-col gap-1 w-full">
-              <p className="text-lg font-semibold opacity-80 text-accent  w-full">
+              <p className="text-lg font-semibold opacity-80 text-accent w-full">
                 Contact Us
               </p>
               <h2 className="scroll-m-20 text-3xl font-semibold tracking-tight first:mt-0 w-full">
@@ -38,8 +45,8 @@ export default function Contact() {
             </div>
 
             <p className="leading-7 w-full text-muted-foreground">
-              We always ready to help by providing the best services for you. We
-              believe a good place to live can make your life better
+              We are always ready to help by providing the best services for
+              you. We believe a good place to live can make your life better.
             </p>
           </div>
 
@@ -88,7 +95,7 @@ export default function Contact() {
 
         {/* right side */}
         <div className="flexEnd c-right">
-          <div className="image-container ">
+          <div className="image-container">
             <Image
               src={ContactImage}
               alt="Contact Image"
@@ -107,12 +114,4 @@ function copyText(text: any) {
 
 function copyTextcall(text: any) {
   navigator.clipboard.writeText(text);
-}
-
-function showToast() {
-  toast("Copied Successfully", {
-    hideProgressBar: true,
-    autoClose: 2000,
-    type: "success",
-  });
 }
