@@ -4,6 +4,7 @@ import React from "react";
 import "./Value.css";
 import Image from "next/image";
 import Link from "next/link";
+import { Toaster } from "@/components/ui/toaster";
 export default function Value() {
   return (
     <section
@@ -38,8 +39,8 @@ export default function Value() {
                 people and properties, we strive to exceed expectations and
                 build lasting relationships. Our listings feature unbeatable
                 prices and incredible deals, making it easy to find your perfect
-                home without breaking the bank. Whether you're looking for a
-                cozy starter home or a luxurious estate, Hacienda combines
+                home without breaking the bank. Whether you&apos;re looking for
+                a cozy starter home or a luxurious estate, Hacienda combines
                 affordability with quality. We are committed to excellence in
                 every transaction, focusing on integrity, transparency, and
                 professionalism to achieve your real estate goals and earn your

@@ -200,7 +200,7 @@ export default function Footer() {
             <ul className="mt-6 space-y-4 text-sm">
               <li>
                 <a
-                  href="/Properties-for-sale"
+                  href="/Property-for-sale"
                   className="text-black font-medium transition-all duration-300 hover:text-lg dark:text-gray-200"
                 >
                   Properties
@@ -209,7 +209,7 @@ export default function Footer() {
 
               <li>
                 <a
-                  href="/Favorites"
+                  href="/favorites"
                   className="text-black font-medium transition-all duration-300 hover:text-lg dark:text-gray-200"
                 >
                   Favorites
@@ -218,7 +218,7 @@ export default function Footer() {
 
               <li>
                 <a
-                  href="/PricingPage"
+                  href="/pricingplan"
                   className="text-black font-medium transition-all duration-300 hover:text-lg dark:text-gray-200"
                 >
                   Pricing
