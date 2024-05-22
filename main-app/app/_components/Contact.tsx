@@ -5,9 +5,20 @@ import { MdCall } from "react-icons/md";
 import { BsFillChatDotsFill } from "react-icons/bs";
 import Image from "next/image";
 import ContactImage from "@/public/contact.jpg";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 // import { HiChatBubbleBottomCenter } from "react-icons/hi2";
 
 export default function Contact() {
+  const handleButtonClick = (text: any) => {
+    copyTextcall(text);
+    showToast();
+  };
+
+  const handleEmailClick = (text: any) => {
+    copyText(text);
+    showToast();
+  };
   return (
     <div
       id="contact-us"
@@ -45,7 +56,12 @@ export default function Contact() {
                     <span className="secondaryText">021 123 145 14</span>
                   </div>
                 </div>
-                <div className="flexCenter button">Call now</div>
+                <button
+                  className="flexCenter button"
+                  onClick={() => handleButtonClick("021 123 145 14")}
+                >
+                  Copy To Clipboard
+                </button>
               </div>
 
               <div className="flexColCenter mode">
@@ -54,41 +70,17 @@ export default function Contact() {
                     <BsFillChatDotsFill size={25} />
                   </div>
                   <div className="flexColStart detail">
-                    <span className="primaryText">Chat</span>
-                    <span className="secondaryText">021 123 145 14</span>
+                    <span className="primaryText">Email</span>
+                    <span className="secondaryText">Hacienda@gmail.com</span>
                   </div>
                 </div>
-                <div className="flexCenter button">Chat now</div>
-              </div>
-            </div>
 
-            {/* second row */}
-            <div className="flexStart row">
-              <div className="flexColCenter mode">
-                <div className="flexStart">
-                  <div className="flexCenter icon">
-                    <BsFillChatDotsFill size={25} />
-                  </div>
-                  <div className="flexColStart detail">
-                    <span className="primaryText">Video Call</span>
-                    <span className="secondaryText">021 123 145 14</span>
-                  </div>
-                </div>
-                <div className="flexCenter button">Video Call now</div>
-              </div>
-
-              <div className="flexColCenter mode">
-                <div className="flexStart">
-                  <div className="flexCenter icon">
-                    <p>ICON</p>
-                    {/* <HiChatBubbleBottomCenter size={25} /> */}
-                  </div>
-                  <div className="flexColStart detail">
-                    <span className="primaryText">Message</span>
-                    <span className="secondaryText">021 123 145 14</span>
-                  </div>
-                </div>
-                <div className="flexCenter button">Message now</div>
+                <button
+                  className="flexCenter button"
+                  onClick={() => handleEmailClick("Haciendaemail@gmail.com")}
+                >
+                  Copy To Clipboard
+                </button>
               </div>
             </div>
           </div>
@@ -107,4 +99,20 @@ export default function Contact() {
       </div>
     </div>
   );
+}
+
+function copyText(text: any) {
+  navigator.clipboard.writeText(text);
+}
+
+function copyTextcall(text: any) {
+  navigator.clipboard.writeText(text);
+}
+
+function showToast() {
+  toast("Copied Successfully", {
+    hideProgressBar: true,
+    autoClose: 2000,
+    type: "success",
+  });
 }

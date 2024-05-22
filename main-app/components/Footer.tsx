@@ -53,12 +53,12 @@ export default function Footer() {
                 href="#"
                 rel="noreferrer"
                 target="_blank"
-                className="text-black font-medium transition-all duration-300 hover:text-xl hover:scale-30000 dark:text-gray-200 link"
+                className="text-black font-medium transition-all duration-300 hover:text-xl dark:text-gray-200 link"
               >
                 <span className="sr-only">Instagram</span>
 
                 <svg
-                  className="h-6 w-6 transition-all duration-300 hover:text-lg hover:scale-110"
+                  className="h-6 w-6 transition-all duration-300 hover:text-lg hover:w-10 hover:h-10"
                   fill="#000000"
                   viewBox="0 0 24 24"
                   aria-hidden="true"
@@ -82,7 +82,7 @@ export default function Footer() {
                 <span className="sr-only">Twitter</span>
 
                 <svg
-                  className="h-6 w-6 transition-all duration-300 hover:text-lg hover:scale-110"
+                  className="h-6 w-6 transition-all duration-300 hover:text-lg hover:w-10 hover:h-10"
                   fill="#000000"
                   viewBox="0 0 24 24"
                   aria-hidden="true"
@@ -102,7 +102,7 @@ export default function Footer() {
                 <span className="sr-only">GitHub</span>
 
                 <svg
-                  className="h-6 w-6 transition-all duration-300 hover:text-lg hover:scale-110"
+                  className="h-6 w-6 transition-all duration-300 hover:text-lg hover:w-10 hover:h-10"
                   fill="#000000"
                   viewBox="0 0 24 24"
                   aria-hidden="true"
@@ -126,7 +126,7 @@ export default function Footer() {
                 <span className="sr-only">Dribbble</span>
 
                 <svg
-                  className="h-6 w-6 transition-all duration-300 hover:text-lg hover:scale-110"
+                  className="h-6 w-6 transition-all duration-300 hover:text-lg hover:w-10 hover:h-10"
                   fill="#000000"
                   viewBox="0 0 24 24"
                   aria-hidden="true"
@@ -164,26 +164,26 @@ export default function Footer() {
 
             <ul className="mt-6 space-y-4 text-sm">
               <li>
-                <a
-                  href="#"
+                <Link
+                  href="/aboutus"
                   className="text-black font-medium transition-all duration-300 hover:text-lg dark:text-gray-200"
                 >
                   About Us
-                </a>
+                </Link>
               </li>
 
               <li>
-                <a
+                <Link
                   href="#"
                   className="text-black font-medium transition-all duration-300 hover:text-lg dark:text-gray-200"
                 >
                   Contact Us
-                </a>
+                </Link>
               </li>
 
               <li>
                 <a
-                  href="#"
+                  href="/sign-in"
                   className="text-black font-medium transition-all duration-300 hover:text-lg dark:text-gray-200"
                 >
                   Sign Up
@@ -200,7 +200,7 @@ export default function Footer() {
             <ul className="mt-6 space-y-4 text-sm">
               <li>
                 <a
-                  href="#"
+                  href="/Properties-for-sale"
                   className="text-black font-medium transition-all duration-300 hover:text-lg dark:text-gray-200"
                 >
                   Properties
@@ -209,7 +209,7 @@ export default function Footer() {
 
               <li>
                 <a
-                  href="#"
+                  href="/Favorites"
                   className="text-black font-medium transition-all duration-300 hover:text-lg dark:text-gray-200"
                 >
                   Favorites
@@ -218,7 +218,7 @@ export default function Footer() {
 
               <li>
                 <a
-                  href="#"
+                  href="/PricingPage"
                   className="text-black font-medium transition-all duration-300 hover:text-lg dark:text-gray-200"
                 >
                   Pricing
@@ -227,7 +227,7 @@ export default function Footer() {
 
               <li>
                 <a
-                  href="#"
+                  href="/SellProperty"
                   className="text-black font-medium transition-all duration-300 hover:text-lg dark:text-gray-200"
                 >
                   Sell Your Property

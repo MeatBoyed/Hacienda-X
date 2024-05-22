@@ -1,26 +1,9 @@
 // Half done
 "use client";
-import React, { useState } from "react";
-import {
-  Accordion,
-  AccordionItem,
-  AccordionItemHeading,
-  AccordionItemButton,
-  AccordionItemPanel,
-  AccordionItemState,
-} from "react-accessible-accordion";
-import "react-accessible-accordion/dist/fancy-example.css";
-import {
-  MdOutlineArrowDropDown,
-  MdOutlineArrowDropDownCircle,
-} from "react-icons/md";
+import React from "react";
 import "./Value.css";
-import data from "@/Utils/accordion";
 import Image from "next/image";
-import ValueImage from "@/public/r1.png";
-import Link from "next/link"; // Import Link from next/linkimport Link from "next/link"; // Import Link from next/link
-// Demo styles, see 'Styles' section below for some notes on use.
-
+import Link from "next/link";
 export default function Value() {
   return (
     <section
@@ -65,7 +48,7 @@ export default function Value() {
                 <br />
               </p>
               <Link
-                href="/learn-more"
+                href="/aboutus"
                 className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700"
               >
                 Learn More
