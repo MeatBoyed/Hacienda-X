@@ -13,6 +13,7 @@ interface PricingCardProps {
   subscription: string;
   buttonText: string;
   active?: boolean;
+  className: string; // Added className property
 }
 
 const Pricing = () => {
@@ -29,8 +30,7 @@ const Pricing = () => {
                 Our Pricing Plan
               </h2>
               <p className="text-base text-body-color dark:text-dark-6">
-                There are many variations of passages of Lorem Ipsum available
-                but the majority have suffered alteration in some form.
+                Choose the plan that best suits your needs.
               </p>
             </div>
           </div>
@@ -39,47 +39,47 @@ const Pricing = () => {
         <div className="-mx-4 flex flex-wrap justify-center">
           <div className="-mx-4 flex flex-wrap">
             <PricingCard
-              type="Personal"
-              price="$59"
-              subscription="year"
-              description="Perfect for using in a personal website or a client project."
-              buttonText="Choose Personal"
+              type="Basic"
+              price="$29"
+              subscription="month"
+              description="Ideal for individual agents starting out."
+              buttonText="Choose Basic"
+              className="border-solid border-4 border-gray-400"
             >
-              <List>1 User</List>
-              <List>All UI components</List>
-              <List>Lifetime access</List>
-              <List>Free updates</List>
-              <List>Use on 1 (one) project</List>
-              <List>3 Months support</List>
+              <List>1 Property Listing</List>
+              <List>Standard Exposure</List>
+              <List>Email Support</List>
+              <List>Monthly Analytics Report</List>
             </PricingCard>
             <PricingCard
-              type="Business"
-              price="$199"
-              subscription="year"
-              description="Perfect for using in a personal website or a client project."
-              buttonText="Choose Business"
+              type="Pro"
+              price="$99"
+              subscription="month"
+              description="Perfect for small real estate teams."
+              buttonText="Choose Pro"
               active
+              className="border-solid border-4 border-black"
             >
-              <List>5 User</List>
-              <List>All UI components</List>
-              <List>Lifetime access</List>
-              <List>Free updates</List>
-              <List>Use on 31 (three) projects</List>
-              <List>4 Months support</List>
+              <List>10 Property Listings</List>
+              <List>Enhanced Exposure</List>
+              <List>Priority Email Support</List>
+              <List>Weekly Analytics Report</List>
+              <List>Featured Listings</List>
             </PricingCard>
             <PricingCard
-              type="Professional"
-              price="$256"
+              type="Enterprise"
+              price="$499"
               subscription="year"
-              description="Perfect for using in a personal website or a client project."
-              buttonText="Choose Professional"
+              description="Best for large real estate firms needing comprehensive features."
+              buttonText="Choose Enterprise"
+              className="border-solid border-4 border-blue-600"
             >
-              <List>Unlimited User</List>
-              <List>All UI components</List>
-              <List>Lifetime access</List>
-              <List>Free updates</List>
-              <List>Unlimited project</List>
-              <List>12 Months support</List>
+              <List>Unlimited Property Listings</List>
+              <List>Maximum Exposure</List>
+              <List>Dedicated Account Manager</List>
+              <List>Daily Analytics Report</List>
+              <List>Premium Featured Listings</List>
+              <List>Custom Branding Options</List>
             </PricingCard>
           </div>
         </div>
@@ -98,11 +98,14 @@ const PricingCard: React.FC<PricingCardProps> = ({
   subscription,
   buttonText,
   active,
+  className, // Added className here
 }) => {
   return (
     <>
       <div className="w-full px-4 md:w-1/2 lg:w-1/3">
-        <div className="relative z-10 mb-10 overflow-hidden rounded-[10px] border-2 border-stroke bg-white px-8 py-10 shadow-pricing dark:border-dark-3 dark:bg-dark-2 sm:p-12 lg:px-6 lg:py-10 xl:p-[50px]">
+        <div
+          className={`relative z-10 mb-10 overflow-hidden rounded-[10px] border-2 border-stroke bg-white px-8 py-10 shadow-pricing dark:border-dark-3 dark:bg-dark-2 sm:p-12 lg:px-6 lg:py-10 xl:p-[50px] ${className}`}
+        >
           <span className="mb-3 block text-lg font-semibold text-primary">
             {type}
           </span>
@@ -120,12 +123,13 @@ const PricingCard: React.FC<PricingCardProps> = ({
             href="/#"
             className={` ${
               active
-                ? "block w-full rounded-md border border-primary bg-primary p-3 text-center text-base font-medium text-white hover:text-lg  bg-blue-600 transition hover:bg-opacity-90 hover:bg-blue-800 hover:text-white fill-blue-600"
-                : "block w-full rounded-md border border-primary bg-primary p-3 text-center text-base font-medium text-white  bg-blue-400 transition hover:bg-opacity-90 hover:bg-blue-600  fill-blue-400 hover:text-white"
+                ? "block w-full rounded-md border border-primary bg-primary p-3 text-center text-base font-medium bg-blue-600 text-black hover:text-lg  transition hover:bg-opacity-90 hover:bg-blue-800 hover:text-white fill-blue-600"
+                : "block w-full rounded-md border border-primary bg-primary p-3 text-center text-base font-medium bg-blue-400 text-blue-600   transition hover:bg-opacity-90 hover:bg-blue-600  fill-blue-400 hover:text-white"
             } `}
           >
             {buttonText}
           </a>
+
           <div>
             <span className="absolute right-0 top-7 z-[-1]">
               <svg
