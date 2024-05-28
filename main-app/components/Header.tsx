@@ -51,7 +51,7 @@ function NavLinks() {
       <Link href="/dashboard">
         <p className="text-xl ">Sell your Property</p>
       </Link>
-      <Link href="/pricing">
+      <Link href="/pricingplan">
         <p className="text-xl ">Pricing</p>
       </Link>
       <Link href="/contact">
