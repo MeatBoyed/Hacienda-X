@@ -39,18 +39,21 @@ const Pricing = () => {
         <div className="-mx-4 flex flex-wrap justify-center">
           <div className="-mx-4 flex flex-wrap">
             <PricingCard
-              type="Basic"
-              price="$29"
-              subscription="month"
-              description="Ideal for individual agents starting out."
-              buttonText="Choose Basic"
-              className="border-solid border-4 border-gray-400"
+              type="Enterprise"
+              price="$499"
+              subscription="year"
+              description="Best for large real estate firms needing comprehensive features."
+              buttonText="Choose Enterprise"
+              className="border-solid border-4 border-blue-600"
             >
-              <List>1 Property Listing</List>
-              <List>Standard Exposure</List>
-              <List>Email Support</List>
-              <List>Monthly Analytics Report</List>
+              <List>Unlimited Property Listings</List>
+              <List>Maximum Exposure</List>
+              <List>Dedicated Account Manager</List>
+              <List>Daily Analytics Report</List>
+              <List>Premium Featured Listings</List>
+              <List>Custom Branding Options</List>
             </PricingCard>
+
             <PricingCard
               type="Pro"
               price="$99"
@@ -67,19 +70,17 @@ const Pricing = () => {
               <List>Featured Listings</List>
             </PricingCard>
             <PricingCard
-              type="Enterprise"
-              price="$499"
-              subscription="year"
-              description="Best for large real estate firms needing comprehensive features."
-              buttonText="Choose Enterprise"
-              className="border-solid border-4 border-blue-600"
+              type="Basic"
+              price="$29"
+              subscription="month"
+              description="Ideal for individual agents starting out."
+              buttonText="Choose Basic"
+              className="border-solid border-4 border-gray-400"
             >
-              <List>Unlimited Property Listings</List>
-              <List>Maximum Exposure</List>
-              <List>Dedicated Account Manager</List>
-              <List>Daily Analytics Report</List>
-              <List>Premium Featured Listings</List>
-              <List>Custom Branding Options</List>
+              <List>1 Property Listing</List>
+              <List>Standard Exposure</List>
+              <List>Email Support</List>
+              <List>Monthly Analytics Report</List>
             </PricingCard>
           </div>
         </div>
