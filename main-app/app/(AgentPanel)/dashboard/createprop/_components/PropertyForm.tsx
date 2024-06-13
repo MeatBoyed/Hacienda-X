@@ -240,6 +240,94 @@ export default function PropertyForm() {
                 </div>
               </CardContent>
             </Card>
+          </div>
+          <div className="grid auto-rows-max items-start gap-4 lg:gap-8">
+            {/* Meta Data Fields */}
+            <Card x-chunk="dashboard-07-chunk-0">
+              <CardHeader>
+                <CardTitle>Meta Details</CardTitle>
+                <CardDescription>
+                  Easily add your property in 5 minutes.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="grid gap-6">
+                  {/* Visability*/}
+                  <FormField
+                    control={form.control}
+                    name="visibility"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Visability</FormLabel>
+                        <FormControl>
+                          <Select
+                            key="visability"
+                            value={field.value.toString()}
+                            onValueChange={field.onChange}
+                            defaultValue={field.value}
+                          >
+                            <SelectTrigger className="w-full">
+                              <SelectValue placeholder="Number of Bathrooms" />
+                            </SelectTrigger>
+                            <SelectContent className="w-full">
+                              <SelectGroup>
+                                <SelectLabel>visibility</SelectLabel>
+                                {SelectVisibilityOptions.map((option) => (
+                                  <SelectItem
+                                    key={option.key}
+                                    value={option.value}
+                                  >
+                                    {option.value}
+                                  </SelectItem>
+                                ))}
+                              </SelectGroup>
+                            </SelectContent>
+                          </Select>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  {/* Sale Type */}
+                  <FormField
+                    control={form.control}
+                    name="saleType"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Price</FormLabel>
+                        <FormControl>
+                          <Select
+                            key="saleType"
+                            value={field.value.toString()}
+                            onValueChange={field.onChange}
+                            defaultValue={field.value}
+                          >
+                            <SelectTrigger className="w-full">
+                              <SelectValue placeholder="Number of Bathrooms" />
+                            </SelectTrigger>
+                            <SelectContent className="w-full">
+                              <SelectGroup>
+                                <SelectLabel>Sale Type</SelectLabel>
+                                {SelectSaleTypeOptions.map((option) => (
+                                  <SelectItem
+                                    key={option.key}
+                                    value={option.value}
+                                  >
+                                    {option.value}
+                                  </SelectItem>
+                                ))}
+                              </SelectGroup>
+                            </SelectContent>
+                          </Select>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+              </CardContent>
+            </Card>
+            {/* Property Features */}
             <Card x-chunk="dashboard-07-chunk-1">
               <CardHeader>
                 <CardTitle>Features</CardTitle>
@@ -371,92 +459,6 @@ export default function PropertyForm() {
                     </FormItem>
                   )}
                 />
-              </CardContent>
-            </Card>
-          </div>
-          <div className="grid auto-rows-max items-start gap-4 lg:gap-8">
-            <Card x-chunk="dashboard-07-chunk-0">
-              <CardHeader>
-                <CardTitle>Meta Details</CardTitle>
-                <CardDescription>
-                  Easily add your property in 5 minutes.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="grid gap-6">
-                  {/* Visability*/}
-                  <FormField
-                    control={form.control}
-                    name="visibility"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Visability</FormLabel>
-                        <FormControl>
-                          <Select
-                            key="visability"
-                            value={field.value.toString()}
-                            onValueChange={field.onChange}
-                            defaultValue={field.value}
-                          >
-                            <SelectTrigger className="w-full">
-                              <SelectValue placeholder="Number of Bathrooms" />
-                            </SelectTrigger>
-                            <SelectContent className="w-full">
-                              <SelectGroup>
-                                <SelectLabel>visibility</SelectLabel>
-                                {SelectVisibilityOptions.map((option) => (
-                                  <SelectItem
-                                    key={option.key}
-                                    value={option.value}
-                                  >
-                                    {option.value}
-                                  </SelectItem>
-                                ))}
-                              </SelectGroup>
-                            </SelectContent>
-                          </Select>
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  {/* Sale Type */}
-                  <FormField
-                    control={form.control}
-                    name="saleType"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Price</FormLabel>
-                        <FormControl>
-                          <Select
-                            key="saleType"
-                            value={field.value.toString()}
-                            onValueChange={field.onChange}
-                            defaultValue={field.value}
-                          >
-                            <SelectTrigger className="w-full">
-                              <SelectValue placeholder="Number of Bathrooms" />
-                            </SelectTrigger>
-                            <SelectContent className="w-full">
-                              <SelectGroup>
-                                <SelectLabel>Sale Type</SelectLabel>
-                                {SelectSaleTypeOptions.map((option) => (
-                                  <SelectItem
-                                    key={option.key}
-                                    value={option.value}
-                                  >
-                                    {option.value}
-                                  </SelectItem>
-                                ))}
-                              </SelectGroup>
-                            </SelectContent>
-                          </Select>
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
               </CardContent>
             </Card>
           </div>
