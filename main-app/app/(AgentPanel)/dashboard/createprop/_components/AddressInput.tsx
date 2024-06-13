@@ -32,7 +32,9 @@ const AddressInput = React.forwardRef<HTMLInputElement, InputProps>(
       if (isLoaded) {
         const SearchBoundary = new google.maps.LatLngBounds(
           new google.maps.LatLng(
-            { lat: -26.530696799595123, lng: 27.159219669061535 }, // south west
+            { lat: -26.530696799595123, lng: 27.159219669061535 } // south west
+          ),
+          new google.maps.LatLng(
             { lat: -25.503934936857508, lng: 29.079928111094414 } // north east
           )
         );
