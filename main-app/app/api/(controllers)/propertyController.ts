@@ -137,8 +137,8 @@ app.post(
               street: "dffg",
               city: "ksdf",
               country: "asd",
-              longitude: formData.Address.lat,
-              latitude: formData.Address.lng,
+              latitude: formData.Address.lat,
+              longitude: formData.Address.lng,
             },
           },
         }, // UPDATE: to connectorcreate
