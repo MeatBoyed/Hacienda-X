@@ -13,7 +13,7 @@ import { env } from "process";
 import { AddressAutofill, Geocoder } from "@mapbox/search-js-react";
 import { useState } from "react";
 import { GoogleMapsEmbed } from "@next/third-parties/google";
-import AddressInput from "../_components/AddressInput";
+import AddressInput from "../AddressInput";
 
 export default function AddressInputCard() {
   const [address, setAddress] = useState<string>();

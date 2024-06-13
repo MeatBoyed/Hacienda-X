@@ -14,6 +14,10 @@ const app = new Hono().basePath("/api");
 app.route("/user", userController);
 app.route("/insights", insightsController);
 app.route("/properties", propertyController);
+
+// app.post("/images/single", async (c) => {
+//   return c.json({ result: "yay" }, { status: 200 });
+// });
 // app.route("/webhooks", webhooks);
 
 export const GET = handle(app);

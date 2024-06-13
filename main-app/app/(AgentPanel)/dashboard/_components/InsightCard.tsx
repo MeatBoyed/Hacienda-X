@@ -25,7 +25,7 @@ export default async function InsightCard() {
         method: "POST",
         headers: {
           Authorization:
-            "Bearer phx_eTkOAA1w4HI4VFniW2NzBkawZQp2z4o8ZrlOb4H1FJN",
+            "Bearer phx_eTkOAA1w4HI4VFniW2NzBkawZQp2z4o8ZrlOb4H1FJN", // SECUIRTY RISK!!
           "Content-Type": "application/json",
         },
         body: JSON.stringify(queryPayload),

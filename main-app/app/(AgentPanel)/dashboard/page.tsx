@@ -25,7 +25,7 @@ export default function Dashboard() {
         {/* Left Side */}
         <div className="flex justify-center items-start flex-col">
           <div className=" flex justify-center items-center gap-4">
-            <InsightCard />
+            {/* <InsightCard /> */}
             {/* <InsightCard />
             <InsightCard /> */}
           </div>

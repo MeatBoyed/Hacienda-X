@@ -42,32 +42,32 @@ model Subscription {
 }
 
 model Property {
-  property_id String @id @default(cuid())
-  agent_id    String
+  property_id String @id @default(cuid()) // form
+  agent_id    String  // API attach
 
   // Core
-  title         String
-  description   String
-  price         Float
+  title         String // form
+  description   String // form
+  price         Float // form
   
-  bathrooms     Int
-  bedrooms      Int
-  pool          Boolean  @default(false)
-  extraFeatures String[]
-  images        String[]
+  bathrooms     Int // form
+  bedrooms      Int // form
+  pool          Boolean  @default(false) // form
+  extraFeatures String[] // form
+  images        String[] // API attach
 
   // Sales Data
-  saleType SaleType // For Rent or For Sale
-  sold     Boolean  @default(false)
+  saleType SaleType // For Rent or For Sale  // form
+  sold     Boolean  @default(false)  // API attach
   
 
   // Meta 2
-  visibility Visibility @default(Public)
+  visibility Visibility @default(Public) // form
   createdAt  DateTime   @default(now())
   updatedAt  DateTime   @updatedAt
 
   //  Relations
-  Address Address?
+  Address Address?  // form
   agent   User     @relation(fields: [agent_id], references: [public_id])
 }
 

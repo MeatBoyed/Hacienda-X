@@ -10,10 +10,10 @@ export default function Providers({ children }: { children: React.ReactNode }) {
   return (
     <>
       <ClerkProvider appearance={{}}>
-        <PHProvider>
-          <PostHogPageView />
-          {children}
-        </PHProvider>
+        {/* <PHProvider> */}
+        {/* <PostHogPageView /> */}
+        {children}
+        {/* </PHProvider> */}
       </ClerkProvider>
     </>
   );
