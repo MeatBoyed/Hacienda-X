@@ -75,12 +75,28 @@ export const PropertySchema = z.object({
     required_error: "Pool information is required.",
     invalid_type_error: "Pool must be a boolean.",
   }),
-  Address: z
-    .string({
-      required_error: "Address is required.",
-      invalid_type_error: "Address must be a string.",
-    })
-    .min(5, { message: "Address must be at least 5 characters long." }),
+  // Address: z
+  //   .string({
+  //     required_error: "Address is required.",
+  //     invalid_type_error: "Address must be a string.",
+  //   })
+  //   .min(5, { message: "Address must be at least 5 characters long." }),
+  Address: z.object(
+    {
+      address: z
+        .string({
+          required_error: "Address is required",
+          invalid_type_error: "Address must be a string",
+        })
+        .min(5, { message: "Address must be at least 5 characters long" }),
+      lat: z.number(),
+      lng: z.number(),
+    },
+    {
+      required_error: "Address is required",
+      invalid_type_error: "Address must be a string",
+    }
+  ),
   extraFeatures: z
     .array(
       z.object({

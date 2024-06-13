@@ -95,6 +95,7 @@ app.post(
       Property,
       "createdAt" | "updatedAt" | "property_id"
     > = {
+      agent_id: auth.userId,
       title: formData.title,
       description: formData.description,
       price: formData.price,
@@ -103,9 +104,8 @@ app.post(
       pool: formData.pool,
       visibility: formData.visibility,
       saleType: formData.saleType,
-      agent_id: auth.userId,
-      images: [],
       sold: false,
+      images: [],
       extraFeatures: formData.extraFeatures.map((feature) => {
         return feature.text;
       }),
@@ -133,12 +133,12 @@ app.post(
           }),
           Address: {
             create: {
-              address: "ggf",
+              address: formData.Address.address,
               street: "dffg",
               city: "ksdf",
               country: "asd",
-              longitude: 123,
-              latitude: 123,
+              longitude: formData.Address.lat,
+              latitude: formData.Address.lng,
             },
           },
         }, // UPDATE: to connectorcreate

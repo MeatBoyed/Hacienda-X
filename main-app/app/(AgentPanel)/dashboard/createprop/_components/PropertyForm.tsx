@@ -34,7 +34,7 @@ import { ChevronLeft, Badge, Eye } from "lucide-react";
 import { PuffLoader } from "react-spinners";
 
 import { z } from "zod";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import {
   PropertySchema,
@@ -43,10 +43,10 @@ import {
   SelectVisibilityOptions,
   SelectSaleTypeOptions,
 } from "./FormUtils";
-// import usePropertyForm from "./usePropertyForm";
 import useSWRMutation from "swr/mutation";
 import { sendUpsertRequest } from "./usePropertyForm";
 import { toast } from "@/components/ui/use-toast";
+import { AddressInput } from "./AddressInput";
 import Link from "next/link";
 
 export default function PropertyForm() {
@@ -61,22 +61,25 @@ export default function PropertyForm() {
       bedrooms: 3,
       pool: false,
       extraFeatures: [],
-      Address: "ksadfk ksadfjsaf",
+      Address: { address: "", lat: 0, lng: 0 },
       visibility: "Public",
       saleType: "Sale",
     },
   });
+  const { setValue, getValues, formState } = form;
+  console.log("Values: ", getValues());
+  console.log("Errors: ", formState.errors);
 
+  // Extra Features's Tag management
   const [extras, setExtras] = useState<Tag[]>([]);
   const [activeExtraTagIndex, setActiveExtraTagIndex] = useState<number | null>(
     null
   );
+
   const [toastMessage, setToastMessage] = useState<{
     message: string;
     link: string;
   } | null>();
-
-  const { setValue } = form;
 
   const { trigger, isMutating, data } = useSWRMutation(
     "/api/properties/create",
@@ -118,6 +121,12 @@ export default function PropertyForm() {
     console.log("Hello!");
     console.log(values);
     await trigger({ property: values });
+  }
+
+  if (isMutating) {
+    <div className="w-full h-100vh flex justify-center items-center">
+      <PuffLoader />
+    </div>;
   }
 
   return (
@@ -211,16 +220,17 @@ export default function PropertyForm() {
                   {/* Address */}
                   <FormField
                     control={form.control}
-                    name="Address"
+                    name="Address.address"
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>Address</FormLabel>
                         <FormControl>
-                          <Input
+                          <AddressInput
+                            name={field.name}
                             className="w-full"
-                            type="text"
-                            placeholder="Enter the Address"
-                            {...field}
+                            handleChange={(placeResult) => {
+                              setValue("Address", placeResult);
+                            }}
                           />
                         </FormControl>
                         <FormMessage />

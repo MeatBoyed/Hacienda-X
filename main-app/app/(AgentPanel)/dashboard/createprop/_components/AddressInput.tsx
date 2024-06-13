@@ -1,87 +1,84 @@
 "use client";
-import usePlacesAutocomplete, {
-  getGeocode,
-  getLatLng,
-} from "use-places-autocomplete";
-import useOnclickOutside from "react-cool-onclickoutside";
-import { useState } from "react";
+import { cn } from "@/lib/utils";
+import { useRef, useState, useEffect } from "react";
+import { Autocomplete, useJsApiLoader } from "@react-google-maps/api";
+import { Library } from "@googlemaps/js-api-loader";
+import React from "react";
 
-interface IAddressInput {
-  onAddressSelect: (address: string) => void;
-  onGeoLocationSelect: (latitude: number, longitude: number) => void;
+const libs: Library[] = ["core", "places"];
+
+interface AddressResult {
+  address: string;
+  lat: number;
+  lng: number;
 }
 
-export default function AddressInput({
-  onAddressSelect,
-  onGeoLocationSelect,
-}: IAddressInput) {
-  const {
-    ready,
-    value,
-    suggestions: { status, data },
-    setValue,
-    clearSuggestions,
-  } = usePlacesAutocomplete({
-    requestOptions: { componentRestrictions: { country: "za" } }, // restrict search to South Africa
-    debounce: 300,
-    cache: 86400,
-  });
-  const ref = useOnclickOutside(() => {
-    // When the user clicks outside of the component, we can dismiss
-    // the searched suggestions by calling this method
-    clearSuggestions();
-  });
+export interface InputProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {
+  handleChange: (result: AddressResult) => void;
+}
 
-  const handleSelect =
-    ({ description }: { description: any }) =>
-    () => {
-      // When the user selects a place, we can replace the keyword without request data from API
-      // by setting the second parameter to "false"
-      setValue(description, false);
-      onAddressSelect && onAddressSelect(description);
-      clearSuggestions();
-
-      // Get latitude and longitude via utility functions
-      getGeocode({ address: description }).then((results) => {
-        // Can destruct Result following GeocodeResult object for accurate addresses
-        const { lat, lng } = getLatLng(results[0]);
-
-        onGeoLocationSelect(lat, lng);
-      });
-    };
-
-  const renderSuggestions = () =>
-    data.map((suggestion) => {
-      const {
-        place_id,
-        structured_formatting: { main_text, secondary_text },
-        description,
-      } = suggestion;
-
-      return (
-        <li
-          key={place_id}
-          onClick={handleSelect(suggestion)}
-          className="p-2 border-b"
-        >
-          <strong>{main_text}</strong> <small>{secondary_text}</small>
-        </li>
-      );
+const AddressInput = React.forwardRef<HTMLInputElement, InputProps>(
+  ({ className, type, handleChange, ...props }, ref) => {
+    // Address Input's AutoComplete
+    const [autoComplete, setAutoComplete] =
+      useState<google.maps.places.Autocomplete | null>(null);
+    const { isLoaded } = useJsApiLoader({
+      googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY as string,
+      libraries: libs,
     });
 
-  return (
-    <div ref={ref}>
+    useEffect(() => {
+      if (isLoaded) {
+        const SearchBoundary = new google.maps.LatLngBounds(
+          new google.maps.LatLng(
+            { lat: -26.530696799595123, lng: 27.159219669061535 }, // south west
+            { lat: -25.503934936857508, lng: 29.079928111094414 } // north east
+          )
+        );
+        const autoComplete = new google.maps.places.Autocomplete(
+          placesAutoCompleteRef.current as HTMLInputElement,
+          {
+            fields: ["formatted_address", "geometry"], // Filtering response for specific fields (usage optimisation)
+            bounds: SearchBoundary,
+            componentRestrictions: {
+              country: ["za"],
+            },
+          }
+        );
+        setAutoComplete(autoComplete);
+      }
+    }, [isLoaded]);
+
+    useEffect(() => {
+      if (autoComplete) {
+        autoComplete.addListener("place_changed", () => {
+          const place = autoComplete.getPlace();
+          if (place.formatted_address && place.geometry?.location) {
+            handleChange({
+              address: place.formatted_address as string,
+              lat: place.geometry.location.lat(),
+              lng: place.geometry.location.lng(),
+            });
+          }
+        });
+      }
+    }, [autoComplete]);
+
+    const placesAutoCompleteRef = useRef<HTMLInputElement>(null);
+
+    return (
       <input
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-        disabled={!ready}
-        placeholder="Add the address of your property"
-        className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+        className={cn(
+          "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+          className
+        )}
+        ref={placesAutoCompleteRef}
+        {...props}
       />
-      {/* We can use the "status" to decide whether we should display the dropdown or not */}
-      {status === "OK" && (
-        <ul className="border shadow-lg mt-3">{renderSuggestions()}</ul>
-      )}
-    </div>
-  );
-}
+    );
+  }
+);
+AddressInput.displayName = "AddressInput";
+
+export { AddressInput };
