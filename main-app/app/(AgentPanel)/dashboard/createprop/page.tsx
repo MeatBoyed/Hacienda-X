@@ -3,7 +3,7 @@ import useSWRMutation from "swr/mutation";
 import { toast } from "@/components/ui/use-toast";
 import Link from "next/link";
 import { z } from "zod";
-import { PropertySchema } from "./_components/FormUtils";
+import { PropertySchema } from "../../../../lib/FormUtils";
 import usePropertyForm from "./_components/usePropertyForm";
 
 // Allow user's to request property features for us to add

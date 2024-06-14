@@ -2,7 +2,7 @@ import { Hono } from "hono";
 import db from "../(utils)/db";
 import { Prisma, Property } from "@prisma/client";
 import { HTTPException } from "hono/http-exception";
-import { PropertySchema } from "@/app/(AgentPanel)/dashboard/createprop/_components/FormUtils";
+import { PropertySchema } from "@/lib/FormUtils";
 import { clerkMiddleware, getAuth } from "@hono/clerk-auth";
 import { zValidator } from "@hono/zod-validator";
 import { z } from "zod";

@@ -5,7 +5,7 @@ import { Link } from "lucide-react";
 import { useState } from "react";
 import useSWRMutation from "swr/mutation";
 import { z } from "zod";
-import { PropertySchema } from "./FormUtils";
+import { PropertySchema } from "../../../../../lib/FormUtils";
 
 export async function sendUpsertRequest(
   url: string,

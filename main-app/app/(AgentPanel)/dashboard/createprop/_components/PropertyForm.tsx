@@ -42,11 +42,11 @@ import {
   SelectBathroomsOptions,
   SelectVisibilityOptions,
   SelectSaleTypeOptions,
-} from "./FormUtils";
+} from "../../../../../lib/FormUtils";
 import useSWRMutation from "swr/mutation";
 import { sendUpsertRequest } from "./usePropertyForm";
 import { toast } from "@/components/ui/use-toast";
-import { AddressInput } from "./AddressInput";
+import { AddressInput } from "../../../../../components/AddressInput";
 import Link from "next/link";
 
 export default function PropertyForm() {
