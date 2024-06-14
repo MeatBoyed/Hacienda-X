@@ -120,3 +120,9 @@ export const PropertySchema = z.object({
     invalid_type_error: "Sale type must be either Sale or Rent",
   }),
 });
+
+export interface FileState {
+  file: File;
+  key: string; // used to identify the file in the progress callback
+  progress: "PENDING" | "COMPLETE" | "ERROR" | number;
+}

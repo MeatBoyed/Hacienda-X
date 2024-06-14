@@ -48,6 +48,7 @@ import { sendUpsertRequest } from "./usePropertyForm";
 import { toast } from "@/components/ui/use-toast";
 import { AddressInput } from "../../../../../components/AddressInput";
 import Link from "next/link";
+import { ImagesInput } from "@/components/ImagesInput";
 
 export default function PropertyForm() {
   const form = useForm<z.infer<typeof PropertySchema>>({
@@ -67,8 +68,8 @@ export default function PropertyForm() {
     },
   });
   const { setValue, getValues, formState } = form;
-  console.log("Values: ", getValues());
-  console.log("Errors: ", formState.errors);
+  // console.log("Values: ", getValues());
+  // console.log("Errors: ", formState.errors);
 
   // Extra Features's Tag management
   const [extras, setExtras] = useState<Tag[]>([]);
@@ -238,6 +239,37 @@ export default function PropertyForm() {
                     )}
                   />
                 </div>
+              </CardContent>
+            </Card>
+            {/* Property Features */}
+            <Card x-chunk="dashboard-07-chunk-1">
+              <CardHeader>
+                <CardTitle>Features</CardTitle>
+                <CardDescription>
+                  Lipsum dolor sit amet, consectetur adipiscing elit
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="grid gap-6">
+                {/* Bedroom */}
+                {/* <FormField
+                  control={form.control}
+                  name="images"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Bedroom</FormLabel>
+                      <FormControl>
+                        <ImagesInput />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                /> */}
+                <ImagesInput
+                  className="w-full"
+                  handleChange={() => {
+                    return;
+                  }}
+                />
               </CardContent>
             </Card>
           </div>

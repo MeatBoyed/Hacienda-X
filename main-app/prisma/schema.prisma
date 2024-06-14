@@ -75,11 +75,11 @@ model Address {
   address_id String @id @default(cuid())
 
   address   String
-  street    String
-  city      String
-  country   String
+  street    String // Remove
+  city      String // Remove
+  country   String // Remove
   latitude  Float
-  longitude Float
+  longitude Float 
 
   // Relationship
   property_id String   @unique
