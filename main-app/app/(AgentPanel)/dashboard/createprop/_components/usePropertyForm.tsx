@@ -5,18 +5,31 @@ import { Link } from "lucide-react";
 import { useState } from "react";
 import useSWRMutation from "swr/mutation";
 import { z } from "zod";
-import { PropertySchema } from "../../../../../lib/FormUtils";
+import {
+  PropertySchema,
+  propertyToFormData,
+} from "../../../../../lib/FormUtils";
 
 export async function sendUpsertRequest(
   url: string,
-  { arg }: { arg: { property: z.infer<typeof PropertySchema> } }
+  {
+    arg,
+  }: {
+    arg: {
+      property: z.infer<typeof PropertySchema>;
+    };
+  }
 ) {
+  const data = propertyToFormData(arg);
+  console.log("Converted Form Data: ", data.values());
   return fetch(url, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(arg),
+    // headers: {
+    //   // "Content-Type": "application/json",
+    //   // "Content-Type": "multipart/form-data",
+    // },
+    // body: JSON.stringify(arg),
+    body: data,
   }).then((res) => res.json());
 }
 

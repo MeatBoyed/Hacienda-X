@@ -1,4 +1,8 @@
+import { Property } from "@prisma/client";
 import { z } from "zod";
+
+export const MINFILES = 1;
+export const MAXFILES = 12;
 
 export const SelectBedroomsOptions = [
   { key: "1 Bedroom", value: "1" },
@@ -75,12 +79,6 @@ export const PropertySchema = z.object({
     required_error: "Pool information is required.",
     invalid_type_error: "Pool must be a boolean.",
   }),
-  // Address: z
-  //   .string({
-  //     required_error: "Address is required.",
-  //     invalid_type_error: "Address must be a string.",
-  //   })
-  //   .min(5, { message: "Address must be at least 5 characters long." }),
   Address: z.object(
     {
       address: z
@@ -97,6 +95,18 @@ export const PropertySchema = z.object({
       invalid_type_error: "Address must be a string",
     }
   ),
+  images: z
+    .array(
+      typeof window === "undefined" ? z.any() : z.instanceof(File)
+      // z.instanceof(FileList).transform((fileList) => fileList[0])
+      // z.object({
+      //   fileName: z.string(),
+      //   fileType: z.string(),
+      //   file: z.instanceof(File)
+      // }, { invalid_type_error: "Images must be a valid File", required_error: "Images is required"})
+    )
+    .max(MAXFILES, { message: `No more than ${MAXFILES} Images allowed.` }),
+  // .min(0, { message: `There must be at least ${MINFILES} images.` })
   extraFeatures: z
     .array(
       z.object({
@@ -125,4 +135,33 @@ export interface FileState {
   file: File;
   key: string; // used to identify the file in the progress callback
   progress: "PENDING" | "COMPLETE" | "ERROR" | number;
+}
+
+export function propertyToFormData(arg: {
+  property: z.infer<typeof PropertySchema>;
+}): FormData {
+  const formData = new FormData();
+
+  Object.entries(arg.property).forEach(([key, value]) => {
+    if (Array.isArray(value)) {
+      if (key === "images") {
+        value.forEach((file) => {
+          formData.append(key, file as File);
+        });
+      } else if (key === "extraFeatures") {
+        value.forEach((feature, index) => {
+          formData.append(`${key}[${index}][id]`, feature.id);
+          formData.append(`${key}[${index}][text]`, feature.text);
+        });
+      }
+    } else if (typeof value === "object" && value !== null) {
+      Object.entries(value).forEach(([nestedKey, nestedValue]) => {
+        formData.append(`${key}.${nestedKey}`, nestedValue as string);
+      });
+    } else {
+      formData.append(key, value as string);
+    }
+  });
+
+  return formData;
 }

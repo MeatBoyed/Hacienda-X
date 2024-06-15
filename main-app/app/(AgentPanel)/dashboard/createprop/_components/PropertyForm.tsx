@@ -42,13 +42,16 @@ import {
   SelectBathroomsOptions,
   SelectVisibilityOptions,
   SelectSaleTypeOptions,
+  MAXFILES,
 } from "../../../../../lib/FormUtils";
 import useSWRMutation from "swr/mutation";
 import { sendUpsertRequest } from "./usePropertyForm";
-import { toast } from "@/components/ui/use-toast";
+import { toast } from "sonner";
 import { AddressInput } from "../../../../../components/AddressInput";
 import Link from "next/link";
 import { ImagesInput } from "@/components/ImagesInput";
+import { FileUploader } from "@/lib/fileUploader";
+import { UploadedFilesCard } from "@/components/UploadedFilesCard";
 
 export default function PropertyForm() {
   const form = useForm<z.infer<typeof PropertySchema>>({
@@ -61,14 +64,15 @@ export default function PropertyForm() {
       bathrooms: 2,
       bedrooms: 3,
       pool: false,
+      images: [],
       extraFeatures: [],
-      Address: { address: "", lat: 0, lng: 0 },
+      Address: { address: "safdsdf", lat: 0, lng: 0 },
       visibility: "Public",
       saleType: "Sale",
     },
   });
-  const { setValue, getValues, formState } = form;
-  // console.log("Values: ", getValues());
+  const { setValue, getValues, formState, getFieldState } = form;
+  console.log("Values: ", getValues());
   // console.log("Errors: ", formState.errors);
 
   // Extra Features's Tag management
@@ -77,20 +81,15 @@ export default function PropertyForm() {
     null
   );
 
-  const [toastMessage, setToastMessage] = useState<{
-    message: string;
-    link: string;
-  } | null>();
+  const [images, setImages] = useState<File[]>([]);
 
   const { trigger, isMutating, data } = useSWRMutation(
     "/api/properties/create",
     sendUpsertRequest /* options */,
     {
       onError: () => {
-        toast({
-          title: "Something unexpected happened.",
-          description: "Please try again...",
-          duration: 10000,
+        toast.error("Something unexpected happend.", {
+          description: "Please try again....",
         });
       },
       onSuccess: (data) => {
@@ -103,14 +102,8 @@ export default function PropertyForm() {
         console.log("Response Data: ", data);
 
         // Show message
-        toast({
-          title: "Thanks for joining!",
-          description: (
-            <Link href={toastMessage?.link || ""}>
-              {toastMessage?.message || ""}
-            </Link>
-          ),
-          duration: 20000,
+        toast.success("Your property has been posted!", {
+          description: `View your property at ....`,
         });
       },
     }
@@ -250,22 +243,43 @@ export default function PropertyForm() {
                 </CardDescription>
               </CardHeader>
               <CardContent className="grid gap-6">
-                {/* Bedroom */}
-                {/* <FormField
+                {/* Images */}
+                <FormField
                   control={form.control}
                   name="images"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Bedroom</FormLabel>
-                      <FormControl>
-                        <ImagesInput />
-                      </FormControl>
                       <FormMessage />
+                      <FormControl>
+                        {/* <FileUploader
+                          multiple
+                          maxFiles={MAXFILES}
+                          maxSize={4 * 1024 * 1024}
+                          className="w-full"
+                          onUpload={async (files) => {
+                            console.log("Images: ", files);
+                            setImages((prev) =>
+                              prev ? [...prev, ...files] : files
+                            );
+                            const newImages = [...images, ...files];
+                            setValue("images", newImages);
+                          }}
+                          // disabled={isUploading}
+                        /> */}
+                        <ImagesInput
+                          handleChange={(files) => {
+                            console.log("Images: ", files);
+                            setImages((prev) =>
+                              prev ? [...prev, ...files] : files
+                            );
+                            const newImages = [...images, ...files];
+                            setValue("images", newImages);
+                          }}
+                        />
+                      </FormControl>
+                      {/* <UploadedFilesCard uploadedFiles={images} /> */}
                     </FormItem>
                   )}
-                /> */}
-                <ImagesInput
-                  className="w-full"
                 />
               </CardContent>
             </Card>

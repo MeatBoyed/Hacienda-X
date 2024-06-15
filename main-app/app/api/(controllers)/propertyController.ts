@@ -1,10 +1,11 @@
 import { Hono } from "hono";
 import db from "../(utils)/db";
-import { Prisma, Property } from "@prisma/client";
+import { Property } from "@prisma/client";
 import { HTTPException } from "hono/http-exception";
 import { PropertySchema } from "@/lib/FormUtils";
 import { clerkMiddleware, getAuth } from "@hono/clerk-auth";
 import { zValidator } from "@hono/zod-validator";
+import { validator } from "hono/validator";
 import { z } from "zod";
 
 const app = new Hono();
@@ -76,10 +77,19 @@ app.get("/:slug", async (c) => {
 const CreatePropertyRequest = z.object({
   property: PropertySchema,
 });
+
 app.post(
   "/create",
   // Validates the Incoming data is the correct type through Zod validation schema
-  zValidator("json", CreatePropertyRequest),
+  // zValidator("form", CreatePropertyRequest),
+  // validator("form", (value, c) => {
+  //   const parsed = CreatePropertyRequest.safeParse(value);
+  //   console.log("Prased Data: ", parsed.error);
+  //   if (!parsed.success) {
+  //     return c.text("Invalid!", 401);
+  //   }
+  //   return parsed.data;
+  // }),
   async (c) => {
     // Get the current user
     const auth = getAuth(c);
@@ -89,89 +99,103 @@ app.post(
       console.log("Unable to authenticate user");
       throw new HTTPException(401);
     }
-    const formData = c.req.valid("json").property;
+
+    // const formData = c.req.valid("form").property;
+    const data = await c.req.parseBody();
+    // const { property: rawProperty } = c.req.valid("form");
+    // const rawData = await c.req.formData();
     // const cleanedFormData: Omit<z.infer<typeof PropertySchema>, "property_id"
-    const formProperty: Omit<
-      Property,
-      "createdAt" | "updatedAt" | "property_id"
-    > = {
-      agent_id: auth.userId,
-      title: formData.title,
-      description: formData.description,
-      price: formData.price,
-      bathrooms: formData.bathrooms,
-      bedrooms: formData.bedrooms,
-      pool: formData.pool,
-      visibility: formData.visibility,
-      saleType: formData.saleType,
-      sold: false,
-      images: [],
-      extraFeatures: formData.extraFeatures.map((feature) => {
-        return feature.text;
-      }),
-    };
+    // const formProperty: Omit<
+    //   Property,
+    //   "createdAt" | "updatedAt" | "property_id"
+    // > = {
+    //   agent_id: auth.userId,
+    //   title: formData.title,
+    //   description: formData.description,
+    //   price: formData.price,
+    //   bathrooms: formData.bathrooms,
+    //   bedrooms: formData.bedrooms,
+    //   pool: formData.pool,
+    //   visibility: formData.visibility,
+    //   saleType: formData.saleType,
+    //   sold: false,
+    //   images: [],
+    //   extraFeatures: formData.extraFeatures.map((feature) => {
+    //     return feature.text;
+    //   }),
+    // };
 
     // Get Payload UserId & Desired Role
-    console.log("Your Property Form Data: ", formProperty);
+    // console.log("Your Property Form Data: ", formProperty);
+    // console.log("Your Images from Form Data:", formData);
+    console.log("Your FormData from Data:", data);
+    // console.log("Your Property from Data:", rawProperty);
+
+    // if (data.images[0] instanceof File) {
+    //   console.log("You have a file my boy!");
+    // } else {
+    //   console.log("You don't have a file :(");
+    // }
+
     let property;
 
-    try {
-      // Database query (obvs)
-      property = await db.property.create({
-        // where: {
-        //   property_id:
-        //     formData.property_id === "" ? formData.property_id : undefined,
-        //   agent_id: formProperty.agent_id,
-        // },
-        data: {
-          ...formProperty,
-          agent_id: auth.userId,
-          images: [],
-          sold: false,
-          extraFeatures: formData.extraFeatures.map((feature) => {
-            return feature.text;
-          }),
-          Address: {
-            create: {
-              address: formData.Address.address,
-              street: "dffg",
-              city: "ksdf",
-              country: "asd",
-              latitude: formData.Address.lat,
-              longitude: formData.Address.lng,
-            },
-          },
-        }, // UPDATE: to connectorcreate
-        // update: {
-        //   ...formData,
-        //   property_id: formData.property_id,
-        //   agent_id: auth.userId,
-        //   images: [],
-        //   sold: false,
-        //   extraFeatures: formData.extraFeatures.map((feature) => {
-        //     return feature.text;
-        //   }),
-        //   Address: {
-        //     create: {
-        //       address: "ggf",
-        //       street: "dffg",
-        //       city: "ksdf",
-        //       country: "asd",
-        //       longitude: 123,
-        //       latitude: 123,
-        //     },
-        //   },
-        // }, // UPDATE: to connectorcreate,
-      });
-    } catch (error: any) {
-      // Show error in console for Debugging (Realistically this should be logged used a package)
-      console.log(error);
-      // Respond with an Error for Client "error" state
-      throw new Error("Something went wrong. Error: ", error);
-    }
-    if (!property) {
-      throw new HTTPException(500, { message: "Error: Upserting property" });
-    }
+    // try {
+    //   // Database query (obvs)
+    //   property = await db.property.create({
+    //     // where: {
+    //     //   property_id:
+    //     //     formData.property_id === "" ? formData.property_id : undefined,
+    //     //   agent_id: formProperty.agent_id,
+    //     // },
+    //     data: {
+    //       ...formProperty,
+    //       agent_id: auth.userId,
+    //       images: [],
+    //       sold: false,
+    //       extraFeatures: formData.extraFeatures.map((feature) => {
+    //         return feature.text;
+    //       }),
+    //       Address: {
+    //         create: {
+    //           address: formData.Address.address,
+    //           street: "dffg",
+    //           city: "ksdf",
+    //           country: "asd",
+    //           latitude: formData.Address.lat,
+    //           longitude: formData.Address.lng,
+    //         },
+    //       },
+    //     }, // UPDATE: to connectorcreate
+    //     // update: {
+    //     //   ...formData,
+    //     //   property_id: formData.property_id,
+    //     //   agent_id: auth.userId,
+    //     //   images: [],
+    //     //   sold: false,
+    //     //   extraFeatures: formData.extraFeatures.map((feature) => {
+    //     //     return feature.text;
+    //     //   }),
+    //     //   Address: {
+    //     //     create: {
+    //     //       address: "ggf",
+    //     //       street: "dffg",
+    //     //       city: "ksdf",
+    //     //       country: "asd",
+    //     //       longitude: 123,
+    //     //       latitude: 123,
+    //     //     },
+    //     //   },
+    //     // }, // UPDATE: to connectorcreate,
+    //   });
+    // } catch (error: any) {
+    //   // Show error in console for Debugging (Realistically this should be logged used a package)
+    //   console.log(error);
+    //   // Respond with an Error for Client "error" state
+    //   throw new Error("Something went wrong. Error: ", error);
+    // }
+    // if (!property) {
+    //   throw new HTTPException(500, { message: "Error: Upserting property" });
+    // }
 
     // Response object
     return c.json(

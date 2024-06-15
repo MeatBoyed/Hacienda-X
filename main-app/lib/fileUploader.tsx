@@ -7,7 +7,7 @@ import Dropzone, {
   type FileRejection,
 } from "react-dropzone";
 // import { toast } from "@/components/ui/use-toast";
-import { toast } from "sonner"
+import { toast } from "sonner";
 
 import { cn, formatBytes } from "@/lib/utils";
 import { useControllableState } from "@/lib/useControllableState";
@@ -40,7 +40,8 @@ interface FileUploaderProps extends React.HTMLAttributes<HTMLDivElement> {
    * @default undefined
    * @example onUpload={(files) => uploadFiles(files)}
    */
-  onUpload?: (files: File[]) => Promise<{ files: File[]}>;
+  onUpload?: (files: File[]) => Promise<void>;
+  // onUpload?: (files: File[]) => Promise<{ files: File[]}>;
 
   /**
    * Progress of the uploaded files.
@@ -118,18 +119,18 @@ export function FileUploader(props: FileUploaderProps) {
     (acceptedFiles: File[], rejectedFiles: FileRejection[]) => {
       // Manage Component's Validation
       if (!multiple && maxFiles === 1 && acceptedFiles.length > 1) {
-          toast.error("Ooops, you can't do that.", {
+        toast.error("Ooops, you can't do that.", {
           description: "Cannot upload more than 1 file at a time",
           duration: 10000,
-          },)
+        });
         return;
       }
 
       if ((files?.length ?? 0) + acceptedFiles.length > maxFiles) {
-          toast.error("Oops, you can't do that.", {
+        toast.error("Oops, you can't do that.", {
           description: `Cannot upload more than ${maxFiles} files`,
           duration: 10000,
-          })
+        });
         return;
       }
 
@@ -147,26 +148,31 @@ export function FileUploader(props: FileUploaderProps) {
       if (rejectedFiles.length > 0) {
         rejectedFiles.forEach(({ errors, file }) => {
           errors.forEach((error) => {
-              switch (error.code) {
-                case "file-too-large":
-                  toast.error(`Oh no! Images bigger than ${formatBytes(maxSize)} are not allowed.`, {
+            switch (error.code) {
+              case "file-too-large":
+                toast.error(
+                  `Oh no! Images bigger than ${formatBytes(
+                    maxSize
+                  )} are not allowed.`,
+                  {
                     description: `File ${file.name} was rejected.`,
                     duration: 10000,
-                    })
-                  break
-                case "file-invalid-type":
-                  toast.error(`Oh no! ${file.type} are not allowed.`, {
-                    description: `File ${file.name} was rejected.`,
-                    duration: 10000,
-                    })
-                  break
-              default: 
-                toast.error("Oops, something happened.",{
+                  }
+                );
+                break;
+              case "file-invalid-type":
+                toast.error(`Oh no! ${file.type} are not allowed.`, {
                   description: `File ${file.name} was rejected.`,
                   duration: 10000,
-                  })
-              }
-          })
+                });
+                break;
+              default:
+                toast.error("Oops, something happened.", {
+                  description: `File ${file.name} was rejected.`,
+                  duration: 10000,
+                });
+            }
+          });
         });
       }
 
@@ -180,14 +186,12 @@ export function FileUploader(props: FileUploaderProps) {
 
         toast.promise(onUpload(updatedFiles), {
           loading: `Uploading ${target}...`,
-          success: ({ files}) => {
-            console.log("Retrived Values: ", files)
+          success: () => {
             setFiles([]);
             return `${target} uploaded`;
           },
           error: `Failed to upload ${target}`,
         });
-        onUpload(updatedFiles)
         // toast.success("assdad", { description: `${target} uploaded`, duration: 10000})
       }
     },

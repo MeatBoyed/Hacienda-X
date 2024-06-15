@@ -24,24 +24,42 @@ export function UploadedFilesCard({ uploadedFiles }: UploadedFilesCardProps) {
       </CardHeader>
       <CardContent>
         {uploadedFiles.length > 0 ? (
-          <ScrollArea className="pb-4">
-            <div className="flex w-max space-x-2.5">
-              {uploadedFiles.map((file, index) => (
-                // <div key={file.key} className="relative aspect-video w-64">
-                <div key={index} className="relative aspect-video w-64">
-                  {/* <Image
-                    src={file.}
-                    alt={file.name}
-                    fill
-                    sizes="(min-width: 640px) 640px, 100vw"
-                    loading="lazy"
-                    className="rounded-md object-cover"
-                  /> */}
-                </div>
-              ))}
-            </div>
-            <ScrollBar orientation="horizontal" />
-          </ScrollArea>
+          // <ScrollArea className="pb-4 ">
+          //   <div className="flex space-x-2.5">
+          //     {uploadedFiles.map((file, index) => (
+          //       // <div key={file.key} className="relative aspect-video w-64">
+          //       <div key={index} className="relative aspect-video w-64">
+          //         <Image
+          //           src={URL.createObjectURL(file)}
+          //           alt={file.name}
+          //           fill
+          //           // sizes="(min-width: 640px) 640px, 100vw"
+          //           loading="lazy"
+          //           className="rounded-md object-cover"
+          //         />
+          //       </div>
+          //     ))}
+          //   </div>
+          //   <ScrollBar orientation="vertical" />
+          // </ScrollArea>
+          <div className="grid gap-1 lg:grid-cols-2">
+            {uploadedFiles.map((file, index) => (
+              // <div key={file.key} className="relative aspect-video w-64">
+              <div
+                key={index}
+                className="relative aspect-video w-64 border pt-1"
+              >
+                <Image
+                  src={URL.createObjectURL(file)}
+                  alt={file.name}
+                  fill
+                  // sizes="(min-width: 640px) 640px, 100vw"
+                  loading="lazy"
+                  className="rounded-md object-cover"
+                />
+              </div>
+            ))}
+          </div>
         ) : (
           <EmptyCard
             title="No files uploaded"

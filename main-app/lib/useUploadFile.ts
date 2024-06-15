@@ -1,13 +1,10 @@
-"use client"
+"use client";
 import React, { useState } from "react";
-// import { Toaster } from "@/components/ui/sonner";
-import { toast } from "@/components/ui/use-toast";
+import { toast } from "sonner";
 
 import { getErrorMessage } from "@/lib/handleError";
-import { FileState } from "./FormUtils";
 
-
-export function useUploadFile() {
+export function useUploadFile(handleChange: (files: File[]) => void) {
   //   endpoint: keyof OurFileRouter,
   //   { defaultUploadedFiles = [], ...props }: UseUploadFileProps = {}
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
@@ -45,15 +42,14 @@ export function useUploadFile() {
 
       //   Update File states
       //   setUploadedFiles((prev) => (prev ? [...prev, ...res] : res));
-        setUploadedFiles((prev) => (prev ? [...prev, ...files] : files));
-      return {files: files}
+      setUploadedFiles((prev) => (prev ? [...prev, ...files] : files));
+      handleChange(uploadedFiles);
     } catch (err) {
-      // toast.error(getErrorMessage(err));
-      console.log("There was an Error!")
+      toast.error(getErrorMessage(err));
+      console.log("There was an Error!");
     } finally {
       setProgresses({});
       setIsUploading(false);
-      return {files: files}
     }
   }
 

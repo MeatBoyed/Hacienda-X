@@ -3,8 +3,8 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
 }
 
@@ -15,7 +15,7 @@ model User {
   // Core Data
   email String?
   role  Role    @default(viewer) // Default User is a normal Viewer
-  
+
   // Relations
   Ad         Ad[]
   analytics  Analytics[]
@@ -43,13 +43,13 @@ model Subscription {
 
 model Property {
   property_id String @id @default(cuid()) // form
-  agent_id    String  // API attach
+  agent_id    String // API attach
 
   // Core
-  title         String // form
-  description   String // form
-  price         Float // form
-  
+  title       String // form
+  description String // form
+  price       Float // form
+
   bathrooms     Int // form
   bedrooms      Int // form
   pool          Boolean  @default(false) // form
@@ -58,8 +58,7 @@ model Property {
 
   // Sales Data
   saleType SaleType // For Rent or For Sale  // form
-  sold     Boolean  @default(false)  // API attach
-  
+  sold     Boolean  @default(false) // API attach
 
   // Meta 2
   visibility Visibility @default(Public) // form
@@ -67,7 +66,7 @@ model Property {
   updatedAt  DateTime   @updatedAt
 
   //  Relations
-  Address Address?  // form
+  Address Address? // form
   agent   User     @relation(fields: [agent_id], references: [public_id])
 }
 
@@ -79,7 +78,7 @@ model Address {
   city      String // Remove
   country   String // Remove
   latitude  Float
-  longitude Float 
+  longitude Float
 
   // Relationship
   property_id String   @unique
