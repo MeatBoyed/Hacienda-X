@@ -2,18 +2,20 @@
 
 import * as React from "react";
 import Image from "next/image";
-import { Cross2Icon, UploadIcon } from "@radix-ui/react-icons";
 import Dropzone, {
   type DropzoneProps,
   type FileRejection,
 } from "react-dropzone";
-import { toast } from "sonner";
+// import { toast } from "@/components/ui/use-toast";
+import { toast } from "sonner"
 
 import { cn, formatBytes } from "@/lib/utils";
 import { useControllableState } from "@/lib/useControllableState";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import uploadFile from "@/app/api/(controllers)/uploadFile";
+import { UploadIcon, X } from "lucide-react";
 
 interface FileUploaderProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
@@ -38,7 +40,7 @@ interface FileUploaderProps extends React.HTMLAttributes<HTMLDivElement> {
    * @default undefined
    * @example onUpload={(files) => uploadFiles(files)}
    */
-  onUpload?: (files: File[]) => Promise<void>;
+  onUpload?: (files: File[]) => Promise<{ files: File[]}>;
 
   /**
    * Progress of the uploaded files.
@@ -114,13 +116,20 @@ export function FileUploader(props: FileUploaderProps) {
 
   const onDrop = React.useCallback(
     (acceptedFiles: File[], rejectedFiles: FileRejection[]) => {
+      // Manage Component's Validation
       if (!multiple && maxFiles === 1 && acceptedFiles.length > 1) {
-        toast.error("Cannot upload more than 1 file at a time");
+          toast.error("Ooops, you can't do that.", {
+          description: "Cannot upload more than 1 file at a time",
+          duration: 10000,
+          },)
         return;
       }
 
       if ((files?.length ?? 0) + acceptedFiles.length > maxFiles) {
-        toast.error(`Cannot upload more than ${maxFiles} files`);
+          toast.error("Oops, you can't do that.", {
+          description: `Cannot upload more than ${maxFiles} files`,
+          duration: 10000,
+          })
         return;
       }
 
@@ -134,9 +143,30 @@ export function FileUploader(props: FileUploaderProps) {
 
       setFiles(updatedFiles);
 
+      // Manage Specific File Validation requirements
       if (rejectedFiles.length > 0) {
-        rejectedFiles.forEach(({ file }) => {
-          toast.error(`File ${file.name} was rejected`);
+        rejectedFiles.forEach(({ errors, file }) => {
+          errors.forEach((error) => {
+              switch (error.code) {
+                case "file-too-large":
+                  toast.error(`Oh no! Images bigger than ${formatBytes(maxSize)} are not allowed.`, {
+                    description: `File ${file.name} was rejected.`,
+                    duration: 10000,
+                    })
+                  break
+                case "file-invalid-type":
+                  toast.error(`Oh no! ${file.type} are not allowed.`, {
+                    description: `File ${file.name} was rejected.`,
+                    duration: 10000,
+                    })
+                  break
+              default: 
+                toast.error("Oops, something happened.",{
+                  description: `File ${file.name} was rejected.`,
+                  duration: 10000,
+                  })
+              }
+          })
         });
       }
 
@@ -150,12 +180,15 @@ export function FileUploader(props: FileUploaderProps) {
 
         toast.promise(onUpload(updatedFiles), {
           loading: `Uploading ${target}...`,
-          success: () => {
+          success: ({ files}) => {
+            console.log("Retrived Values: ", files)
             setFiles([]);
             return `${target} uploaded`;
           },
           error: `Failed to upload ${target}`,
         });
+        onUpload(updatedFiles)
+        // toast.success("assdad", { description: `${target} uploaded`, duration: 10000})
       }
     },
 
@@ -302,7 +335,7 @@ function FileCard({ file, progress, onRemove }: FileCardProps) {
           className="size-7"
           onClick={onRemove}
         >
-          <Cross2Icon className="size-4 " aria-hidden="true" />
+          <X className="size-4 " aria-hidden="true" />
           <span className="sr-only">Remove file</span>
         </Button>
       </div>

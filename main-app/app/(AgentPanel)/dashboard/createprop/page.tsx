@@ -11,13 +11,7 @@ export default async function CreatePropertyPage() {
     >
       <div className="mx-auto grid lg:max-w-8xl flex-1 w-full auto-rows-max gap-4">
         {/* <CreateProperty /> */}
-        {/* <PropertyForm /> */}
-        <ImagesInput
-          className=""
-          handleChange={() => {
-            return;
-          }}
-        />
+        <PropertyForm />
       </div>
     </section>
   );

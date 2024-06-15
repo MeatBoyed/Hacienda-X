@@ -30,7 +30,7 @@ export function UploadedFilesCard({ uploadedFiles }: UploadedFilesCardProps) {
                 // <div key={file.key} className="relative aspect-video w-64">
                 <div key={index} className="relative aspect-video w-64">
                   {/* <Image
-                    src={file}
+                    src={file.}
                     alt={file.name}
                     fill
                     sizes="(min-width: 640px) 640px, 100vw"

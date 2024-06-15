@@ -5,6 +5,7 @@ import { Suspense } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import "mapbox-gl/dist/mapbox-gl.css";
 import Navbar from "./_components/Navbar";
+import { Toaster as SonnerToaster } from 'sonner';
 
 const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
@@ -25,6 +26,7 @@ export default function RootLayout({
           {children}
         </section>
         <Toaster />
+        <SonnerToaster expand richColors />
         {/* <Footer /> */}
       </div>
     </Suspense>

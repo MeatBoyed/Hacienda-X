@@ -266,9 +266,6 @@ export default function PropertyForm() {
                 /> */}
                 <ImagesInput
                   className="w-full"
-                  handleChange={() => {
-                    return;
-                  }}
                 />
               </CardContent>
             </Card>

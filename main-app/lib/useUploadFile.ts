@@ -1,25 +1,15 @@
+"use client"
 import React, { useState } from "react";
-// import type { UploadedFile } from "@/types";
-import { toast } from "sonner";
-// import type { UploadFilesOptions } from "uploadthing/types";
+// import { Toaster } from "@/components/ui/sonner";
+import { toast } from "@/components/ui/use-toast";
 
 import { getErrorMessage } from "@/lib/handleError";
 import { FileState } from "./FormUtils";
-// import { uploadFiles } from "@/lib/uploadthing";
-// import { type OurFileRouter } from "@/app/api/uploadthing/core";
 
-// interface UseUploadFileProps
-//   extends Pick<
-//     UploadFilesOptions<OurFileRouter, keyof OurFileRouter>,
-//     "headers" | "onUploadBegin" | "onUploadProgress" | "skipPolling"
-//   > {
-//   defaultUploadedFiles?: UploadedFile[];
-// }
 
 export function useUploadFile() {
   //   endpoint: keyof OurFileRouter,
   //   { defaultUploadedFiles = [], ...props }: UseUploadFileProps = {}
-  const [files, setFiles] = useState<FileState[]>([]); // Buffer to store Files in Pending & Error states
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
   const [progresses, setProgresses] = useState<Record<string, number>>({});
   const [isUploading, setIsUploading] = useState(false);
@@ -29,15 +19,15 @@ export function useUploadFile() {
     try {
       console.log("Uploaded files: ", files);
 
-      setFiles(
-        files.map((file) => {
-          return {
-            file: file,
-            key: Math.random().toString(36).slice(2),
-            progress: "PENDING",
-          };
-        })
-      ); // Store Inputted Files
+      // setFiles(
+      //   files.map((file) => {
+      //     return {
+      //       file: file,
+      //       key: Math.random().toString(36).slice(2),
+      //       progress: "PENDING",
+      //     };
+      //   })
+      // ); // Store Inputted Files
 
       // API call to Upload (Presign first, then Upload with URL)
       //   const res = await uploadFiles(endpoint, {
@@ -55,16 +45,19 @@ export function useUploadFile() {
 
       //   Update File states
       //   setUploadedFiles((prev) => (prev ? [...prev, ...res] : res));
+        setUploadedFiles((prev) => (prev ? [...prev, ...files] : files));
+      return {files: files}
     } catch (err) {
-      toast.error(getErrorMessage(err));
+      // toast.error(getErrorMessage(err));
+      console.log("There was an Error!")
     } finally {
       setProgresses({});
       setIsUploading(false);
+      return {files: files}
     }
   }
 
   return {
-    files,
     uploadedFiles,
     progresses,
     uploadFiles,
