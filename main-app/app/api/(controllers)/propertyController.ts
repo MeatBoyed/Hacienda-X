@@ -2,9 +2,8 @@ import { Hono } from "hono";
 import db from "../(utils)/db";
 import { Property } from "@prisma/client";
 import { HTTPException } from "hono/http-exception";
-import { PropertySchema } from "@/lib/FormUtils";
+import { PropertySchema, parseFormData } from "@/lib/FormUtils";
 import { clerkMiddleware, getAuth } from "@hono/clerk-auth";
-import { zValidator } from "@hono/zod-validator";
 import { validator } from "hono/validator";
 import { z } from "zod";
 
@@ -73,23 +72,16 @@ app.get("/:slug", async (c) => {
   }
 });
 
-// Update the User's Role
-const CreatePropertyRequest = z.object({
-  property: PropertySchema,
-});
-
 app.post(
   "/create",
   // Validates the Incoming data is the correct type through Zod validation schema
-  // zValidator("form", CreatePropertyRequest),
-  // validator("form", (value, c) => {
-  //   const parsed = CreatePropertyRequest.safeParse(value);
-  //   console.log("Prased Data: ", parsed.error);
-  //   if (!parsed.success) {
-  //     return c.text("Invalid!", 401);
-  //   }
-  //   return parsed.data;
-  // }),
+  validator("form", (value, c) => {
+    const parsed = parseFormData(value);
+    if (!parsed) {
+      return c.text("Invalid!", 401);
+    }
+    return parsed;
+  }),
   async (c) => {
     // Get the current user
     const auth = getAuth(c);
@@ -100,42 +92,10 @@ app.post(
       throw new HTTPException(401);
     }
 
-    // const formData = c.req.valid("form").property;
-    const data = await c.req.parseBody();
-    // const { property: rawProperty } = c.req.valid("form");
-    // const rawData = await c.req.formData();
-    // const cleanedFormData: Omit<z.infer<typeof PropertySchema>, "property_id"
-    // const formProperty: Omit<
-    //   Property,
-    //   "createdAt" | "updatedAt" | "property_id"
-    // > = {
-    //   agent_id: auth.userId,
-    //   title: formData.title,
-    //   description: formData.description,
-    //   price: formData.price,
-    //   bathrooms: formData.bathrooms,
-    //   bedrooms: formData.bedrooms,
-    //   pool: formData.pool,
-    //   visibility: formData.visibility,
-    //   saleType: formData.saleType,
-    //   sold: false,
-    //   images: [],
-    //   extraFeatures: formData.extraFeatures.map((feature) => {
-    //     return feature.text;
-    //   }),
-    // };
+    const prop = c.req.valid("form");
+    console.log("Your Submitted form data: ", prop);
 
-    // Get Payload UserId & Desired Role
-    // console.log("Your Property Form Data: ", formProperty);
-    // console.log("Your Images from Form Data:", formData);
-    console.log("Your FormData from Data:", data);
-    // console.log("Your Property from Data:", rawProperty);
-
-    // if (data.images[0] instanceof File) {
-    //   console.log("You have a file my boy!");
-    // } else {
-    //   console.log("You don't have a file :(");
-    // }
+    // Upload image process
 
     let property;
 
@@ -206,5 +166,7 @@ app.post(
     );
   }
 );
+
+export type AppType = typeof app;
 
 export default app;

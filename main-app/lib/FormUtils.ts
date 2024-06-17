@@ -1,5 +1,6 @@
 import { Property } from "@prisma/client";
 import { z } from "zod";
+import { zfd } from "zod-form-data";
 
 export const MINFILES = 1;
 export const MAXFILES = 12;
@@ -79,22 +80,30 @@ export const PropertySchema = z.object({
     required_error: "Pool information is required.",
     invalid_type_error: "Pool must be a boolean.",
   }),
-  Address: z.object(
-    {
-      address: z
-        .string({
-          required_error: "Address is required",
-          invalid_type_error: "Address must be a string",
-        })
-        .min(5, { message: "Address must be at least 5 characters long" }),
-      lat: z.number(),
-      lng: z.number(),
-    },
-    {
+  // Address: z.object(
+  //   {
+  //     address: z
+  //       .string({
+  //         required_error: "Address is required",
+  //         invalid_type_error: "Address must be a string",
+  //       })
+  //       .min(5, { message: "Address must be at least 5 characters long" }),
+  //     lat: z.number(),
+  //     lng: z.number(),
+  //   },
+  //   {
+  //     required_error: "Address is required",
+  //     invalid_type_error: "Address must be a string",
+  //   }
+  // ),
+  address: z
+    .string({
       required_error: "Address is required",
       invalid_type_error: "Address must be a string",
-    }
-  ),
+    })
+    .min(5, { message: "Address must be at least 5 characters long" }),
+  lat: z.number(),
+  lng: z.number(),
   images: z
     .array(
       typeof window === "undefined" ? z.any() : z.instanceof(File)
@@ -131,37 +140,147 @@ export const PropertySchema = z.object({
   }),
 });
 
+export const PropertyRequestSchema = z.object({
+  property_id: z.string(),
+  title: z
+    .string()
+    .min(5, { message: "Title must be at least 5 characters long." }),
+  description: z
+    .string()
+    .min(10, { message: "Description must be at least 10 characters long." }),
+  price: z.coerce
+    .number()
+    .positive({ message: "Price must be a positive number." }),
+  bathrooms: z.coerce
+    .number()
+    .min(1, { message: "There must be at least 1 bathroom." }),
+  bedrooms: z.coerce
+    .number()
+    .min(1, { message: "There must be at least 1 bedroom." }),
+  pool: z.boolean(),
+  address: z
+    .string()
+    .min(5, { message: "Address must be at least 5 characters long" }),
+  lat: z.number(), // add Max and Min Val
+  lng: z.number(),
+  images: z
+    .array(z.instanceof(File))
+    .max(MAXFILES, { message: `No more than ${MAXFILES} Images allowed.` }),
+  extraFeatures: z
+    .array(z.string())
+    .min(1, { message: "There must be at least one extra feature." }),
+  visibility: z.enum(["Public", "Private", "Draft", "Deleted"], {
+    required_error: "Pool information is required.",
+    invalid_type_error: "Pool must be a boolean.",
+  }),
+  saleType: z.enum(["Sale", "Rent"], {
+    required_error: "Sale Type is required",
+    invalid_type_error: "Sale type must be either Sale or Rent",
+  }),
+});
+
+export const PropertyRequestFormDataSchema = zfd.formData(
+  PropertyRequestSchema
+);
+
 export interface FileState {
   file: File;
   key: string; // used to identify the file in the progress callback
   progress: "PENDING" | "COMPLETE" | "ERROR" | number;
 }
 
-export function propertyToFormData(arg: {
-  property: z.infer<typeof PropertySchema>;
-}): FormData {
+export function propertyToFormData(
+  property: z.infer<typeof PropertySchema>
+): FormData {
   const formData = new FormData();
 
-  Object.entries(arg.property).forEach(([key, value]) => {
-    if (Array.isArray(value)) {
-      if (key === "images") {
-        value.forEach((file) => {
-          formData.append(key, file as File);
-        });
-      } else if (key === "extraFeatures") {
-        value.forEach((feature, index) => {
-          formData.append(`${key}[${index}][id]`, feature.id);
-          formData.append(`${key}[${index}][text]`, feature.text);
-        });
-      }
-    } else if (typeof value === "object" && value !== null) {
-      Object.entries(value).forEach(([nestedKey, nestedValue]) => {
-        formData.append(`${key}.${nestedKey}`, nestedValue as string);
-      });
-    } else {
-      formData.append(key, value as string);
-    }
-  });
+  formData.append("property_id", property.property_id);
+  formData.append("title", property.title);
+  formData.append("description", property.description);
+  formData.append("price", property.price.toString());
+  formData.append("bathrooms", property.bathrooms.toString());
+  formData.append("bedrooms", property.bedrooms.toString());
+  formData.append("pool", property.pool == true ? "true" : "false");
+  formData.append("address", property.address);
+  formData.append("lat", property.lat.toString());
+  formData.append("lng", property.lng.toString());
+  for (let i = 0; i < property.images.length; i++) {
+    formData.append(`images[${i}]`, property.images[i] as File);
+  }
+  for (let i = 0; i < property.extraFeatures.length; i++) {
+    formData.append(`extraFeatures[${i}]`, property.extraFeatures[i].text);
+  }
+  formData.append("visibility", property.visibility);
+  formData.append("saleType", property.saleType);
 
   return formData;
 }
+
+export const parseFormData = (
+  formData: Record<string, string | File> | FormData
+): z.infer<typeof PropertyRequestSchema> => {
+  const data: Record<string, any> = {};
+
+  if (formData instanceof FormData) {
+    formData.forEach((value, key) => {
+      if (key.includes("[")) {
+        // Handling array fields like extraFeatures
+        const [mainKey, index, subKey] = key.match(/[^[\]]+/g) as string[];
+        if (!data[mainKey]) data[mainKey] = [];
+        if (!data[mainKey][index]) data[mainKey][index] = {};
+        data[mainKey][index][subKey] = value;
+      } else {
+        data[key] = value;
+      }
+    });
+  } else {
+    Object.entries(formData).forEach(([key, value]) => {
+      if (key.includes("[")) {
+        // Handling array fields like extraFeatures
+        const [mainKey, index, subKey] = key.match(/[^[\]]+/g) as string[];
+        if (!data[mainKey]) data[mainKey] = [];
+        if (!data[mainKey][index]) data[mainKey][index] = {};
+        data[mainKey][index][subKey] = value;
+      } else {
+        data[key] = value;
+      }
+    });
+  }
+
+  let extras: string[] = [];
+  if (Array.isArray(data.extraFeatures)) {
+    data.extraFeatures.forEach((feature) => {
+      extras.push(feature.undefined);
+    });
+  }
+
+  let images: File[] = [];
+  if (Array.isArray(data.images)) {
+    data.images.forEach((image) => {
+      if (image.undefined instanceof File) images.push(image.undefined as File);
+    });
+  }
+
+  // Convert the data types as needed
+  const property = {
+    ...data,
+    property_id: data.property_id,
+    title: data.title,
+    description: data.description,
+    price: parseFloat(data.price),
+    bathrooms: parseInt(data.bathrooms, 10),
+    bedrooms: parseInt(data.bedrooms, 10),
+    pool: data.pool === "true",
+    address: data.address,
+    lat: parseFloat(data.lat),
+    lng: parseFloat(data.lng),
+    images: images,
+    extraFeatures: extras,
+    visibility: data.visibility as "Public" | "Private" | "Draft" | "Deleted",
+    saleType: data.saleType as "Sale" | "Rent",
+  };
+
+  const parsed = PropertyRequestSchema.parse(property);
+
+  return parsed;
+};

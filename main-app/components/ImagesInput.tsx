@@ -3,7 +3,7 @@
 import { FileUploader } from "@/lib/fileUploader";
 import { useUploadFile } from "@/lib/useUploadFile";
 import { cn } from "@/lib/utils";
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import { UploadedFilesCard } from "./UploadedFilesCard";
 
 export interface InputProps
@@ -13,12 +13,10 @@ export interface InputProps
 
 const ImagesInput = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, type, handleChange, ...props }, ref) => {
-    const { uploadFiles, progresses, uploadedFiles, isUploading } =
-      useUploadFile(handleChange);
+    // const { uploadFiles, progresses, uploadedFiles, isUploading } =
+    //   useUploadFile(handleChange);
 
-    // useEffect(() => {
-    //   handleChange(uploadedFiles);
-    // }, [uploadFiles, handleChange]);
+    const [images, setImages] = useState<File[]>([]);
 
     return (
       <div className={cn("space-y-6", className)}>
@@ -33,11 +31,14 @@ const ImagesInput = React.forwardRef<HTMLInputElement, InputProps>(
           maxFiles={4}
           maxSize={4 * 1024 * 1024}
           // progresses={progresses}
-          onUpload={uploadFiles}
-          disabled={isUploading}
+          onUpload={async (files) => {
+            const newImages = [...images, ...files];
+            setImages(newImages);
+            handleChange(newImages);
+          }}
           multiple
         />
-        <UploadedFilesCard uploadedFiles={uploadedFiles} />
+        <UploadedFilesCard uploadedFiles={images} />
       </div>
     );
   }

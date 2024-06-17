@@ -30,11 +30,11 @@ import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ChevronLeft, Badge, Eye } from "lucide-react";
+import { ChevronLeft, Eye } from "lucide-react";
 import { PuffLoader } from "react-spinners";
 
 import { z } from "zod";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import {
   PropertySchema,
@@ -43,15 +43,12 @@ import {
   SelectVisibilityOptions,
   SelectSaleTypeOptions,
   MAXFILES,
+  propertyToFormData,
 } from "../../../../../lib/FormUtils";
 import useSWRMutation from "swr/mutation";
-import { sendUpsertRequest } from "./usePropertyForm";
 import { toast } from "sonner";
 import { AddressInput } from "../../../../../components/AddressInput";
-import Link from "next/link";
 import { ImagesInput } from "@/components/ImagesInput";
-import { FileUploader } from "@/lib/fileUploader";
-import { UploadedFilesCard } from "@/components/UploadedFilesCard";
 
 export default function PropertyForm() {
   const form = useForm<z.infer<typeof PropertySchema>>({
@@ -66,13 +63,15 @@ export default function PropertyForm() {
       pool: false,
       images: [],
       extraFeatures: [],
-      Address: { address: "safdsdf", lat: 0, lng: 0 },
+      address: "asdjjsdf",
+      lat: 0,
+      lng: 0,
       visibility: "Public",
       saleType: "Sale",
     },
   });
   const { setValue, getValues, formState, getFieldState } = form;
-  console.log("Values: ", getValues());
+  // console.log("Values: ", getValues());
   // console.log("Errors: ", formState.errors);
 
   // Extra Features's Tag management
@@ -80,8 +79,6 @@ export default function PropertyForm() {
   const [activeExtraTagIndex, setActiveExtraTagIndex] = useState<number | null>(
     null
   );
-
-  const [images, setImages] = useState<File[]>([]);
 
   const { trigger, isMutating, data } = useSWRMutation(
     "/api/properties/create",
@@ -114,6 +111,7 @@ export default function PropertyForm() {
     // ✅ This will be type-safe and validated.
     console.log("Hello!");
     console.log(values);
+
     await trigger({ property: values });
   }
 
@@ -214,7 +212,7 @@ export default function PropertyForm() {
                   {/* Address */}
                   <FormField
                     control={form.control}
-                    name="Address.address"
+                    name="address"
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>Address</FormLabel>
@@ -223,7 +221,9 @@ export default function PropertyForm() {
                             name={field.name}
                             className="w-full"
                             handleChange={(placeResult) => {
-                              setValue("Address", placeResult);
+                              setValue("address", placeResult.address);
+                              setValue("lat", placeResult.lat);
+                              setValue("lng", placeResult.lng);
                             }}
                           />
                         </FormControl>
@@ -251,33 +251,13 @@ export default function PropertyForm() {
                     <FormItem>
                       <FormMessage />
                       <FormControl>
-                        {/* <FileUploader
-                          multiple
-                          maxFiles={MAXFILES}
-                          maxSize={4 * 1024 * 1024}
-                          className="w-full"
-                          onUpload={async (files) => {
-                            console.log("Images: ", files);
-                            setImages((prev) =>
-                              prev ? [...prev, ...files] : files
-                            );
-                            const newImages = [...images, ...files];
-                            setValue("images", newImages);
-                          }}
-                          // disabled={isUploading}
-                        /> */}
                         <ImagesInput
                           handleChange={(files) => {
                             console.log("Images: ", files);
-                            setImages((prev) =>
-                              prev ? [...prev, ...files] : files
-                            );
-                            const newImages = [...images, ...files];
-                            setValue("images", newImages);
+                            setValue("images", files);
                           }}
                         />
                       </FormControl>
-                      {/* <UploadedFilesCard uploadedFiles={images} /> */}
                     </FormItem>
                   )}
                 />
@@ -533,3 +513,23 @@ export default function PropertyForm() {
 //     </>
 //   );
 // }
+
+async function sendUpsertRequest(
+  url: string,
+  {
+    arg,
+  }: {
+    arg: {
+      property: z.infer<typeof PropertySchema>;
+    };
+  }
+) {
+  return fetch(url, {
+    method: "POST",
+    // headers: {
+    //   // "Content-Type": "application/json",
+    //   // "Content-Type": "multipart/form-data",
+    // },
+    body: propertyToFormData(arg.property),
+  }).then((res) => res.json());
+}

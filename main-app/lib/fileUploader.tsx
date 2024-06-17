@@ -6,7 +6,6 @@ import Dropzone, {
   type DropzoneProps,
   type FileRejection,
 } from "react-dropzone";
-// import { toast } from "@/components/ui/use-toast";
 import { toast } from "sonner";
 
 import { cn, formatBytes } from "@/lib/utils";
@@ -14,7 +13,6 @@ import { useControllableState } from "@/lib/useControllableState";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import uploadFile from "@/app/api/(controllers)/uploadFile";
 import { UploadIcon, X } from "lucide-react";
 
 interface FileUploaderProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -192,7 +190,6 @@ export function FileUploader(props: FileUploaderProps) {
           },
           error: `Failed to upload ${target}`,
         });
-        // toast.success("assdad", { description: `${target} uploaded`, duration: 10000})
       }
     },
 

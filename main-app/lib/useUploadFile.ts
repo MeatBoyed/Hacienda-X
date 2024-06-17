@@ -41,8 +41,10 @@ export function useUploadFile(handleChange: (files: File[]) => void) {
       //   });
 
       //   Update File states
-      //   setUploadedFiles((prev) => (prev ? [...prev, ...res] : res));
-      setUploadedFiles((prev) => (prev ? [...prev, ...files] : files));
+      // setUploadedFiles((prev) => (prev ? [...prev, ...res] : res));
+      // setUploadedFiles((prev) => (prev ? [...prev, ...files] : files));
+      const newFiles = [...uploadedFiles, ...files];
+      setUploadedFiles(newFiles);
       handleChange(uploadedFiles);
     } catch (err) {
       toast.error(getErrorMessage(err));
