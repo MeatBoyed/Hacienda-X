@@ -6,7 +6,7 @@ import "swiper/css";
 import "./Residencies.css";
 import { PuffLoader } from "react-spinners";
 import useSWR from "swr";
-import { GenericPropertyResponse } from "../api/[[...route]]/utils";
+import { GenericPropertyResponse } from "@/app/api/(utils)/utils";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import PropertyCarousel from "@/components/PropertyCarousel";

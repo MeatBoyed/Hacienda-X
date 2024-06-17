@@ -11,7 +11,7 @@ import {
 } from "./ui/carousel";
 import React from "react";
 import Autoplay from "embla-carousel-autoplay";
-import { PropertyWithAddress } from "@/app/api/[[...route]]/utils";
+import { PropertyWithAddress } from "@/app/api/(utils)/utils";
 
 export default function PropertyCarousel({
   data,

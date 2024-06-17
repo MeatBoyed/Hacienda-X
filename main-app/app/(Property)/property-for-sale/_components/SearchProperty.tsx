@@ -1,5 +1,5 @@
 "use client";
-import { GenericPropertyResponse } from "@/app/api/[[...route]]/utils";
+import { GenericPropertyResponse } from "@/app/api/(utils)/utils";
 import { MapComp } from "@/components/Map";
 import PropertyCard from "@/components/PropertyCard";
 import { SearchBar } from "@/components/SearchBar";

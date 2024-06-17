@@ -12,7 +12,7 @@ import Map, {
   ScaleControl,
 } from "react-map-gl";
 import Link from "next/link";
-import { PropertyWithAddress } from "@/app/api/[[...route]]/utils";
+import { PropertyWithAddress } from "@/app/api/(utils)/utils";
 
 // FIX Popup's state not resetting
 
@@ -47,7 +47,7 @@ export function MapComp({
         )}
       </>
     ),
-    []
+    [focusedProperty]
   );
 
   const propertiesMarkers = useMemo(
@@ -79,7 +79,7 @@ export function MapComp({
           ))}
       </>
     ),
-    []
+    [properties]
   );
 
   return (

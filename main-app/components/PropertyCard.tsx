@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/card";
 import Image from "next/image";
 import { Bath, Bed } from "lucide-react";
-import { PropertyWithAddress } from "@/app/api/[[...route]]/utils";
+import { PropertyWithAddress } from "@/app/api/(utils)/utils";
 
 export default function PropertyCard({
   property,
