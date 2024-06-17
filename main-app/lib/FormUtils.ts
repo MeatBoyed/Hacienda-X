@@ -1,3 +1,4 @@
+import { PreSignRequest } from "@/app/api/(controllers)/imagesController";
 import { Property } from "@prisma/client";
 import { z } from "zod";
 import { zfd } from "zod-form-data";
@@ -281,6 +282,53 @@ export const parseFormData = (
   };
 
   const parsed = PropertyRequestSchema.parse(property);
+
+  return parsed;
+};
+
+export const parseImageUploadFormData = (
+  formData: Record<string, string | File> | FormData
+): z.infer<typeof PreSignRequest> => {
+  const data: Record<string, any> = {};
+
+  if (formData instanceof FormData) {
+    formData.forEach((value, key) => {
+      if (key.includes("[")) {
+        // Handling array fields like extraFeatures
+        const [mainKey, index, subKey] = key.match(/[^[\]]+/g) as string[];
+        if (!data[mainKey]) data[mainKey] = [];
+        if (!data[mainKey][index]) data[mainKey][index] = {};
+        data[mainKey][index][subKey] = value;
+      } else {
+        data[key] = value;
+      }
+    });
+  } else {
+    Object.entries(formData).forEach(([key, value]) => {
+      if (key.includes("[")) {
+        // Handling array fields like extraFeatures
+        const [mainKey, index, subKey] = key.match(/[^[\]]+/g) as string[];
+        if (!data[mainKey]) data[mainKey] = [];
+        if (!data[mainKey][index]) data[mainKey][index] = {};
+        data[mainKey][index][subKey] = value;
+      } else {
+        data[key] = value;
+      }
+    });
+  }
+
+  let images: File[] = [];
+  if (Array.isArray(data.images)) {
+    data.images.forEach((image) => {
+      if (image.undefined instanceof File) images.push(image as File);
+    });
+  }
+
+  const request = { images: data.images.map((image: any) => image.undefined) };
+
+  // Convert the data types as needed
+  const schema = zfd.formData(PreSignRequest);
+  const parsed = schema.parse(request);
 
   return parsed;
 };

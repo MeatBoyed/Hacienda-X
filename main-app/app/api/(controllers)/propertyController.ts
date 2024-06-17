@@ -6,6 +6,7 @@ import { PropertySchema, parseFormData } from "@/lib/FormUtils";
 import { clerkMiddleware, getAuth } from "@hono/clerk-auth";
 import { validator } from "hono/validator";
 import { z } from "zod";
+import { uploadFilesToS3 } from "./uploadFile";
 
 const app = new Hono();
 
@@ -96,6 +97,8 @@ app.post(
     console.log("Your Submitted form data: ", prop);
 
     // Upload image process
+    const res = await uploadFilesToS3(auth.userId, prop.images);
+    console.log(res);
 
     let property;
 
