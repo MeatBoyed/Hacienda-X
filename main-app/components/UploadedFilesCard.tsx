@@ -12,7 +12,8 @@ import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { EmptyCard } from "@/components/EmptyCard";
 
 interface UploadedFilesCardProps {
-  uploadedFiles: string[];
+  uploadedFiles: File[];
+  // uploadedFiles: string[];
 }
 
 export function UploadedFilesCard({ uploadedFiles }: UploadedFilesCardProps) {
@@ -50,8 +51,8 @@ export function UploadedFilesCard({ uploadedFiles }: UploadedFilesCardProps) {
                 className="relative aspect-video w-64 border pt-1"
               >
                 <Image
-                  // src={URL.createObjectURL(file)}
-                  src={file}
+                  src={URL.createObjectURL(file)}
+                  // src={file}
                   alt={`image ${index}`}
                   fill
                   // sizes="(min-width: 640px) 640px, 100vw"

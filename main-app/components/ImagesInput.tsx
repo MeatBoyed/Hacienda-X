@@ -1,12 +1,12 @@
 "use client";
 
 import { FileUploader } from "@/lib/fileUploader";
-import { useUploadFile } from "@/lib/useUploadFile";
 import { cn } from "@/lib/utils";
 import React, { useState } from "react";
 import { UploadedFilesCard } from "./UploadedFilesCard";
 import useSWRMutation from "swr/mutation";
 import { toast } from "sonner";
+import { PostUploadImages } from "@/lib/RequestUtils";
 
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -19,10 +19,11 @@ const ImagesInput = React.forwardRef<HTMLInputElement, InputProps>(
     //   useUploadFile(handleChange);
 
     const [uploadedImages, setUploadedImages] = useState<string[]>([]);
+    const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
 
     const { trigger, isMutating, data } = useSWRMutation(
       "/api/images/upload",
-      sendUploadRequest /* options */,
+      PostUploadImages /* options */,
       {
         onError: () => {
           toast.error("Something unexpected happend.", {
@@ -30,14 +31,7 @@ const ImagesInput = React.forwardRef<HTMLInputElement, InputProps>(
           });
         },
         onSuccess: (data) => {
-          // Posthog Action
-          // const posthog = PostHogClient();
-          // posthog.identify({
-          //   distinctId: userId, // replace with a user's distinct ID
-          //   properties: { role: role },
-          // });
           console.log("Response Data: ", data);
-
           console.log("Recieved ULRS: ", data.result);
           const newImages = [...uploadedImages, ...data.result];
           setUploadedImages(newImages);
@@ -61,46 +55,30 @@ const ImagesInput = React.forwardRef<HTMLInputElement, InputProps>(
       3. It returns "onRetry" which allows re-upload (retry) of uploading image
       4. Clears state once all files are successfully uploaded
       4.4 Images should then appear in UploadedFilesCard */}
+
+        {/* UPDATE:
+        File Uploader should manage the Files states, and manage getting SignedUrls for images.
+        2.2 Hook "uploads" and get's signedUrls of successful images
+        3. Returns signedUlrs to Form
+        4. OnFormSubmission it does the Post on signedUrls to upload images using Fetcher 
+      */}
         <FileUploader
           maxFiles={4}
           maxSize={4 * 1024 * 1024}
           // progresses={progresses}
           onUpload={async (files) => {
-            // const newImages = [...images, ...files];
-            await trigger({ images: files });
+            const newImages = [...uploadedFiles, ...files];
+            // await trigger({ images: files });
+            setUploadedFiles(newImages);
+            handleChange(newImages);
           }}
           multiple
           disabled={isMutating}
         />
-        <UploadedFilesCard uploadedFiles={uploadedImages} />
+        <UploadedFilesCard uploadedFiles={uploadedFiles} />
       </div>
     );
   }
 );
 ImagesInput.displayName = "ImagesInput";
 export { ImagesInput };
-
-async function sendUploadRequest(
-  url: string,
-  {
-    arg,
-  }: {
-    arg: {
-      images: File[];
-    };
-  }
-) {
-  const formData = new FormData();
-  for (let i = 0; i < arg.images.length; i++) {
-    formData.append(`images[${i}]`, arg.images[i] as File);
-  }
-
-  return fetch(url, {
-    method: "POST",
-    // headers: {
-    //   // "Content-Type": "application/json",
-    //   // "Content-Type": "multipart/form-data",
-    // },
-    body: formData,
-  }).then((res) => res.json());
-}

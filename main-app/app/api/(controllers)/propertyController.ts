@@ -73,6 +73,7 @@ app.get("/:slug", async (c) => {
   }
 });
 
+// Images are Uploaded via the backend to better Identify
 app.post(
   "/create",
   // Validates the Incoming data is the correct type through Zod validation schema
@@ -97,68 +98,48 @@ app.post(
     console.log("Your Submitted form data: ", prop);
 
     // Upload image process
-    const res = await uploadFilesToS3(auth.userId, prop.images);
-    console.log(res);
+    const imageUpload = await uploadFilesToS3(auth.userId, prop.images); // Url format: https:<aws-domain>/<userId>/<unique-uuid>
+    console.log("Uploaded Images - ", imageUpload);
 
     let property;
 
-    // try {
-    //   // Database query (obvs)
-    //   property = await db.property.create({
-    //     // where: {
-    //     //   property_id:
-    //     //     formData.property_id === "" ? formData.property_id : undefined,
-    //     //   agent_id: formProperty.agent_id,
-    //     // },
-    //     data: {
-    //       ...formProperty,
-    //       agent_id: auth.userId,
-    //       images: [],
-    //       sold: false,
-    //       extraFeatures: formData.extraFeatures.map((feature) => {
-    //         return feature.text;
-    //       }),
-    //       Address: {
-    //         create: {
-    //           address: formData.Address.address,
-    //           street: "dffg",
-    //           city: "ksdf",
-    //           country: "asd",
-    //           latitude: formData.Address.lat,
-    //           longitude: formData.Address.lng,
-    //         },
-    //       },
-    //     }, // UPDATE: to connectorcreate
-    //     // update: {
-    //     //   ...formData,
-    //     //   property_id: formData.property_id,
-    //     //   agent_id: auth.userId,
-    //     //   images: [],
-    //     //   sold: false,
-    //     //   extraFeatures: formData.extraFeatures.map((feature) => {
-    //     //     return feature.text;
-    //     //   }),
-    //     //   Address: {
-    //     //     create: {
-    //     //       address: "ggf",
-    //     //       street: "dffg",
-    //     //       city: "ksdf",
-    //     //       country: "asd",
-    //     //       longitude: 123,
-    //     //       latitude: 123,
-    //     //     },
-    //     //   },
-    //     // }, // UPDATE: to connectorcreate,
-    //   });
-    // } catch (error: any) {
-    //   // Show error in console for Debugging (Realistically this should be logged used a package)
-    //   console.log(error);
-    //   // Respond with an Error for Client "error" state
-    //   throw new Error("Something went wrong. Error: ", error);
-    // }
-    // if (!property) {
-    //   throw new HTTPException(500, { message: "Error: Upserting property" });
-    // }
+    try {
+      // Database query (obvs)
+      property = await db.property.create({
+        data: {
+          title: prop.title,
+          description: prop.description,
+          price: prop.price,
+          bathrooms: prop.bathrooms,
+          bedrooms: prop.bedrooms,
+          pool: prop.pool,
+          saleType: prop.saleType,
+          visibility: prop.visibility,
+          agent_id: auth.userId,
+          images: imageUpload.uploadedImages,
+          sold: false,
+          extraFeatures: prop.extraFeatures,
+          Address: {
+            // update to Connect or Create
+            create: {
+              address: prop.address,
+              street: "dffg",
+              city: "ksdf",
+              country: "asd",
+              latitude: prop.lat,
+              longitude: prop.lng,
+            },
+          },
+        },
+      });
+    } catch (error: any) {
+      // Show error in console for Debugging (Realistically this should be logged used a package)
+      // Respond with an Error for Client "error" state
+      throw new Error("Something went wrong. Error: ", error as Error);
+    }
+    if (!property) {
+      throw new HTTPException(500, { message: "Error: Upserting property" });
+    }
 
     // Response object
     return c.json(

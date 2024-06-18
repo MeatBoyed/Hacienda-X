@@ -49,6 +49,7 @@ import useSWRMutation from "swr/mutation";
 import { toast } from "sonner";
 import { AddressInput } from "../../../../../components/AddressInput";
 import { ImagesInput } from "@/components/ImagesInput";
+import { PostCreateProperty } from "@/lib/RequestUtils";
 
 export default function PropertyForm() {
   const form = useForm<z.infer<typeof PropertySchema>>({
@@ -82,7 +83,7 @@ export default function PropertyForm() {
 
   const { trigger, isMutating, data } = useSWRMutation(
     "/api/properties/create",
-    sendUpsertRequest /* options */,
+    PostCreateProperty /* options */,
     {
       onError: () => {
         toast.error("Something unexpected happend.", {
@@ -513,23 +514,3 @@ export default function PropertyForm() {
 //     </>
 //   );
 // }
-
-async function sendUpsertRequest(
-  url: string,
-  {
-    arg,
-  }: {
-    arg: {
-      property: z.infer<typeof PropertySchema>;
-    };
-  }
-) {
-  return fetch(url, {
-    method: "POST",
-    // headers: {
-    //   // "Content-Type": "application/json",
-    //   // "Content-Type": "multipart/form-data",
-    // },
-    body: propertyToFormData(arg.property),
-  }).then((res) => res.json());
-}

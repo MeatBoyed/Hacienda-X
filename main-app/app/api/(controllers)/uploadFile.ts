@@ -1,7 +1,9 @@
 "use server";
 import {
+  GetObjectCommand,
   PutObjectCommand,
   PutObjectCommandInput,
+  S3,
   S3Client,
 } from "@aws-sdk/client-s3";
 import sharp from "sharp";
@@ -9,6 +11,7 @@ import {
   AWS_S3_BASE_URL,
   AWS_S3_PRODUCTION_FOLDER_NAME,
 } from "../(utils)/utils";
+import { v4 as uuidv4 } from "uuid";
 
 const NEXT_PUBLIC_S3_BUCKET_NAME = process.env.NEXT_PUBLIC_S3_BUCKET_NAME;
 const NEXT_PUBLIC_S3_BUCKET_LOCATION =
@@ -34,87 +37,55 @@ const client = new S3Client({
   },
 });
 
-// General Upload method
-// export default async function uploadFile(userId: string, file: File) {
-//   try {
-//     // Create Put formData
-//     const formData = new FormData();
-//     formData.append("Content-Type", file.type);
-
-//     // Create Buffer for sharp & streaming
-//     const buffer = Buffer.from(await file.arrayBuffer());
-
-//     return await uploadFileToS3(userId, buffer, file.name);
-//   } catch (err) {
-//     console.log("Error: ", err);
-//     return "An Error occured";
-//   }
-// }
-
-// export async function uploadFileToS3(userId: string, file: File) {
-//   const buffer = Buffer.from(await file.arrayBuffer());
-//   const optimizedFile = await sharp(buffer).webp({ quality: 70 }).toBuffer();
-
-//   //   AWS PUT config
-//   const params: PutObjectCommandInput = {
-//     Bucket: NEXT_PUBLIC_S3_BUCKET_NAME,
-//     Key: `${AWS_S3_PRODUCTION_FOLDER_NAME}/${file.name}`, // File Path
-//     Body: optimizedFile, // formData images
-//     ContentType: "image/webp", // Allowed types
-//     Metadata: {
-//       userId: userId,
-//     },
-//     // ["eq", "$x-amz-meta-userid", userid],
-//     Tagging: `userid=${userId}`,
-//   };
-
-//   try {
-//     const res = await client.send(new PutObjectCommand(params)); // Execute AWS command
-//     console.log("File Uploaded! - ", res);
-
-//     // Return the url (format if must)
-//     return `${AWS_S3_BASE_URL}/${AWS_S3_PRODUCTION_FOLDER_NAME}/${file.name}`;
-//   } catch (error) {
-//     console.log("Error: ", error);
-//     return "Unable to upload to S3";
-//   }
-// }
-
 export async function uploadFilesToS3(userId: string, files: File[]) {
   let uploadedImages: string[] = [];
+  let failedImages: File[] = [];
 
-  files.forEach(async (file) => {
-    const buffer = Buffer.from(await file.arrayBuffer());
-    const optimizedFile = await sharp(buffer).webp({ quality: 70 }).toBuffer();
+  uploadedImages = await Promise.all(
+    files.map(async (file) => {
+      const buffer = Buffer.from(await file.arrayBuffer());
+      const optimizedFile = await sharp(buffer)
+        .webp({ quality: 70 })
+        .toBuffer();
+      const key = `${AWS_S3_PRODUCTION_FOLDER_NAME}/${userId}/${uuidv4()}`;
 
-    //   AWS PUT config
-    const params: PutObjectCommandInput = {
-      Bucket: NEXT_PUBLIC_S3_BUCKET_NAME,
-      Key: `${AWS_S3_PRODUCTION_FOLDER_NAME}/${file.name}`, // File Path
-      Body: optimizedFile, // formData images
-      ContentType: "image/webp", // Allowed types
-      Metadata: {
-        userId: userId,
-      },
-      // ["eq", "$x-amz-meta-userid", userid],
-      Tagging: `userid=${userId}`,
-    };
+      try {
+        await client.send(
+          new PutObjectCommand({
+            Bucket: NEXT_PUBLIC_S3_BUCKET_NAME,
+            Key: key, // File Path
+            Body: optimizedFile, // formData images
+            ContentType: "image/webp", // Allowed types
+            Metadata: {
+              userId: userId,
+            },
+            // ["eq", "$x-amz-meta-userid", userid],
+            Tagging: `userid=${userId}`,
+          })
+        ); // Execute AWS command
 
-    try {
-      const res = await client.send(new PutObjectCommand(params)); // Execute AWS command
-      console.log("File Uploaded! - ", res);
+        const image = await client.send(
+          new GetObjectCommand({
+            Bucket: NEXT_PUBLIC_S3_BUCKET_NAME,
+            Key: key,
+          })
+        );
 
-      // Return the url (format if must)
-      // return `${AWS_S3_BASE_URL}/${AWS_S3_PRODUCTION_FOLDER_NAME}/${file.name}`;
-      uploadedImages.push(
-        `${AWS_S3_BASE_URL}/${AWS_S3_PRODUCTION_FOLDER_NAME}/${file.name}`
-      );
-    } catch (error) {
-      console.log("Error: ", error);
-      // return "Unable to upload to S3";
-      return undefined;
-    }
-  });
+        if (image) {
+          return `${AWS_S3_BASE_URL}/${key}`;
+        }
+      } catch (error) {
+        console.log("Error: ", error);
+        failedImages.push(file);
+        return "";
+      }
 
-  return uploadedImages;
+      return "";
+    })
+  );
+
+  return {
+    uploadedImages: uploadedImages,
+    failedImages: failedImages,
+  };
 }
