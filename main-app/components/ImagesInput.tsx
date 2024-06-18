@@ -2,24 +2,27 @@
 
 import { FileUploader } from "@/lib/fileUploader";
 import { cn } from "@/lib/utils";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { UploadedFilesCard } from "./UploadedFilesCard";
 import useSWRMutation from "swr/mutation";
 import { toast } from "sonner";
 import { PostUploadImages } from "@/lib/RequestUtils";
+import { FileState } from "@/lib/FormUtils";
+import { file } from "zod-form-data";
 
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
+  defaultValues?: string[];
   handleChange: (inputtedFiles: File[]) => void;
 }
 
 const ImagesInput = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, handleChange, ...props }, ref) => {
+  ({ className, type, defaultValues, handleChange, ...props }, ref) => {
     // const { uploadFiles, progresses, uploadedFiles, isUploading } =
     //   useUploadFile(handleChange);
 
-    const [uploadedImages, setUploadedImages] = useState<string[]>([]);
     const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
+    const [uploadedImages, setUploadedImages] = useState<FileState[]>([]);
 
     const { trigger, isMutating, data } = useSWRMutation(
       "/api/images/upload",
@@ -46,6 +49,17 @@ const ImagesInput = React.forwardRef<HTMLInputElement, InputProps>(
       }
     );
 
+    useEffect(() => {
+      if (defaultValues) {
+        const newFileStates: FileState[] = defaultValues.map((imageUrl) => ({
+          key: Math.random().toString(5),
+          file: imageUrl,
+          progress: "COMPLETE",
+        }));
+        setUploadedImages(newFileStates);
+      }
+    }, [defaultValues]);
+
     return (
       <div className={cn("space-y-6", className)}>
         {/* File Uploader manages the File states of "Pending", "Error"
@@ -70,13 +84,17 @@ const ImagesInput = React.forwardRef<HTMLInputElement, InputProps>(
           onUpload={async (files) => {
             const newImages = [...uploadedFiles, ...files];
             // await trigger({ images: files });
+
             setUploadedFiles(newImages);
             handleChange(newImages);
           }}
           multiple
           disabled={isMutating}
         />
-        <UploadedFilesCard uploadedFiles={uploadedFiles} />
+        <UploadedFilesCard
+          uploadedFiles={uploadedFiles}
+          // uploadedImages={uploadedImages}
+        />
       </div>
     );
   }

@@ -135,7 +135,7 @@ export const PropertySchema = z.object({
     required_error: "Pool information is required.",
     invalid_type_error: "Pool must be a boolean.",
   }),
-  saleType: z.enum(["Sale", "Rent"], {
+  saleType: z.enum(["Sale", "Rent", "Auction"], {
     required_error: "Sale Type is required",
     invalid_type_error: "Sale type must be either Sale or Rent",
   }),
@@ -179,13 +179,17 @@ export const PropertyRequestSchema = z.object({
     invalid_type_error: "Sale type must be either Sale or Rent",
   }),
 });
+export const DeletePropertyRequestSchema = z.object({
+  userId: z.string(),
+  propertyId: z.string(),
+});
 
 export const PropertyRequestFormDataSchema = zfd.formData(
   PropertyRequestSchema
 );
 
 export interface FileState {
-  file: File;
+  file: File | string;
   key: string; // used to identify the file in the progress callback
   progress: "PENDING" | "COMPLETE" | "ERROR" | number;
 }

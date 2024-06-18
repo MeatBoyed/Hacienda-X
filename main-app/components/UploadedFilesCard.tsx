@@ -13,10 +13,14 @@ import { EmptyCard } from "@/components/EmptyCard";
 
 interface UploadedFilesCardProps {
   uploadedFiles: File[];
+  uploadedImages?: string[];
   // uploadedFiles: string[];
 }
 
-export function UploadedFilesCard({ uploadedFiles }: UploadedFilesCardProps) {
+export function UploadedFilesCard({
+  uploadedFiles,
+  uploadedImages,
+}: UploadedFilesCardProps) {
   return (
     <Card>
       <CardHeader>
@@ -43,25 +47,47 @@ export function UploadedFilesCard({ uploadedFiles }: UploadedFilesCardProps) {
           //   </div>
           //   <ScrollBar orientation="vertical" />
           // </ScrollArea>
-          <div className="grid gap-1 lg:grid-cols-2">
-            {uploadedFiles.map((file, index) => (
-              // <div key={file.key} className="relative aspect-video w-64">
-              <div
-                key={index}
-                className="relative aspect-video w-64 border pt-1"
-              >
-                <Image
-                  src={URL.createObjectURL(file)}
-                  // src={file}
-                  alt={`image ${index}`}
-                  fill
-                  // sizes="(min-width: 640px) 640px, 100vw"
-                  // loading="lazy"
-                  className="rounded-md object-cover"
-                />
-              </div>
-            ))}
-          </div>
+          <>
+            <div className="grid gap-1 lg:grid-cols-2">
+              {uploadedImages &&
+                uploadedImages.map((file, index) => (
+                  // <div key={file.key} className="relative aspect-video w-64">
+                  <div
+                    key={index}
+                    className="relative aspect-video w-64 border pt-1"
+                  >
+                    <Image
+                      src={file}
+                      // src={file}
+                      alt={`image ${index}`}
+                      fill
+                      // sizes="(min-width: 640px) 640px, 100vw"
+                      // loading="lazy"
+                      className="rounded-md object-cover"
+                    />
+                  </div>
+                ))}
+            </div>
+            <div className="grid gap-1 lg:grid-cols-2">
+              {uploadedFiles.map((file, index) => (
+                // <div key={file.key} className="relative aspect-video w-64">
+                <div
+                  key={index}
+                  className="relative aspect-video w-64 border pt-1"
+                >
+                  <Image
+                    src={URL.createObjectURL(file)}
+                    // src={file}
+                    alt={`image ${index}`}
+                    fill
+                    // sizes="(min-width: 640px) 640px, 100vw"
+                    // loading="lazy"
+                    className="rounded-md object-cover"
+                  />
+                </div>
+              ))}
+            </div>
+          </>
         ) : (
           <EmptyCard
             title="No files uploaded"
