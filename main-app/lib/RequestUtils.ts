@@ -60,3 +60,18 @@ export async function DeleteProperty(
     body: JSON.stringify(arg.payload),
   }).then((res) => res.json());
 }
+
+export async function GetUsersProperty(
+  url: string
+  // {
+  //   arg,
+  // }: {
+  //   arg: {
+  //     payload: z.infer<typeof DeletePropertyRequestSchema>;
+  //   };
+  // }
+) {
+  return fetch(url, {
+    method: "GET",
+  }).then((res) => res.json());
+}

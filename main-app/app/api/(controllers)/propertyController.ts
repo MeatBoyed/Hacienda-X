@@ -12,6 +12,7 @@ import { validator } from "hono/validator";
 import { z } from "zod";
 import { uploadFilesToS3 } from "./uploadFile";
 import { zValidator } from "@hono/zod-validator";
+import { PropertyWithAddress } from "../(utils)/utils";
 
 const app = new Hono();
 
@@ -76,6 +77,42 @@ app.get("/:slug", async (c) => {
     // Respond with an Error for Client "error" state
     throw new HTTPException(500, { message: "An unexpected error occured" });
   }
+});
+
+// Endpoint ("/api/properties")
+app.get("/dashboard", async (c) => {
+  // Get the current user
+  const auth = getAuth(c);
+
+  // Ensure user is signed in
+  if (!auth?.userId) {
+    console.log("Unable to authenticate user");
+    throw new Error("Unable to Authenticate user");
+  }
+
+  console.log("Beginn");
+  let properties: PropertyWithAddress[] = [];
+  try {
+    // Database query (obvs)
+    properties = await db.property.findMany({
+      where: { agent_id: auth.userId },
+      include: { Address: true },
+    });
+  } catch (error: any) {
+    console.log(error);
+    throw new Error("Something went wrong. Error: ", error as Error);
+  }
+
+  console.log("Fetched Props...");
+  console.log("Fetched Props: ", properties);
+
+  // Response object
+  return c.json(
+    { results: properties },
+    {
+      status: 200,
+    }
+  );
 });
 
 // Images are Uploaded via the backend to better Identify

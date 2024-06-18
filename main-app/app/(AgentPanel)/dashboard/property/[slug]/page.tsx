@@ -23,6 +23,7 @@ export default function ManageProperty() {
     `/api/properties/${slug}`,
     fetcher
   );
+  console.log(data);
 
   // Return to 403 Page if Property doesn't exists
   if (data?.notFound) {
@@ -35,8 +36,6 @@ export default function ManageProperty() {
       </div>
     );
   }
-
-  console.log(data);
 
   return (
     <section
