@@ -103,43 +103,43 @@ app.post(
 
     let property;
 
-    try {
-      // Database query (obvs)
-      property = await db.property.create({
-        data: {
-          title: prop.title,
-          description: prop.description,
-          price: prop.price,
-          bathrooms: prop.bathrooms,
-          bedrooms: prop.bedrooms,
-          pool: prop.pool,
-          saleType: prop.saleType,
-          visibility: prop.visibility,
-          agent_id: auth.userId,
-          images: imageUpload.uploadedImages,
-          sold: false,
-          extraFeatures: prop.extraFeatures,
-          Address: {
-            // update to Connect or Create
-            create: {
-              address: prop.address,
-              street: "dffg",
-              city: "ksdf",
-              country: "asd",
-              latitude: prop.lat,
-              longitude: prop.lng,
-            },
-          },
-        },
-      });
-    } catch (error: any) {
-      // Show error in console for Debugging (Realistically this should be logged used a package)
-      // Respond with an Error for Client "error" state
-      throw new Error("Something went wrong. Error: ", error as Error);
-    }
-    if (!property) {
-      throw new HTTPException(500, { message: "Error: Upserting property" });
-    }
+    // try {
+    //   // Database query (obvs)
+    //   property = await db.property.create({
+    //     data: {
+    //       title: prop.title,
+    //       description: prop.description,
+    //       price: prop.price,
+    //       bathrooms: prop.bathrooms,
+    //       bedrooms: prop.bedrooms,
+    //       pool: prop.pool,
+    //       saleType: prop.saleType,
+    //       visibility: prop.visibility,
+    //       agent_id: auth.userId,
+    //       images: imageUpload.uploadedImages,
+    //       sold: false,
+    //       extraFeatures: prop.extraFeatures,
+    //       Address: {
+    //         // update to Connect or Create
+    //         create: {
+    //           address: prop.address,
+    //           street: "dffg",
+    //           city: "ksdf",
+    //           country: "asd",
+    //           latitude: prop.lat,
+    //           longitude: prop.lng,
+    //         },
+    //       },
+    //     },
+    //   });
+    // } catch (error: any) {
+    //   // Show error in console for Debugging (Realistically this should be logged used a package)
+    //   // Respond with an Error for Client "error" state
+    //   throw new Error("Something went wrong. Error: ", error as Error);
+    // }
+    // if (!property) {
+    //   throw new HTTPException(500, { message: "Error: Upserting property" });
+    // }
 
     // Response object
     return c.json(

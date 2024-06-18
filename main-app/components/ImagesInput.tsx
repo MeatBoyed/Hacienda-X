@@ -62,6 +62,7 @@ const ImagesInput = React.forwardRef<HTMLInputElement, InputProps>(
         3. Returns signedUlrs to Form
         4. OnFormSubmission it does the Post on signedUrls to upload images using Fetcher 
       */}
+        {/* Handle when max inputted files is reached */}
         <FileUploader
           maxFiles={4}
           maxSize={4 * 1024 * 1024}
