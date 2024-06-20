@@ -5,16 +5,23 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Eye, TrendingUp } from "lucide-react";
 import Image from "next/image";
 import PostHogClient from "@/components/Posthog";
+import { PropertyWithAddress } from "@/app/api/(utils)/utils";
+import { Skeleton } from "@/components/ui/skeleton";
+import Link from "next/link";
 
-export default async function PropertyInsightCard() {
+export default async function PropertyInsightCard({
+  property,
+}: {
+  property: PropertyWithAddress;
+}) {
   return (
     <Card className="min-w-md rounded-tr-md rounded-tl-md hover:cursor-pointer hover:shadow-md">
       <Image
-        src={"https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg"}
+        src={property.images[0]}
         width={370}
         height={300}
         alt="Thumbnail"
@@ -31,15 +38,25 @@ export default async function PropertyInsightCard() {
         </div>
         <div className="flex justify-center items-center gap-2">
           <Eye size={20} />
-          <p className="text-base">Public</p>
+          <p className="text-base">{property.visibility}</p>
         </div>
       </CardDescription>
       <CardContent className="flex justify-center items-center gap-3 px-4 pt-4">
         <Button className="w-full bg-accent text-white">Boost</Button>
-        <Button variant={"outline"} className="w-full">
-          Insights
-        </Button>
+        <Link
+          href={`/dashboard/property/${property.title}`}
+          className={buttonVariants({
+            variant: "outline",
+            className: "w-full",
+          })}
+        >
+          Edit
+        </Link>
       </CardContent>
     </Card>
   );
+}
+
+export function PropertyInsightCardSkeleton() {
+  return <Skeleton className="w-[280px] h-[320px]" />;
 }

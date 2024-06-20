@@ -44,9 +44,9 @@ export default function Dashboard() {
         Your properties
       </p>
       <div className="flex justify-center items-center gap-4">
+        {/* <PropertyInsightCard />
         <PropertyInsightCard />
-        <PropertyInsightCard />
-        <PropertyInsightCard />
+        <PropertyInsightCard /> */}
       </div>
     </div>
   );

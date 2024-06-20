@@ -12,15 +12,18 @@ import { SignOutButton } from "@clerk/nextjs";
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { Search } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Navbar() {
   return (
     <nav className="w-full h-full flex justify-center items-center pb-3 mt-5 border-b">
       <div className="w-full flex justify-center items-center gap-5 flex-col lg:max-w-7xl">
         <div className="w-full flex justify-between items-center">
-          <h2 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight">
-            Hacienda X
-          </h2>
+          <Link href="/dashboard">
+            <h2 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight">
+              Hacienda X
+            </h2>
+          </Link>
 
           <div className=" flex justify-center items-center gap-4">
             <div className="relative ml-auto flex-1 md:grow-0">
@@ -36,11 +39,21 @@ export default function Navbar() {
         </div>
 
         <div className="flex justify-start items-center w-full gap-4">
-          <p className="leading-7">Dashboard</p>
-          <p className="leading-7">Properties</p>
-          <p className="leading-7">Profile</p>
-          <p className="leading-7">Usage</p>
-          <p className="leading-7">Settings</p>
+          <Link className="leading-7" href="/dashboard">
+            Dashboard
+          </Link>
+          <Link className="leading-7" href="/dashboard/property">
+            Property
+          </Link>
+          <Link className="leading-7" href="/dashboard/">
+            Profile
+          </Link>
+          <Link className="leading-7" href="/dashboard/">
+            Usage
+          </Link>
+          <Link className="leading-7" href="/dashboard/settings">
+            Settings
+          </Link>
         </div>
       </div>
     </nav>

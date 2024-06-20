@@ -1,12 +1,13 @@
 "use client";
-import { GenericPropertyResponse } from "@/app/api/(utils)/utils";
-import { fetcher } from "@/lib/utils";
 import useSWR from "swr";
-import PropertyInsightCard from "../../_components/PropertyInsightCard";
 import { GetUsersProperty } from "@/lib/RequestUtils";
+import { GenericPropertyResponse } from "@/app/api/(utils)/utils";
+import PropertyInsightCard, {
+  PropertyInsightCardSkeleton,
+} from "../../_components/PropertyInsightCard";
 
 export default function Properties() {
-  const { data, error, isLoading } = useSWR(
+  const { data, error, isLoading } = useSWR<GenericPropertyResponse>(
     "/api/properties/dashboard",
     GetUsersProperty
   );
@@ -14,11 +15,30 @@ export default function Properties() {
   console.log("User's Properties: ", data);
 
   return (
-    <div className="grid gap-4 lg:grid-cols-4">
-      {/* {data &&
-        data.results.map((property, index) => (
-          <PropertyInsightCard key={index} />
-        ))} */}
+    <>
+      {isLoading && <PropertiesSkeleton />}
+      {!isLoading && data && (
+        <div className="grid gap-4 lg:grid-cols-4 w-full">
+          {data.results.map((property, index) => (
+            <PropertyInsightCard property={property} key={index} />
+          ))}
+        </div>
+      )}
+    </>
+  );
+}
+
+export function PropertiesSkeleton() {
+  return (
+    // <PropertyInsightCardSkeleton />
+    <div className="grid grid-cols-4 gap-8">
+      <PropertyInsightCardSkeleton />
+      <PropertyInsightCardSkeleton />
+      <PropertyInsightCardSkeleton />
+      <PropertyInsightCardSkeleton />
+      <PropertyInsightCardSkeleton />
+      <PropertyInsightCardSkeleton />
+      <PropertyInsightCardSkeleton />
     </div>
   );
 }

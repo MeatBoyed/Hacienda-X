@@ -60,6 +60,7 @@ export default function PropertyForm({
   initProperty?: SelectPropertyResponse;
 }) {
   const { user } = useUser();
+  const router = useRouter();
 
   const defaultValues: z.infer<typeof PropertySchema> = {
     property_id: initProperty ? initProperty.results.property_id : "",
@@ -104,8 +105,6 @@ export default function PropertyForm({
   const [activeExtraTagIndex, setActiveExtraTagIndex] = useState<number | null>(
     null
   );
-
-  const router = useRouter();
 
   const {
     trigger: triggerCreate,
@@ -183,8 +182,14 @@ export default function PropertyForm({
   async function submitHandler(values: z.infer<typeof PropertySchema>) {
     console.log("Hello!");
 
-    if (!initProperty) await triggerCreate({ property: values });
-    await triggerUpdate({ property: values });
+    // if (!initProperty) await triggerCreate({ property: values });
+    // await triggerUpdate({ property: values });
+    if (!initProperty) {
+      await triggerCreate({ property: values });
+    } else {
+      await triggerUpdate({ property: values });
+    }
+
     router.push(`/dashboard/property/${values.title}`);
   }
 
@@ -226,6 +231,8 @@ export default function PropertyForm({
                     variant="outline"
                     size="icon"
                     className="h-7 w-7 bg-white"
+                    type="button"
+                    onClick={() => router.back()}
                   >
                     <ChevronLeft className="h-4 w-4" />
                     <span className="sr-only">Back</span>

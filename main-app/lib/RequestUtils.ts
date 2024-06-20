@@ -4,6 +4,7 @@ import {
   PropertySchema,
   propertyToFormData,
 } from "./FormUtils";
+import { PropertyWithAddress } from "@/app/api/(utils)/utils";
 
 export async function PostUploadImages(
   url: string,
@@ -61,16 +62,7 @@ export async function DeleteProperty(
   }).then((res) => res.json());
 }
 
-export async function GetUsersProperty(
-  url: string
-  // {
-  //   arg,
-  // }: {
-  //   arg: {
-  //     payload: z.infer<typeof DeletePropertyRequestSchema>;
-  //   };
-  // }
-) {
+export async function GetUsersProperty(url: string) {
   return fetch(url, {
     method: "GET",
   }).then((res) => res.json());
