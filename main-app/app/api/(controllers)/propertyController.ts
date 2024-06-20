@@ -137,7 +137,7 @@ app.post(
     const imageUpload = await uploadFilesToS3(auth.userId, prop.images); // Url format: https:<aws-domain>/<userId>/<unique-uuid>
     console.log("Uploaded Images - ", imageUpload);
 
-    let property;
+    let property: PropertyWithAddress;
 
     try {
       // Database query (obvs)
@@ -167,6 +167,7 @@ app.post(
             },
           },
         },
+        include: { Address: true },
       });
     } catch (error: any) {
       // Show error in console for Debugging (Realistically this should be logged used a package)

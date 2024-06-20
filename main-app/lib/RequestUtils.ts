@@ -5,6 +5,7 @@ import {
   propertyToFormData,
 } from "./FormUtils";
 import { PropertyWithAddress } from "@/app/api/(utils)/utils";
+import { Property } from "@prisma/client";
 
 export async function PostUploadImages(
   url: string,
@@ -27,6 +28,10 @@ export async function PostUploadImages(
   }).then((res) => res.json());
 }
 
+export interface PostCreatePropertyResponse {
+  results: PropertyWithAddress;
+  status: number;
+}
 export async function PostCreateProperty(
   url: string,
   {
