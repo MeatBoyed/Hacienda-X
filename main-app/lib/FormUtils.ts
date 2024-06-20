@@ -91,7 +91,7 @@ export const PropertySchema = z.object({
   lng: z.number(),
   images: z
     .array(typeof window === "undefined" ? z.any() : z.instanceof(File))
-    .min(1, { message: `There must be at least ${MINFILES} Image.` })
+    // .min(1, { message: `There must be at least ${MINFILES} Image.` })
     .max(MAXFILES, { message: `No more than ${MAXFILES} Images allowed.` }),
   extraFeatures: z
     .array(
@@ -162,6 +162,7 @@ export const PropertyRequestSchema = z.object({
 export const DeletePropertyRequestSchema = z.object({
   userId: z.string(),
   propertyId: z.string(),
+  images: z.string().array(),
 });
 
 export const PropertyRequestFormDataSchema = zfd.formData(

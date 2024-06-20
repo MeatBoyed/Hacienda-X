@@ -366,6 +366,14 @@ app.post(
       throw new Error("Unable to verify request");
 
     try {
+      await deleteImages(deletePayload.images);
+    } catch (error) {
+      throw new HTTPException(500, {
+        message: `Unable to delete images. Error: ${error as Error}`,
+      });
+    }
+
+    try {
       // Database query (obvs)
       await db.property.update({
         where: {

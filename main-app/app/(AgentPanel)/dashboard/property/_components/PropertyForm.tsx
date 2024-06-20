@@ -30,7 +30,7 @@ import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ChevronLeft, Eye } from "lucide-react";
+import { ChevronLeft, Eye, Save, Trash2 } from "lucide-react";
 import { PuffLoader } from "react-spinners";
 
 import { z } from "zod";
@@ -62,6 +62,16 @@ import {
 } from "@/app/api/(utils)/utils";
 import { useRouter } from "next/navigation";
 import { useUser } from "@clerk/nextjs";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import image from "next/image";
 
 export default function PropertyForm({
   initProperty,
@@ -203,8 +213,6 @@ export default function PropertyForm({
   async function submitHandler(values: z.infer<typeof PropertySchema>) {
     console.log("Hello!");
 
-    // if (!initProperty) await triggerCreate({ property: values });
-    // await triggerUpdate({ property: values });
     if (!initProperty) {
       await triggerCreate({ property: values });
     } else {
@@ -221,6 +229,7 @@ export default function PropertyForm({
       payload: {
         propertyId: initProperty.results.property_id,
         userId: user.id,
+        images: initProperty.results.images,
       },
     });
     router.push("/dashboard/property");
@@ -261,16 +270,60 @@ export default function PropertyForm({
               </div>
               <div className="hidden items-center gap-2 md:ml-auto md:flex ">
                 {initProperty && (
-                  <Button
-                    size="sm"
-                    type="button"
-                    variant="destructive"
-                    onClick={async () => await deleteHandler()}
-                  >
-                    Delete
-                  </Button>
+                  // <Button
+                  //   size="sm"
+                  //   type="button"
+                  //   variant="destructive"
+                  //   onClick={async () => await deleteHandler()}
+                  // >
+                  //   Delete
+                  // </Button>
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button
+                        variant={"destructive"}
+                        size="sm"
+                        className="gap-2"
+                      >
+                        <Trash2 size={16} className="text-black" />
+                        Delete
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-[425px]">
+                      <DialogHeader>
+                        <DialogTitle>
+                          Warning! This is can't be undone.
+                        </DialogTitle>
+                        <DialogDescription>
+                          Deleting this image will be a permant action, and
+                          can't be undone.
+                        </DialogDescription>
+                      </DialogHeader>
+                      <DialogFooter
+                        style={{ justifyContent: "space-between" }}
+                        className="flex p-0 m-0 justify-between items-center w-full"
+                      >
+                        <p className="text-sm font-normal ">
+                          Are you sure you want to do this?
+                        </p>
+                        <Button
+                          variant={"destructive"}
+                          type="button"
+                          onClick={async () => await deleteHandler()}
+                        >
+                          Confirm Delete
+                        </Button>
+                      </DialogFooter>
+                    </DialogContent>
+                  </Dialog>
                 )}
-                <Button variant="outline" size="sm" type="submit">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  type="submit"
+                  className="gap-2"
+                >
+                  <Save size={16} />
                   {initProperty ? "Save" : "Create"}
                 </Button>
               </div>
