@@ -26,7 +26,7 @@ export function SearchBar({
   setMapActive?: Dispatch<SetStateAction<boolean>>;
   filter?: string;
   setFilter?: Dispatch<SetStateAction<string>>;
-  classname: string;
+  classname?: string;
 }) {
   return (
     <div

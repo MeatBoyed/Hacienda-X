@@ -26,7 +26,7 @@ export default function LocationSection({
           Where it is
         </h3>
         <div className="w-full h-full mb-8">
-          <MapComp focusedProperty={property} properties={[]} />
+          <MapComp height="30vw" focusedProperty={property} properties={[]} />
         </div>
         <Button variant="link" className="text-text ">
           Find properties in this area

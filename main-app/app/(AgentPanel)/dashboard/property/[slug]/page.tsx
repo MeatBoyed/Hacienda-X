@@ -12,8 +12,6 @@ export default function ManageProperty() {
   const user = useUser();
   const params = useParams();
 
-  if (user.isSignedIn === false) return SignIn;
-
   const slug = decodeURIComponent(
     typeof params.slug === "string" ? params.slug : ""
   );
@@ -23,6 +21,8 @@ export default function ManageProperty() {
     `/api/properties/${slug}`,
     fetcher
   );
+
+  if (user.isSignedIn === false) return SignIn;
   console.log(data);
 
   // Return to 403 Page if Property doesn't exists
