@@ -26,7 +26,9 @@ if (
   !S3_ACCESS_KEY ||
   !S3_SECRET_ACCESS_KEY
 ) {
-  throw new Error("Unable to Authenticate");
+  throw new Error(
+    "AWS Keys could not be found. Therefore system is unable to Authenticate to S3 Bucket"
+  );
 }
 
 const client = new S3Client({
