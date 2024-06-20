@@ -6,6 +6,7 @@ import PropertyForm from "../_components/PropertyForm";
 import { SelectPropertyResponse } from "@/app/api/(utils)/utils";
 import { PuffLoader } from "react-spinners";
 import { SignIn, useUser } from "@clerk/nextjs";
+import Link from "next/link";
 
 // Allow user's to request property features for us to add
 export default function ManageProperty() {
@@ -28,11 +29,9 @@ export default function ManageProperty() {
   // Return to 403 Page if Property doesn't exists
   if (data?.notFound) {
     return (
-      <div className="w-full flex justify-center items-center h-[99vh] bg-[#ffff]">
-        <span>
-          This property does not exist. It may have been removed by the agent
-        </span>
-        <p>Checkout other properties that are available</p>
+      <div className="w-full flex justify-center items-center flex-col h-[80vh] bg-[#ffff]">
+        <span>This property does not exist. It has likey been deleted.</span>
+        <Link href="/dashboard/property">View your properties</Link>
       </div>
     );
   }

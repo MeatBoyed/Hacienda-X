@@ -35,8 +35,8 @@ export const SelectBathroomsOptions = [
 export const SelectVisibilityOptions = [
   { key: "Public", value: "Public" },
   { key: "Private", value: "Private" },
-  { key: "Draft", value: "Draft" },
-  { key: "Deleted", value: "Deleted" },
+  // { key: "Draft", value: "Draft" },
+  // { key: "Deleted", value: "Deleted" },
 ];
 
 export const SelectSaleTypeOptions = [
@@ -81,22 +81,6 @@ export const PropertySchema = z.object({
     required_error: "Pool information is required.",
     invalid_type_error: "Pool must be a boolean.",
   }),
-  // Address: z.object(
-  //   {
-  //     address: z
-  //       .string({
-  //         required_error: "Address is required",
-  //         invalid_type_error: "Address must be a string",
-  //       })
-  //       .min(5, { message: "Address must be at least 5 characters long" }),
-  //     lat: z.number(),
-  //     lng: z.number(),
-  //   },
-  //   {
-  //     required_error: "Address is required",
-  //     invalid_type_error: "Address must be a string",
-  //   }
-  // ),
   address: z
     .string({
       required_error: "Address is required",
@@ -106,16 +90,8 @@ export const PropertySchema = z.object({
   lat: z.number(),
   lng: z.number(),
   images: z
-    .array(
-      typeof window === "undefined" ? z.any() : z.instanceof(File)
-      // z.instanceof(FileList).transform((fileList) => fileList[0])
-      // z.object({
-      //   fileName: z.string(),
-      //   fileType: z.string(),
-      //   file: z.instanceof(File)
-      // }, { invalid_type_error: "Images must be a valid File", required_error: "Images is required"})
-    )
-    .min(1, { message: `There must be at least ${MINFILES} images.` })
+    .array(typeof window === "undefined" ? z.any() : z.instanceof(File))
+    .min(1, { message: `There must be at least ${MINFILES} Image.` })
     .max(MAXFILES, { message: `No more than ${MAXFILES} Images allowed.` }),
   extraFeatures: z
     .array(

@@ -203,8 +203,6 @@ export default function PropertyForm({
   async function submitHandler(values: z.infer<typeof PropertySchema>) {
     console.log("Hello!");
 
-    if (values.images.length > 0)
-      return console.log("No Images Found!", values.images);
     // if (!initProperty) await triggerCreate({ property: values });
     // await triggerUpdate({ property: values });
     if (!initProperty) {

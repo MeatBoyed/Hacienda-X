@@ -23,6 +23,7 @@ app.get("/", async (c) => {
   try {
     // Database query (obvs)
     const properties = await db.property.findMany({
+      where: { visibility: { not: "Deleted" } },
       include: { Address: true },
     });
 
@@ -58,7 +59,7 @@ app.get("/dashboard/property", async (c) => {
   try {
     // Database query (obvs)
     properties = await db.property.findMany({
-      where: { agent_id: auth.userId },
+      where: { agent_id: auth.userId, visibility: { not: "Deleted" } },
       include: { Address: true },
     });
   } catch (error: any) {
@@ -90,7 +91,10 @@ app.get("/dashboard/property/:propertyid", async (c) => {
   try {
     // Database query (obvs)
     property = await db.property.findFirstOrThrow({
-      where: { property_id: propertyId, agent_id: auth.userId }, // Property needs a Slug field in DB
+      where: {
+        property_id: propertyId,
+        agent_id: auth.userId,
+      }, // Property needs a Slug field in DB
       include: { Address: true },
     });
   } catch (error: any) {
@@ -98,7 +102,7 @@ app.get("/dashboard/property/:propertyid", async (c) => {
     throw new HTTPException(500, { message: "An unexpected error occured" });
   }
   // Let the Client (Front-End) decide what to do with a 404
-  if (!property) {
+  if (!property || property.visibility === "Deleted") {
     return c.json({ results: undefined, notFound: true }, { status: 200 });
   }
 
@@ -353,22 +357,22 @@ app.post(
 
     const slug = c.req.param("slug"); // PropertyId
     const deletePayload = c.req.valid("json");
-    console.log("Your Submitted Delete data: ", deletePayload);
 
     if (
       auth.userId !== deletePayload.userId &&
       deletePayload.propertyId === "" &&
-      slug === deletePayload.propertyId
+      slug !== deletePayload.propertyId
     )
       throw new Error("Unable to verify request");
 
     try {
       // Database query (obvs)
-      await db.property.delete({
+      await db.property.update({
         where: {
           property_id: slug,
           agent_id: auth.userId,
         },
+        data: { visibility: "Deleted" },
       });
     } catch (error: any) {
       throw new Error("Something went wrong. Error: ", error as Error);

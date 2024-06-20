@@ -1,5 +1,4 @@
 import Image from "next/image";
-// import type { UploadedFile } from "@/types";
 
 import {
   Card,
@@ -8,24 +7,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { EmptyCard } from "@/components/EmptyCard";
 import { Trash2 } from "lucide-react";
 import { FileState } from "@/lib/FormUtils";
 import { useMemo } from "react";
-import { Button } from "./ui/button";
-import {
-  DialogHeader,
-  DialogFooter,
-  Dialog,
-  DialogTrigger,
-  DialogContent,
-  DialogTitle,
-  DialogDescription,
-} from "./ui/dialog";
 
 interface UploadedFilesCardProps {
-  uploadedImages?: FileState[];
+  uploadedImages: FileState[];
   onFileDelete: (file: FileState) => void;
 }
 
@@ -52,7 +40,7 @@ export function UploadedFilesCard({
         <CardDescription>View the uploaded files here</CardDescription>
       </CardHeader>
       <CardContent>
-        {uploadedImages ? (
+        {uploadedImages.length > 0 ? (
           <>
             <div className="grid gap-1 lg:grid-cols-2">{images}</div>
           </>

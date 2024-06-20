@@ -6,13 +6,8 @@ import React, { useEffect, useState } from "react";
 import { UploadedFilesCard } from "./UploadedFilesCard";
 import useSWRMutation from "swr/mutation";
 import { toast } from "sonner";
-import {
-  DeleteImage,
-  DeleteImageResponse,
-  PostUploadImages,
-} from "@/lib/RequestUtils";
+import { PostUploadImages } from "@/lib/RequestUtils";
 import { FileState } from "@/lib/FormUtils";
-import { file } from "zod-form-data";
 import { AWS_S3_BASE_URL } from "@/app/api/(utils)/utils";
 
 export interface InputProps
@@ -70,8 +65,6 @@ const ImagesInput = React.forwardRef<HTMLInputElement, InputProps>(
       }
     }, []);
 
-    // const ["Cmplete", "complete", "PENDING", "COmplete"]
-    // ["url", "url", "file.name", "url"]
     function convertUploadedImages(uploadedimages: FileState[]) {
       let newImages: File[] = [];
       let order: string[] = [];

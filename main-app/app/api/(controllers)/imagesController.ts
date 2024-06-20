@@ -59,28 +59,28 @@ app.post(
   }
 );
 
-app.post(
-  "/delete",
-  zValidator("json", DeleteImagesRequestSchema),
-  async (c) => {
-    // Get the current user
-    const auth = getAuth(c);
+// app.post(
+//   "/delete",
+//   zValidator("json", DeleteImagesRequestSchema),
+//   async (c) => {
+//     // Get the current user
+//     const auth = getAuth(c);
 
-    // Ensure user is signed in
-    if (!auth?.userId) {
-      console.log("Unable to authenticate user");
-      throw new HTTPException(401);
-    }
+//     // Ensure user is signed in
+//     if (!auth?.userId) {
+//       console.log("Unable to authenticate user");
+//       throw new HTTPException(401);
+//     }
 
-    const image = c.req.valid("json");
-    console.log("Images: ", image);
+//     const image = c.req.valid("json");
+//     console.log("Images: ", image);
 
-    const res = await deleteImages(image.deletedImage);
+//     const res = await deleteImages(image.deletedImage);
 
-    if (!res) throw new Error("Unable to Delete Image");
+//     if (!res) throw new Error("Unable to Delete Image");
 
-    return c.json({ result: res }, { status: 200 });
-  }
-);
+//     return c.json({ result: res }, { status: 200 });
+//   }
+// );
 
 export default app;
