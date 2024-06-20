@@ -99,7 +99,9 @@ export async function deleteImages(imagesUrls: string[]) {
   await Promise.all(
     imagesUrls.map(async (imageUrl) => {
       const parts = imageUrl.split("/");
-      const key = parts[parts.length - 1];
+      const key = `${AWS_S3_PRODUCTION_FOLDER_NAME}/${
+        parts[parts.length - 2]
+      }/${parts[parts.length - 1]}`;
 
       try {
         await client.send(
