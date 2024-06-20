@@ -28,11 +28,11 @@ export async function PostUploadImages(
   }).then((res) => res.json());
 }
 
-export interface PostCreatePropertyResponse {
+export interface PostPropertyResponse {
   results: PropertyWithAddress;
   status: number;
 }
-export async function PostCreateProperty(
+export async function PostProperty(
   url: string,
   {
     arg,

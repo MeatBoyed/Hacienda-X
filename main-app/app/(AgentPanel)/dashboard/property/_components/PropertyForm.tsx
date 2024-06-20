@@ -51,8 +51,8 @@ import { AddressInput } from "../../../../../components/AddressInput";
 import { ImagesInput } from "@/components/ImagesInput";
 import {
   DeleteProperty,
-  PostCreateProperty,
-  PostCreatePropertyResponse,
+  PostProperty,
+  PostPropertyResponse,
 } from "@/lib/RequestUtils";
 import {
   PropertyWithAddress,
@@ -117,68 +117,60 @@ export default function PropertyForm({
     trigger: triggerCreate,
     isMutating: isMutatingCreate,
     error: createError,
-  } = useSWRMutation(
-    "/api/properties/create",
-    PostCreateProperty /* options */,
-    {
-      onError: () => {
-        toast.error("Something unexpected happend.", {
-          description: "Please try again....",
-        });
-      },
-      onSuccess: (data: PostCreatePropertyResponse) => {
-        const createdProp: z.infer<typeof PropertySchema> = {
-          property_id: data.results.property_id,
-          title: data.results.title,
-          price: data.results.price,
-          description: data.results.description,
-          bathrooms: data.results.bathrooms,
-          bedrooms: data.results.bedrooms,
-          pool: data.results.pool,
-          images: data.results.images,
-          extraFeatures: data.results.extraFeatures.map((feat, i) => ({
-            id: i.toString(),
-            text: feat,
-          })),
-          address: data.results.Address ? data.results.Address.address : "",
-          lat: data.results.Address ? data.results.Address.latitude : 0,
-          lng: data.results.Address ? data.results.Address.longitude : 0,
-          visibility: data.results.visibility,
-          saleType: data.results.saleType,
-        };
-
-        // Set result (property) value to the Form's state, convert object values..
-        form.reset(createdProp);
-
-        // Show message
-        toast.success("Your property has been posted!", {
-          description: `View your property at ....`,
-        });
-      },
-    }
-  );
+  } = useSWRMutation("/api/properties/create", PostProperty /* options */, {
+    onError: () => {
+      toast.error("Something unexpected happend.", {
+        description: "Please try again....",
+      });
+    },
+    onSuccess: (data: PostPropertyResponse) => {
+      // Show message
+      toast.success("Your property has been posted!", {
+        description: `View your property at ....`,
+      });
+    },
+  });
 
   const {
     trigger: triggerUpdate,
     isMutating: isMutatingUpdate,
     error: updateError,
-  } = useSWRMutation(
-    "/api/properties/update",
-    PostCreateProperty /* options */,
-    {
-      onError: () => {
-        toast.error("Something unexpected happend.", {
-          description: "Please try again....",
-        });
-      },
-      onSuccess: (data) => {
-        // Show message
-        toast.success("Your property has been Updated!", {
-          description: `View your property at ....`,
-        });
-      },
-    }
-  );
+  } = useSWRMutation("/api/properties/update", PostProperty /* options */, {
+    onError: () => {
+      toast.error("Something unexpected happend.", {
+        description: "Please try again....",
+      });
+    },
+    onSuccess: (data: PostPropertyResponse) => {
+      const createdProp: z.infer<typeof PropertySchema> = {
+        property_id: data.results.property_id,
+        title: data.results.title,
+        price: data.results.price,
+        description: data.results.description,
+        bathrooms: data.results.bathrooms,
+        bedrooms: data.results.bedrooms,
+        pool: data.results.pool,
+        images: data.results.images,
+        extraFeatures: data.results.extraFeatures.map((feat, i) => ({
+          id: i.toString(),
+          text: feat,
+        })),
+        address: data.results.Address ? data.results.Address.address : "",
+        lat: data.results.Address ? data.results.Address.latitude : 0,
+        lng: data.results.Address ? data.results.Address.longitude : 0,
+        visibility: data.results.visibility,
+        saleType: data.results.saleType,
+      };
+
+      // Set result (property) value to the Form's state, convert object values..
+      form.reset(createdProp);
+
+      // Show message
+      toast.success("Your property has been Updated!", {
+        description: `View your property at ....`,
+      });
+    },
+  });
 
   const {
     trigger: triggerDelete,
@@ -212,10 +204,10 @@ export default function PropertyForm({
     if (!initProperty) {
       await triggerCreate({ property: values });
     } else {
-      await triggerUpdate({ property: values });
+      return await triggerUpdate({ property: values });
     }
 
-    // router.push(`/dashboard/property/${values.title}`);
+    router.push(`/dashboard/property/${values.title}`);
   }
 
   async function deleteHandler() {
