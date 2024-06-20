@@ -115,8 +115,8 @@ export const PropertySchema = z.object({
       //   file: z.instanceof(File)
       // }, { invalid_type_error: "Images must be a valid File", required_error: "Images is required"})
     )
+    .min(1, { message: `There must be at least ${MINFILES} images.` })
     .max(MAXFILES, { message: `No more than ${MAXFILES} Images allowed.` }),
-  // .min(0, { message: `There must be at least ${MINFILES} images.` })
   extraFeatures: z
     .array(
       z.object({
@@ -139,6 +139,8 @@ export const PropertySchema = z.object({
     required_error: "Sale Type is required",
     invalid_type_error: "Sale type must be either Sale or Rent",
   }),
+  imagesOrder: z.string().array().optional(),
+  deletedImages: z.string().array().optional(),
 });
 
 export const PropertyRequestSchema = z.object({
@@ -178,6 +180,8 @@ export const PropertyRequestSchema = z.object({
     required_error: "Sale Type is required",
     invalid_type_error: "Sale type must be either Sale or Rent",
   }),
+  deletedImages: z.string().array().optional(),
+  imagesOrder: z.string().array().optional(),
 });
 export const DeletePropertyRequestSchema = z.object({
   userId: z.string(),
@@ -191,7 +195,7 @@ export const PropertyRequestFormDataSchema = zfd.formData(
 export interface FileState {
   file: File | string;
   key: string; // used to identify the file in the progress callback
-  progress: "PENDING" | "COMPLETE" | "ERROR" | number;
+  progress: "PENDING" | "COMPLETE" | "ERROR";
 }
 
 export function propertyToFormData(
@@ -217,6 +221,20 @@ export function propertyToFormData(
   }
   formData.append("visibility", property.visibility);
   formData.append("saleType", property.saleType);
+
+  if (property.imagesOrder) {
+    for (let i = 0; i < property.imagesOrder.length; i++) {
+      formData.append(`imagesOrder[${i}]`, property.imagesOrder[i]);
+    }
+  }
+  if (property.deletedImages) {
+    for (let i = 0; i < property.deletedImages.length; i++) {
+      formData.append(
+        `deletedImages[${i}]`,
+        property.deletedImages[i] as string
+      );
+    }
+  }
 
   return formData;
 }
@@ -266,6 +284,21 @@ export const parseFormData = (
     });
   }
 
+  let imagesOrder: string[] = [];
+  if (Array.isArray(data.imagesOrder)) {
+    data.imagesOrder.forEach((order) => {
+      imagesOrder.push(order.undefined);
+    });
+  }
+
+  let deletedImages: File[] = [];
+  if (Array.isArray(data.deletedImages)) {
+    data.deletedImages.forEach((image) => {
+      if (typeof image.undefined === "string")
+        deletedImages.push(image.undefined);
+    });
+  }
+
   // Convert the data types as needed
   const property = {
     ...data,
@@ -283,6 +316,8 @@ export const parseFormData = (
     extraFeatures: extras,
     visibility: data.visibility as "Public" | "Private" | "Draft" | "Deleted",
     saleType: data.saleType as "Sale" | "Rent",
+    deletedImages: deletedImages,
+    imagesOrder: imagesOrder,
   };
 
   const parsed = PropertyRequestSchema.parse(property);

@@ -3,7 +3,7 @@ import { zValidator } from "@hono/zod-validator";
 import { Hono } from "hono";
 import { HTTPException } from "hono/http-exception";
 import { z } from "zod";
-import { uploadFilesToS3 } from "./uploadFile";
+import { deleteImages, uploadFilesToS3 } from "./uploadFile";
 import { validator } from "hono/validator";
 import { parseImageUploadFormData } from "@/lib/FormUtils";
 import {
@@ -17,6 +17,9 @@ app.use(clerkMiddleware());
 
 export const PreSignRequest = z.object({
   images: z.array(z.instanceof(File)),
+});
+export const DeleteImagesRequestSchema = z.object({
+  deletedImage: z.string(),
 });
 
 app.post(
@@ -53,6 +56,30 @@ app.post(
     console.log("Image URLs: ", imageUrls);
 
     return c.json({ result: imageUrls }, { status: 200 });
+  }
+);
+
+app.post(
+  "/delete",
+  zValidator("json", DeleteImagesRequestSchema),
+  async (c) => {
+    // Get the current user
+    const auth = getAuth(c);
+
+    // Ensure user is signed in
+    if (!auth?.userId) {
+      console.log("Unable to authenticate user");
+      throw new HTTPException(401);
+    }
+
+    const image = c.req.valid("json");
+    console.log("Images: ", image);
+
+    const res = await deleteImages(image.deletedImage);
+
+    if (!res) throw new Error("Unable to Delete Image");
+
+    return c.json({ result: res }, { status: 200 });
   }
 );
 

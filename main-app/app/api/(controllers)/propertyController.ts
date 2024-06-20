@@ -10,9 +10,9 @@ import {
 import { clerkMiddleware, getAuth } from "@hono/clerk-auth";
 import { validator } from "hono/validator";
 import { z } from "zod";
-import { uploadFilesToS3 } from "./uploadFile";
+import { deleteImages, uploadFilesToS3 } from "./uploadFile";
 import { zValidator } from "@hono/zod-validator";
-import { PropertyWithAddress } from "../(utils)/utils";
+import { AWS_S3_BASE_URL, PropertyWithAddress } from "../(utils)/utils";
 
 const app = new Hono();
 
@@ -45,7 +45,7 @@ app.get("/", async (c) => {
   }
 });
 
-app.get("/dashboard", async (c) => {
+app.get("/dashboard/property", async (c) => {
   // Get the current user
   const auth = getAuth(c);
 
@@ -69,6 +69,42 @@ app.get("/dashboard", async (c) => {
   // Response object
   return c.json(
     { results: properties },
+    {
+      status: 200,
+    }
+  );
+});
+
+app.get("/dashboard/property/:propertyid", async (c) => {
+  // Get the current user
+  const auth = getAuth(c);
+
+  // Ensure user is signed in
+  if (!auth?.userId) {
+    throw new Error("Unable to Authenticate user");
+  }
+
+  const propertyId = c.req.param("propertyid");
+
+  let property: PropertyWithAddress;
+  try {
+    // Database query (obvs)
+    property = await db.property.findFirstOrThrow({
+      where: { property_id: propertyId, agent_id: auth.userId }, // Property needs a Slug field in DB
+      include: { Address: true },
+    });
+  } catch (error: any) {
+    console.log(error);
+    throw new HTTPException(500, { message: "An unexpected error occured" });
+  }
+  // Let the Client (Front-End) decide what to do with a 404
+  if (!property) {
+    return c.json({ results: undefined, notFound: true }, { status: 200 });
+  }
+
+  // Response object
+  return c.json(
+    { results: property },
     {
       status: 200,
     }
@@ -152,7 +188,7 @@ app.post(
           saleType: prop.saleType,
           visibility: prop.visibility,
           agent_id: auth.userId,
-          images: imageUpload.uploadedImages,
+          images: imageUpload.uploadedImages.map((image) => image.url),
           sold: false,
           extraFeatures: prop.extraFeatures,
           Address: {
@@ -212,9 +248,41 @@ app.post(
     const prop = c.req.valid("form");
     console.log("Your Submitted form data: ", prop);
 
+    if (prop.deletedImages) {
+      try {
+        await deleteImages(prop.deletedImages);
+      } catch (err) {
+        throw new HTTPException(500, {
+          message: `Unable to delete images. Error: ${err as Error}`,
+        });
+      }
+    }
+
     // Upload image process
-    const imageUpload = await uploadFilesToS3(auth.userId, prop.images); // Url format: https:<aws-domain>/<userId>/<unique-uuid>
-    console.log("Uploaded Images - ", imageUpload);
+    let images: string[] = [];
+    if (prop.images && prop.imagesOrder) {
+      try {
+        const res = await uploadFilesToS3(auth.userId, prop.images); // Url format: https:<aws-domain>/<userId>/<unique-uuid>
+        if (res.failedImages.length > 0) {
+          await deleteImages(res.uploadedImages.map((image) => image.url));
+          throw new HTTPException(500, {
+            message: "Failed objects found in upload",
+          });
+        }
+        prop.imagesOrder.forEach((imageId) => {
+          if (imageId.startsWith(AWS_S3_BASE_URL)) {
+            return images.push(imageId);
+          }
+          res.uploadedImages.forEach((image) => {
+            if (image.fileName === imageId) return images.push(image.url);
+          });
+        });
+      } catch (err) {
+        throw new HTTPException(500, {
+          message: `Unable to Upload images. Error: ${err as Error}`,
+        });
+      }
+    }
 
     let property: PropertyWithAddress | undefined;
 
@@ -232,7 +300,7 @@ app.post(
           saleType: prop.saleType,
           visibility: prop.visibility,
           agent_id: auth.userId,
-          images: imageUpload.uploadedImages,
+          images: images,
           sold: false,
           extraFeatures: prop.extraFeatures,
           Address: {
@@ -256,6 +324,8 @@ app.post(
     if (!property) {
       throw new HTTPException(500, { message: "Error: Upserting property" });
     }
+
+    console.log("Updated Property: ", property);
 
     // Response object
     return c.json(

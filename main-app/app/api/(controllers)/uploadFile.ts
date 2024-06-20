@@ -1,5 +1,6 @@
 "use server";
 import {
+  DeleteObjectCommand,
   GetObjectCommand,
   PutObjectCommand,
   PutObjectCommandInput,
@@ -40,7 +41,7 @@ const client = new S3Client({
 });
 
 export async function uploadFilesToS3(userId: string, files: File[]) {
-  let uploadedImages: string[] = [];
+  let uploadedImages: { url: string; fileName: string }[] = [];
   let failedImages: File[] = [];
 
   uploadedImages = await Promise.all(
@@ -74,15 +75,17 @@ export async function uploadFilesToS3(userId: string, files: File[]) {
         );
 
         if (image) {
-          return `${AWS_S3_BASE_URL}/${key}`;
+          return {
+            url: `${AWS_S3_BASE_URL}/${key}`,
+            fileName: file.name,
+          };
         }
       } catch (error) {
         console.log("Error: ", error);
         failedImages.push(file);
-        return "";
+        throw new Error("unable to upload");
       }
-
-      return "";
+      throw new Error("unable to upload");
     })
   );
 
@@ -90,4 +93,27 @@ export async function uploadFilesToS3(userId: string, files: File[]) {
     uploadedImages: uploadedImages,
     failedImages: failedImages,
   };
+}
+
+export async function deleteImages(imagesUrls: string[]) {
+  await Promise.all(
+    imagesUrls.map(async (imageUrl) => {
+      const parts = imageUrl.split("/");
+      const key = parts[parts.length - 1];
+
+      try {
+        await client.send(
+          new DeleteObjectCommand({
+            Bucket: NEXT_PUBLIC_S3_BUCKET_NAME,
+            Key: key, // File Path
+          })
+        ); // Execute AWS command
+      } catch (error) {
+        console.log("Error: ", error);
+        throw new Error("Error Deleting images");
+      }
+    })
+  );
+
+  return true;
 }

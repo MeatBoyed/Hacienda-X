@@ -7,6 +7,21 @@ import {
 import { PropertyWithAddress } from "@/app/api/(utils)/utils";
 import { Property } from "@prisma/client";
 
+export interface PostPropertyResponse {
+  results: PropertyWithAddress;
+  status: number;
+}
+
+export interface DeleteImageResponse {
+  results: boolean;
+  status: number;
+}
+
+export interface GetUsersPropertyResponse {
+  results: PropertyWithAddress;
+  status: number;
+}
+
 export async function PostUploadImages(
   url: string,
   {
@@ -28,10 +43,25 @@ export async function PostUploadImages(
   }).then((res) => res.json());
 }
 
-export interface PostPropertyResponse {
-  results: PropertyWithAddress;
-  status: number;
+export async function DeleteImage(
+  url: string,
+  {
+    arg,
+  }: {
+    arg: {
+      deletedImage: string;
+    };
+  }
+) {
+  return fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify(arg),
+  }).then((res) => res.json());
 }
+
 export async function PostProperty(
   url: string,
   {

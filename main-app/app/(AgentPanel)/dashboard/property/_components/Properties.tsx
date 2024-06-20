@@ -8,7 +8,7 @@ import PropertyInsightCard, {
 
 export default function Properties() {
   const { data, error, isLoading } = useSWR<GenericPropertyResponse>(
-    "/api/properties/dashboard",
+    "/api/properties/dashboard/property",
     GetUsersProperty
   );
 

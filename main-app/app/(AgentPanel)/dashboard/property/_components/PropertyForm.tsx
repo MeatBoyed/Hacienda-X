@@ -50,6 +50,8 @@ import { toast } from "sonner";
 import { AddressInput } from "../../../../../components/AddressInput";
 import { ImagesInput } from "@/components/ImagesInput";
 import {
+  DeleteImage,
+  DeleteImageResponse,
   DeleteProperty,
   PostProperty,
   PostPropertyResponse,
@@ -103,9 +105,9 @@ export default function PropertyForm({
     resolver: zodResolver(PropertySchema),
     defaultValues: defaultValues,
   });
-  const { setValue, getValues, formState, getFieldState } = form;
+  const { setValue, getValues, formState } = form;
   console.log("Values: ", getValues());
-  // console.log("Errors: ", formState.errors);
+  console.log("Errors: ", formState.errors);
 
   // Extra Features's Tag management
   // const [extras, setExtras] = useState<Tag[]>([]);
@@ -128,6 +130,7 @@ export default function PropertyForm({
       toast.success("Your property has been posted!", {
         description: `View your property at ....`,
       });
+      router.push(`/dashboard/property/${data.results.property_id}`);
     },
   });
 
@@ -136,7 +139,8 @@ export default function PropertyForm({
     isMutating: isMutatingUpdate,
     error: updateError,
   } = useSWRMutation("/api/properties/update", PostProperty /* options */, {
-    onError: () => {
+    onError: (error) => {
+      console.log("SERVER RESPONSE ERROR: ", error);
       toast.error("Something unexpected happend.", {
         description: "Please try again....",
       });
@@ -199,15 +203,17 @@ export default function PropertyForm({
   async function submitHandler(values: z.infer<typeof PropertySchema>) {
     console.log("Hello!");
 
+    if (values.images.length > 0)
+      return console.log("No Images Found!", values.images);
     // if (!initProperty) await triggerCreate({ property: values });
     // await triggerUpdate({ property: values });
     if (!initProperty) {
       await triggerCreate({ property: values });
     } else {
-      return await triggerUpdate({ property: values });
+      await triggerUpdate({
+        property: values,
+      });
     }
-
-    router.push(`/dashboard/property/${values.title}`);
   }
 
   async function deleteHandler() {
@@ -244,12 +250,16 @@ export default function PropertyForm({
                   <span className="sr-only">Back</span>
                 </Button>
                 <h1 className="flex-1 shrink-0 whitespace-nowrap text-xl font-semibold tracking-tight sm:grow-0">
-                  Create Property
+                  {!initProperty ? "Create Property" : "Edit Property"}
                 </h1>
-                <div className="border h-8 px-2 py-2 flex justify-center items-center gap-3 rounded-md">
-                  <Eye size={20} />
-                  <p className="text-sm font-medium">Public</p>
-                </div>
+                {initProperty && (
+                  <div className="border h-8 px-2 py-2 flex justify-center items-center gap-3 rounded-md">
+                    <Eye size={20} />
+                    <p className="text-sm font-medium">
+                      {form.getValues("visibility")}
+                    </p>
+                  </div>
+                )}
               </div>
               <div className="hidden items-center gap-2 md:ml-auto md:flex ">
                 {initProperty && (
@@ -378,10 +388,17 @@ export default function PropertyForm({
                           <FormMessage />
                           <FormControl>
                             <ImagesInput
-                              defaultValues={field.value}
-                              handleChange={(files) => {
-                                console.log("Images: ", files);
-                                setValue("images", files);
+                              defaultValues={
+                                initProperty?.results ? field.value : []
+                              }
+                              handleChange={(uploadedImages, deletedImages) => {
+                                console.log("Images: ", uploadedImages);
+                                if (initProperty) {
+                                  if (deletedImages)
+                                    setValue("deletedImages", deletedImages);
+                                  setValue("imagesOrder", uploadedImages.order); // Store File Order
+                                }
+                                setValue("images", uploadedImages.newImages); // Stores Uploaded Files
                               }}
                             />
                           </FormControl>
@@ -444,7 +461,7 @@ export default function PropertyForm({
                         name="saleType"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Price</FormLabel>
+                            <FormLabel>Sale Type</FormLabel>
                             <FormControl>
                               <Select
                                 key="saleType"

@@ -6,14 +6,23 @@ import React, { useEffect, useState } from "react";
 import { UploadedFilesCard } from "./UploadedFilesCard";
 import useSWRMutation from "swr/mutation";
 import { toast } from "sonner";
-import { PostUploadImages } from "@/lib/RequestUtils";
+import {
+  DeleteImage,
+  DeleteImageResponse,
+  PostUploadImages,
+} from "@/lib/RequestUtils";
 import { FileState } from "@/lib/FormUtils";
 import { file } from "zod-form-data";
+import { AWS_S3_BASE_URL } from "@/app/api/(utils)/utils";
 
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
   defaultValues?: string[];
-  handleChange: (inputtedFiles: File[]) => void;
+  handleChange: (
+    uploadedImages: { newImages: File[]; order: string[] },
+    deletedImages?: string[],
+    newImages?: File[]
+  ) => void;
 }
 
 const ImagesInput = React.forwardRef<HTMLInputElement, InputProps>(
@@ -21,8 +30,8 @@ const ImagesInput = React.forwardRef<HTMLInputElement, InputProps>(
     // const { uploadFiles, progresses, uploadedFiles, isUploading } =
     //   useUploadFile(handleChange);
 
-    const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
     const [uploadedImages, setUploadedImages] = useState<FileState[]>([]);
+    const [deletedImages, setDeletedImages] = useState<FileState[]>([]);
 
     const { trigger, isMutating, data } = useSWRMutation(
       "/api/images/upload",
@@ -38,7 +47,7 @@ const ImagesInput = React.forwardRef<HTMLInputElement, InputProps>(
           console.log("Recieved ULRS: ", data.result);
           const newImages = [...uploadedImages, ...data.result];
           setUploadedImages(newImages);
-          handleChange(newImages);
+          // handleChange(newImages);
           // handleChange()
 
           // Show message
@@ -57,8 +66,32 @@ const ImagesInput = React.forwardRef<HTMLInputElement, InputProps>(
           progress: "COMPLETE",
         }));
         setUploadedImages(newFileStates);
+        handleChange(convertUploadedImages(newFileStates));
       }
-    }, [defaultValues]);
+    }, []);
+
+    // const ["Cmplete", "complete", "PENDING", "COmplete"]
+    // ["url", "url", "file.name", "url"]
+    function convertUploadedImages(uploadedimages: FileState[]) {
+      let newImages: File[] = [];
+      let order: string[] = [];
+      uploadedimages.forEach((file) => {
+        if (file.progress === "COMPLETE" && typeof file.file === "string")
+          order.push(file.file);
+        if (file.progress === "PENDING" && file.file instanceof File) {
+          order.push(file.file.name);
+          newImages.push(file.file);
+        }
+      });
+      return { newImages: newImages, order: order };
+    }
+    function convertDeletedImages(deletedImages: FileState[]) {
+      let images: string[] = [];
+      deletedImages.forEach(
+        (file) => typeof file.file === "string" && images.push(file.file)
+      );
+      return images;
+    }
 
     return (
       <div className={cn("space-y-6", className)}>
@@ -82,22 +115,67 @@ const ImagesInput = React.forwardRef<HTMLInputElement, InputProps>(
           maxSize={4 * 1024 * 1024}
           // progresses={progresses}
           onUpload={async (files) => {
-            const newImages = [...uploadedFiles, ...files];
             // await trigger({ images: files });
+            const newFileStates: FileState[] = files.map((image) => ({
+              file: image,
+              progress: "PENDING", // Set to PENDING, as it hasn't been Uploaded to S3
+              key: Math.random().toString(5),
+            }));
 
-            setUploadedFiles(newImages);
-            handleChange(newImages);
+            setUploadedImages((prev) => [...prev, ...newFileStates]);
+            handleChange(
+              convertUploadedImages([...uploadedImages, ...newFileStates])
+            );
           }}
           multiple
           disabled={isMutating}
         />
         <UploadedFilesCard
-          uploadedFiles={uploadedFiles}
-          // uploadedImages={uploadedImages}
+          uploadedImages={uploadedImages}
+          onFileDelete={async (deletedFile) => {
+            // Ensure Image is already uploaded
+            if (
+              deletedFile.progress === "COMPLETE" &&
+              typeof deletedFile.file === "string" &&
+              deletedFile.file.startsWith(AWS_S3_BASE_URL)
+            ) {
+              // Trigger API
+              const images: FileState[] = uploadedImages.filter(
+                (image) => image.key != deletedFile.key
+              );
+              console.log("Updted Images array: ", images);
+
+              // Set Deleted Images
+              setDeletedImages((prev) => [...prev, deletedFile]);
+
+              // Set Image State
+              setUploadedImages(images);
+              // setUploadedFiles(convertUploadedImages(images));
+              handleChange(
+                convertUploadedImages(images),
+                convertDeletedImages([...deletedImages, deletedFile])
+              );
+            }
+
+            if (
+              deletedFile.progress === "PENDING" &&
+              deletedFile.file instanceof File
+            ) {
+              // Trigger API
+              const images: FileState[] = uploadedImages.filter(
+                (image) => image.key != deletedFile.key
+              );
+
+              // Set Image State
+              setUploadedImages(images);
+              handleChange(convertUploadedImages(images));
+            }
+          }}
         />
       </div>
     );
   }
 );
 ImagesInput.displayName = "ImagesInput";
+
 export { ImagesInput };

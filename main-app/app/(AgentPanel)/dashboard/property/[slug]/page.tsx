@@ -12,13 +12,13 @@ export default function ManageProperty() {
   const user = useUser();
   const params = useParams();
 
-  const slug = decodeURIComponent(
+  const property_id = decodeURIComponent(
     typeof params.slug === "string" ? params.slug : ""
   );
 
   // Fetch Proerpty from APi, and handle Fetching states
   const { data, error, isLoading } = useSWR<SelectPropertyResponse>(
-    `/api/properties/${slug}`,
+    `/api/properties/dashboard/property/${property_id}`,
     fetcher
   );
 

@@ -44,7 +44,7 @@ export default async function PropertyInsightCard({
       <CardContent className="flex justify-center items-center gap-3 px-4 pt-4">
         <Button className="w-full bg-accent text-white">Boost</Button>
         <Link
-          href={`/dashboard/property/${property.title}`}
+          href={`/dashboard/property/${property.property_id}`}
           className={buttonVariants({
             variant: "outline",
             className: "w-full",
