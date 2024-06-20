@@ -116,11 +116,10 @@ export default function PropertyForm({
     defaultValues: defaultValues,
   });
   const { setValue, getValues, formState } = form;
-  console.log("Values: ", getValues());
-  console.log("Errors: ", formState.errors);
+  // console.log("Values: ", getValues());
+  // console.log("Errors: ", formState.errors);
 
   // Extra Features's Tag management
-  // const [extras, setExtras] = useState<Tag[]>([]);
   const [activeExtraTagIndex, setActiveExtraTagIndex] = useState<number | null>(
     null
   );

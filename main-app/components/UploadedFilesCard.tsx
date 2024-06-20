@@ -73,7 +73,6 @@ function ImagePreviewCard({
         }
         alt={`image 1`}
         fill
-        // sizes="(min-width: 640px) 640px, 100vw"
         className="rounded-md object-cover"
       />
       <div className="absolute top-0 right-0 w-full h-full rounded-md">
@@ -84,40 +83,6 @@ function ImagePreviewCard({
         >
           <Trash2 size={20} />
         </div>
-        {/* <Dialog>
-          <DialogTrigger asChild className="absolute top-2 right-2 pt-2 pr-2">
-            <Button
-              variant={"default"}
-              className="bg-white rounded-full p-2 flex justify-center items-center text-black hover:bg-white hover:text-red-500 "
-            >
-              <Trash2 size={20} />
-            </Button>
-          </DialogTrigger>
-          <DialogContent className="sm:max-w-[425px]">
-            <DialogHeader>
-              <DialogTitle>Warning! This is can't be undone.</DialogTitle>
-              <DialogDescription>
-                Deleting this image will be a permant action, and can't be
-                undone.
-              </DialogDescription>
-            </DialogHeader>
-            <DialogFooter
-              style={{ justifyContent: "space-between" }}
-              className="flex p-0 m-0 justify-between items-center w-full"
-            >
-              <p className="text-sm font-normal ">
-                Are you sure you want to do this?
-              </p>
-              <Button
-                variant={"destructive"}
-                type="submit"
-                onClick={() => onRemove(image)}
-              >
-                Confirm Delete
-              </Button>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog> */}
       </div>
     </div>
   );

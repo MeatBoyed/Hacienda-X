@@ -22,9 +22,6 @@ export interface InputProps
 
 const ImagesInput = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, type, defaultValues, handleChange, ...props }, ref) => {
-    // const { uploadFiles, progresses, uploadedFiles, isUploading } =
-    //   useUploadFile(handleChange);
-
     const [uploadedImages, setUploadedImages] = useState<FileState[]>([]);
     const [deletedImages, setDeletedImages] = useState<FileState[]>([]);
 
@@ -53,6 +50,7 @@ const ImagesInput = React.forwardRef<HTMLInputElement, InputProps>(
       }
     );
 
+    // Init default values
     useEffect(() => {
       if (defaultValues) {
         const newFileStates: FileState[] = defaultValues.map((imageUrl) => ({
@@ -64,27 +62,6 @@ const ImagesInput = React.forwardRef<HTMLInputElement, InputProps>(
         handleChange(convertUploadedImages(newFileStates));
       }
     }, []);
-
-    function convertUploadedImages(uploadedimages: FileState[]) {
-      let newImages: File[] = [];
-      let order: string[] = [];
-      uploadedimages.forEach((file) => {
-        if (file.progress === "COMPLETE" && typeof file.file === "string")
-          order.push(file.file);
-        if (file.progress === "PENDING" && file.file instanceof File) {
-          order.push(file.file.name);
-          newImages.push(file.file);
-        }
-      });
-      return { newImages: newImages, order: order };
-    }
-    function convertDeletedImages(deletedImages: FileState[]) {
-      let images: string[] = [];
-      deletedImages.forEach(
-        (file) => typeof file.file === "string" && images.push(file.file)
-      );
-      return images;
-    }
 
     return (
       <div className={cn("space-y-6", className)}>
@@ -108,16 +85,16 @@ const ImagesInput = React.forwardRef<HTMLInputElement, InputProps>(
           maxSize={4 * 1024 * 1024}
           // progresses={progresses}
           onUpload={async (files) => {
-            // await trigger({ images: files });
+            // Add and convert File to FileState
             const newFileStates: FileState[] = files.map((image) => ({
               file: image,
               progress: "PENDING", // Set to PENDING, as it hasn't been Uploaded to S3
               key: Math.random().toString(5),
             }));
 
-            setUploadedImages((prev) => [...prev, ...newFileStates]);
+            setUploadedImages((prev) => [...prev, ...newFileStates]); // Update Files state
             handleChange(
-              convertUploadedImages([...uploadedImages, ...newFileStates])
+              convertUploadedImages([...uploadedImages, ...newFileStates]) // Update Property Form
             );
           }}
           multiple
@@ -126,42 +103,35 @@ const ImagesInput = React.forwardRef<HTMLInputElement, InputProps>(
         <UploadedFilesCard
           uploadedImages={uploadedImages}
           onFileDelete={async (deletedFile) => {
-            // Ensure Image is already uploaded
+            // Remove deleted file from state
+            const images: FileState[] = uploadedImages.filter(
+              (image) => image.key != deletedFile.key
+            );
+
+            // Ensure Image is already uploaded & Behave assuming Property is already created
             if (
               deletedFile.progress === "COMPLETE" &&
               typeof deletedFile.file === "string" &&
               deletedFile.file.startsWith(AWS_S3_BASE_URL)
             ) {
-              // Trigger API
-              const images: FileState[] = uploadedImages.filter(
-                (image) => image.key != deletedFile.key
-              );
-              console.log("Updted Images array: ", images);
+              setDeletedImages((prev) => [...prev, deletedFile]); // Set Image State
 
-              // Set Deleted Images
-              setDeletedImages((prev) => [...prev, deletedFile]);
+              setUploadedImages(images); // Set Image State
 
-              // Set Image State
-              setUploadedImages(images);
-              // setUploadedFiles(convertUploadedImages(images));
+              // Update Images field (new Images), images Order field, and deleted Images field in form
               handleChange(
                 convertUploadedImages(images),
                 convertDeletedImages([...deletedImages, deletedFile])
-              );
+              ); // Enforces AWS S3 deletion is necessary
             }
 
+            // Ensure
             if (
               deletedFile.progress === "PENDING" &&
               deletedFile.file instanceof File
             ) {
-              // Trigger API
-              const images: FileState[] = uploadedImages.filter(
-                (image) => image.key != deletedFile.key
-              );
-
-              // Set Image State
-              setUploadedImages(images);
-              handleChange(convertUploadedImages(images));
+              setUploadedImages(images); // Set Image State;
+              handleChange(convertUploadedImages(images)); // Enforces AWS S3 uploading is necessary
             }
           }}
         />
@@ -170,5 +140,31 @@ const ImagesInput = React.forwardRef<HTMLInputElement, InputProps>(
   }
 );
 ImagesInput.displayName = "ImagesInput";
+
+// Returns new UploadedImages states, and gives the order of Images (uploaded & pending)
+// for image mapping
+// params: uploadedImages: new Uploaded Images state array
+function convertUploadedImages(uploadedimages: FileState[]) {
+  let newImages: File[] = [];
+  let order: string[] = [];
+  uploadedimages.forEach((file) => {
+    if (file.progress === "COMPLETE" && typeof file.file === "string")
+      order.push(file.file);
+    if (file.progress === "PENDING" && file.file instanceof File) {
+      order.push(file.file.name);
+      newImages.push(file.file);
+    }
+  });
+  return { newImages: newImages, order: order };
+}
+
+// Converts deleted Images state array for Property Form to consume
+function convertDeletedImages(deletedImages: FileState[]) {
+  let images: string[] = [];
+  deletedImages.forEach(
+    (file) => typeof file.file === "string" && images.push(file.file)
+  );
+  return images;
+}
 
 export { ImagesInput };
