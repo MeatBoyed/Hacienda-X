@@ -242,13 +242,17 @@ export default function PropertyForm({
         </div>
       ) : (
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(submitHandler)} className="h-100">
-            <div className="flex items-center justify-between w-full">
+          <form
+            onSubmit={form.handleSubmit(submitHandler)}
+            className="h-full w-full flex justify-start items-center flex-col gap-12"
+          >
+            {/* Head (Action Btns) */}
+            <div className="flex items-center justify-between w-full sm:px-5 lg:max-w-7xl">
               <div className="flex justify-center items-center gap-4">
                 <Button
                   variant="outline"
                   size="icon"
-                  className="h-7 w-7 bg-white"
+                  className="h-7 w-7 bg-white hidden sm:flex"
                   type="button"
                   onClick={() => router.back()}
                 >
@@ -267,7 +271,7 @@ export default function PropertyForm({
                   </div>
                 )}
               </div>
-              <div className="hidden items-center gap-2 md:ml-auto md:flex ">
+              <div className="flex justify-center items-center gap-2">
                 {initProperty && (
                   // <Button
                   //   size="sm"
@@ -328,9 +332,12 @@ export default function PropertyForm({
               </div>
             </div>
 
-            <div className="grid gap-4 mt-8 md:grid-cols-[1fr_250px] lg:grid-cols-3 lg:gap-8">
-              <div className="grid auto-rows-max items-start gap-4 lg:col-span-2 lg:gap-8">
-                <Card x-chunk="dashboard-07-chunk-0">
+            {/* Form Inputs */}
+            {/* <div className="flex justify-start items-center w-full gap-10 flex-col sm:flex-row sm:items-start  sm:px-5 lg:max-w-7xl"> */}
+            <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 sm:items-start sm:px-5 lg:max-w-7xl">
+              <div className="flex flex-col justify-center items-center w-full gap-5">
+                {/* Core fields */}
+                <Card className="w-full">
                   <CardHeader>
                     <CardTitle>Property Details</CardTitle>
                     <CardDescription>
@@ -420,13 +427,11 @@ export default function PropertyForm({
                     </div>
                   </CardContent>
                 </Card>
-                {/* Property Features */}
-                <Card x-chunk="dashboard-07-chunk-1">
+                {/* Image Input */}
+                <Card className="w-full">
                   <CardHeader>
-                    <CardTitle>Features</CardTitle>
-                    <CardDescription>
-                      Lipsum dolor sit amet, consectetur adipiscing elit
-                    </CardDescription>
+                    <CardTitle>Images</CardTitle>
+                    <CardDescription>Upload your images.</CardDescription>
                   </CardHeader>
                   <CardContent className="grid gap-6">
                     {/* Images */}
@@ -458,13 +463,13 @@ export default function PropertyForm({
                   </CardContent>
                 </Card>
               </div>
-              <div className="grid auto-rows-max items-start gap-4 lg:gap-8">
+              <div className="flex flex-col-reverse sm:flex-col justify-center items-center w-full gap-5">
                 {/* Meta Data Fields */}
-                <Card x-chunk="dashboard-07-chunk-0">
+                <Card className="w-full">
                   <CardHeader>
-                    <CardTitle>Meta Details</CardTitle>
+                    <CardTitle>Meta Data</CardTitle>
                     <CardDescription>
-                      Easily add your property in 5 minutes.
+                      Manage the Visability, and Sale Type.
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
@@ -545,7 +550,7 @@ export default function PropertyForm({
                   </CardContent>
                 </Card>
                 {/* Property Features */}
-                <Card x-chunk="dashboard-07-chunk-1">
+                <Card className="w-full">
                   <CardHeader>
                     <CardTitle>Features</CardTitle>
                     <CardDescription>
@@ -564,12 +569,11 @@ export default function PropertyForm({
                             <Select
                               value={field.value.toString()}
                               onValueChange={field.onChange}
-                              //   defaultValue={field.value}
                             >
-                              <SelectTrigger className="w-full">
+                              <SelectTrigger className="">
                                 <SelectValue placeholder="Number of Bedrooms" />
                               </SelectTrigger>
-                              <SelectContent className="w-full">
+                              <SelectContent className="">
                                 <SelectGroup>
                                   <SelectLabel>Bedrooms</SelectLabel>
                                   {SelectBedroomsOptions.map((option) => (
@@ -600,7 +604,6 @@ export default function PropertyForm({
                               key="bathrooms"
                               value={field.value.toString()}
                               onValueChange={field.onChange}
-                              //   defaultValue={field.value}
                             >
                               <SelectTrigger className="w-full">
                                 <SelectValue placeholder="Number of Bathrooms" />
@@ -662,7 +665,7 @@ export default function PropertyForm({
                               setActiveTagIndex={setActiveExtraTagIndex}
                               placeholder="Enter a feature"
                               tags={field.value}
-                              className="sm:min-w-[450px] w-full "
+                              className=" w-full "
                               setTags={(newTags) => {
                                 // setExtras(newTags);
                                 setValue(
@@ -685,4 +688,8 @@ export default function PropertyForm({
       )}
     </>
   );
+}
+
+{
+  /*  */
 }

@@ -15,7 +15,7 @@ import Link from "next/link";
 export default function Navbar() {
   return (
     <nav className="w-full flex justify-center items-center pb-3 px-3 sm:px-5 pt-5 border-b">
-      <div className="w-full flex justify-center items-center gap-5 lg:max-w-7xl flex-col">
+      <div className="w-full flex justify-center items-center gap-10 lg:max-w-7xl flex-col">
         <div className="w-full flex justify-between items-center">
           <Link
             href="/dashboard"

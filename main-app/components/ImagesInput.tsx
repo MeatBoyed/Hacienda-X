@@ -64,7 +64,7 @@ const ImagesInput = React.forwardRef<HTMLInputElement, InputProps>(
     }, []);
 
     return (
-      <div className={cn("space-y-6", className)}>
+      <div className={cn("w-full", className)}>
         {/* File Uploader manages the File states of "Pending", "Error"
       1. It stores it's own file state (buffer of Pending and Error files)
       2. It returns the uploaded Image(s) stored in file state, for hook to manipluate

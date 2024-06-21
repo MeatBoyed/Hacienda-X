@@ -5,11 +5,9 @@ export default async function CreatePropertyPage() {
   return (
     <section
       id="createpropertyform"
-      className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 w-full my-10 pb-40 "
+      className="w-full flex justify-start items-center gap-10  pb-20  my-5 flex-col px-3 sm:px-5 min-h-screen  "
     >
-      <div className="mx-auto grid lg:max-w-8xl flex-1 w-full auto-rows-max gap-4">
-        <PropertyForm />
-      </div>
+      <PropertyForm />
     </section>
   );
 }
