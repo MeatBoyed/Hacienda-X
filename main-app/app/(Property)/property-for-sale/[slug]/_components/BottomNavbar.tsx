@@ -1,4 +1,5 @@
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function BottomNavbar({ price }: { price?: number }) {
   return (
@@ -6,9 +7,12 @@ export default function BottomNavbar({ price }: { price?: number }) {
       <p className="text-xl text-text font-semibold">
         USD {price?.toLocaleString()}
       </p>
-      <Button className="text-white bg-accent " variant={"default"}>
+      <Link
+        href={"#LeadForm"}
+        className={buttonVariants({ variant: "outline" })}
+      >
         Enquire Now
-      </Button>
+      </Link>
     </div>
   );
 }

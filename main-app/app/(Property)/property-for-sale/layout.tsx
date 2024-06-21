@@ -6,6 +6,7 @@ import { Inter } from "next/font/google";
 import Footer from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { Toaster } from "@/components/ui/toaster";
+import { Toaster as SonnerToaster } from "sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
@@ -24,6 +25,7 @@ export default function RootLayout({
         <Header />
         {children}
         <Toaster />
+        <SonnerToaster expand richColors />
       </div>
       <Footer />
     </Suspense>

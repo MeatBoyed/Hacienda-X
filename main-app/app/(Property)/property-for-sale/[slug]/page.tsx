@@ -63,7 +63,7 @@ export default function PropertyPage() {
         <>
           <TopNavbar />
           <Head title={data.results.title} images={data.results.images} />
-          <div className="w-full flex justify-center items-start gap-10 lg:gap-20 pt-5 px-4 sm:max-w-3xl lg:max-w-5xl">
+          <div className="w-full flex justify-center flex-col sm:flex-row items-start gap-10 lg:gap-20 pt-5 px-2 sm:max-w-3xl lg:max-w-5xl">
             <PropertyDetails
               description={data.results.description}
               bathrooms={data.results.bathrooms}
