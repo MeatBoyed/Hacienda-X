@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import Footer from "@/components/Footer";
 import { Suspense } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -26,17 +25,16 @@ export default async function RootLayout({
   if (!auth) return SignIn;
 
   return (
-    <div className="w-full justify-center flex items-center flex-col  bg-[#ffff]">
+    <div className="overflow-hidden bg-white">
       <Navbar />
-      <section
+      {/* <section
         id="dashboard"
-        className="w-full h-full flex justify-center items-center lg:max-w-6xl bg-[#ffff]"
-      >
-        <Suspense fallback={<Loader />}>{children}</Suspense>
-      </section>
+        className=""
+      > */}
+      <Suspense fallback={<Loader />}>{children}</Suspense>
+      {/* </section> */}
       <Toaster />
       <SonnerToaster expand richColors />
-      {/* <Footer /> */}
     </div>
   );
 }
