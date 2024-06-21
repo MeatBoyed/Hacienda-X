@@ -27,7 +27,7 @@ export default function SearchProperty() {
   );
 
   return (
-    <div className="flex justify-between flex-col lg:p-3 gap-3 w-full h-screen mb-10">
+    <div className="flex justify-between flex-col gap-3 w-full h-screen mb-10">
       <div className="flex justify-center sm:flex-row flex-col items-start border gap-3 h-screen rounded-md shadow-lg bg-background">
         {isLoading && (
           <div className="w-full flex justify-center items-center h-[50vh]">
