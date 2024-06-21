@@ -247,7 +247,7 @@ export default function PropertyForm({
             className="h-full w-full flex justify-start items-center flex-col gap-12"
           >
             {/* Head (Action Btns) */}
-            <div className="flex items-center justify-between w-full sm:px-5 lg:max-w-7xl">
+            <div className="flex items-center justify-between w-full sm:px-5 lg:max-w-7xl flex-wrap gap-4">
               <div className="flex justify-center items-center gap-4">
                 <Button
                   variant="outline"
@@ -262,25 +262,9 @@ export default function PropertyForm({
                 <h1 className="flex-1 shrink-0 whitespace-nowrap text-xl font-semibold tracking-tight sm:grow-0">
                   {!initProperty ? "Create Property" : "Edit Property"}
                 </h1>
-                {initProperty && (
-                  <div className="border h-8 px-2 py-2 flex justify-center items-center gap-3 rounded-md">
-                    <Eye size={20} />
-                    <p className="text-sm font-medium">
-                      {form.getValues("visibility")}
-                    </p>
-                  </div>
-                )}
               </div>
               <div className="flex justify-center items-center gap-2">
                 {initProperty && (
-                  // <Button
-                  //   size="sm"
-                  //   type="button"
-                  //   variant="destructive"
-                  //   onClick={async () => await deleteHandler()}
-                  // >
-                  //   Delete
-                  // </Button>
                   <Dialog>
                     <DialogTrigger asChild>
                       <Button
@@ -334,7 +318,7 @@ export default function PropertyForm({
 
             {/* Form Inputs */}
             {/* <div className="flex justify-start items-center w-full gap-10 flex-col sm:flex-row sm:items-start  sm:px-5 lg:max-w-7xl"> */}
-            <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 sm:items-start sm:px-5 lg:max-w-7xl">
+            <div className="grid grid-cols-1 w-full gap-10 sm:grid-cols-2 sm:items-start sm:px-5 lg:max-w-7xl">
               <div className="flex flex-col justify-center items-center w-full gap-5">
                 {/* Core fields */}
                 <Card className="w-full">
@@ -441,7 +425,7 @@ export default function PropertyForm({
                       render={({ field }) => (
                         <FormItem>
                           <FormMessage />
-                          <FormControl>
+                          <FormControl className="px-2 pb-4">
                             <ImagesInput
                               defaultValues={
                                 initProperty?.results ? field.value : []

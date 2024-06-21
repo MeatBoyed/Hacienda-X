@@ -34,15 +34,15 @@ export function UploadedFilesCard({
   );
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Uploaded files</CardTitle>
+    <div className="flex justify-center items-start flex-col w-full gap-5 ">
+      <div className="flex justify-center items-start w-full flex-col text-start">
+        <h3 className="text-xl font-semibold">Uploaded files</h3>
         <CardDescription>View the uploaded files here</CardDescription>
-      </CardHeader>
-      <CardContent>
+      </div>
+      <CardContent className="p-0 w-full">
         {uploadedImages.length > 0 ? (
           <>
-            <div className="grid gap-1 lg:grid-cols-2">{images}</div>
+            <div className="grid gap-3 lg:grid-cols-2">{images}</div>
           </>
         ) : (
           <EmptyCard
@@ -52,7 +52,7 @@ export function UploadedFilesCard({
           />
         )}
       </CardContent>
-    </Card>
+    </div>
   );
 }
 
@@ -64,7 +64,7 @@ function ImagePreviewCard({
   onRemove: (image: FileState) => void;
 }) {
   return (
-    <div className="relative aspect-video w-64 border">
+    <div className="relative aspect-video w-full border">
       <Image
         src={
           typeof image.file === "string"

@@ -261,7 +261,7 @@ export function FileUploader(props: FileUploaderProps) {
                     aria-hidden="true"
                   />
                 </div>
-                <div className="space-y-px">
+                <div className="flex justify-center items-center gap-3 flex-col">
                   <p className="font-medium text-muted-foreground">
                     Drag {`'n'`} drop files here, or click to select files
                   </p>
