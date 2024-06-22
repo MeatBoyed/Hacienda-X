@@ -11,10 +11,7 @@ import PropertyDetails from "./_components/PropertyDetails";
 import BottomNavbar from "./_components/BottomNavbar";
 import TopNavbar from "./_components/TopNavbar";
 import LeadForm from "./_components/LeadForm";
-import Residencies from "@/app/_components/Residencies";
 import LocationSection from "./_components/LocationSection";
-import { useAuth } from "@clerk/nextjs";
-import { usePostHog } from "posthog-js/react";
 
 // Handler for the API request (Server Side)
 export default function PropertyPage() {
@@ -69,15 +66,16 @@ export default function PropertyPage() {
               bathrooms={data.results.bathrooms}
               bedrooms={data.results.bedrooms}
             />
-            <LeadForm />
+            <LeadForm
+              propertyId={data.results.property_id}
+              agentId={data.results.agent_id}
+            />
             {/* Final CTA should be placed here */}
             {/* After page is functional, add more content to increase SEO Ranking */}
           </div>
-          {data && (
-            <div className="w-full flex justify-center items-start gap-10 lg:gap-20 pt-5 px-4 sm:max-w-3xl lg:max-w-5xl">
-              <LocationSection property={data.results} />
-            </div>
-          )}
+          <div className="w-full flex justify-center items-start gap-10 lg:gap-20 pt-5 px-4 sm:max-w-3xl lg:max-w-5xl">
+            <LocationSection property={data.results} />
+          </div>
           {/* <Residencies /> */}
           <BottomNavbar price={data.results.price} />
         </>

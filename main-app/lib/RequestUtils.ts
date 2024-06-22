@@ -6,6 +6,7 @@ import {
 } from "./FormUtils";
 import { PropertyWithAddress } from "@/app/api/(utils)/utils";
 import { Property } from "@prisma/client";
+import { LeadFormSchema } from "@/app/(Property)/property-for-sale/[slug]/_components/LeadForm";
 
 export interface PostPropertyResponse {
   results: PropertyWithAddress;
@@ -22,6 +23,7 @@ export interface GetUsersPropertyResponse {
   status: number;
 }
 
+// Property Requests
 export async function PostUploadImages(
   url: string,
   {
@@ -100,5 +102,25 @@ export async function DeleteProperty(
 export async function GetUsersProperty(url: string) {
   return fetch(url, {
     method: "GET",
+  }).then((res) => res.json());
+}
+
+// Lead Requests
+export async function PostLead(
+  url: string,
+  {
+    arg,
+  }: {
+    arg: {
+      lead: z.infer<typeof LeadFormSchema>;
+    };
+  }
+) {
+  return fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify(arg.lead),
   }).then((res) => res.json());
 }
