@@ -1,13 +1,12 @@
 "use client";
-import { GenericPropertyResponse } from "@/app/api/[[...route]]/utils";
+import { GenericPropertyResponse } from "@/app/api/(utils)/utils";
 import { MapComp } from "@/components/Map";
 import PropertyCard from "@/components/PropertyCard";
 import { SearchBar } from "@/components/SearchBar";
 import { fetcher } from "@/lib/utils";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { PuffLoader } from "react-spinners";
 import useSWR from "swr";
-// import { MapComp } from "@/components/Map";
 
 export default function SearchProperty() {
   // Hanldes all data fetching states, calls the Fetching Handler
@@ -17,61 +16,50 @@ export default function SearchProperty() {
   );
 
   const [filter, setFilter] = useState("");
-  const [mapActive, setMapActive] = useState<boolean>(false);
+  const [mapActive, setMapActive] = useState<boolean>(true);
+
+  const properties = useMemo(
+    () =>
+      data?.results.map((prop, i) => (
+        <PropertyCard property={prop} key={i} max />
+      )),
+    [data]
+  );
 
   return (
-    // Add padding for desktop & tablet devices
-    <div className="w-full flex flex-col justify-center items-center gap-20 ">
-      <div className="w-full gap-3 flex justify-center items-center flex-col px-4 md:px-0 mt-5 sm:max-w-2xl lg:max-w-5xl">
-        <SearchBar
-          mapActive={mapActive}
-          setMapActive={setMapActive}
-          filter={filter}
-          setFilter={setFilter}
-        />
-        {mapActive && data && (
-          <MapComp
-            focusedProperty={data.results[0]}
-            properties={data.results}
-          />
-        )}
-      </div>
-      {/* Make the last item stick to the left side, not centered - FOR Daniel */}
-      <div className="flex justify-center items-center w-full">
+    <div className="flex justify-between flex-col gap-3 w-full h-screen mb-10">
+      <div className="flex justify-center sm:flex-row flex-col items-start border gap-3 h-screen rounded-md shadow-lg bg-background">
         {isLoading && (
-          <div
-            className="w-full h-full flex justify-center items-center"
-            style={{ height: "30vh" }}
-          >
-            <PuffLoader color="#4066ff" aria-label="puff-loading" />
+          <div className="w-full flex justify-center items-center h-[50vh]">
+            <PuffLoader color="blue" />
           </div>
         )}
-        {error && (
-          <div className="flex justify-center items-center py-20">
-            <p className="text-black text-lg">
-              An error occured. Please Try again
-            </p>
-          </div>
-        )}
-        {!mapActive && (
-          <div className="grid w-full grid-cols-1 gap-x-4 gap-y-10 lg:grid-cols-3 md:grid-cols-2 px-4 sm:gap-x-0 sm:px-0 sm:max-w-2xl lg:max-w-5xl">
-            {data?.results
-              ?.filter(
-                (property) =>
-                  property.title.toLowerCase().includes(filter.toLowerCase()) ||
-                  property.Address?.city
-                    .toLowerCase()
-                    .includes(filter.toLowerCase()) ||
-                  property.Address?.country
-                    .toLowerCase()
-                    .includes(filter.toLowerCase())
-              )
-              .map((card, i) => (
-                <div className="w-fit" key={i}>
-                  <PropertyCard property={card} />
-                </div>
-              ))}
-          </div>
+        {!isLoading && data && (
+          <>
+            <div className="flex justify-start items-center gap-5 flex-col w-full p-4 overflow-y-auto max-h-screen scroll-smooth">
+              <SearchBar
+                mapActive={mapActive}
+                setMapActive={setMapActive}
+                filter={filter}
+                setFilter={setFilter}
+                classname=""
+              />
+
+              <div className="h-screen flex justify-start items-start flex-wrap gap-10 md:grid md:grid-cols-3 md:gap-5 lg:grid-cols-2 lg:gap-12">
+                {properties}
+              </div>
+            </div>
+
+            <div className="hidden lg:block w-[130vw] min-h-screen">
+              {data && (
+                <MapComp
+                  height={"55vw"}
+                  properties={data.results}
+                  focusedProperty={data.results[0]}
+                />
+              )}
+            </div>
+          </>
         )}
       </div>
     </div>

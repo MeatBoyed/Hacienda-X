@@ -12,7 +12,7 @@ import Map, {
 import { useState, useMemo } from "react";
 import Link from "next/link";
 import { MapComp } from "@/components/Map";
-import { PropertyWithAddress } from "@/app/api/[[...route]]/utils";
+import { PropertyWithAddress } from "@/app/api/(utils)/utils";
 
 export default function LocationSection({
   property,
@@ -26,7 +26,7 @@ export default function LocationSection({
           Where it is
         </h3>
         <div className="w-full h-full mb-8">
-          <MapComp focusedProperty={property} properties={[]} />
+          <MapComp height="30vw" focusedProperty={property} properties={[]} />
         </div>
         <Button variant="link" className="text-text ">
           Find properties in this area

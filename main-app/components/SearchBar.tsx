@@ -13,22 +13,28 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 export function SearchBar({
   filter,
   setFilter,
   mapActive,
   setMapActive,
+  classname,
 }: {
   mapActive?: boolean;
   setMapActive?: Dispatch<SetStateAction<boolean>>;
   filter?: string;
   setFilter?: Dispatch<SetStateAction<string>>;
+  classname?: string;
 }) {
   return (
     <div
       id="searchbar"
-      className="w-full flex justify-center items-center flex-col gap-2"
+      className={cn(
+        "w-full flex justify-center items-center flex-col gap-2",
+        classname
+      )}
     >
       <Input
         placeholder="Search town, city, provience"
@@ -62,7 +68,7 @@ export function SearchBar({
 
         <Button
           size={"sm"}
-          className="bg-white w-full text-black hover:border-background hover:border hover:text-primary shadow-lg gap-3"
+          className="bg-white w-full lg:hidden text-black hover:border-background hover:border hover:text-primary shadow-lg gap-3"
           onClick={() =>
             mapActive !== undefined &&
             setMapActive !== undefined &&

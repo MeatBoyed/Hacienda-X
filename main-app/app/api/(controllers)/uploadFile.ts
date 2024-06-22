@@ -1,10 +1,18 @@
 "use server";
 import {
+  DeleteObjectCommand,
+  GetObjectCommand,
   PutObjectCommand,
   PutObjectCommandInput,
+  S3,
   S3Client,
 } from "@aws-sdk/client-s3";
 import sharp from "sharp";
+import {
+  AWS_S3_BASE_URL,
+  AWS_S3_PRODUCTION_FOLDER_NAME,
+} from "../(utils)/utils";
+import { v4 as uuidv4 } from "uuid";
 
 const NEXT_PUBLIC_S3_BUCKET_NAME = process.env.NEXT_PUBLIC_S3_BUCKET_NAME;
 const NEXT_PUBLIC_S3_BUCKET_LOCATION =
@@ -19,7 +27,9 @@ if (
   !S3_ACCESS_KEY ||
   !S3_SECRET_ACCESS_KEY
 ) {
-  throw new Error("Unable to Authenticate");
+  throw new Error(
+    "AWS Keys could not be found. Therefore system is unable to Authenticate to S3 Bucket"
+  );
 }
 
 const client = new S3Client({
@@ -30,44 +40,82 @@ const client = new S3Client({
   },
 });
 
-// General Upload method
-export default async function uploadFile(userId: string, file: File) {
-  try {
-    // Create Put formData
-    const formData = new FormData();
-    formData.append("Content-Type", file.type);
+export async function uploadFilesToS3(userId: string, files: File[]) {
+  let uploadedImages: { url: string; fileName: string }[] = [];
+  let failedImages: File[] = [];
 
-    // Create Buffer for sharp & streaming
-    const buffer = Buffer.from(await file.arrayBuffer());
+  uploadedImages = await Promise.all(
+    files.map(async (file) => {
+      const buffer = Buffer.from(await file.arrayBuffer());
+      const optimizedFile = await sharp(buffer)
+        .webp({ quality: 70 })
+        .toBuffer();
+      const key = `${AWS_S3_PRODUCTION_FOLDER_NAME}/${userId}/${uuidv4()}`;
 
-    return await uploadFileToS3(userId, buffer, file.name);
-  } catch (err) {
-    console.log("Error: ", err);
-    return "An Error occured";
-  }
+      try {
+        await client.send(
+          new PutObjectCommand({
+            Bucket: NEXT_PUBLIC_S3_BUCKET_NAME,
+            Key: key, // File Path
+            Body: optimizedFile, // formData images
+            ContentType: "image/webp", // Allowed types
+            Metadata: {
+              userId: userId,
+            },
+            // ["eq", "$x-amz-meta-userid", userid],
+            Tagging: `userid=${userId}`,
+          })
+        ); // Execute AWS command
+
+        const image = await client.send(
+          new GetObjectCommand({
+            Bucket: NEXT_PUBLIC_S3_BUCKET_NAME,
+            Key: key,
+          })
+        );
+
+        if (image) {
+          return {
+            url: `${AWS_S3_BASE_URL}/${key}`,
+            fileName: file.name,
+          };
+        }
+      } catch (error) {
+        console.log("Error: ", error);
+        failedImages.push(file);
+        throw new Error("unable to upload");
+      }
+      throw new Error("unable to upload");
+    })
+  );
+
+  return {
+    uploadedImages: uploadedImages,
+    failedImages: failedImages,
+  };
 }
 
-async function uploadFileToS3(userId: string, file: Buffer, fileName: string) {
-  const optimizedFile = await sharp(file).jpeg({ quality: 70 }).toBuffer();
+export async function deleteImages(imagesUrls: string[]) {
+  await Promise.all(
+    imagesUrls.map(async (imageUrl) => {
+      const parts = imageUrl.split("/");
+      const key = `${AWS_S3_PRODUCTION_FOLDER_NAME}/${
+        parts[parts.length - 2]
+      }/${parts[parts.length - 1]}`;
 
-  //   AWS PUT config
-  const params: PutObjectCommandInput = {
-    Bucket: NEXT_PUBLIC_S3_BUCKET_NAME,
-    Key: `/haciendaTest/${fileName}`, // File Path
-    Body: optimizedFile, // formData images
-    ContentType: "image/", // Allowed types
-    // ["eq", "$x-amz-meta-userid", userid],
-    Tagging: `userid=${userId}`,
-  };
+      try {
+        await client.send(
+          new DeleteObjectCommand({
+            Bucket: NEXT_PUBLIC_S3_BUCKET_NAME,
+            Key: key, // File Path
+          })
+        ); // Execute AWS command
+      } catch (error) {
+        console.log("Error: ", error);
+        throw new Error("Error Deleting images");
+      }
+    })
+  );
 
-  try {
-    const res = await client.send(new PutObjectCommand(params)); // Execute AWS command
-    console.log("File Uploaded! - ", res);
-
-    // Return the url (format if must)
-    return fileName;
-  } catch (error) {
-    console.log("Error: ", error);
-    return "Unable to upload to S3";
-  }
+  return true;
 }

@@ -15,11 +15,12 @@ interface AddressResult {
 
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
+  defaultValue?: string;
   handleChange: (result: AddressResult) => void;
 }
 
 const AddressInput = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, handleChange, ...props }, ref) => {
+  ({ className, type, defaultValue, handleChange, ...props }, ref) => {
     // Address Input's AutoComplete
     const [autoComplete, setAutoComplete] =
       useState<google.maps.places.Autocomplete | null>(null);
@@ -32,7 +33,9 @@ const AddressInput = React.forwardRef<HTMLInputElement, InputProps>(
       if (isLoaded) {
         const SearchBoundary = new google.maps.LatLngBounds(
           new google.maps.LatLng(
-            { lat: -26.530696799595123, lng: 27.159219669061535 }, // south west
+            { lat: -26.530696799595123, lng: 27.159219669061535 } // south west
+          ),
+          new google.maps.LatLng(
             { lat: -25.503934936857508, lng: 29.079928111094414 } // north east
           )
         );
@@ -73,6 +76,7 @@ const AddressInput = React.forwardRef<HTMLInputElement, InputProps>(
           "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
           className
         )}
+        defaultValue={defaultValue}
         ref={placesAutoCompleteRef}
         {...props}
       />

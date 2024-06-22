@@ -28,7 +28,7 @@ import useSWRMutation from "swr/mutation";
 import { RoleRequest } from "@/app/api/(controllers)/userController";
 import { toast } from "@/components/ui/use-toast";
 import Link from "next/link";
-import { SelectUserResponse } from "@/app/api/[[...route]]/utils";
+import { SelectUserResponse } from "@/app/api/(utils)/utils";
 import useSWR from "swr";
 import { PuffLoader } from "react-spinners";
 import { $Enums } from "@prisma/client";

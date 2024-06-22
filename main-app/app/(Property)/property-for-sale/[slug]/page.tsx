@@ -4,35 +4,39 @@ import React from "react";
 import { useParams } from "next/navigation";
 import { fetcher } from "@/lib/utils";
 import useSWR from "swr";
-import { SelectPropertyResponse } from "@/app/api/[[...route]]/utils";
+import { SelectPropertyResponse } from "@/app/api/(utils)/utils";
 import { PuffLoader } from "react-spinners";
-import Head from "./_components/Head";
 import PropertyDetails from "./_components/PropertyDetails";
 import BottomNavbar from "./_components/BottomNavbar";
 import TopNavbar from "./_components/TopNavbar";
 import LeadForm from "./_components/LeadForm";
-import Residencies from "@/app/_components/Residencies";
 import LocationSection from "./_components/LocationSection";
-import { useAuth } from "@clerk/nextjs";
-import { usePostHog } from "posthog-js/react";
+import { Card, CardContent } from "@/components/ui/card";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+
+// Define the type for the property images
+interface PropertyCarouselProps {
+  images: string[];
+}
 
 // Handler for the API request (Server Side)
 export default function PropertyPage() {
-  // Get the slug (/properties/:slug)
-  // const posthog = usePostHog();
   const params = useParams();
-
   const slug = decodeURIComponent(
     typeof params.slug === "string" ? params.slug : ""
   );
 
-  // Fetch Proerpty from APi, and handle Fetching states
   const { data, error, isLoading } = useSWR<SelectPropertyResponse>(
     `/api/properties/${slug}`,
     fetcher
   );
 
-  // Return to 404 Page if Property doesn't exists
   if (data?.notFound) {
     return (
       <div className="w-full flex justify-center items-center h-[100vh] bg-[#ffff]">
@@ -62,7 +66,7 @@ export default function PropertyPage() {
       {data?.results && (
         <>
           <TopNavbar />
-          <Head title={data.results.title} images={data.results.images} />
+          <PropertyCarousel images={data.results.images} />
           <div className="w-full flex justify-center items-start gap-10 lg:gap-20 pt-5 px-4 sm:max-w-3xl lg:max-w-5xl">
             <PropertyDetails
               description={data.results.description}
@@ -70,15 +74,12 @@ export default function PropertyPage() {
               bedrooms={data.results.bedrooms}
             />
             <LeadForm />
-            {/* Final CTA should be placed here */}
-            {/* After page is functional, add more content to increase SEO Ranking */}
           </div>
           {data && (
             <div className="w-full flex justify-center items-start gap-10 lg:gap-20 pt-5 px-4 sm:max-w-3xl lg:max-w-5xl">
               <LocationSection property={data.results} />
             </div>
           )}
-          {/* <Residencies /> */}
           <BottomNavbar price={data.results.price} />
         </>
       )}
@@ -86,4 +87,28 @@ export default function PropertyPage() {
   );
 }
 
-// export const revalidate = 3600;
+function PropertyCarousel({ images }: PropertyCarouselProps) {
+  return (
+    <Carousel className="w-full max-w-2xl">
+      <CarouselContent>
+        {images.map((image: string, index: number) => (
+          <CarouselItem key={index}>
+            <div className="p-1">
+              <Card className="aspect-w-16 aspect-h-7">
+                <CardContent className="flex aspect-square items-center justify-center p-0">
+                  <img
+                    src={image}
+                    alt={`Property image ${index + 1}`}
+                    className="w-full h-full object-cover rounded"
+                  />
+                </CardContent>
+              </Card>
+            </div>
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+      <CarouselPrevious />
+      <CarouselNext />
+    </Carousel>
+  );
+}

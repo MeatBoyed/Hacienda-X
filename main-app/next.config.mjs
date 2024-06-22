@@ -7,6 +7,12 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
+        hostname: "dstilezauto.s3.af-south-1.amazonaws.com",
+        port: "",
+        pathname: "*",
+      },
+      {
+        protocol: "https",
         hostname: "**",
         port: "",
         pathname: "**",

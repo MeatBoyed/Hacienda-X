@@ -12,16 +12,18 @@ import Map, {
   ScaleControl,
 } from "react-map-gl";
 import Link from "next/link";
-import { PropertyWithAddress } from "@/app/api/[[...route]]/utils";
+import { PropertyWithAddress } from "@/app/api/(utils)/utils";
 
 // FIX Popup's state not resetting
 
 export function MapComp({
   focusedProperty,
   properties,
+  height,
 }: {
   focusedProperty: PropertyWithAddress;
   properties: PropertyWithAddress[];
+  height: string;
 }) {
   const [showFocusedPropPopup, setShowFocusedPropPopup] =
     useState<boolean>(false);
@@ -47,7 +49,7 @@ export function MapComp({
         )}
       </>
     ),
-    []
+    [focusedProperty]
   );
 
   const propertiesMarkers = useMemo(
@@ -79,7 +81,7 @@ export function MapComp({
           ))}
       </>
     ),
-    []
+    [properties]
   );
 
   return (
@@ -89,7 +91,7 @@ export function MapComp({
         latitude: focusedProperty.Address?.latitude,
         zoom: 15, // 3.5 in example
       }}
-      style={{ width: "100%", height: "55vh", borderRadius: 10 }}
+      style={{ width: "100%", height: height, borderRadius: 10 }}
       mapStyle="mapbox://styles/mapbox/streets-v9"
       mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
     >

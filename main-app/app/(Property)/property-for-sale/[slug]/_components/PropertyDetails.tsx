@@ -22,7 +22,7 @@ export default function PropertyDetails({
   return (
     <section
       id="propertyDetails"
-      className="flex justify-center items-center flex-col w-full "
+      className="flex justify-center items-center flex-col w-full px-2 "
     >
       {/* Description */}
       <div className="border-t border-b border-[#dddddd] py-10 flex justify-center items-start flex-col w-full gap-5">

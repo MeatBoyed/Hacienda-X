@@ -15,8 +15,8 @@ export default async function Home() {
           <div className="white-gradient" />
           <Hero />
         </div>
-        <HowItWorks />
         <Residencies />
+        <HowItWorks />
         <Value />
         <OfferedSection />
         <CallToAction />
