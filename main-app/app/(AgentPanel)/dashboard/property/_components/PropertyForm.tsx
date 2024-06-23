@@ -129,7 +129,8 @@ export default function PropertyForm({
     isMutating: isMutatingCreate,
     error: createError,
   } = useSWRMutation("/api/properties/create", PostProperty /* options */, {
-    onError: () => {
+    onError: (error) => {
+      console.log("Server Error Occured: ", error);
       toast.error("Something unexpected happend.", {
         description: "Please try again....",
       });
