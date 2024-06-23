@@ -212,6 +212,7 @@ export default function PropertyForm({
 
   async function submitHandler(values: z.infer<typeof PropertySchema>) {
     console.log("Hello!");
+    console.log("Submitted Form: ", values);
 
     if (!initProperty) {
       await triggerCreate({ property: values });
