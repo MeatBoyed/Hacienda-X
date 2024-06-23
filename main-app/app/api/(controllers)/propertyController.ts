@@ -171,6 +171,7 @@ app.post(
     console.log("Your Submitted form data: ", prop);
 
     // Upload image process
+
     const imageUpload = await uploadFilesToS3(auth.userId, prop.images); // Url format: https:<aws-domain>/<userId>/<unique-uuid>
     console.log("Uploaded Images - ", imageUpload);
 
@@ -202,7 +203,8 @@ app.post(
         },
         include: { Address: true },
       });
-    } catch (error: any) {
+    } catch (error) {
+      console.log(error);
       throw new Error("Something went wrong. Error: ", error as Error);
     }
     if (!property) {
