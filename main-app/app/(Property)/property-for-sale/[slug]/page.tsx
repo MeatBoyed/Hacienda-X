@@ -4,7 +4,7 @@ import React from "react";
 import { useParams } from "next/navigation";
 import { fetcher } from "@/lib/utils";
 import useSWR from "swr";
-import { SelectPropertyResponse } from "@/app/api/[[...route]]/utils";
+import { SelectPropertyResponse } from "@/app/api/(utils)/utils";
 import { PuffLoader } from "react-spinners";
 import PropertyDetails from "./_components/PropertyDetails";
 import BottomNavbar from "./_components/BottomNavbar";
