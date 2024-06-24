@@ -1,7 +1,5 @@
 import React from "react";
-import "./PropertyCard.css";
 import Link from "next/link";
-import { Property } from "@prisma/client";
 import Image from "next/image";
 import { Bath, Bed } from "lucide-react";
 import { PropertyWithAddress } from "@/app/api/(utils)/utils";
@@ -20,70 +18,85 @@ export default function PropertyCard({
       }-w-[17rem] min-h-[17rem] flex justify-start items-center flex-col gap-3`}
     >
       <Link href={`../property-for-sale/${property.title}`}>
-        <Image
-          src={property.images[0]}
-          alt={property.title + " - thumbnail."}
-          className="w-full object-cover rounded-lg"
-          width={500}
-          height={700}
-          // style={{
-          //   width: "100%",
-          //   height: "14rem",
-          // }}
-        />
-      </Link>
-      <div className="w-full flex justify-center items-start flex-col gap-1">
-        {/* <p className="text-lg font-semibold">{property.title}</p> */}
-        <div className="flex justify-center flex-col items-start ">
-          <Link href={`../property-for-sale/${property.title}`}>
-            <p className="text-lg font-medium">{property.title}</p>
-          </Link>
-          <Link href={`../property-for-sale/${property.title}`}>
-            <p className="text-lg font-semibold">
-              USD {property.price?.toLocaleString()}
-            </p>
-          </Link>
-        </div>
+        <div className="relative inline-block w-full transform transition-transform duration-300 ease-in-out hover:-translate-y-2">
+          <div className="rounded-lg bg-white p-4 shadow">
+            <div className="relative flex h-52 justify-center overflow-hidden rounded-lg">
+              <div className="w-full transform transition-transform duration-500 ease-in-out hover:scale-110">
+                <Image
+                  src={property.images[0]}
+                  alt={`${property.title} - thumbnail.`}
+                  className="absolute inset-0 object-cover rounded-lg"
+                  width={500}
+                  height={700}
+                />
+              </div>
+            </div>
 
-        <div className="flex justify-start items-center w-full gap-3">
-          <div className="flex justify-center items-center gap-1">
-            <p className="text-sm font-medium leading-none">
-              {property.bathrooms}
-            </p>
-            <Bath size={15} />
-          </div>
-          <div className="flex justify-center items-center gap-1">
-            <p className="text-sm font-medium leading-none">
-              {property.bedrooms}
-            </p>
-            <Bed size={15} />
+            <div className="absolute bottom-0 left-5 mb-3 flex">
+              <p className="flex items-center font-medium text-white shadow-sm">
+                <i className="fa fa-camera mr-2 text-xl text-white"></i>
+                {property.images.length}
+              </p>
+            </div>
+
+            <span className="absolute top-0 right-2 z-10 mt-3 ml-3 inline-flex select-none rounded-sm bg-[#1f93ff] px-2 py-1 text-xs font-semibold text-white">
+              {" "}
+              Residential{" "}
+            </span>
+            <div className="mt-4">
+              <h2
+                className="line-clamp-1 text-2xl font-medium text-gray-800 md:text-lg"
+                title={property.title}
+              >
+                {property.title}
+              </h2>
+              <p className="text-primary mt-2 inline-block whitespace-nowrap rounded-xl font-semibold leading-tight">
+                <span className="text-sm uppercase"> USD </span>
+                <span className="text-2xl">
+                  {property.price?.toLocaleString()}
+                </span>
+              </p>
+            </div>
+
+            <div className="mt-4">
+              <p className="line-clamp-2 mt-2 text-lg text-gray-800">
+                {property.description}
+              </p>
+            </div>
+
+            <div className="justify-center">
+              <div className="mt-4 flex space-x-3 overflow-hidden rounded-lg px-1 py-1">
+                <p className="flex items-center font-medium text-gray-800">
+                  <i className="fa fa-bed mr-2 text-blue-900"></i>
+                  {property.bedrooms}
+                </p>
+                <p className="flex items-center font-medium text-gray-800">
+                  <i className="fa fa-bath mr-2 text-blue-900"></i>
+                  {property.bathrooms}
+                </p>
+              </div>
+            </div>
+
+            <div className="mt-8 grid grid-cols-2">
+              <div className="flex items-center">
+                <div className="relative">
+                  <div className="h-6 w-6 rounded-full bg-gray-200 md:h-8 md:w-8"></div>
+                  <span className="bg-primary-red absolute top-0 right-0 inline-block h-3 w-3 rounded-full"></span>
+                </div>
+              </div>
+
+              <div className="flex justify-end">
+                <button>
+                  <i className="fa fa-sms mx-1 rounded-md bg-[#0174E1] py-1 px-3 text-2xl text-white"></i>
+                </button>
+                <button>
+                  <i className="fa fa-phone rounded-md bg-[#0174E1] py-1 px-3 text-2xl text-white"></i>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
-        <p className="text-base text-muted-foreground">
-          {property.Address?.address}
-        </p>
-      </div>
-    </div>
-  );
-}
-
-function PropertyCard2({ property }: { property: Property }) {
-  return (
-    <div className="flexColStart r-card">
-      {/* <Heart id={card?.id}/> */}
-      {/* <img src={property.image} alt="home" /> */}
-      <span className="secondaryText r-price">
-        <p className="">$ {property.price}</p>
-      </span>
-      <Link href={`../property-for-sale/${property.title}`}>
-        <p className="">
-          {/* {truncate(property.title, { length: 15 })} */}
-          {property.title}
-        </p>
       </Link>
-      <p className="secondaryText">
-        {/* {truncate(property.description, { length: 80 })} */}
-      </p>
     </div>
   );
 }
