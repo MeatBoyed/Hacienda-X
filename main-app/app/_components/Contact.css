@@ -18,7 +18,7 @@
   gap: 1.5rem;
 }
 .mode {
-  width: 16rem;
+  width: 15rem; /* Reduced width */
   padding: 1rem;
   border: 0.8px solid rgba(128, 128, 128, 0.143);
   border-radius: 5px;
@@ -50,6 +50,16 @@
   background: var(--blue-gradient);
   color: white;
   scale: 0.8;
+}
+
+.image-container {
+  max-width: 90%; /* Adjust the image container width */
+}
+
+.contact-image {
+  width: 100%; /* Make sure the image takes full width of the container */
+  height: auto;
+  border-radius: 1rem; /* Ensure the image is rounded */
 }
 
 @media (max-width: 1024px) {

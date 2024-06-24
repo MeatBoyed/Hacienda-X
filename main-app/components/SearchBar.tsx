@@ -46,7 +46,7 @@ export function SearchBar({
 
       <div className="flex justify-center w-full items-center gap-3 flex-col sm:flex-row">
         <Dialog>
-          <DialogTrigger className="bg-white w-full shadow-lg text-black hover:border-background hover:border hover:text-primary hover: rounded-md">
+          <DialogTrigger className="bg-white w-full shadow-lg text-black hover:border-background hover:border hover:text-black hover: rounded-md">
             {/* <p className="text-lg bg-prima">Filter</p> */}
             <Button
               size={"sm"}
@@ -68,7 +68,7 @@ export function SearchBar({
 
         <Button
           size={"sm"}
-          className="bg-white w-full lg:hidden text-black hover:border-background hover:border hover:text-primary shadow-lg gap-3"
+          className="bg-white w-full lg:hidden text-black hover:border-background hover:bg-blue-600 hover:text-white shadow-lg gap-3 hover: rounded-md"
           onClick={() =>
             mapActive !== undefined &&
             setMapActive !== undefined &&
@@ -90,7 +90,7 @@ export function SearchBar({
         </Button>
         <Button
           size={"sm"}
-          className="bg-accent w-full text-white hover:border-background hover:border hover:text-primary shadow-lg gap-3"
+          className="bg-accent w-full text-white hover:bg-blue-600 hover:border hover:text-white shadow-lg gap-3"
         >
           <Search size={15} /> Search
         </Button>

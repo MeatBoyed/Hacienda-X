@@ -22,9 +22,7 @@ export default function LocationSection({
   return (
     <section className="flex justify-center items-center w-full flex-col">
       <div className="border-t border-b border-[#dddddd] py-5 flex justify-center items-start flex-col w-full gap-5">
-        <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
-          Where it is
-        </h3>
+        <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight"></h3>
         <div className="w-full h-full mb-8">
           <MapComp height="30vw" focusedProperty={property} properties={[]} />
         </div>

@@ -51,27 +51,27 @@ function NavLinks() {
   return (
     <div className="flex justify-center gap-8 items-center">
       <Link href="/property-for-sale">
-        <p className="text-lg text-black hover:text-gray-700 transition">
+        <p className="text-base text-black hover:text-gray-700 transition">
           Search
         </p>
       </Link>
       <Link href="/favourites">
-        <p className="text-lg text-black hover:text-gray-700 transition">
+        <p className="text-base text-black hover:text-gray-700 transition">
           Favourites
         </p>
       </Link>
       <Link href="/dashboard">
-        <p className="text-lg text-blue-500 hover:text-blue-700 transition">
+        <p className="text-base text-blue-500 hover:text-blue-700 transition">
           Sell your Property
         </p>
       </Link>
       <Link href="/pricingplan">
-        <p className="text-lg text-black hover:text-gray-700 transition">
+        <p className="text-base text-black hover:text-gray-700 transition">
           Pricing
         </p>
       </Link>
       <Link href="/contact">
-        <p className="text-lg text-black hover:text-gray-700 transition">
+        <p className="text-base text-black hover:text-gray-700 transition">
           Contact & Support
         </p>
       </Link>

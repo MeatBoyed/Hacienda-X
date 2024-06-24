@@ -99,7 +99,7 @@ export default function Contact() {
             <Image
               src={ContactImage}
               alt="Contact Image"
-              className="rounded-2xl"
+              className="contact-image"
             />
           </div>
         </div>

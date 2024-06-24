@@ -17,7 +17,7 @@ export default function Hero() {
           <h1 className="text-center scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
             Find the Perfect Home
           </h1>
-          <p className="text-lg font-semibold text-center">
+          <p className="text-lg font-semibold text-center text-white">
             Discover Properties That Match Your Lifestyle
           </p>
         </div>

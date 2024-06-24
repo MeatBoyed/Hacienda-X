@@ -11,11 +11,11 @@ export default function HowItWorks() {
             <img src="./ctapic2.jpg" alt="" />
           </figure>
           <div className="article-body">
-            <h2>Sign Up Today</h2>
+            <h2>Sell Property</h2>
             <p>
-              Sign Up Now! Personalized property alerts, and insider tips from
-              our expert agents. Do not miss out on your dream home – join our
-              community today!
+              Sell Your Property Now! Personalized property creation. Control
+              all your properties from the tips of your fingertips. Do not miss
+              out on your home being sold – Sell today!
             </p>
             <a href="./sign-in" className="button1 read-more">
               Sign UP<span className="sr-only">about this is some title</span>
