@@ -1,6 +1,5 @@
 import { Hono } from "hono";
 import db from "../(utils)/db";
-import { Property } from "@prisma/client";
 import { HTTPException } from "hono/http-exception";
 import {
   DeletePropertyRequestSchema,
@@ -9,7 +8,6 @@ import {
 } from "@/lib/FormUtils";
 import { clerkMiddleware, getAuth } from "@hono/clerk-auth";
 import { validator } from "hono/validator";
-import { z } from "zod";
 import { deleteImages, uploadFilesToS3 } from "./uploadFile";
 import { zValidator } from "@hono/zod-validator";
 import { AWS_S3_BASE_URL, PropertyWithAddress } from "../(utils)/utils";
@@ -18,7 +16,7 @@ const app = new Hono();
 
 app.use(clerkMiddleware());
 
-// Endpoint ("/api/properties")
+// Fetch All Products - Public Endpoint
 app.get("/", async (c) => {
   try {
     // Database query (obvs)
@@ -46,6 +44,7 @@ app.get("/", async (c) => {
   }
 });
 
+// Fetch Agent's Products - Private Endpoint
 app.get("/dashboard/property", async (c) => {
   // Get the current user
   const auth = getAuth(c);
@@ -76,6 +75,7 @@ app.get("/dashboard/property", async (c) => {
   );
 });
 
+// Fetch Agent's Specific Product - Private Endpoint
 app.get("/dashboard/property/:propertyid", async (c) => {
   // Get the current user
   const auth = getAuth(c);
@@ -92,8 +92,9 @@ app.get("/dashboard/property/:propertyid", async (c) => {
     // Database query (obvs)
     property = await db.property.findFirstOrThrow({
       where: {
-        property_id: propertyId,
         agent_id: auth.userId,
+        property_id: propertyId,
+        visibility: { not: "Deleted" },
       }, // Property needs a Slug field in DB
       include: { Address: true },
     });
@@ -115,41 +116,37 @@ app.get("/dashboard/property/:propertyid", async (c) => {
   );
 });
 
-// Endpoint ("/api/properties/:slug")
-// - The slug will be the public, Search Engine Optimized, unique identifier for Properties.
+// Fetch Specific Product - Public Endpoint
 app.get("/:slug", async (c) => {
-  try {
-    const slug = c.req.param("slug");
+  const slug = c.req.param("slug");
 
+  let property: PropertyWithAddress;
+  try {
     // Database query (obvs)
-    const property = await db.property.findFirst({
-      where: { title: slug }, // Property needs a Slug field in DB
+    property = await db.property.findFirstOrThrow({
+      where: { title: slug, visibility: { not: "Deleted" } }, // Property needs a Slug field in DB
       include: { Address: true },
     });
-
-    // Let the Client (Front-End) decide what to do with a 404
-    if (!property) {
-      return c.json({ results: undefined, notFound: true }, { status: 200 });
-    }
-
-    // Response object
-    return c.json(
-      { results: property, notFound: false },
-      {
-        status: 200,
-      }
-    );
   } catch (error: any) {
-    // Use as a "Catch-All" error handler
-    // Show error in console for Debugging (Realistically this should be logged used a package)
-    console.log(error);
-
-    // Respond with an Error for Client "error" state
+    console.log("Error: ", error as Error);
     throw new HTTPException(500, { message: "An unexpected error occured" });
   }
+  // Let the Client (Front-End) decide what to do with a 404
+  if (!property) {
+    return c.json({ results: undefined, notFound: true }, { status: 200 });
+  }
+
+  // Response object
+  return c.json(
+    { results: property, notFound: false },
+    {
+      status: 200,
+    }
+  );
 });
 
 // Images are Uploaded via the backend to better Identify
+// Create Product - Private Endpoint
 app.post(
   "/create",
   // Validates the Incoming data is the correct type through Zod validation schema
@@ -174,6 +171,7 @@ app.post(
     console.log("Your Submitted form data: ", prop);
 
     // Upload image process
+
     const imageUpload = await uploadFilesToS3(auth.userId, prop.images); // Url format: https:<aws-domain>/<userId>/<unique-uuid>
     console.log("Uploaded Images - ", imageUpload);
 
@@ -196,12 +194,8 @@ app.post(
           sold: false,
           extraFeatures: prop.extraFeatures,
           Address: {
-            // update to Connect or Create
             create: {
               address: prop.address,
-              street: "dffg",
-              city: "ksdf",
-              country: "asd",
               latitude: prop.lat,
               longitude: prop.lng,
             },
@@ -209,9 +203,8 @@ app.post(
         },
         include: { Address: true },
       });
-    } catch (error: any) {
-      // Show error in console for Debugging (Realistically this should be logged used a package)
-      // Respond with an Error for Client "error" state
+    } catch (error) {
+      console.log(error);
       throw new Error("Something went wrong. Error: ", error as Error);
     }
     if (!property) {
@@ -228,6 +221,7 @@ app.post(
   }
 );
 
+// Update Product - Private Endpoint
 app.post(
   "/update",
   // Validates the Incoming data is the correct type through Zod validation schema
@@ -308,11 +302,8 @@ app.post(
           sold: false,
           extraFeatures: prop.extraFeatures,
           Address: {
-            // update to Connect or Create
             update: {
               address: prop.address,
-              street: "asd",
-              country: "asd",
               latitude: prop.lat,
               longitude: prop.lng,
             },
@@ -321,8 +312,6 @@ app.post(
         include: { Address: true },
       });
     } catch (error: any) {
-      // Show error in console for Debugging (Realistically this should be logged used a package)
-      // Respond with an Error for Client "error" state
       throw new Error("Something went wrong. Error: ", error as Error);
     }
     if (!property) {
@@ -341,6 +330,7 @@ app.post(
   }
 );
 
+// Delete Product - Private Endpoint
 app.post(
   "/delete/:slug",
   // Validates the Incoming data is the correct type through Zod validation schema
@@ -365,16 +355,14 @@ app.post(
     )
       throw new Error("Unable to verify request");
 
+    // Full Deleting of Property requires Deleting Property's Address, and (Disconnecting) Leads, then deleting property
     try {
-      await deleteImages(deletePayload.images);
-    } catch (error) {
-      throw new HTTPException(500, {
-        message: `Unable to delete images. Error: ${error as Error}`,
-      });
-    }
+      // Get Property
+      // const property = await db.property.findFirstOrThrow({ where: { property_id: slug, agent_id: auth.userId }, select: { Address: true, property_id: true}})
 
-    try {
-      // Database query (obvs)
+      // Delete Address
+      // await db.address.delete({ where: { address_id: property.Address?.address_id, property_id: property.property_id }})
+
       await db.property.update({
         where: {
           property_id: slug,
@@ -384,6 +372,14 @@ app.post(
       });
     } catch (error: any) {
       throw new Error("Something went wrong. Error: ", error as Error);
+    }
+
+    try {
+      await deleteImages(deletePayload.images);
+    } catch (error) {
+      throw new HTTPException(500, {
+        message: `Unable to delete images. Error: ${error as Error}`,
+      });
     }
 
     console.log("Deleted!");

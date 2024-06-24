@@ -129,7 +129,8 @@ export default function PropertyForm({
     isMutating: isMutatingCreate,
     error: createError,
   } = useSWRMutation("/api/properties/create", PostProperty /* options */, {
-    onError: () => {
+    onError: (error) => {
+      console.log("Server Error Occured: ", error);
       toast.error("Something unexpected happend.", {
         description: "Please try again....",
       });
@@ -211,6 +212,7 @@ export default function PropertyForm({
 
   async function submitHandler(values: z.infer<typeof PropertySchema>) {
     console.log("Hello!");
+    console.log("Submitted Form: ", values);
 
     if (!initProperty) {
       await triggerCreate({ property: values });
@@ -279,11 +281,11 @@ export default function PropertyForm({
                     <DialogContent className="sm:max-w-[425px]">
                       <DialogHeader>
                         <DialogTitle>
-                          Warning! This is can't be undone.
+                          Warning! This is can not be undone.
                         </DialogTitle>
                         <DialogDescription>
-                          Deleting this image will be a permant action, and
-                          can't be undone.
+                          Deleting this image will be a permanent action, and
+                          can not be undone.
                         </DialogDescription>
                       </DialogHeader>
                       <DialogFooter

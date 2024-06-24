@@ -45,6 +45,7 @@ export const SelectSaleTypeOptions = [
   // { key: "Auction", value: "Auction"}, // UPDATE: uncomment to make it avaible to customers
 ];
 
+// Property Form UTILS
 export const PropertySchema = z.object({
   property_id: z.string(),
   title: z

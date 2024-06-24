@@ -5,7 +5,7 @@ generator client {
 datasource db {
   provider  = "postgresql"
   url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  // directUrl = env("DIRECT_URL")
 }
 
 model User {
@@ -74,9 +74,6 @@ model Address {
   address_id String @id @default(cuid())
 
   address   String
-  street    String // Remove
-  city      String // Remove
-  country   String // Remove
   latitude  Float
   longitude Float
 
@@ -88,13 +85,22 @@ model Address {
 // Direct Link to User, as User's accounts must never be deleted for data integrity
 // Always save the Clerk Public ID for relations
 model Lead {
-  lead_id     Int      @id @default(autoincrement())
-  user_id     String
+  lead_id     String    @id @default(cuid())
   property_id String
+
+  name        String
+  surname     String
+  email       String
+  phoneNumber String
   message     String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  user        User     @relation(fields: [user_id], references: [public_id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  customer_id   String?
+
+  agent_id  String
+  agent     User  @relation(fields: [agent_id], references: [public_id])
 }
 
 model Analytics {
