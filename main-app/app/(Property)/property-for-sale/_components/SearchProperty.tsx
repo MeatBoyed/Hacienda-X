@@ -1,4 +1,5 @@
 "use client";
+import { Property } from "@/app/_components/Residencies";
 import { GenericPropertyResponse } from "@/app/api/(utils)/utils";
 import { MapComp } from "@/components/Map";
 import PropertyCard from "@/components/PropertyCard";
@@ -19,10 +20,7 @@ export default function SearchProperty() {
   const [mapActive, setMapActive] = useState<boolean>(true);
 
   const properties = useMemo(
-    () =>
-      data?.results.map((prop, i) => (
-        <PropertyCard property={prop} key={i} max />
-      )),
+    () => data?.results.map((prop, i) => <Property property={prop} key={i} />),
     [data]
   );
 
@@ -45,7 +43,7 @@ export default function SearchProperty() {
                 classname=""
               />
 
-              <div className="h-screen flex justify-start items-start flex-wrap gap-10 md:grid md:grid-cols-3 md:gap-5 lg:grid-cols-2 lg:gap-12">
+              <div className="h-screen flex justify-start items-start flex-wrap gap-10 md:grid md:grid-cols-3 md:gap-5 lg:grid-cols-2 lg:gap-5">
                 {properties}
               </div>
             </div>

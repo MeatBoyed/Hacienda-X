@@ -86,9 +86,9 @@ export default function Residencies() {
   );
 }
 
-function Property({ property }: { property: PropertyWithAddress }) {
+export function Property({ property }: { property: PropertyWithAddress }) {
   return (
-    <Card className="border-0 md:min-w-fit min-w-max">
+    <Card className="border-0 md:min-w-fit min-w-max bg-transparent">
       <Link
         href={`/property-for-sale/${property.title}`}
         className="w-full h-full"
