@@ -8,7 +8,10 @@ import useSWR from "swr";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import PropertyCarousel from "@/components/PropertyCarousel";
-import { GenericPropertyResponse } from "@/app/api/(utils)/utils";
+import {
+  GenericPropertyResponse,
+  PropertyWithAddress,
+} from "@/app/api/(utils)/utils";
 import Image from "next/image";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Bath, BedDouble } from "lucide-react";
@@ -61,8 +64,8 @@ export default function Residencies() {
         )}
         {/* <div className="w-full h-full"> */}
         <PropertyCarousel data={data?.results}>
-          {data?.results.map((property) => (
-            <Property />
+          {data?.results.map((property, index) => (
+            <Property key={index} property={property} />
           ))}
         </PropertyCarousel>
         {/* </div> */}
@@ -83,43 +86,45 @@ export default function Residencies() {
   );
 }
 
-function Property() {
+function Property({ property }: { property: PropertyWithAddress }) {
   return (
     <Card className="border-0 md:min-w-fit min-w-max">
       <Link href="/ksdjas" className="w-full h-full">
         <div className="relative h-72 w-full overflow-hidden rounded-xl  hover:cursor-pointer">
           <Image
-            src={
-              "https://dstilezauto.s3.af-south-1.amazonaws.com/haciendaXTest/user_2gL8ydFzjP48FfpXuW73nUO5qXw/26de34ee-7efb-4fd9-adf5-cab04d4c69ed"
-            } // Assuming you have an array of images
+            src={property.images[0]} // Assuming you have an array of images
             alt={"yess"}
             width={320}
             height={400}
             className="w-full h-full object-cover transform transition-transform duration-500 ease-in-out hover:scale-110"
           />
           <p className="absolute top-0 right-0 mr-2 mt-2 rounded-sm bg-[#1f93ff] px-2 py-1 text-xs font-semibold text-white">
-            Residential
+            {property.saleType}
           </p>
         </div>
         <CardContent className="px-1 flex flex-col gap-3 pt-4">
           <div className="flex gap-3 justify-start items-center overflow-hidden">
             <div className="flex justify-center items-center gap-2">
               <BedDouble size={20} />
-              <p className="leading-7">3</p>
+              <p className="leading-7">{property.bedrooms}</p>
             </div>
             <div className="flex justify-center items-center gap-2">
               <Bath size={20} />
-              <p className="leading-7">3</p>
+              <p className="leading-7">{property.bathrooms}</p>
             </div>
-            <div className="flex justify-center items-center gap-2">
-              <MdPool size={20} />
-              <p className="leading-7">3</p>
-            </div>
+            {property.pool && (
+              <div className="flex justify-center items-center gap-2">
+                <MdPool size={20} />
+                <p className="leading-7">{property.pool && "Yes"}</p>
+              </div>
+            )}
           </div>
           <p className="line-clamp-1 text-sm font-medium leading-none">
-            Sunny beach house in you
+            {property.title}
           </p>
-          <p className="text-lg font-semibold">R 10 000 000</p>
+          <p className="text-lg font-semibold">
+            R {property.price.toLocaleString()}
+          </p>
         </CardContent>
       </Link>
     </Card>
