@@ -3,9 +3,8 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  // directUrl = env("DIRECT_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model User {
@@ -38,7 +37,6 @@ model Subscription {
   end_date        DateTime
   plan_type       String
   payment_status  String
-  // user            User     @relation(fields: [user_id], references: [user_id])
 }
 
 model Property {
@@ -54,6 +52,7 @@ model Property {
   bedrooms      Int // form
   pool          Boolean  @default(false) // form
   extraFeatures String[] // form
+  squareMeter   Int? //form
   images        String[] // API attach
 
   // Sales Data
