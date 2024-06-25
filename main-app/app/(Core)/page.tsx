@@ -7,6 +7,8 @@ import CallToAction from "../_components/CallToAction";
 import Contact from "../_components/Contact";
 import OfferedSection from "../_components/OfferedSection";
 
+import Image from "next/image";
+
 export default async function Home() {
   return (
     <Suspense fallback={<div>Loading...</div>}>
@@ -16,6 +18,7 @@ export default async function Home() {
           <Hero />
         </div>
         <Residencies />
+
         <HowItWorks />
         <Value />
         <OfferedSection />

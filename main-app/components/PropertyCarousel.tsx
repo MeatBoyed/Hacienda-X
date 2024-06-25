@@ -1,22 +1,21 @@
 "use client";
 
-import { Property } from "@prisma/client";
-import PropertyCard from "./PropertyCard";
 import {
   Carousel,
   CarouselContent,
-  CarouselItem,
   CarouselNext,
   CarouselPrevious,
 } from "./ui/carousel";
-import React from "react";
+import React, { ReactNode } from "react";
 import Autoplay from "embla-carousel-autoplay";
 import { PropertyWithAddress } from "@/app/api/(utils)/utils";
 
 export default function PropertyCarousel({
   data,
+  children,
 }: {
-  data: PropertyWithAddress[] | null;
+  children: ReactNode;
+  data?: PropertyWithAddress[] | null;
 }) {
   const plugin = React.useRef(
     Autoplay({ delay: 4000, stopOnInteraction: true })
@@ -32,14 +31,15 @@ export default function PropertyCarousel({
       onMouseLeave={plugin.current.reset}
       className="w-full sm:max-w-full flex justify-center items-center"
     >
-      <CarouselContent className="w-full gap-5 -ml-4">
+      <CarouselContent className="w-full gap-5 ml-4">
         {/* {Array.from({ length: 5 }).map((_, index) => ( */}
         {/* {data?.slice(0, 8).map((property, index) => ( */}
-        {data?.map((property, index) => (
-          <div className="pl-4 w-full h-full" key={index}>
-            <PropertyCard property={property} />
-          </div>
-        ))}
+        {/* {data?.map((property, index) => ( */}
+        {/* <div className="pl-4 w-full h-full" key={index}> */}
+        {/* <Propertyard property={property} /> */}
+        {/* </div> */}
+        {/* ))} */}
+        {children}
       </CarouselContent>
       <CarouselPrevious size={"sm"} />
       <CarouselNext size={"sm"} />
