@@ -21,7 +21,36 @@ export const Header = () => {
         <div className="flex justify-center items-center gap-8 w-full lg:w-auto">
           {/* NavLinks for larger screens */}
           <div className="hidden md:flex w-full justify-center">
-            <NavLinks />
+            {/* <NavLinks /> */}
+            <div className="flex justify-center gap-8 items-center">
+              <Link href="/property-for-sale">
+                <p className="text-base text-black hover:text-gray-700 transition">
+                  Search
+                </p>
+              </Link>
+              <Link href="/favourites">
+                <p className="text-base text-black hover:text-gray-700 transition">
+                  Favourites
+                </p>
+              </Link>
+              <Link href="/pricingplan">
+                <p className="text-base text-black hover:text-gray-700 transition">
+                  Pricing
+                </p>
+              </Link>
+              {userId && (
+                <Link href="/dashboard">
+                  <p className="text-base text-blue-500 hover:text-blue-700 transition">
+                    Dashboard
+                  </p>
+                </Link>
+              )}
+              <Link href="/contact">
+                <p className="text-base text-black hover:text-gray-700 transition">
+                  Contact & Support
+                </p>
+              </Link>
+            </div>
           </div>
 
           {/* User button and signup */}
