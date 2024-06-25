@@ -89,7 +89,10 @@ export default function Residencies() {
 function Property({ property }: { property: PropertyWithAddress }) {
   return (
     <Card className="border-0 md:min-w-fit min-w-max">
-      <Link href="/ksdjas" className="w-full h-full">
+      <Link
+        href={`/property-for-sale/${property.title}`}
+        className="w-full h-full"
+      >
         <div className="relative h-72 w-full overflow-hidden rounded-xl  hover:cursor-pointer">
           <Image
             src={property.images[0]} // Assuming you have an array of images
