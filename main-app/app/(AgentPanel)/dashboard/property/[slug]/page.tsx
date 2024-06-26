@@ -3,7 +3,10 @@ import useSWR from "swr";
 import { fetcher } from "@/lib/utils";
 import { useParams } from "next/navigation";
 import PropertyForm from "../_components/PropertyForm";
-import { SelectPropertyResponse } from "@/app/api/(utils)/utils";
+import {
+  PropertyWithAddress,
+  SelectPropertyResponse,
+} from "@/app/api/(utils)/utils";
 import { PuffLoader } from "react-spinners";
 import { SignIn, useUser } from "@clerk/nextjs";
 import Link from "next/link";
@@ -18,23 +21,13 @@ export default function ManageProperty() {
   );
 
   // Fetch Proerpty from APi, and handle Fetching states
-  const { data, error, isLoading } = useSWR<SelectPropertyResponse>(
-    `/api/properties/dashboard/property/${property_id}`,
+  const { data, error, isLoading } = useSWR<PropertyWithAddress>(
+    `/api/dashboard/property/${property_id}`,
     fetcher
   );
 
   if (user.isSignedIn === false) return SignIn;
   console.log(data);
-
-  // Return to 403 Page if Property doesn't exists
-  if (data?.notFound) {
-    return (
-      <div className="w-full flex justify-center items-center flex-col h-[80vh] bg-[#ffff]">
-        <span>This property does not exist. It has likey been deleted.</span>
-        <Link href="/dashboard/property">View your properties</Link>
-      </div>
-    );
-  }
 
   return (
     <section
@@ -52,7 +45,7 @@ export default function ManageProperty() {
             <span>Error while fetching the property details</span>
           </div>
         )}
-        {data?.results && <PropertyForm initProperty={data} />}
+        {data && <PropertyForm initProperty={data} />}
       </div>
     </section>
   );

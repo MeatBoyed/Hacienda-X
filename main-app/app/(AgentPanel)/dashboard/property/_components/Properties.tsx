@@ -1,24 +1,28 @@
 "use client";
+
 import useSWR from "swr";
 import { GetUsersProperty } from "@/lib/RequestUtils";
-import { GenericPropertyResponse } from "@/app/api/(utils)/utils";
+import { PropertyWithAddress } from "@/app/api/(utils)/utils";
 import PropertyInsightCard, {
   PropertyInsightCardSkeleton,
 } from "../../_components/PropertyInsightCard";
 import { useMemo } from "react";
 
 export default function Properties() {
-  const { data, error, isLoading } = useSWR<GenericPropertyResponse>(
-    "/api/properties/dashboard/property",
+  const { data, error, isLoading } = useSWR<PropertyWithAddress[]>(
+    "/api/dashboard/property",
     GetUsersProperty
   );
 
   const properties = useMemo(
     () =>
-      data &&
-      data.results.map((property, index) => (
-        <PropertyInsightCard property={property} key={index} />
-      )),
+      data && data.length > 0 ? (
+        data.map((property, index) => (
+          <PropertyInsightCard property={property} key={index} />
+        ))
+      ) : (
+        <p>You have no properties. Let's go add one!</p>
+      ),
     [data]
   );
 
@@ -27,6 +31,7 @@ export default function Properties() {
   return (
     <>
       {isLoading && <PropertiesSkeleton />}
+      {!isLoading && error && <p>Error: {error}</p>}
       {!isLoading && (
         <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 w-full">
           {properties}

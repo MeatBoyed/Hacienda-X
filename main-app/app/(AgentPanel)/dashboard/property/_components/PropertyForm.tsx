@@ -50,16 +50,11 @@ import { toast } from "sonner";
 import { AddressInput } from "../../../../../components/AddressInput";
 import { ImagesInput } from "@/components/ImagesInput";
 import {
-  DeleteImage,
-  DeleteImageResponse,
   DeleteProperty,
   PostProperty,
   PostPropertyResponse,
 } from "@/lib/RequestUtils";
-import {
-  PropertyWithAddress,
-  SelectPropertyResponse,
-} from "@/app/api/(utils)/utils";
+import { PropertyWithAddress } from "@/app/api/(utils)/utils";
 import { useRouter } from "next/navigation";
 import { useUser } from "@clerk/nextjs";
 import {
@@ -76,40 +71,34 @@ import image from "next/image";
 export default function PropertyForm({
   initProperty,
 }: {
-  initProperty?: SelectPropertyResponse;
+  initProperty?: PropertyWithAddress;
 }) {
   const { user } = useUser();
   const router = useRouter();
 
   const defaultValues: z.infer<typeof PropertySchema> = {
-    property_id: initProperty ? initProperty.results.property_id : "",
-    title: initProperty ? initProperty.results.title : "",
-    price: initProperty ? initProperty.results.price : 0,
-    description: initProperty ? initProperty.results.description : "",
-    bathrooms: initProperty ? initProperty.results.bathrooms : 0,
-    bedrooms: initProperty ? initProperty.results.bedrooms : 0,
-    pool: initProperty ? initProperty.results.pool : false,
-    images: initProperty ? initProperty.results.images : [],
+    property_id: initProperty ? initProperty.property_id : "",
+    title: initProperty ? initProperty.title : "",
+    price: initProperty ? initProperty.price : 0,
+    description: initProperty ? initProperty.description : "",
+    bathrooms: initProperty ? initProperty.bathrooms : 0,
+    bedrooms: initProperty ? initProperty.bedrooms : 0,
+    pool: initProperty ? initProperty.pool : false,
+    images: initProperty ? initProperty.images : [],
     extraFeatures: initProperty
-      ? initProperty.results.extraFeatures.map((feature, index) => ({
+      ? initProperty.extraFeatures.map((feature, index) => ({
           id: index.toString(),
           text: feature,
         }))
       : [],
     address:
-      initProperty && initProperty.results.Address
-        ? initProperty.results.Address?.address
-        : "",
+      initProperty && initProperty.Address ? initProperty.Address?.address : "",
     lat:
-      initProperty && initProperty.results.Address
-        ? initProperty.results.Address?.latitude
-        : 0,
+      initProperty && initProperty.Address ? initProperty.Address?.latitude : 0,
     lng:
-      initProperty && initProperty.results.Address
-        ? initProperty.results.Address.longitude
-        : 0,
-    visibility: initProperty ? initProperty.results.visibility : "Public",
-    saleType: initProperty ? initProperty.results.saleType : "Sale",
+      initProperty && initProperty.Address ? initProperty.Address.longitude : 0,
+    visibility: initProperty ? initProperty.visibility : "Public",
+    saleType: initProperty ? initProperty.saleType : "Sale",
   };
   const form = useForm<z.infer<typeof PropertySchema>>({
     resolver: zodResolver(PropertySchema),
@@ -128,71 +117,79 @@ export default function PropertyForm({
     trigger: triggerCreate,
     isMutating: isMutatingCreate,
     error: createError,
-  } = useSWRMutation("/api/properties/create", PostProperty /* options */, {
-    onError: (error) => {
-      console.log("Server Error Occured: ", error);
-      toast.error("Something unexpected happend.", {
-        description: "Please try again....",
-      });
-    },
-    onSuccess: (data: PostPropertyResponse) => {
-      // Show message
-      toast.success("Your property has been posted!", {
-        description: `View your property at ....`,
-      });
-      router.push(`/dashboard/property/${data.results.property_id}`);
-    },
-  });
+  } = useSWRMutation(
+    "/api/dashboard/property/create",
+    PostProperty /* options */,
+    {
+      onError: (error) => {
+        console.log("Server Error Occured: ", error);
+        toast.error("Something unexpected happend.", {
+          description: "Please try again....",
+        });
+      },
+      onSuccess: (data: PostPropertyResponse) => {
+        // Show message
+        toast.success("Your property has been posted!", {
+          description: `View your property at ....`,
+        });
+        router.push(`/dashboard/property/${data.results.property_id}`);
+      },
+    }
+  );
 
   const {
     trigger: triggerUpdate,
     isMutating: isMutatingUpdate,
     error: updateError,
-  } = useSWRMutation("/api/properties/update", PostProperty /* options */, {
-    onError: (error) => {
-      console.log("SERVER RESPONSE ERROR: ", error);
-      toast.error("Something unexpected happend.", {
-        description: "Please try again....",
-      });
-    },
-    onSuccess: (data: PostPropertyResponse) => {
-      const createdProp: z.infer<typeof PropertySchema> = {
-        property_id: data.results.property_id,
-        title: data.results.title,
-        price: data.results.price,
-        description: data.results.description,
-        bathrooms: data.results.bathrooms,
-        bedrooms: data.results.bedrooms,
-        pool: data.results.pool,
-        images: data.results.images,
-        extraFeatures: data.results.extraFeatures.map((feat, i) => ({
-          id: i.toString(),
-          text: feat,
-        })),
-        address: data.results.Address ? data.results.Address.address : "",
-        lat: data.results.Address ? data.results.Address.latitude : 0,
-        lng: data.results.Address ? data.results.Address.longitude : 0,
-        visibility: data.results.visibility,
-        saleType: data.results.saleType,
-      };
+  } = useSWRMutation(
+    "/api/dashboard/property/update",
+    PostProperty /* options */,
+    {
+      onError: (error) => {
+        console.log("SERVER RESPONSE ERROR: ", error);
+        toast.error("Something unexpected happend.", {
+          description: "Please try again....",
+        });
+      },
+      onSuccess: (data: PropertyWithAddress) => {
+        const createdProp: z.infer<typeof PropertySchema> = {
+          property_id: data.property_id,
+          title: data.title,
+          price: data.price,
+          description: data.description,
+          bathrooms: data.bathrooms,
+          bedrooms: data.bedrooms,
+          pool: data.pool,
+          images: data.images,
+          extraFeatures: data.extraFeatures.map((feat, i) => ({
+            id: i.toString(),
+            text: feat,
+          })),
+          address: data.Address ? data.Address.address : "",
+          lat: data.Address ? data.Address.latitude : 0,
+          lng: data.Address ? data.Address.longitude : 0,
+          visibility: data.visibility,
+          saleType: data.saleType,
+        };
 
-      // Set result (property) value to the Form's state, convert object values..
-      form.reset(createdProp);
+        // Set result (property) value to the Form's state, convert object values..
+        form.reset(createdProp);
 
-      // Show message
-      toast.success("Your property has been Updated!", {
-        description: `View your property at ....`,
-      });
-    },
-  });
+        // Show message
+        toast.success("Your property has been Updated!", {
+          description: `View your property at ....`,
+        });
+      },
+    }
+  );
 
   const {
     trigger: triggerDelete,
     isMutating: isMutatingDelete,
     error: deleteError,
   } = useSWRMutation(
-    `/api/properties/delete/${
-      initProperty ? initProperty.results.property_id : ""
+    `/api/dashboard/property/delete/${
+      initProperty ? initProperty.property_id : ""
     }`,
     DeleteProperty /* options */,
     {
@@ -228,9 +225,9 @@ export default function PropertyForm({
 
     await triggerDelete({
       payload: {
-        propertyId: initProperty.results.property_id,
+        propertyId: initProperty.property_id,
         userId: user.id,
-        images: initProperty.results.images,
+        images: initProperty.images,
       },
     });
     router.push("/dashboard/property");
@@ -429,9 +426,7 @@ export default function PropertyForm({
                           <FormMessage />
                           <FormControl className="px-2 pb-4">
                             <ImagesInput
-                              defaultValues={
-                                initProperty?.results ? field.value : []
-                              }
+                              defaultValues={initProperty ? field.value : []}
                               handleChange={(uploadedImages, deletedImages) => {
                                 console.log("Images: ", uploadedImages);
                                 if (initProperty) {
