@@ -22,7 +22,7 @@ export default function Properties({ className }: { className?: string }) {
           <PropertyInsightCard property={property} key={index} />
         ))
       ) : (
-        <p>You have no properties. Let's go add one!</p>
+        <p>You have no properties. Let&#39;s go add one!</p>
       ),
     [data]
   );

@@ -2,12 +2,13 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Suspense } from "react";
 import { Toaster } from "@/components/ui/toaster";
-import "mapbox-gl/dist/mapbox-gl.css";
 import Navbar from "./_components/Navbar";
 import { Toaster as SonnerToaster } from "sonner";
 import Loader from "@/components/ui/loader";
 import { currentUser } from "@clerk/nextjs/server";
 import { SignIn } from "@clerk/nextjs";
+
+import "mapbox-gl/dist/mapbox-gl.css";
 
 const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {

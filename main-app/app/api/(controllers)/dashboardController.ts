@@ -1,17 +1,31 @@
-import { Hono } from "hono";
-import {
-  AWS_S3_BASE_URL,
-  PropertyWithAddress,
-  authenticateUser,
-} from "../(utils)/utils";
+import { Context, Hono } from "hono";
+import { AWS_S3_BASE_URL } from "../(utils)/utils";
 import db from "../(utils)/db";
-import { clerkMiddleware } from "@hono/clerk-auth";
+import { clerkMiddleware, getAuth } from "@hono/clerk-auth";
 import { HTTPException } from "hono/http-exception";
 import { validator } from "hono/validator";
 import { deleteImages, uploadFilesToS3 } from "./uploadFile";
 import { DeletePropertyRequestSchema, parseFormData } from "@/lib/FormUtils";
 import { zValidator } from "@hono/zod-validator";
 
+// Checks Clerk auth & returns logged in User
+export function authenticateUser(c: Context) {
+  // Get the current user
+  const auth = getAuth(c);
+
+  // Ensure user is signed in
+  if (!auth?.userId) {
+    const errorResponse = new Response("Unauthorized Request", {
+      status: 401,
+      headers: {
+        Authenticate: 'error="invalid_token"',
+      },
+    });
+    throw new HTTPException(401, { res: errorResponse });
+  }
+
+  return auth;
+}
 const app = new Hono();
 
 app.use(clerkMiddleware());
