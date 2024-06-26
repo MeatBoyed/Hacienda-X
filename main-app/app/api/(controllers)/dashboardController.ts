@@ -10,12 +10,21 @@ import { HTTPException } from "hono/http-exception";
 import { validator } from "hono/validator";
 import { deleteImages, uploadFilesToS3 } from "./uploadFile";
 import { DeletePropertyRequestSchema, parseFormData } from "@/lib/FormUtils";
-import { auth } from "@clerk/nextjs/server";
 import { zValidator } from "@hono/zod-validator";
 
 const app = new Hono();
 
 app.use(clerkMiddleware());
+
+// Checks user exists (True: Exist, False: Doesn't)
+app.get("/authuser", async (c) => {
+  const user = authenticateUser(c);
+  return c.json(
+    await db.user.findFirstOrThrow({
+      where: { public_id: user.userId, role: "agent" },
+    })
+  );
+});
 
 // Fetch Agent's Products - Private Endpoint
 app.get("/property", async (c) => {
