@@ -5,7 +5,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import InsightCard from "./_components/InsightCard";
 import NewLeads from "./_components/NewLeads";
 import Properties from "./property/_components/Properties";
 
