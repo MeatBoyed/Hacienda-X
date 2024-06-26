@@ -5,7 +5,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { redirect } from "next/navigation";
+import InsightCard from "./_components/InsightCard";
+import NewLeads from "./_components/NewLeads";
+import Properties from "./property/_components/Properties";
 
 // Tremor for Analytics Components - https://www.tremor.so/
 
@@ -13,44 +15,28 @@ export default function Dashboard() {
   // Auth user via Clerk & in Dashboard
   // Track via Posthog & set role
 
-  // const router = useRouter();
-  // router.push("/dashboard/property");
-
-  redirect("/dashboard/property");
-
   return (
-    <div className="w-full flex justify-start items-start gap-5 pb-20  my-10 flex-col h-[100vh]">
-      <p className="scroll-m-20 text-2xl font-semibold tracking-tight">
-        Overview
-      </p>
+    <div className="w-full flex justify-center items-center pb-20 md:px-10 lg:px-10 xl:px-32 my-10 px-4">
+      <section className="w-full flex justify-center flex-col-reverse md:flex-row md:justify-between gap-10 md:gap-16 items-start">
+        {/* Left Side */}
+        <div className="flex justify-center items-start flex-col gap-5 w-full">
+          <p className="scroll-m-20 text-2xl font-semibold tracking-tight">
+            Properties
+          </p>
+          <Properties className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-5" />
+        </div>
 
-      {/* <section className="w-full flex justify-between items-start "> */}
-      {/* Left Side */}
-      {/* <div className="flex justify-center items-start flex-col">
-          <div className=" flex justify-center items-center gap-4"> */}
-      {/* <InsightCard /> */}
-      {/* <InsightCard />
-            <InsightCard /> */}
-      {/* </div>
+        <div className="border w-full border-gray-600 md:hidden" />
 
-          <div className="w-full h-[40vh] bg-gray-600 mt-10 rounded-lg" />
-        </div> */}
-
-      {/* Right */}
-      {/* <div className="">
+        {/* Right */}
+        <div className="w-full flex justify-center items-start gap-5 flex-col">
+          <p className="scroll-m-20 text-2xl font-semibold tracking-tight">
+            Overview
+          </p>
           <LeadInsightCard />
           <NewLeads />
-        </div> */}
-      {/* </section> */}
-
-      <p className="scroll-m-20 text-2xl font-semibold tracking-tight">
-        Your properties
-      </p>
-      <div className="flex justify-center items-center gap-4">
-        {/* <PropertyInsightCard />
-        <PropertyInsightCard />
-        <PropertyInsightCard /> */}
-      </div>
+        </div>
+      </section>
     </div>
   );
 }
@@ -58,17 +44,23 @@ export default function Dashboard() {
 function LeadInsightCard() {
   const views = 3500;
   return (
-    <Card className="flex justify-center items-center">
-      <CardHeader className="gap-2 justify-center items-center">
-        <CardTitle className="text-4xl">{views.toLocaleString()}</CardTitle>
+    <Card className="flex justify-center items-center w-full">
+      <CardHeader className="sm:gap-2 justify-center items-center">
+        <CardTitle className="text-2xl sm:text-4xl">
+          {views.toLocaleString()}
+        </CardTitle>
         <CardDescription>Unread</CardDescription>
       </CardHeader>
-      <CardHeader className="gap-2 justify-center items-center">
-        <CardTitle className="text-4xl">{views.toLocaleString()}</CardTitle>
+      <CardHeader className="sm:gap-2 justify-center items-center">
+        <CardTitle className="text-2xl sm:text-4xl">
+          {views.toLocaleString()}
+        </CardTitle>
         <CardDescription>Open</CardDescription>
       </CardHeader>
-      <CardHeader className="gap-2 justify-center items-center">
-        <CardTitle className="text-4xl">{views.toLocaleString()}</CardTitle>
+      <CardHeader className="sm:gap-2 justify-center items-center">
+        <CardTitle className="text-2xl sm:text-4xl">
+          {views.toLocaleString()}
+        </CardTitle>
         <CardDescription>Closed</CardDescription>
       </CardHeader>
     </Card>

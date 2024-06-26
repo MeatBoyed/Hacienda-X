@@ -7,8 +7,9 @@ import PropertyInsightCard, {
   PropertyInsightCardSkeleton,
 } from "../../_components/PropertyInsightCard";
 import { useMemo } from "react";
+import { cn } from "@/lib/utils";
 
-export default function Properties() {
+export default function Properties({ className }: { className?: string }) {
   const { data, error, isLoading } = useSWR<PropertyWithAddress[]>(
     "/api/dashboard/property",
     GetUsersProperty
@@ -33,7 +34,12 @@ export default function Properties() {
       {isLoading && <PropertiesSkeleton />}
       {!isLoading && error && <p>Error: {error}</p>}
       {!isLoading && (
-        <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 w-full">
+        <div
+          className={cn(
+            "grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 w-full",
+            className
+          )}
+        >
           {properties}
         </div>
       )}

@@ -5,9 +5,9 @@ import { ChevronRight } from "lucide-react";
 
 export default function NewLeads() {
   return (
-    <div className="mt-10">
+    <div className="mt-10 w-full">
       <div className="flex flex-col items-start ">
-        <p className="scroll-m-20 text-xl font-semibold tracking-tight">
+        <p className="scroll-m-20 text-lg sm:text-xl font-semibold tracking-tight">
           New Leads
         </p>
         <p className="text-base text-muted-foreground">You have 30 new leads</p>
