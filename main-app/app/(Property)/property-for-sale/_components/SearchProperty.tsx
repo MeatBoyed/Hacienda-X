@@ -1,8 +1,7 @@
 "use client";
-import { Property } from "@/app/_components/Residencies";
 import { GenericPropertyResponse } from "@/app/api/(utils)/utils";
 import { MapComp } from "@/components/Map";
-import PropertyCard from "@/components/PropertyCard";
+import { PropertyCard } from "@/components/PropertyCard";
 import { SearchBar } from "@/components/SearchBar";
 import { fetcher } from "@/lib/utils";
 import { useMemo, useState } from "react";
@@ -20,7 +19,14 @@ export default function SearchProperty() {
   const [mapActive, setMapActive] = useState<boolean>(true);
 
   const properties = useMemo(
-    () => data?.results.map((prop, i) => <Property property={prop} key={i} />),
+    () =>
+      data?.results.map((prop, i) => (
+        <PropertyCard
+          className=" h-48 sm:h-60  md:h-52 lg:h-40"
+          property={prop}
+          key={i}
+        />
+      )),
     [data]
   );
 
@@ -34,7 +40,7 @@ export default function SearchProperty() {
         )}
         {!isLoading && data && (
           <>
-            <div className="flex justify-start items-center gap-5 flex-col w-full p-4 overflow-y-auto max-h-screen scroll-smooth">
+            <div className="pt-14 lg:pt-4 flex justify-start items-center gap-5 flex-col w-full p-4 overflow-y-auto max-h-screen scroll-smooth">
               <SearchBar
                 mapActive={mapActive}
                 setMapActive={setMapActive}
@@ -43,7 +49,7 @@ export default function SearchProperty() {
                 classname=""
               />
 
-              <div className="h-screen flex justify-start items-start flex-wrap gap-10 md:grid md:grid-cols-3 md:gap-5 lg:grid-cols-2 lg:gap-5">
+              <div className="h-screen grid grid-cols-1 w-full sm:gap-10 md:grid-cols-2 md:gap-5 lg:grid-cols-2 lg:gap-5">
                 {properties}
               </div>
             </div>
