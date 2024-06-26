@@ -18,7 +18,7 @@ export default function Navbar() {
       <div className="w-full flex justify-center items-center gap-6 lg:max-w-7xl flex-col">
         <div className="w-full flex justify-between items-center">
           <Link
-            href="/dashboard"
+            href="/"
             className="text-xl sm:text-4xl font-semibold tracking-tight"
           >
             Hacienda X

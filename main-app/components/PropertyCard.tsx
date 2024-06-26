@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Bath, BedDouble } from "lucide-react";
+import { Bath, BedDouble, Ruler } from "lucide-react";
 import { PropertyWithAddress } from "@/app/api/(utils)/utils";
 import { MdPool } from "react-icons/md";
 import { Card, CardContent } from "./ui/card";
@@ -51,6 +51,14 @@ export function PropertyCard({
               <div className="flex justify-center items-center gap-2">
                 <MdPool size={20} />
                 <p className="leading-7">{property.pool && "Yes"}</p>
+              </div>
+            )}
+            {property.squareMeter && (
+              <div className="flex justify-center items-center gap-2">
+                <Ruler size={20} />
+                <p className="leading-7">
+                  {property.squareMeter.toLocaleString()} m&#178;
+                </p>
               </div>
             )}
           </div>
