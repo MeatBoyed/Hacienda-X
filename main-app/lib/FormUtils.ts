@@ -82,6 +82,12 @@ export const PropertySchema = z.object({
     required_error: "Pool information is required.",
     invalid_type_error: "Pool must be a boolean.",
   }),
+  squareMeter: z.coerce
+    .number({
+      required_error: "Square Meter of property is required.",
+      invalid_type_error: "Square meter must be a number.",
+    })
+    .min(1, { message: "Property must be larger than 1 meter squared." }),
   address: z
     .string({
       required_error: "Address is required",
@@ -137,6 +143,9 @@ export const PropertyRequestSchema = z.object({
   bedrooms: z.coerce
     .number()
     .min(1, { message: "There must be at least 1 bedroom." }),
+  squareMeter: z.coerce
+    .number()
+    .min(1, { message: "There must be at least 1 Square Meter." }),
   pool: z.boolean(),
   address: z
     .string()
@@ -187,6 +196,7 @@ export function propertyToFormData(
   formData.append("price", property.price.toString());
   formData.append("bathrooms", property.bathrooms.toString());
   formData.append("bedrooms", property.bedrooms.toString());
+  formData.append("squareMeter", property.squareMeter.toString());
   formData.append("pool", property.pool == true ? "true" : "false");
   formData.append("address", property.address);
   formData.append("lat", property.lat.toString());
@@ -286,6 +296,7 @@ export const parseFormData = (
     price: parseFloat(data.price),
     bathrooms: parseInt(data.bathrooms, 10),
     bedrooms: parseInt(data.bedrooms, 10),
+    squareMeter: parseInt(data.squareMeter, 10),
     pool: data.pool === "true",
     address: data.address,
     lat: parseFloat(data.lat),

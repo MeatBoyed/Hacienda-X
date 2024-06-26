@@ -83,6 +83,8 @@ export default function PropertyForm({
     description: initProperty ? initProperty.description : "",
     bathrooms: initProperty ? initProperty.bathrooms : 0,
     bedrooms: initProperty ? initProperty.bedrooms : 0,
+    squareMeter:
+      initProperty && initProperty.squareMeter ? initProperty.squareMeter : 0,
     pool: initProperty ? initProperty.pool : false,
     images: initProperty ? initProperty.images : [],
     extraFeatures: initProperty
@@ -127,12 +129,32 @@ export default function PropertyForm({
           description: "Please try again....",
         });
       },
-      onSuccess: (data: PostPropertyResponse) => {
-        // Show message
-        toast.success("Your property has been posted!", {
-          description: `View your property at ....`,
-        });
-        router.push(`/dashboard/property/${data.results.property_id}`);
+      onSuccess: (data) => {
+        console.log(data);
+        if (data.error === "Image is required") {
+          toast.error("Ooops! Looks like you forgot to add images.", {
+            description: "You must upload at least 2 Images for your post.",
+            duration: 500000,
+          });
+          return;
+        }
+        if (data.error === "Unable to upload image") {
+          toast.error(
+            "Ooops! Something went wrong when uploading your images. Please try again",
+            {
+              duration: 500000,
+            }
+          );
+          return;
+        }
+
+        if (data) {
+          // Show message
+          toast.success("Your property has been posted!", {
+            description: `View your property at ....`,
+          });
+          router.push(`/dashboard/property/${data.property_id}`);
+        }
       },
     }
   );
@@ -159,6 +181,7 @@ export default function PropertyForm({
           description: data.description,
           bathrooms: data.bathrooms,
           bedrooms: data.bedrooms,
+          squareMeter: data.squareMeter ? data.squareMeter : 0, // TODO: Remove Square Meter being an optional field
           pool: data.pool,
           images: data.images,
           extraFeatures: data.extraFeatures.map((feat, i) => ({
@@ -200,9 +223,7 @@ export default function PropertyForm({
       },
       onSuccess: (data) => {
         // Show message
-        toast.success("Your property has been Deleted!", {
-          description: `View your property at ....`,
-        });
+        toast.success("Your property has been Deleted!");
       },
     }
   );
@@ -539,6 +560,25 @@ export default function PropertyForm({
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="grid gap-6">
+                    {/* Square Meter */}
+                    <FormField
+                      control={form.control}
+                      name="squareMeter"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Square Meter</FormLabel>
+                          <FormControl>
+                            <Input
+                              className="w-full"
+                              type="number"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
                     {/* Bedroom */}
                     <FormField
                       control={form.control}
@@ -579,7 +619,7 @@ export default function PropertyForm({
                       name="bathrooms"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Bedroom</FormLabel>
+                          <FormLabel>Bathrooms</FormLabel>
                           <FormControl>
                             <Select
                               key="bathrooms"

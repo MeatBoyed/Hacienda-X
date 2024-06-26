@@ -69,26 +69,30 @@ app.post(
   }),
   async (c) => {
     const user = authenticateUser(c);
-
     const prop = c.req.valid("form");
     console.log("Your Submitted form data: ", prop);
 
+    if (prop.images.length === 0) return c.json({ error: "Image is required" });
+
     // Upload image process
-
     const imageUpload = await uploadFilesToS3(user.userId, prop.images); // Url format: https:<aws-domain>/<userId>/<unique-uuid>
-    console.log("Uploaded Images - ", imageUpload);
 
-    let property: PropertyWithAddress;
+    if (imageUpload.failedImages.length > 0) {
+      await deleteImages(imageUpload.uploadedImages.map((im) => im.url));
+      // throw new HTTPException(504, { message: "Image uploading Failed." });
+      return c.json({ error: "Unable to upload image" });
+    }
 
-    try {
-      // Database query (obvs)
-      property = await db.property.create({
+    // Database query (obvs)
+    return c.json(
+      await db.property.create({
         data: {
           title: prop.title,
           description: prop.description,
           price: prop.price,
           bathrooms: prop.bathrooms,
           bedrooms: prop.bedrooms,
+          squareMeter: prop.squareMeter,
           pool: prop.pool,
           saleType: prop.saleType,
           visibility: prop.visibility,
@@ -105,21 +109,7 @@ app.post(
           },
         },
         include: { Address: true },
-      });
-    } catch (error) {
-      console.log(error);
-      throw new Error("Something went wrong. Error: ", error as Error);
-    }
-    if (!property) {
-      throw new HTTPException(500, { message: "Error: Upserting property" });
-    }
-
-    // Response object
-    return c.json(
-      { results: property },
-      {
-        status: 200,
-      }
+      })
     );
   }
 );
@@ -188,6 +178,7 @@ app.post(
           price: prop.price,
           bathrooms: prop.bathrooms,
           bedrooms: prop.bedrooms,
+          squareMeter: prop.squareMeter,
           pool: prop.pool,
           saleType: prop.saleType,
           visibility: prop.visibility,
@@ -226,43 +217,25 @@ app.post(
       deletePayload.propertyId === "" &&
       slug !== deletePayload.propertyId
     )
-      throw new Error("Unable to verify request");
+      throw new HTTPException(401, { message: "Unable to verify request" });
 
-    // Full Deleting of Property requires Deleting Property's Address, and (Disconnecting) Leads, then deleting property
     try {
-      // Get Property
-      // const property = await db.property.findFirstOrThrow({ where: { property_id: slug, agent_id: auth.userId }, select: { Address: true, property_id: true}})
+      await deleteImages(deletePayload.images);
+    } catch (error) {
+      throw new HTTPException(500, {
+        message: "Unable to delete images.",
+        cause: error,
+      });
+    }
 
-      // Delete Address
-      // await db.address.delete({ where: { address_id: property.Address?.address_id, property_id: property.property_id }})
-
+    return c.json(
       await db.property.update({
         where: {
           property_id: slug,
           agent_id: user.userId,
         },
         data: { visibility: "Deleted" },
-      });
-    } catch (error: any) {
-      throw new Error("Something went wrong. Error: ", error as Error);
-    }
-
-    try {
-      await deleteImages(deletePayload.images);
-    } catch (error) {
-      throw new HTTPException(500, {
-        message: `Unable to delete images. Error: ${error as Error}`,
-      });
-    }
-
-    console.log("Deleted!");
-
-    // Response object
-    return c.json(
-      { results: undefined },
-      {
-        status: 200,
-      }
+      })
     );
   }
 );
