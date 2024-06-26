@@ -14,20 +14,9 @@ import {
 } from "@/components/ui/dialog";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-export function SearchBar({
-  filter,
-  setFilter,
-  mapActive,
-  setMapActive,
-  classname,
-}: {
-  mapActive?: boolean;
-  setMapActive?: Dispatch<SetStateAction<boolean>>;
-  filter?: string;
-  setFilter?: Dispatch<SetStateAction<string>>;
-  classname?: string;
-}) {
+export function SearchBar({ classname }: { classname?: string }) {
   return (
     <div
       id="searchbar"
@@ -37,11 +26,9 @@ export function SearchBar({
       )}
     >
       <Input
+        type="text"
         placeholder="Search town, city, provience"
         className="border-0 bg-white text-black shadow-lg "
-        type="text"
-        value={filter}
-        onChange={(e) => setFilter !== undefined && setFilter(e.target.value)}
       />
 
       <div className="flex justify-center w-full items-center gap-3 flex-col sm:flex-row">
@@ -68,25 +55,14 @@ export function SearchBar({
 
         <Button
           size={"sm"}
-          className="bg-white w-full lg:hidden text-black hover:border-background hover:bg-blue-600 hover:text-white shadow-lg gap-3 hover: rounded-md"
-          onClick={() =>
-            mapActive !== undefined &&
-            setMapActive !== undefined &&
-            setMapActive(!mapActive)
-          }
+          className="sm:hidden bg-white w-full lg:hidden text-black hover:border-background hover:bg-blue-600 hover:text-white shadow-lg gap-3 hover: rounded-md"
         >
-          {mapActive !== undefined ? (
-            <>
-              <MapPin size={15} /> Map Search
-            </>
-          ) : (
-            <Link
-              href="/property-for-sale"
-              className="flex justify-center items-center gap-3"
-            >
-              <MapPin size={15} /> Map Search
-            </Link>
-          )}
+          <Link
+            href="/property-for-sale"
+            className="flex justify-center items-center gap-3"
+          >
+            <MapPin size={15} /> Map Search
+          </Link>
         </Button>
         <Button
           size={"sm"}
