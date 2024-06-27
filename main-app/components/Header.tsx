@@ -18,7 +18,7 @@ export const Header = () => {
           <Image src={Logo} alt="HaciendaX Logo" width={40} height={40} />
         </Link>
 
-        <div className="flex justify-center items-center gap-8 w-full lg:w-auto">
+        <div className="flex justify-center items-center gap-8 lg:w-auto">
           {/* NavLinks for larger screens */}
           <div className="hidden md:flex w-full justify-center">
             {/* <NavLinks /> */}
