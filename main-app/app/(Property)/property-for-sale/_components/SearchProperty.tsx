@@ -16,7 +16,7 @@ export default function SearchProperty() {
   const searchParams = useSearchParams();
 
   // Hanldes all data fetching states, calls the Fetching Handler
-  const { data, error, isLoading } = useSWR<GenericPropertyResponse>(
+  const { data, isLoading } = useSWR<GenericPropertyResponse>(
     "/api/properties",
     fetcher
   );
@@ -65,7 +65,7 @@ export default function SearchProperty() {
         )}
         {!isLoading && data && (
           <>
-            <div className="pt-14 lg:pt-4 flex justify-start items-center gap-5 flex-col w-full p-4 overflow-y-auto max-h-screen scroll-smooth">
+            <div className="pt-14 lg:pt-4 flex justify-start items-center gap-10 flex-col w-full p-4 overflow-y-auto max-h-screen scroll-smooth">
               <SearchBar classname="" />
 
               <div className="h-screen grid grid-cols-1 w-full sm:gap-10 md:grid-cols-2 md:gap-5 lg:grid-cols-2 lg:gap-5">
@@ -77,8 +77,8 @@ export default function SearchProperty() {
               {data && (
                 <MapComp
                   height={"55vw"}
-                  properties={data.results}
-                  focusedProperty={data.results[0]}
+                  properties={filterProperties(data.results)}
+                  focusedProperty={filterProperties(data.results)[0]}
                 />
               )}
             </div>

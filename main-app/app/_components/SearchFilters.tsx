@@ -110,17 +110,15 @@ export default function SearchFilters() {
           <div className="w-full flex space-x-3">
             <Button
               type="button"
-              size={"sm"}
               onClick={() => router.push(`/property-for-sale`)} // TODO: Hard reset on
               variant={"outline"}
-              className="hover:bg-black hover:text-white"
+              className="hover:bg-red-500 hover:text-white"
             >
               Reset
             </Button>
             <Button
               type="submit"
-              size={"sm"}
-              className="bg-[#05080b]  w-full  hover:border-[#05080b] hover:border hover:text-black shadow-md"
+              className="bg-accent hover:bg-blue-500 hover:text-white w-full shadow-md"
             >
               Apply filter
             </Button>
