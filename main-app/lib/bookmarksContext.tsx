@@ -95,7 +95,7 @@ export function SavePropertyBTN({
         background: saved ? "#f472b6" : undefined,
         color: saved ? " #ffffff" : "#f472b6",
       }}
-      className={"rounded-full border border-pink-300 p-1 bg-gray-500"}
+      className={"rounded-full border border-pink-400 p-1 bg-gray-300"}
       onClick={() => savePropertyToBookmarks(property)}
     >
       <Bookmark size={size || 18} className="" />
