@@ -107,21 +107,6 @@ export function HomePageSearchBar() {
       className={cn("w-full flex justify-center items-center flex-col gap-2")}
     >
       <div className="flex justify-center w-full items-center gap-3 flex-col sm:flex-row">
-        <Link
-          href={"/property-for-sale"}
-          className={buttonVariants({
-            size: "lg",
-            variant: "default",
-            className:
-              "bg-white w-full shadow-lg hover:border-background hover:bg-gray-100 hover:border rounded-md",
-          })}
-        >
-          <div className="text-black w-full flex justify-center items-center gap-3">
-            <SlidersHorizontal size={15} className="" />
-            <p className="text-text ">Filter</p>
-          </div>
-        </Link>
-
         <Button
           size={"lg"}
           className="bg-white w-full  text-black hover:border-background hover:bg-accent hover:text-white shadow-lg gap-3 hover: rounded-md"
@@ -143,7 +128,7 @@ export function HomePageSearchBar() {
             className="w-full h-full flex justify-center items-center gap-3"
           >
             <Search size={15} />
-            <p className="text-text ">Search</p>
+            <p className="text-text ">Find properties</p>
           </Link>
         </Button>
       </div>
