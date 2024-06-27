@@ -22,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <Suspense fallback={<Loader />}>
-      <div style={{ background: "var(--black)", overflow: "hidden" }}>
+      <div style={{ background: "bg-white", overflow: "hidden" }}>
         <Header />
         {children}
         <Toaster />

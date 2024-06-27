@@ -3,7 +3,7 @@ import Link from "next/link";
 import { SignUpButton, UserButton } from "@clerk/nextjs";
 import { auth } from "@clerk/nextjs/server";
 import { Sheet, SheetTrigger, SheetContent } from "./ui/sheet";
-import { MenuIcon } from "lucide-react";
+import { Bookmark, HeartIcon, MenuIcon } from "lucide-react";
 import Image from "next/image";
 import Logo from "@/public/HaciendaLogo.jpeg";
 
@@ -26,11 +26,6 @@ export const Header = () => {
               <Link href="/property-for-sale">
                 <p className="text-base text-black hover:text-gray-700 transition">
                   Search
-                </p>
-              </Link>
-              <Link href="/favourites">
-                <p className="text-base text-black hover:text-gray-700 transition">
-                  Favourites
                 </p>
               </Link>
               <Link href="/pricing">
@@ -64,6 +59,12 @@ export const Header = () => {
             ) : (
               <UserButton />
             )}
+            <Link href="/bookmarks">
+              <Bookmark
+                className="p-2 border rounded-full text-pink-500 hover:bg-pink-500 hover:text-white"
+                size={35}
+              />
+            </Link>
           </div>
 
           {/* NavSlider for smaller screens */}
@@ -75,38 +76,6 @@ export const Header = () => {
     </nav>
   );
 };
-
-function NavLinks() {
-  return (
-    <div className="flex justify-center gap-8 items-center">
-      <Link href="/property-for-sale">
-        <p className="text-base text-black hover:text-gray-700 transition">
-          Search
-        </p>
-      </Link>
-      <Link href="/favourites">
-        <p className="text-base text-black hover:text-gray-700 transition">
-          Favourites
-        </p>
-      </Link>
-      <Link href="/dashboard">
-        <p className="text-base text-blue-500 hover:text-blue-700 transition">
-          Sell your Property
-        </p>
-      </Link>
-      <Link href="/pricing">
-        <p className="text-base text-black hover:text-gray-700 transition">
-          Pricing
-        </p>
-      </Link>
-      <Link href="/contact">
-        <p className="text-base text-black hover:text-gray-700 transition">
-          Contact & Support
-        </p>
-      </Link>
-    </div>
-  );
-}
 
 function NavSlider() {
   "use client";
@@ -120,8 +89,8 @@ function NavSlider() {
         <Link href="/property-for-sale">
           <p className="text-xl">Search</p>
         </Link>
-        <Link href="/favourites">
-          <p className="text-xl">Favourites</p>
+        <Link href="/bookmarks">
+          <p className="text-xl">Favorites</p>
         </Link>
         <Link href="/dashboard">
           <p className="text-xl text-blue-500">Sell your Property</p>

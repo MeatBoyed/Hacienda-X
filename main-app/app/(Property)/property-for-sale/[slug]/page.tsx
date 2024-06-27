@@ -12,7 +12,6 @@ import {
 import { PuffLoader } from "react-spinners";
 import PropertyDetails from "./_components/PropertyDetails";
 import BottomNavbar from "./_components/BottomNavbar";
-import TopNavbar from "./_components/TopNavbar";
 import LeadForm from "./_components/LeadForm";
 import LocationSection from "./_components/LocationSection";
 import { Card, CardContent } from "@/components/ui/card";
@@ -24,6 +23,10 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import Loader from "@/components/ui/loader";
+import { Button } from "@/components/ui/button";
+import { SavePropertyBTN } from "@/lib/bookmarksContext";
+import { property } from "lodash";
+import { ChevronLeft, Share } from "lucide-react";
 
 // Define the type for the property images
 interface PropertyCarouselProps {
@@ -58,7 +61,27 @@ export default function PropertyPage() {
       )}
       {data && !error && (
         <>
-          <TopNavbar />
+          <div className="flex justify-between items-center z-50 border-t bg-background py-4 px-4 w-full fixed top-0 sm:hidden">
+            <Button className="text-text bg-transparent gap-1 p-0 ">
+              <ChevronLeft size={15} /> Back
+            </Button>
+
+            <div className="flex justify-center items-center">
+              <Button size="icon" className="text-text p-0">
+                <Share size={15} />
+              </Button>
+              <SavePropertyBTN property={data} />
+            </div>
+          </div>
+
+          <div className="pt-8 px-2 gap-3 w-full flex justify-start items-center">
+            <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
+              {data.title}
+            </h3>
+            <div className="hidden sm:block">
+              <SavePropertyBTN property={data} />
+            </div>
+          </div>
           <PropertyCarousel images={data.images} />
           <div className="w-full flex justify-center items-start flex-wrap md:flex-nowrap gap-10 lg:gap-20 pt-5 px-4 sm:max-w-3xl lg:max-w-5xl">
             <PropertyDetails property={data} />

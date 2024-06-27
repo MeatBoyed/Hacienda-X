@@ -20,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div style={{ background: "var(--black)", overflow: "hidden" }}>
+    <div style={{ background: "bg-white", overflow: "hidden" }}>
       <Suspense fallback={<Loader />}>
         <Header />
         {children}
