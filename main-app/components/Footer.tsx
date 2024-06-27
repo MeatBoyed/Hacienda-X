@@ -218,7 +218,7 @@ export default function Footer() {
 
               <li>
                 <a
-                  href="/pricingplan"
+                  href="/pricing"
                   className="text-black font-medium transition-all duration-300 hover:text-lg dark:text-gray-200"
                 >
                   Pricing

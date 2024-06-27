@@ -13,7 +13,7 @@ export default function CallToAction() {
             Click now to get started
           </span>
           <button className="button">
-            <a href="./pricingplan">Get Started</a>
+            <a href="./pricing">Get Started</a>
           </button>
         </div>
       </div>

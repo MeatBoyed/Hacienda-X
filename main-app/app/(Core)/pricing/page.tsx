@@ -1,7 +1,7 @@
 // pricingplan.tsx
 "use client";
 import React, { ReactNode } from "react";
-import "./pricingplan.css";
+import "./pricing.css";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 

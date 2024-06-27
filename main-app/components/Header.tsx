@@ -33,7 +33,7 @@ export const Header = () => {
                   Favourites
                 </p>
               </Link>
-              <Link href="/pricingplan">
+              <Link href="/pricing">
                 <p className="text-base text-black hover:text-gray-700 transition">
                   Pricing
                 </p>
@@ -94,7 +94,7 @@ function NavLinks() {
           Sell your Property
         </p>
       </Link>
-      <Link href="/pricingplan">
+      <Link href="/pricing">
         <p className="text-base text-black hover:text-gray-700 transition">
           Pricing
         </p>
