@@ -40,28 +40,11 @@ app.get("/", async (c) => {
 app.get("/:slug", async (c) => {
   const slug = c.req.param("slug");
 
-  let property: PropertyWithAddress;
-  try {
-    // Database query (obvs)
-    property = await db.property.findFirstOrThrow({
-      where: { title: slug, visibility: { not: "Deleted" } }, // Property needs a Slug field in DB
-      include: { Address: true },
-    });
-  } catch (error: any) {
-    console.log("Error: ", error as Error);
-    throw new HTTPException(500, { message: "An unexpected error occured" });
-  }
-  // Let the Client (Front-End) decide what to do with a 404
-  if (!property) {
-    return c.json({ results: undefined, notFound: true }, { status: 200 });
-  }
-
-  // Response object
   return c.json(
-    { results: property, notFound: false },
-    {
-      status: 200,
-    }
+    await db.property.findFirstOrThrow({
+      where: { title: slug, visibility: { not: "Deleted" } }, // Property needs a Slug field in DB
+      include: { Address: true, agent: true },
+    })
   );
 });
 
