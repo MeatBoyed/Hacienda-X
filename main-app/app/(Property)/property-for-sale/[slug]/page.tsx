@@ -8,7 +8,7 @@ import { PropertyWithAddressAndAgent } from "@/app/api/(utils)/utils";
 import Loader from "@/components/ui/loader";
 import { Button } from "@/components/ui/button";
 import { SavePropertyBTN } from "@/lib/bookmarksContext";
-import { ChevronLeft, Share } from "lucide-react";
+import { ChevronLeft, Share, X, ArrowLeft, ArrowRight } from "lucide-react";
 import PropertyDetails from "./_components/PropertyDetails";
 import BottomNavbar from "./_components/BottomNavbar";
 import LeadForm from "./_components/LeadForm";
@@ -52,12 +52,15 @@ const ImageModal = ({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">
       <div className="relative max-w-3xl w-full">
-        <button className="absolute top-4 right-4 text-white" onClick={onClose}>
-          X
+        <button
+          className="absolute top-4 right-4 text-red-500"
+          onClick={onClose}
+        >
+          <X size={24} />
         </button>
         <div className="flex items-center justify-between w-full">
           <button onClick={handlePrevious} className="text-white">
-            Previous
+            <ArrowLeft size={24} />
           </button>
           <img
             src={images[currentImageIndex]}
@@ -65,7 +68,7 @@ const ImageModal = ({
             className="object-cover rounded"
           />
           <button onClick={handleNext} className="text-white">
-            Next
+            <ArrowRight size={24} />
           </button>
         </div>
       </div>
@@ -180,12 +183,15 @@ function PropertyCarousel({ images }: PropertyCarouselProps) {
             key={index}
             src={image}
             alt={`Thumbnail ${index + 1}`}
-            className="w-16 h-16 object-cover rounded cursor-pointer"
+            className="w-20 h-20 object-cover rounded cursor-pointer"
             onClick={() => handleThumbnailClick(index)}
           />
         ))}
         {images.length > 3 && (
-          <div className="w-16 h-16 flex items-center justify-center bg-gray-300 rounded">
+          <div
+            className="w-20 h-20 flex items-center justify-center bg-gray-300 rounded cursor-pointer"
+            onClick={() => handleThumbnailClick(3)}
+          >
             <span className="text-sm">+{images.length - 3}</span>
           </div>
         )}
