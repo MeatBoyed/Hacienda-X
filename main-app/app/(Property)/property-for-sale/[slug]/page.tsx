@@ -65,11 +65,13 @@ const ImageModal = ({
           >
             <ArrowLeft size={24} />
           </button>
-          <img
-            src={images[currentImageIndex]}
-            alt={`Property image ${currentImageIndex + 1}`}
-            className="max-w-full max-h-[80vh] object-contain rounded"
-          />
+          <div className="flex justify-center items-center max-w-full">
+            <img
+              src={images[currentImageIndex]}
+              alt={`Property image ${currentImageIndex + 1}`}
+              className="max-w-full max-h-[80vh] object-contain rounded"
+            />
+          </div>
           <button
             onClick={handleNext}
             className="p-2 bg-white text-blue-600 rounded-full"
