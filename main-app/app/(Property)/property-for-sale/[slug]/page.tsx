@@ -1,33 +1,5 @@
 "use client";
 
-import React from "react";
-import { useParams } from "next/navigation";
-import { fetcher } from "@/lib/utils";
-import useSWR from "swr";
-import {
-  PropertyWithAddress,
-  PropertyWithAddressAndAgent,
-  SelectPropertyResponse,
-} from "@/app/api/(utils)/utils";
-import { PuffLoader } from "react-spinners";
-import PropertyDetails from "./_components/PropertyDetails";
-import BottomNavbar from "./_components/BottomNavbar";
-import LeadForm from "./_components/LeadForm";
-import LocationSection from "./_components/LocationSection";
-import { Card, CardContent } from "@/components/ui/card";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
-import Loader from "@/components/ui/loader";
-import { Button } from "@/components/ui/button";
-import { SavePropertyBTN } from "@/lib/bookmarksContext";
-import { property } from "lodash";
-import { ChevronLeft, Share } from "lucide-react";
-
 import React, { useState } from "react";
 import { useParams } from "next/navigation";
 import { fetcher } from "@/lib/utils";
