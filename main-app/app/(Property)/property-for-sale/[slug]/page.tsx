@@ -50,24 +50,30 @@ const ImageModal = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">
-      <div className="relative max-w-3xl w-full">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75 p-4">
+      <div className="relative w-full max-w-3xl">
         <button
-          className="absolute top-4 right-4 text-red-500"
+          className="absolute top-4 right-4 p-2 bg-red-600 text-white rounded"
           onClick={onClose}
         >
           <X size={24} />
         </button>
         <div className="flex items-center justify-between w-full">
-          <button onClick={handlePrevious} className="text-white">
+          <button
+            onClick={handlePrevious}
+            className="p-2 bg-white text-blue-600 rounded-full"
+          >
             <ArrowLeft size={24} />
           </button>
           <img
             src={images[currentImageIndex]}
             alt={`Property image ${currentImageIndex + 1}`}
-            className="object-cover rounded"
+            className="max-w-full max-h-[80vh] object-contain rounded"
           />
-          <button onClick={handleNext} className="text-white">
+          <button
+            onClick={handleNext}
+            className="p-2 bg-white text-blue-600 rounded-full"
+          >
             <ArrowRight size={24} />
           </button>
         </div>
