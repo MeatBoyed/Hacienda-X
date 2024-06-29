@@ -22,10 +22,12 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
+// Define the type for the property images
 interface PropertyCarouselProps {
   images: string[];
 }
 
+// Modal component to show full view of images
 const ImageModal = ({
   images,
   currentIndex,
@@ -82,6 +84,7 @@ const ImageModal = ({
   );
 };
 
+// Handler for the API request (Server Side)
 export default function PropertyPage() {
   const params = useParams();
   const slug = decodeURIComponent(
@@ -160,13 +163,13 @@ function PropertyCarousel({ images }: PropertyCarouselProps) {
 
   return (
     <>
-      <Carousel className="w-full max-w-5xl">
-        <CarouselContent className="aspect-w-16 aspect-h-9">
+      <Carousel className="w-full max-w-2xl">
+        <CarouselContent>
           {images.map((image: string, index: number) => (
-            <CarouselItem key={index} className="aspect-w-16 aspect-h-9">
+            <CarouselItem key={index}>
               <div className="p-1">
-                <Card className="aspect-w-16 aspect-h-9">
-                  <CardContent className="flex aspect-w-16 aspect-h-9 items-center justify-center p-0">
+                <Card className="aspect-w-16 aspect-h-7">
+                  <CardContent className="flex aspect-square items-center justify-center p-0">
                     <img
                       src={image}
                       alt={`Property image ${index + 1}`}
