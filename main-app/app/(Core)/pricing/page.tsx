@@ -93,30 +93,30 @@ const Pricing = () => {
               <tr>
                 <th></th>
                 <th scope="col">
-                  <h2 className="px-2 text-lg font-medium">Starter</h2>
+                  <h2 className="px-2 text-lg font-medium">Basic</h2>
                   <p className="mb-3">
                     <span className="text-2xl font-bold sm:text-4xl dark:text-gray-900">
-                      0€
+                      $29
                     </span>
                     <span className="font-medium dark:text-gray-600">/mo</span>
                   </p>
                 </th>
                 <th scope="col">
-                  <h2 className="px-2 text-lg font-medium">Standard</h2>
+                  <h2 className="px-2 text-lg font-medium">Pro</h2>
                   <p className="mb-3">
                     <span className="text-2xl font-bold sm:text-4xl dark:text-gray-900">
-                      19€
+                      $99
                     </span>
                     <span className="font-medium dark:text-gray-600">/mo</span>
                   </p>
                 </th>
                 <th scope="col">
-                  <h2 className="px-2 text-lg font-medium">Premium</h2>
+                  <h2 className="px-2 text-lg font-medium">Enterprise</h2>
                   <p className="mb-3">
                     <span className="text-2xl font-bold sm:text-4xl dark:text-gray-900">
-                      49€
+                      $499
                     </span>
-                    <span className="font-medium dark:text-gray-600">/mo</span>
+                    <span className="font-medium dark:text-gray-600">/yr</span>
                   </p>
                 </th>
               </tr>
@@ -124,7 +124,7 @@ const Pricing = () => {
             <tbody className="space-y-6 text-center divide-y dark:divide-gray-300">
               <tr>
                 <th scope="row" className="text-left">
-                  <h3 className="py-3">Euismod</h3>
+                  <h3 className="py-3">Property Listings</h3>
                 </th>
                 <td>
                   <span className="block text-sm">1</span>
@@ -133,89 +133,69 @@ const Pricing = () => {
                   <span className="block text-sm">10</span>
                 </td>
                 <td>
-                  <span className="block text-sm">100</span>
+                  <span className="block text-sm">Unlimited</span>
                 </td>
               </tr>
               <tr>
                 <th scope="row" className="text-left">
-                  <h3 className="py-3">Principes et</h3>
+                  <h3 className="py-3">Exposure</h3>
                 </th>
                 <td>
-                  <span className="block text-sm">0,5 GB</span>
+                  <span className="block text-sm">Standard</span>
                 </td>
                 <td>
-                  <span className="block text-sm">5 GB</span>
+                  <span className="block text-sm">Enhanced</span>
                 </td>
                 <td>
-                  <span className="block text-sm">500 GB</span>
+                  <span className="block text-sm">Maximum</span>
                 </td>
               </tr>
               <tr>
                 <th scope="row" className="text-left">
-                  <h3 className="py-3">Et mel porro</h3>
+                  <h3 className="py-3">Support</h3>
                 </th>
                 <td>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    aria-label="Included in Free plan"
-                    className="w-5 h-5 mx-auto dark:text-violet-600"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                      clip-rule="evenodd"
-                    ></path>
-                  </svg>
+                  <span className="block text-sm">Email Support</span>
                 </td>
                 <td>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    aria-label="Included in Standard plan"
-                    className="w-5 h-5 mx-auto dark:text-violet-600"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                      clip-rule="evenodd"
-                    ></path>
-                  </svg>
+                  <span className="block text-sm">Priority Email Support</span>
                 </td>
                 <td>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    aria-label="Included in Premium plan"
-                    className="w-5 h-5 mx-auto dark:text-violet-600"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                      clip-rule="evenodd"
-                    ></path>
-                  </svg>
+                  <span className="block text-sm">
+                    Dedicated Account Manager
+                  </span>
                 </td>
               </tr>
               <tr>
                 <th scope="row" className="text-left">
-                  <h3 className="py-3">Veniam suscipiantur</h3>
+                  <h3 className="py-3">Analytics Report</h3>
+                </th>
+                <td>
+                  <span className="block text-sm">Monthly</span>
+                </td>
+                <td>
+                  <span className="block text-sm">Weekly</span>
+                </td>
+                <td>
+                  <span className="block text-sm">Daily</span>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row" className="text-left">
+                  <h3 className="py-3">Featured Listings</h3>
                 </th>
                 <td>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 20 20"
                     fill="currentColor"
-                    aria-label="Not included in Free plan"
+                    aria-label="Not included in Basic plan"
                     className="w-5 h-5 mx-auto dark:text-gray-400"
                   >
                     <path
-                      fill-rule="evenodd"
+                      fillRule="evenodd"
                       d="M3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                      clip-rule="evenodd"
+                      clipRule="evenodd"
                     ></path>
                   </svg>
                 </td>
@@ -224,13 +204,13 @@ const Pricing = () => {
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 20 20"
                     fill="currentColor"
-                    aria-label="Included in Standard plan"
+                    aria-label="Included in Pro plan"
                     className="w-5 h-5 mx-auto dark:text-violet-600"
                   >
                     <path
-                      fill-rule="evenodd"
+                      fillRule="evenodd"
                       d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                      clip-rule="evenodd"
+                      clipRule="evenodd"
                     ></path>
                   </svg>
                 </td>
@@ -239,33 +219,33 @@ const Pricing = () => {
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 20 20"
                     fill="currentColor"
-                    aria-label="Included in Premium plan"
+                    aria-label="Included in Enterprise plan"
                     className="w-5 h-5 mx-auto dark:text-violet-600"
                   >
                     <path
-                      fill-rule="evenodd"
+                      fillRule="evenodd"
                       d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                      clip-rule="evenodd"
+                      clipRule="evenodd"
                     ></path>
                   </svg>
                 </td>
               </tr>
               <tr>
                 <th scope="row" className="text-left">
-                  <h3 className="py-3">Ornatus tacimates</h3>
+                  <h3 className="py-3">Custom Branding Options</h3>
                 </th>
                 <td>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 20 20"
                     fill="currentColor"
-                    aria-label="Not included in Free plan"
+                    aria-label="Not included in Basic plan"
                     className="w-5 h-5 mx-auto dark:text-gray-400"
                   >
                     <path
-                      fill-rule="evenodd"
+                      fillRule="evenodd"
                       d="M3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                      clip-rule="evenodd"
+                      clipRule="evenodd"
                     ></path>
                   </svg>
                 </td>
@@ -274,13 +254,13 @@ const Pricing = () => {
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 20 20"
                     fill="currentColor"
-                    aria-label="Not included in Standard plan"
+                    aria-label="Not included in Pro plan"
                     className="w-5 h-5 mx-auto dark:text-gray-400"
                   >
                     <path
-                      fill-rule="evenodd"
+                      fillRule="evenodd"
                       d="M3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                      clip-rule="evenodd"
+                      clipRule="evenodd"
                     ></path>
                   </svg>
                 </td>
@@ -289,63 +269,13 @@ const Pricing = () => {
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 20 20"
                     fill="currentColor"
-                    aria-label="Included in Premium plan"
+                    aria-label="Included in Enterprise plan"
                     className="w-5 h-5 mx-auto dark:text-violet-600"
                   >
                     <path
-                      fill-rule="evenodd"
+                      fillRule="evenodd"
                       d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                      clip-rule="evenodd"
-                    ></path>
-                  </svg>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row" className="text-left">
-                  <h3 className="py-3">Aliquam fastidii in mei</h3>
-                </th>
-                <td>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    aria-label="Not included in Free plan"
-                    className="w-5 h-5 mx-auto dark:text-gray-400"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                      clip-rule="evenodd"
-                    ></path>
-                  </svg>
-                </td>
-                <td>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    aria-label="Not included in Standard plan"
-                    className="w-5 h-5 mx-auto dark:text-gray-400"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                      clip-rule="evenodd"
-                    ></path>
-                  </svg>
-                </td>
-                <td>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    aria-label="Included in Premium plan"
-                    className="w-5 h-5 mx-auto dark:text-violet-600"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                      clip-rule="evenodd"
+                      clipRule="evenodd"
                     ></path>
                   </svg>
                 </td>
@@ -367,8 +297,8 @@ const Pricing = () => {
                   Any Questions? Look Here
                 </h2>
                 <p className="text-base text-body-color dark:text-dark-6">
-                  There are many variations of passages of Lorem Ipsum available
-                  but the majority have suffered alteration in some form.
+                  We, Hacienda, are more than welcome to answer any questions
+                  you may have!
                 </p>
               </div>
             </div>
@@ -377,30 +307,31 @@ const Pricing = () => {
           <div className="-mx-4 flex flex-wrap">
             <div className="w-full px-4 lg:w-1/2">
               <AccordionItem
-                header="How long we deliver your first blog post?"
-                text="It takes 2-3 weeks to get your first blog post ready. That includes the in-depth research & creation of your monthly content marketing strategy that we do before writing your first blog post, Ipsum available ."
+                header="What is the process for buying a property?"
+                text="Answer: The process for buying a property typically involves getting pre-approved for a mortgage, working with a real estate agent to find a suitable property, making an offer, conducting a home inspection, securing financing, and finally, closing the deal. Each step has its own set of details and requirements, so it's important to work closely with professionals throughout the process."
               />
               <AccordionItem
-                header="How long we deliver your first blog post?"
-                text="It takes 2-3 weeks to get your first blog post ready. That includes the in-depth research & creation of your monthly content marketing strategy that we do before writing your first blog post, Ipsum available ."
+                header="How do I get my property listed on your website?"
+                text="Answer: To list your property on our website, you need to contact us and we will guide you through the process. This includes providing details about your property, setting a competitive price, and creating a compelling listing. Our team will handle all the technical aspects and marketing to ensure your property reaches potential buyers."
               />
               <AccordionItem
-                header="How long we deliver your first blog post?"
-                text="It takes 2-3 weeks to get your first blog post ready. That includes the in-depth research & creation of your monthly content marketing strategy that we do before writing your first blog post, Ipsum available ."
+                header="What should I consider when choosing a neighborhood?"
+                text="Answer: When choosing a neighborhood, consider factors such as proximity to work or school, safety, amenities like parks and shopping centers, public transportation, and the overall vibe of the community. Researching school districts, local crime rates, and future development plans can also provide valuable insights into the suitability of a neighborhood for your needs."
               />
             </div>
             <div className="w-full px-4 lg:w-1/2">
               <AccordionItem
-                header="How long we deliver your first blog post?"
-                text="It takes 2-3 weeks to get your first blog post ready. That includes the in-depth research & creation of your monthly content marketing strategy that we do before writing your first blog post, Ipsum available ."
+                header="How can I determine the value of my home?"
+                text="Answer: The value of your home can be determined through a professional appraisal, a comparative market analysis (CMA) conducted by a real estate agent, or online valuation tools. These methods take into account factors like the condition of your home, recent sales of similar properties in your area, and current market trends."
               />
               <AccordionItem
-                header="How long we deliver your first blog post?"
-                text="It takes 2-3 weeks to get your first blog post ready. That includes the in-depth research & creation of your monthly content marketing strategy that we do before writing your first blog post, Ipsum available ."
+                header="What are the costs associated with buying a home?"
+                text="Answer: The costs associated with buying a home include the down payment, closing costs (which can range from 2% to 5% of the purchase price), home inspection fees, appraisal fees, mortgage insurance (if applicable), and moving expenses. It's important to budget for these costs in addition to the purchase price of the home.
+"
               />
               <AccordionItem
-                header="How long we deliver your first blog post?"
-                text="It takes 2-3 weeks to get your first blog post ready. That includes the in-depth research & creation of your monthly content marketing strategy that we do before writing your first blog post, Ipsum available ."
+                header="Can I buy a property if I have bad credit?"
+                text="Answer: Yes, it is possible to buy a property with bad credit, but it may be more challenging. Options include securing a loan through a specialized lender, making a larger down payment, finding a co-signer, or improving your credit score before applying for a mortgage. Consulting with a mortgage advisor can help you understand your options and find the best path forward."
               />
             </div>
           </div>
