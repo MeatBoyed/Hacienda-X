@@ -40,7 +40,7 @@ export const Header = () => {
                   </p>
                 </Link>
               )}
-              <Link href="/ContactForum">
+              <Link href="/contactus">
                 <p className="text-base text-black hover:text-gray-700 transition">
                   Contact & Support
                 </p>
