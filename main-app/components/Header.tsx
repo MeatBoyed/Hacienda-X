@@ -98,7 +98,7 @@ function NavSlider() {
         <Link href="/pricing">
           <p className="text-xl">Pricing</p>
         </Link>
-        <Link href="/contact">
+        <Link href="/contactus">
           <p className="text-xl">Contact & Support</p>
         </Link>
       </SheetContent>

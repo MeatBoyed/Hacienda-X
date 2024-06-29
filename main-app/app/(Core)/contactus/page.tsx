@@ -1,6 +1,6 @@
 import React from "react";
 
-const ContactFormPage = () => {
+const Contactus = () => {
   return (
     <div>
       <div className="bg-gray-100 py-12">
@@ -271,4 +271,4 @@ const ContactFormPage = () => {
   );
 };
 
-export default ContactFormPage;
+export default Contactus;
