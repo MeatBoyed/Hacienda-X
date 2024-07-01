@@ -5,7 +5,7 @@ import { auth } from "@clerk/nextjs/server";
 import { Sheet, SheetTrigger, SheetContent } from "./ui/sheet";
 import { Bookmark, HeartIcon, MenuIcon } from "lucide-react";
 import Image from "next/image";
-import Logo from "@/public/HaciendaLogo.jpeg";
+import Logo from "@/public/newlogo.png";
 
 export const Header = () => {
   const { userId } = auth();
@@ -40,7 +40,7 @@ export const Header = () => {
                   </p>
                 </Link>
               )}
-              <Link href="/contact">
+              <Link href="/contactus">
                 <p className="text-base text-black hover:text-gray-700 transition">
                   Contact & Support
                 </p>
@@ -98,7 +98,7 @@ function NavSlider() {
         <Link href="/pricing">
           <p className="text-xl">Pricing</p>
         </Link>
-        <Link href="/contact">
+        <Link href="/contactus">
           <p className="text-xl">Contact & Support</p>
         </Link>
       </SheetContent>
