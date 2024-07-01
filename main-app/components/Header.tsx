@@ -5,7 +5,7 @@ import { auth } from "@clerk/nextjs/server";
 import { Sheet, SheetTrigger, SheetContent } from "./ui/sheet";
 import { Bookmark, HeartIcon, MenuIcon } from "lucide-react";
 import Image from "next/image";
-import Logo from "@/public/HaciendaLogo.jpeg";
+import Logo from "@/public/newlogo.png";
 
 export const Header = () => {
   const { userId } = auth();
