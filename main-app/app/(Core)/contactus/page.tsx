@@ -154,7 +154,8 @@ const Contactus = () => {
             </h1>
             <p className="mx-auto text-base leading-relaxed lg:w-2/3">
               Feel free to reach out to us! Whether you have a question,
-              feedback, or a collaboration proposal, we'd love to hear from you.
+              feedback, or a collaboration proposal, we&apos;d love to hear from
+              you.
             </p>
           </div>
           <div className="mx-auto md:w-2/3 lg:w-1/2">
