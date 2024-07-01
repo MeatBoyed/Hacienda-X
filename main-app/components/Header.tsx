@@ -53,6 +53,7 @@ export const Header = () => {
             {!userId ? (
               <SignUpButton mode="modal" forceRedirectUrl={"/onboarding"}>
                 <p className="text-base text-white bg-blue-500 hover:bg-blue-700 transition px-4 py-2 rounded min-w-[100px] text-center cursor-pointer">
+                  {/* TODO: Should be Get Started and go to /pricing  */}
                   Sign Up
                 </p>
               </SignUpButton>
