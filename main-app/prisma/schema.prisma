@@ -12,7 +12,10 @@ model User {
   public_id String @unique // Clerk's provided Public Id
 
   // Core Data
-  email String?
+  firstName String // Agent Details
+  lastName  String // Agent Details
+  email     String @unique //Agent Details
+  company   String? // Optional field
   role  Role    @default(viewer) // Default User is a normal Viewer
 
   // Relations
@@ -21,7 +24,7 @@ model User {
   nvoices    Invoice[]
   leads      Lead[]
   properties Property[]
-  // Subscriptions Subscription[]
+  subscriptions Subscription[]
 
   // Meta
   createdAt DateTime @default(now())
@@ -37,7 +40,10 @@ model Subscription {
   end_date        DateTime
   plan_type       String
   payment_status  String
+  //Relation to user model
+  user            User     @relation(fields: [user_id], references: [public_id])
 }
+
 
 model Property {
   property_id String @id @default(cuid()) // form
