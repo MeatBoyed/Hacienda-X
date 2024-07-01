@@ -7,6 +7,7 @@ import { MdPool } from "react-icons/md";
 import { Card, CardContent } from "./ui/card";
 import { cn } from "@/lib/utils";
 import { SavePropertyBTN } from "@/lib/bookmarksContext";
+import { Skeleton } from "./ui/skeleton";
 
 export function PropertyCard({
   property,
@@ -78,6 +79,21 @@ export function PropertyCard({
         </Link>
         <p className="text-lg font-semibold">
           R {property.price.toLocaleString()}
+        </p>
+      </CardContent>
+    </Card>
+  );
+}
+
+export function PropertyCardSkeleton({ className }: { className?: string }) {
+  return (
+    <Card className="border-0  md:min-w-fit min-w-max bg-transparent">
+      <Skeleton className="w-56 h-[128px] sm:h-[192px] md:h-[208px]  rounded-xl" />
+      <CardContent className="px-1 flex flex-col gap-3 pt-4">
+        <Skeleton className="w-full h-5" />
+
+        <p className="line-clamp-1 text-sm font-medium leading-none">
+          <Skeleton className="w-full h-5" />
         </p>
       </CardContent>
     </Card>
