@@ -2,7 +2,7 @@
 import {
   GenericPropertyResponse,
   PropertyWithAddress,
-} from "@/app/api/(utils)/utils";
+} from "@/Server/utils/utils";
 import { MapComp } from "@/components/Map";
 import { PropertyCard } from "@/components/PropertyCard";
 import { SearchBar } from "@/components/SearchBar";

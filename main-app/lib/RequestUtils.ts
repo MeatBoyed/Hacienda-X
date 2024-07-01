@@ -4,7 +4,7 @@ import {
   PropertySchema,
   propertyToFormData,
 } from "./FormUtils";
-import { PropertyWithAddress } from "@/app/api/(utils)/utils";
+import { PropertyWithAddress } from "@/Server/utils/utils";
 import { Property } from "@prisma/client";
 import { LeadFormSchema } from "@/app/(Property)/property-for-sale/[slug]/_components/LeadForm";
 

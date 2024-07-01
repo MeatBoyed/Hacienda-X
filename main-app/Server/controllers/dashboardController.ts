@@ -1,6 +1,6 @@
 import { Context, Hono } from "hono";
-import { AWS_S3_BASE_URL } from "../(utils)/utils";
-import db from "../(utils)/db";
+import { AWS_S3_BASE_URL } from "../utils/utils";
+import db from "../utils/db";
 import { clerkMiddleware, getAuth } from "@hono/clerk-auth";
 import { HTTPException } from "hono/http-exception";
 import { validator } from "hono/validator";

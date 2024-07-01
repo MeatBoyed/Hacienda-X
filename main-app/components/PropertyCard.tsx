@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Bath, BedDouble, Bookmark, Ruler } from "lucide-react";
-import { PropertyWithAddress } from "@/app/api/(utils)/utils";
+import { PropertyWithAddress } from "@/Server/utils/utils";
 import { MdPool } from "react-icons/md";
 import { Card, CardContent } from "./ui/card";
 import { cn } from "@/lib/utils";

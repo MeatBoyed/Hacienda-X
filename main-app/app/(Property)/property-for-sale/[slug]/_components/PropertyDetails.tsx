@@ -12,7 +12,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   PropertyWithAddress,
   PropertyWithAddressAndAgent,
-} from "@/app/api/(utils)/utils";
+} from "@/Server/utils/utils";
 
 export default function PropertyDetails({
   property,

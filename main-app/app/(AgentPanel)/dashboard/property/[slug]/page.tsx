@@ -6,7 +6,7 @@ import PropertyForm from "../_components/PropertyForm";
 import {
   PropertyWithAddress,
   SelectPropertyResponse,
-} from "@/app/api/(utils)/utils";
+} from "@/Server/utils/utils";
 import { PuffLoader } from "react-spinners";
 import { SignIn, useUser } from "@clerk/nextjs";
 import Link from "next/link";

@@ -1,5 +1,5 @@
 import { Hono } from "hono";
-import db from "../(utils)/db";
+import db from "../utils/db";
 import { Lead, Property } from "@prisma/client";
 import { HTTPException } from "hono/http-exception";
 import { parseFormData } from "@/lib/FormUtils";

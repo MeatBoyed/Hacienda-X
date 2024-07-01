@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { useParams } from "next/navigation";
 import { fetcher } from "@/lib/utils";
 import useSWR from "swr";
-import { PropertyWithAddressAndAgent } from "@/app/api/(utils)/utils";
+import { PropertyWithAddressAndAgent } from "@/Server/utils/utils";
 import Loader from "@/components/ui/loader";
 import { Button } from "@/components/ui/button";
 import { SavePropertyBTN } from "@/lib/bookmarksContext";

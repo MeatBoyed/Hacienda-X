@@ -12,7 +12,7 @@ import Map, {
 import { useState, useMemo } from "react";
 import Link from "next/link";
 import { MapComp } from "@/components/Map";
-import { PropertyWithAddress } from "@/app/api/(utils)/utils";
+import { PropertyWithAddress } from "@/Server/utils/utils";
 
 export default function LocationSection({
   property,

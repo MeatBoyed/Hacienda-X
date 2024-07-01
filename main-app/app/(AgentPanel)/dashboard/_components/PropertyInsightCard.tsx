@@ -9,7 +9,7 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import { Eye, TrendingUp } from "lucide-react";
 import Image from "next/image";
 import PostHogClient from "@/components/Posthog";
-import { PropertyWithAddress } from "@/app/api/(utils)/utils";
+import { PropertyWithAddress } from "@/Server/utils/utils";
 import { Skeleton } from "@/components/ui/skeleton";
 import Link from "next/link";
 

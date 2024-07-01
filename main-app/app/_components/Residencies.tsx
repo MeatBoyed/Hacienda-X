@@ -8,7 +8,7 @@ import useSWR from "swr";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import PropertyCarousel from "@/components/PropertyCarousel";
-import { GenericPropertyResponse } from "@/app/api/(utils)/utils";
+import { GenericPropertyResponse } from "@/Server/utils/utils";
 import { PropertyCard } from "@/components/PropertyCard";
 
 // Handles calling Fetch API (This is an example, it has been extracted into the Utils file)

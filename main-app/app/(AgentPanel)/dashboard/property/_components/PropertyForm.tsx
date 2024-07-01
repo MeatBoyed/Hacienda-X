@@ -54,7 +54,7 @@ import {
   PostProperty,
   PostPropertyResponse,
 } from "@/lib/RequestUtils";
-import { PropertyWithAddress } from "@/app/api/(utils)/utils";
+import { PropertyWithAddress } from "@/Server/utils/utils";
 import { useRouter } from "next/navigation";
 import { useUser } from "@clerk/nextjs";
 import {
@@ -76,32 +76,7 @@ export default function PropertyForm({
   const { user } = useUser();
   const router = useRouter();
 
-  const defaultValues: z.infer<typeof PropertySchema> = {
-    property_id: initProperty ? initProperty.property_id : "",
-    title: initProperty ? initProperty.title : "",
-    price: initProperty ? initProperty.price : 0,
-    description: initProperty ? initProperty.description : "",
-    bathrooms: initProperty ? initProperty.bathrooms : 0,
-    bedrooms: initProperty ? initProperty.bedrooms : 0,
-    squareMeter:
-      initProperty && initProperty.squareMeter ? initProperty.squareMeter : 0,
-    pool: initProperty ? initProperty.pool : false,
-    images: initProperty ? initProperty.images : [],
-    extraFeatures: initProperty
-      ? initProperty.extraFeatures.map((feature, index) => ({
-          id: index.toString(),
-          text: feature,
-        }))
-      : [],
-    address:
-      initProperty && initProperty.Address ? initProperty.Address?.address : "",
-    lat:
-      initProperty && initProperty.Address ? initProperty.Address?.latitude : 0,
-    lng:
-      initProperty && initProperty.Address ? initProperty.Address.longitude : 0,
-    visibility: initProperty ? initProperty.visibility : "Public",
-    saleType: initProperty ? initProperty.saleType : "Sale",
-  };
+  const defaultValues = getDefaultVaules(initProperty);
   const form = useForm<z.infer<typeof PropertySchema>>({
     resolver: zodResolver(PropertySchema),
     defaultValues: defaultValues,
@@ -211,9 +186,7 @@ export default function PropertyForm({
     isMutating: isMutatingDelete,
     error: deleteError,
   } = useSWRMutation(
-    `/api/dashboard/property/delete/${
-      initProperty ? initProperty.property_id : ""
-    }`,
+    `/api/dashboard/property/delete/${initProperty?.property_id || ""}`,
     DeleteProperty /* options */,
     {
       onError: () => {
@@ -711,6 +684,26 @@ export default function PropertyForm({
   );
 }
 
-{
-  /*  */
+function getDefaultVaules(initProperty: PropertyWithAddress | undefined) {
+  return {
+    property_id: initProperty?.property_id || "",
+    title: initProperty?.title || "",
+    price: initProperty?.price || 0,
+    description: initProperty?.description || "",
+    bathrooms: initProperty?.bathrooms || 0,
+    bedrooms: initProperty?.bedrooms || 0,
+    squareMeter: initProperty?.squareMeter || 0,
+    pool: initProperty?.pool || false,
+    images: initProperty?.images || [],
+    extraFeatures:
+      initProperty?.extraFeatures.map((feature, index) => ({
+        id: index.toString(),
+        text: feature,
+      })) || [],
+    address: initProperty?.Address?.address || "",
+    lat: initProperty?.Address?.latitude || 0,
+    lng: initProperty?.Address?.longitude || 0,
+    visibility: initProperty?.visibility || "Public",
+    saleType: initProperty?.saleType || "Sale",
+  };
 }

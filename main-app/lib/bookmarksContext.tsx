@@ -1,5 +1,5 @@
 "use client";
-import { PropertyWithAddress } from "@/app/api/(utils)/utils";
+import { PropertyWithAddress } from "@/Server/utils/utils";
 import { Bookmark } from "lucide-react";
 import React, { useState, useEffect, createContext, useContext } from "react";
 
