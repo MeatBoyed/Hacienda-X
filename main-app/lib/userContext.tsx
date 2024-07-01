@@ -1,14 +1,8 @@
 "use client";
-import { useUser } from "@clerk/nextjs";
-import React, {
-  useState,
-  useEffect,
-  createContext,
-  useContext,
-  useCallback,
-} from "react";
-import { honoClient } from "@/app/api/[[...route]]/route";
+import { SignIn, useUser } from "@clerk/nextjs";
+import React, { useState, useEffect, createContext, useCallback } from "react";
 import { ServerUser } from "@/Server/controllers/userController";
+import { getServerUser } from "@/app/api/(userActions)/actions";
 
 // Enabling TS features
 export type UserContextType = {
@@ -17,6 +11,7 @@ export type UserContextType = {
 
 export const UserContext = createContext<UserContextType | null>(null);
 
+// TODO: Test & implement
 export const UserContextProvider: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
@@ -24,14 +19,10 @@ export const UserContextProvider: React.FC<{
   const { user: currentUser, isSignedIn } = useUser();
 
   const fetchData = useCallback(async (userId: string) => {
-    const $get = honoClient.user[":public_id"].$get;
-    const res = await $get({
-      param: { public_id: userId },
-    });
-    if (res.ok) {
-      const data: ServerUser = await res.json();
-      setUser(data);
-    }
+    const serverUser = await getServerUser(userId);
+    console.log("Server User: ", serverUser);
+    if (!serverUser) return SignIn;
+    setUser(serverUser);
   }, []);
 
   useEffect(() => {

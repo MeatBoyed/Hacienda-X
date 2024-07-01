@@ -4,21 +4,6 @@ import Link from "next/link";
 import { PlusCircle } from "lucide-react";
 
 export default function ViewProperties() {
-  // Auth user via Clerk & in Dashboard
-  // const router = useRouter();
-  // const { data, error, isLoading } = useSWR<boolean>(
-  //   "/api/dashboard/authuser",
-  //   fetcher
-  // );
-
-  // if (!data || error) {
-  //   return router.push("/onboarding");
-  // }
-
-  // if (isLoading) {
-  //   return <Loader />;
-  // }
-
   return (
     <div className="w-full flex justify-start items-center gap-10  pb-20  my-5 flex-col px-3 sm:px-5 min-h-screen  ">
       <div className="flex w-full justify-between items-center sm:px-5 lg:max-w-7xl ">

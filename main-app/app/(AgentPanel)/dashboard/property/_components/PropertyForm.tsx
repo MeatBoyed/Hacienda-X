@@ -34,7 +34,7 @@ import { ChevronLeft, Eye, Save, Trash2 } from "lucide-react";
 import { PuffLoader } from "react-spinners";
 
 import { z } from "zod";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import {
   PropertySchema,
@@ -67,13 +67,14 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import image from "next/image";
+import { UserContext, UserContextType } from "@/lib/userContext";
 
 export default function PropertyForm({
   initProperty,
 }: {
   initProperty?: PropertyWithAddress;
 }) {
-  const { user } = useUser();
+  const { user } = useContext(UserContext) as UserContextType;
   const router = useRouter();
 
   const defaultValues = getDefaultVaules(initProperty);
@@ -220,7 +221,7 @@ export default function PropertyForm({
     await triggerDelete({
       payload: {
         propertyId: initProperty.property_id,
-        userId: user.id,
+        userId: user.public_id,
         images: initProperty.images,
       },
     });

@@ -11,15 +11,19 @@ const RoleRequestSchema = z.object({
   role: RoleEnum,
 });
 
+export const validUserSchema = z.object({
+  user_id: z.string(),
+});
+
 export const serverUserSchema = z.object({
   firstName: z.string(),
   lastName: z.string(),
   email: z.string(),
   public_id: z.string(),
 });
-
 export type ServerUser = z.infer<typeof serverUserSchema>;
 export type RoleRequest = z.infer<typeof RoleRequestSchema>;
+export type ValidUserRes = z.infer<typeof validUserSchema>;
 
 export default new Hono()
   .use(clerkMiddleware())

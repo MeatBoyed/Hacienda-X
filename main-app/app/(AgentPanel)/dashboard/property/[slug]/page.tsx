@@ -3,17 +3,11 @@ import useSWR from "swr";
 import { fetcher } from "@/lib/utils";
 import { useParams } from "next/navigation";
 import PropertyForm from "../_components/PropertyForm";
-import {
-  PropertyWithAddress,
-  SelectPropertyResponse,
-} from "@/Server/utils/utils";
+import { PropertyWithAddress } from "@/Server/utils/utils";
 import { PuffLoader } from "react-spinners";
-import { SignIn, useUser } from "@clerk/nextjs";
-import Link from "next/link";
 
 // Allow user's to request property features for us to add
 export default function ManageProperty() {
-  const user = useUser();
   const params = useParams();
 
   const property_id = decodeURIComponent(
@@ -26,8 +20,7 @@ export default function ManageProperty() {
     fetcher
   );
 
-  if (user.isSignedIn === false) return SignIn;
-  console.log(data);
+  // TODO: (Possible) ensure the property's user matches current user
 
   return (
     <section
