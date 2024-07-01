@@ -18,21 +18,19 @@ export const UserContextProvider: React.FC<{
   const [user, setUser] = useState<ServerUser>();
   const { user: currentUser, isSignedIn } = useUser();
 
-  const fetchData = useCallback(async (userId: string) => {
+  const validateUser = useCallback(async (userId: string) => {
     const serverUser = await getServerUser(userId);
     console.log("Server User: ", serverUser);
+
     if (!serverUser) return SignIn;
     setUser(serverUser);
   }, []);
 
   useEffect(() => {
     if (!isSignedIn && !currentUser) return;
-    fetchData(currentUser.id).catch((err) =>
+    validateUser(currentUser.id).catch((err) =>
       console.error("User Context Error: Fetching Server user failed")
     );
-    // Make DB query
-    // setUser(dbUser);
-    // Set dB user to User obj
   }, [isSignedIn]);
 
   return (

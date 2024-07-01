@@ -11,11 +11,11 @@ const RoleRequestSchema = z.object({
   role: RoleEnum,
 });
 
-export const validUserSchema = z.object({
+const validUserSchema = z.object({
   user_id: z.string(),
 });
 
-export const serverUserSchema = z.object({
+const serverUserSchema = z.object({
   firstName: z.string(),
   lastName: z.string(),
   email: z.string(),
@@ -25,7 +25,7 @@ export type ServerUser = z.infer<typeof serverUserSchema>;
 export type RoleRequest = z.infer<typeof RoleRequestSchema>;
 export type ValidUserRes = z.infer<typeof validUserSchema>;
 
-export default new Hono()
+const app = new Hono()
   .use(clerkMiddleware())
   // Update the User's Role
   .post(
@@ -106,13 +106,7 @@ export default new Hono()
   // Templated Create Route
   .post("/create", async (c) => {
     const { userId } = await authenticateUser(c);
-
     return c.json(userId);
-
-    // Create User in DB
-    // return c.json( db.user.create({
-    //   data: {
-    //     public_id: userId,
-    //   },
-    // }));
   });
+
+export default app;
