@@ -52,7 +52,7 @@ const Contactus = () => {
                     Email
                   </dt>
                   <dd className="mt-2 text-base text-gray-400">
-                    info@ourstore.com
+                    hacienda@gmail.com
                   </dd>
                 </div>
               </div>
@@ -84,6 +84,12 @@ const Contactus = () => {
           </div>
 
           <div className="w-full max-w-md bg-white p-6 rounded-lg shadow-xl">
+            <h2 className="text-2xl font-bold text-black mb-2 text-center">
+              Write Your Enquiry Below
+            </h2>
+            <p className="text-gray-500 mb-4 text-center">
+              We are here to assist you
+            </p>
             <div className="mb-4">
               <label
                 className="block text-gray-700 text-sm font-bold mb-2"
@@ -142,10 +148,6 @@ const Contactus = () => {
             <button className="mt-4 w-full rounded bg-blue-500 px-4 py-2 text-lg text-white hover:bg-blue-600 focus:outline-none">
               Submit
             </button>
-            <div className="mt-8 text-center">
-              <p className="my-5 leading-normal">Email Us!</p>
-              <a className="text-blue-400">hacienda@gmail.com</a>
-            </div>
           </div>
         </div>
       </section>

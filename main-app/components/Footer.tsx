@@ -3,7 +3,7 @@ import "./Footer.css";
 import Link from "next/link";
 import { Facebook } from "lucide-react";
 import Image from "next/image";
-import Logo from "@/public/HaciendaLogo.jpeg";
+import Logo from "@/public/newlogo.png";
 
 export default function Footer() {
   return (
@@ -174,7 +174,7 @@ export default function Footer() {
 
               <li>
                 <Link
-                  href="#"
+                  href="/contactus"
                   className="text-black font-medium transition-all duration-300 hover:text-lg dark:text-gray-200"
                 >
                   Contact Us
@@ -200,7 +200,7 @@ export default function Footer() {
             <ul className="mt-6 space-y-4 text-sm">
               <li>
                 <a
-                  href="/Property-for-sale"
+                  href="/property-for-sale"
                   className="text-black font-medium transition-all duration-300 hover:text-lg dark:text-gray-200"
                 >
                   Properties
@@ -209,7 +209,7 @@ export default function Footer() {
 
               <li>
                 <a
-                  href="/favorites"
+                  href="/bookmarks"
                   className="text-black font-medium transition-all duration-300 hover:text-lg dark:text-gray-200"
                 >
                   Favorites
@@ -227,7 +227,7 @@ export default function Footer() {
 
               <li>
                 <a
-                  href="/SellProperty"
+                  href="/pricing"
                   className="text-black font-medium transition-all duration-300 hover:text-lg dark:text-gray-200"
                 >
                   Sell Your Property
