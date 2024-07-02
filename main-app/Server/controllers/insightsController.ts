@@ -1,5 +1,5 @@
 import { Hono } from "hono";
-import db from "../(utils)/db";
+import db from "../utils/db";
 import { auth } from "@clerk/nextjs/server";
 import { zValidator } from "@hono/zod-validator";
 import { z } from "zod";
@@ -17,7 +17,6 @@ app.use(clerkMiddleware());
 
 // Templated Create Route
 app.post("/create", async (c) => {
-  
   try {
     // Get the current user
     const auth = getAuth(c);
@@ -41,16 +40,16 @@ app.post("/create", async (c) => {
       throw new HTTPException(500, { message: "Error creating User" });
     }
 
-// const fetcher = (url: string) =>
-//   fetch(url, {
-//     method: "GET",
-//     // body: JSON.stringify({
-//     //   personal_api_key: "phc_K6QFhmIUxOpo0Ia7pgqKAHPh5xWzgyqEa2YP7yrzJST",
-//     // }),
-//     headers: {
-//       Authorization: "Bearer phx_eTkOAA1w4HI4VFniW2NzBkawZQp2z4o8ZrlOb4H1FJN",
-//     },
-//   }).then((res) => res.json());
+    // const fetcher = (url: string) =>
+    //   fetch(url, {
+    //     method: "GET",
+    //     // body: JSON.stringify({
+    //     //   personal_api_key: "phc_K6QFhmIUxOpo0Ia7pgqKAHPh5xWzgyqEa2YP7yrzJST",
+    //     // }),
+    //     headers: {
+    //       Authorization: "Bearer phx_eTkOAA1w4HI4VFniW2NzBkawZQp2z4o8ZrlOb4H1FJN",
+    //     },
+    //   }).then((res) => res.json());
 
     // Response object
     return c.json(

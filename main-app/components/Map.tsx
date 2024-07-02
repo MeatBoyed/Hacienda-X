@@ -12,7 +12,7 @@ import Map, {
   ScaleControl,
 } from "react-map-gl";
 import Link from "next/link";
-import { PropertyWithAddress } from "@/app/api/(utils)/utils";
+import { PropertyWithAddress } from "@/Server/utils/utils";
 import { Card, CardContent } from "./ui/card";
 import { buttonVariants } from "./ui/button";
 import { MdPool } from "react-icons/md";

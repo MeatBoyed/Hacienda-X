@@ -6,10 +6,7 @@ import { z } from "zod";
 import { deleteImages, uploadFilesToS3 } from "./uploadFile";
 import { validator } from "hono/validator";
 import { parseImageUploadFormData } from "@/lib/FormUtils";
-import {
-  AWS_S3_BASE_URL,
-  AWS_S3_PRODUCTION_FOLDER_NAME,
-} from "../(utils)/utils";
+import { AWS_S3_BASE_URL, AWS_S3_PRODUCTION_FOLDER_NAME } from "../utils/utils";
 
 const app = new Hono();
 

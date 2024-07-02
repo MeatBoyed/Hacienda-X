@@ -1,28 +1,46 @@
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { ChevronRight } from "lucide-react";
+"use client";
 
-// Turn into a Card??
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { Skeleton } from "@/components/ui/skeleton";
+import { fetcher } from "@/lib/utils";
+import { Lead } from "@prisma/client";
+import { ChevronRight } from "lucide-react";
+import { useMemo } from "react";
+import useSWR from "swr";
 
 export default function NewLeads() {
+  const { data, error, isLoading } = useSWR<Lead[]>("/api/leads/", fetcher);
+
+  const leads = useMemo(
+    () =>
+      data && data.length > 0 ? (
+        data.map((lead, index) => <LeadCard lead={lead} key={index} />)
+      ) : (
+        <p>You have no properties. Let&#39;s go add one!</p>
+      ),
+    [data]
+  );
+
   return (
-    <div className="mt-10 w-full">
-      <div className="flex flex-col items-start ">
-        <p className="scroll-m-20 text-lg sm:text-xl font-semibold tracking-tight">
-          New Leads
-        </p>
-        <p className="text-base text-muted-foreground">You have 30 new leads</p>
-      </div>
+    <div className=" w-full">
+      <p className="text-base text-muted-foreground">You have 30 new leads</p>
 
       <div className="mt-10 w-full flex justify-center items-center gap-4 flex-col">
-        <Lead />
-        <Lead />
-        <Lead />
+        {/* {leads} */}
+        {data && !isLoading && !error && <>{leads}</>}
+        {isLoading && !error && (
+          <>
+            <LeadCardSkeleton />
+            <LeadCardSkeleton />
+            <LeadCardSkeleton />
+          </>
+        )}
       </div>
     </div>
   );
 }
 
-function Lead() {
+function LeadCard({ lead }: { lead: Lead }) {
   return (
     <div className="flex items-center gap-4 border-b pb-4 w-full">
       <Avatar className="hidden h-9 w-9 sm:flex">
@@ -30,12 +48,22 @@ function Lead() {
         <AvatarFallback>OM</AvatarFallback>
       </Avatar>
       <div className="grid gap-1 w-full">
-        <p className="text-sm font-medium leading-none">Olivia Martin</p>
-        <p className="text-sm text-muted-foreground">
-          Hey there! When can I view the property?
-        </p>
+        <p className="text-sm font-medium leading-none">{lead.name} </p>
+        <p className="text-sm text-muted-foreground">{lead.message}</p>
       </div>
       <ChevronRight size={16} />
+    </div>
+  );
+}
+
+function LeadCardSkeleton() {
+  return (
+    <div className="flex items-center gap-4 border-b pb-4 w-full">
+      <Skeleton className="w-10 h-10 rounded-full" />
+      <div className="grid gap-3 w-full">
+        <Skeleton className="w-full h-5 rounded-xl" />
+        <Skeleton className="w-full h-5 rounded-xl" />
+      </div>
     </div>
   );
 }

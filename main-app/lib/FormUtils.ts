@@ -1,4 +1,4 @@
-import { PreSignRequest } from "@/app/api/(controllers)/imagesController";
+import { PreSignRequest } from "@/Server/controllers/imagesController";
 import { Property } from "@prisma/client";
 import { z } from "zod";
 import { zfd } from "zod-form-data";

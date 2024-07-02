@@ -33,6 +33,11 @@ export const Header = () => {
                   Pricing
                 </p>
               </Link>
+              <Link href="/pricing">
+                <p className="text-base text-black hover:text-gray-700 transition">
+                  Sell your property
+                </p>
+              </Link>
               {userId && (
                 <Link href="/dashboard">
                   <p className="text-base text-blue-500 hover:text-blue-700 transition">
@@ -42,7 +47,7 @@ export const Header = () => {
               )}
               <Link href="/contactus">
                 <p className="text-base text-black hover:text-gray-700 transition">
-                  Contact & Support
+                  Contact Us
                 </p>
               </Link>
             </div>
@@ -53,6 +58,7 @@ export const Header = () => {
             {!userId ? (
               <SignUpButton mode="modal" forceRedirectUrl={"/onboarding"}>
                 <p className="text-base text-white bg-blue-500 hover:bg-blue-700 transition px-4 py-2 rounded min-w-[100px] text-center cursor-pointer">
+                  {/* TODO: Should be Get Started and go to /pricing  */}
                   Sign Up
                 </p>
               </SignUpButton>
@@ -78,8 +84,6 @@ export const Header = () => {
 };
 
 function NavSlider() {
-  "use client";
-
   return (
     <Sheet>
       <SheetTrigger>
@@ -92,14 +96,17 @@ function NavSlider() {
         <Link href="/bookmarks">
           <p className="text-xl">Favorites</p>
         </Link>
-        <Link href="/dashboard">
-          <p className="text-xl text-blue-500">Sell your Property</p>
-        </Link>
         <Link href="/pricing">
           <p className="text-xl">Pricing</p>
         </Link>
+        <Link href="/pricing">
+          <p className="text-xl text-blue-500">Sell your Property</p>
+        </Link>
+        <Link href="/dashboard">
+          <p className="text-xl">Dashboard</p>
+        </Link>
         <Link href="/contactus">
-          <p className="text-xl">Contact & Support</p>
+          <p className="text-xl">Contact Us</p>
         </Link>
       </SheetContent>
     </Sheet>

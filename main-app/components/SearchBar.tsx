@@ -112,7 +112,7 @@ export function HomePageSearchBar() {
           className="bg-white w-full  text-black hover:border-background hover:bg-accent hover:text-white shadow-lg gap-3 hover: rounded-md"
         >
           <Link
-            href="/property-for-sale"
+            href="/property-for-sale/map"
             className="flex justify-center items-center gap-3"
           >
             <MapPin size={15} />

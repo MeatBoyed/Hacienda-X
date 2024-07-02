@@ -1,6 +1,6 @@
 "use client";
 
-import { GenericPropertyResponse } from "@/app/api/(utils)/utils";
+import { GenericPropertyResponse } from "@/Server/utils/utils";
 import { MapComp } from "@/components/Map";
 import { SearchBar } from "@/components/SearchBar";
 import { fetcher } from "@/lib/utils";

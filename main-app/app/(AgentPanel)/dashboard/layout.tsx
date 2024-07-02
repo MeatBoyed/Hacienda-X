@@ -5,10 +5,8 @@ import { Toaster } from "@/components/ui/toaster";
 import Navbar from "./_components/Navbar";
 import { Toaster as SonnerToaster } from "sonner";
 import Loader from "@/components/ui/loader";
-import { currentUser } from "@clerk/nextjs/server";
-import { SignIn } from "@clerk/nextjs";
-
 import "mapbox-gl/dist/mapbox-gl.css";
+import { UserContextProvider } from "@/lib/userContext";
 
 const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
@@ -21,10 +19,6 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const auth = await currentUser();
-
-  if (!auth) return SignIn;
-
   return (
     <div className="overflow-hidden bg-white">
       <Navbar />
@@ -32,7 +26,9 @@ export default async function RootLayout({
         id="dashboard"
         className=""
       > */}
-      <Suspense fallback={<Loader />}>{children}</Suspense>
+      <Suspense fallback={<Loader />}>
+        <UserContextProvider>{children}</UserContextProvider>
+      </Suspense>
       {/* </section> */}
       <Toaster />
       <SonnerToaster expand richColors />

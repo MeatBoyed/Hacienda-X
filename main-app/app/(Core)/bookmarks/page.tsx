@@ -1,5 +1,5 @@
 "use client";
-import { PropertyWithAddress } from "@/app/api/(utils)/utils";
+import { PropertyWithAddress } from "@/Server/utils/utils";
 import { PropertyCard } from "@/components/PropertyCard";
 import { BookmarksContext, BookmarksContextType } from "@/lib/bookmarksContext";
 import React, { useContext, useMemo } from "react";

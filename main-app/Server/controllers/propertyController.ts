@@ -1,8 +1,8 @@
 import { Hono } from "hono";
-import db from "../(utils)/db";
+import db from "../utils/db";
 import { HTTPException } from "hono/http-exception";
 import { clerkMiddleware } from "@hono/clerk-auth";
-import { PropertyWithAddress } from "../(utils)/utils";
+import { PropertyWithAddress } from "../utils/utils";
 
 const app = new Hono();
 

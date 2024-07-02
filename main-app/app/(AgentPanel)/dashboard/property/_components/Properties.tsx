@@ -2,7 +2,7 @@
 
 import useSWR from "swr";
 import { GetUsersProperty } from "@/lib/RequestUtils";
-import { PropertyWithAddress } from "@/app/api/(utils)/utils";
+import { PropertyWithAddress } from "@/Server/utils/utils";
 import PropertyInsightCard, {
   PropertyInsightCardSkeleton,
 } from "../../_components/PropertyInsightCard";

@@ -8,7 +8,7 @@ import useSWRMutation from "swr/mutation";
 import { toast } from "sonner";
 import { PostUploadImages } from "@/lib/RequestUtils";
 import { FileState } from "@/lib/FormUtils";
-import { AWS_S3_BASE_URL } from "@/app/api/(utils)/utils";
+import { AWS_S3_BASE_URL } from "@/Server/utils/utils";
 
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {

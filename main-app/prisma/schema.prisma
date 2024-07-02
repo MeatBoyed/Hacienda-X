@@ -14,16 +14,16 @@ model User {
   // Core Data
   firstName String // Agent Details
   lastName  String // Agent Details
-  email     String @unique //Agent Details
+  email     String  @unique //Agent Details
   company   String? // Optional field
-  role  Role    @default(viewer) // Default User is a normal Viewer
+  role      Role    @default(viewer) // Default User is a normal Viewer
 
   // Relations
-  Ad         Ad[]
-  analytics  Analytics[]
-  nvoices    Invoice[]
-  leads      Lead[]
-  properties Property[]
+  Ad            Ad[]
+  analytics     Analytics[]
+  nvoices       Invoice[]
+  leads         Lead[]
+  properties    Property[]
   subscriptions Subscription[]
 
   // Meta
@@ -34,16 +34,17 @@ model User {
 }
 
 model Subscription {
-  subscription_id Int      @id @default(autoincrement())
+  subscription_id Int    @id @default(autoincrement())
   user_id         String
-  start_date      DateTime
-  end_date        DateTime
-  plan_type       String
-  payment_status  String
-  //Relation to user model
-  user            User     @relation(fields: [user_id], references: [public_id])
-}
 
+  start_date     DateTime
+  end_date       DateTime
+  plan_type      PlanType
+  payment_status PaymentStatus
+
+  //Relation to user model
+  user User @relation(fields: [user_id], references: [public_id])
+}
 
 model Property {
   property_id String @id @default(cuid()) // form
@@ -90,7 +91,7 @@ model Address {
 // Direct Link to User, as User's accounts must never be deleted for data integrity
 // Always save the Clerk Public ID for relations
 model Lead {
-  lead_id     String    @id @default(cuid())
+  lead_id     String @id @default(cuid())
   property_id String
 
   name        String
@@ -102,10 +103,10 @@ model Lead {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  customer_id   String?
+  customer_id String?
 
-  agent_id  String
-  agent     User  @relation(fields: [agent_id], references: [public_id])
+  agent_id String
+  agent    User   @relation(fields: [agent_id], references: [public_id])
 }
 
 model Analytics {
@@ -169,4 +170,17 @@ enum SaleType {
   Sale
   Rent
   Auction
+}
+
+enum PlanType {
+  Pending // Sales team must contact
+  Trail // 30 Day trial
+  Enterprise
+  Pro
+  Basic
+}
+
+enum PaymentStatus {
+  Paid
+  Unpaid
 }

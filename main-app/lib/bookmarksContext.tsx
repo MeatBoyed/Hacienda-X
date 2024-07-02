@@ -1,7 +1,8 @@
 "use client";
-import { PropertyWithAddress } from "@/app/api/(utils)/utils";
+import { PropertyWithAddress } from "@/Server/utils/utils";
 import { Bookmark } from "lucide-react";
 import React, { useState, useEffect, createContext, useContext } from "react";
+import { toast } from "sonner";
 
 // Enabling TS features
 export type BookmarksContextType = {
@@ -46,6 +47,9 @@ export const BookmarksContextProvider: React.FC<{
       LOCALSTORAGE_NAME,
       JSON.stringify([...bookmarks, property])
     );
+    toast.success(`Property has been saved!`, {
+      description: "Checkout out your facvourites pages",
+    });
   }
 
   // Removes Property to Local Storage

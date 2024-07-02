@@ -28,11 +28,11 @@ export default function Dashboard() {
         <div className="border w-full border-gray-600 md:hidden" />
 
         {/* Right */}
-        <div className="w-full flex justify-center items-start gap-5 flex-col">
+        <div className="w-full flex justify-center items-start gap-3 flex-col">
           <p className="scroll-m-20 text-2xl font-semibold tracking-tight">
-            Overview
+            Leads
           </p>
-          <LeadInsightCard />
+          {/* <LeadInsightCard /> */}
           <NewLeads />
         </div>
       </section>

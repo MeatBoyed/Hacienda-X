@@ -12,7 +12,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   PropertyWithAddress,
   PropertyWithAddressAndAgent,
-} from "@/app/api/(utils)/utils";
+} from "@/Server/utils/utils";
 
 export default function PropertyDetails({
   property,
@@ -49,9 +49,11 @@ export default function PropertyDetails({
 
           <div className="flex justify-center items-start gap-2 flex-col">
             <p className="text-sm font-semibold leading-none">
-              Agents Name // TODO: Add Agent info
+              {property.agent.firstName} {property.agent.lastName}
             </p>
-            <p className="leading-7 text-xs">Card Description</p>
+            {property.agent.company && (
+              <p className="leading-7 text-xs">{property.agent.company}</p>
+            )}
           </div>
         </div>
       </div>

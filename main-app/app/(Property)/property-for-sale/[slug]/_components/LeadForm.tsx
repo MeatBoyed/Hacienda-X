@@ -78,7 +78,7 @@ export default function LeadForm({
     useSWRMutation("/api/leads/create", PostLead /* options */, {
       onError: (error) => {
         console.log("Received Error (Plain): ", error);
-        toast.error("Something unexpected happend.", {
+        toast.error("Something unexpected happened.", {
           description: "Please try again....",
         });
       },
@@ -86,7 +86,7 @@ export default function LeadForm({
         // Show message
         console.log(data);
         toast.success("Your lead has been posted!", {
-          description: `Thank you for enquirying. We will be reaching out soon.`,
+          description: `Thank you for enquiring. We will be reaching out soon.`,
           duration: 10000,
         });
       },

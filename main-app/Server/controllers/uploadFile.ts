@@ -8,10 +8,7 @@ import {
   S3Client,
 } from "@aws-sdk/client-s3";
 import sharp from "sharp";
-import {
-  AWS_S3_BASE_URL,
-  AWS_S3_PRODUCTION_FOLDER_NAME,
-} from "../(utils)/utils";
+import { AWS_S3_BASE_URL, AWS_S3_PRODUCTION_FOLDER_NAME } from "../utils/utils";
 import { v4 as uuidv4 } from "uuid";
 
 const NEXT_PUBLIC_S3_BUCKET_NAME = process.env.NEXT_PUBLIC_S3_BUCKET_NAME;
