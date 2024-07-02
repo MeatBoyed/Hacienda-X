@@ -66,7 +66,7 @@ export function SearchBar({
         {!mapView && (
           <Button
             size={"lg"}
-            className="bg-white w-full lg:hidden text-black hover:border-background hover:bg-accent hover:text-white shadow-lg gap-3 hover: rounded-md"
+            className="bg-white w-full lg:hidden text-black hover:border-background hover:bg-accent hover:text-white shadow-md gap-3 hover: rounded-md"
           >
             <Link
               href="/property-for-sale/map"
@@ -79,7 +79,7 @@ export function SearchBar({
         {mapView && (
           <Button
             size={"lg"}
-            className="bg-white w-full text-black hover:border-background hover:bg-accent hover:text-white shadow-lg gap-3 hover: rounded-md"
+            className="bg-white w-full text-black hover:border-background hover:bg-accent hover:text-white shadow-md gap-3 hover: rounded-md"
           >
             <Link
               href="/property-for-sale"

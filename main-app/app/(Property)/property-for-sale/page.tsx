@@ -5,7 +5,7 @@ import SearchProperty from "./_components/SearchProperty";
 export default async function PropertiesSearch() {
   return (
     <div className="bg-white">
-      <div className="pb-4 pt-16">
+      <div className="mt-20 max-h-screen">
         <SearchProperty />
       </div>
     </div>
