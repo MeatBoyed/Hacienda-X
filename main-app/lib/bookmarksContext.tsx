@@ -48,7 +48,7 @@ export const BookmarksContextProvider: React.FC<{
       JSON.stringify([...bookmarks, property])
     );
     toast.success(`Property has been saved!`, {
-      description: "Checkout out your facvourites pages",
+      description: "Checkout out your favorites pages",
     });
   }
 
