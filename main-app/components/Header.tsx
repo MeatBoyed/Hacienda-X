@@ -40,7 +40,7 @@ export const Header = () => {
               </Link>
               {userId && (
                 <Link href="/dashboard">
-                  <p className="text-base text-blue-500 hover:text-blue-700 transition">
+                  <p className="text-base text-black hover:text-gray-700 transition">
                     Dashboard
                   </p>
                 </Link>
