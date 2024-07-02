@@ -3,11 +3,11 @@ import React from "react";
 const Contactus = () => {
   return (
     <div className="bg-gray-900 min-h-screen">
-      <div className="bg-gray-900 py-48">
+      <div className="bg-gray-100 py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="lg:text-center">
             <h2 className="text-base text-blue-600 font-semibold tracking-wide uppercase"></h2>
-            <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-white sm:text-4xl">
+            <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
               Hacienda
             </p>
             <p className="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
@@ -84,25 +84,61 @@ const Contactus = () => {
           </div>
 
           <div className="w-full max-w-md bg-white p-6 rounded-lg shadow-xl">
-            <input
-              className="w-full rounded border border-gray-300 bg-gray-100 px-4 py-2 text-base text-gray-800 outline-none transition-colors duration-200 ease-in-out focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500"
-              placeholder="Name"
-              type="text"
-            />
-            <input
-              className="mt-4 w-full rounded border border-gray-300 bg-gray-100 px-4 py-2 text-base text-gray-800 outline-none transition-colors duration-200 ease-in-out focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500"
-              placeholder="Email"
-              type="email"
-            />
-            <input
-              className="mt-4 w-full rounded border border-gray-300 bg-gray-100 px-4 py-2 text-base text-gray-800 outline-none transition-colors duration-200 ease-in-out focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500"
-              placeholder="Subject"
-              type="text"
-            />
-            <textarea
-              className="mt-4 h-32 w-full resize-none rounded border border-gray-300 bg-gray-100 px-4 py-2 text-base text-gray-800 outline-none transition-colors duration-200 ease-in-out focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500"
-              placeholder="Message"
-            ></textarea>
+            <div className="mb-4">
+              <label
+                className="block text-gray-700 text-sm font-bold mb-2"
+                htmlFor="name"
+              >
+                Name
+              </label>
+              <input
+                id="name"
+                className="w-full rounded border border-gray-300 bg-gray-100 px-4 py-2 text-base text-gray-800 outline-none transition-colors duration-200 ease-in-out focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500"
+                placeholder="Name"
+                type="text"
+              />
+            </div>
+            <div className="mb-4">
+              <label
+                className="block text-gray-700 text-sm font-bold mb-2"
+                htmlFor="email"
+              >
+                Email
+              </label>
+              <input
+                id="email"
+                className="w-full rounded border border-gray-300 bg-gray-100 px-4 py-2 text-base text-gray-800 outline-none transition-colors duration-200 ease-in-out focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500"
+                placeholder="Email"
+                type="email"
+              />
+            </div>
+            <div className="mb-4">
+              <label
+                className="block text-gray-700 text-sm font-bold mb-2"
+                htmlFor="subject"
+              >
+                Subject
+              </label>
+              <input
+                id="subject"
+                className="w-full rounded border border-gray-300 bg-gray-100 px-4 py-2 text-base text-gray-800 outline-none transition-colors duration-200 ease-in-out focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500"
+                placeholder="Subject"
+                type="text"
+              />
+            </div>
+            <div className="mb-4">
+              <label
+                className="block text-gray-700 text-sm font-bold mb-2"
+                htmlFor="message"
+              >
+                Message
+              </label>
+              <textarea
+                id="message"
+                className="h-32 w-full resize-none rounded border border-gray-300 bg-gray-100 px-4 py-2 text-base text-gray-800 outline-none transition-colors duration-200 ease-in-out focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500"
+                placeholder="Message"
+              ></textarea>
+            </div>
             <button className="mt-4 w-full rounded bg-blue-500 px-4 py-2 text-lg text-white hover:bg-blue-600 focus:outline-none">
               Submit
             </button>
