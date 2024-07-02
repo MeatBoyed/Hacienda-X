@@ -9,10 +9,7 @@ export default function BottomNavbar({ price }: { price: number }) {
       </p>
       <Link
         href={"#LeadForm"}
-        className={buttonVariants({
-          variant: "outline",
-          className: "text-white",
-        })}
+        className="bg-blue-500 rounded-md px-2 py-1 font-normal text-white"
       >
         Enquire Now
       </Link>

@@ -64,7 +64,7 @@ export default function PropertyPage() {
       )}
       {data && !error && (
         <>
-          <div className="flex justify-between items-center z-50 border-t bg-background py-4 px-4 w-full fixed top-0 sm:hidden">
+          <div className="flex justify-between items-center z-50 border-t bg-white py-4 px-4 w-full fixed top-0 shadow-sm sm:hidden">
             <Button
               onClick={() => router.back()}
               className="text-text bg-transparent gap-1 p-0"

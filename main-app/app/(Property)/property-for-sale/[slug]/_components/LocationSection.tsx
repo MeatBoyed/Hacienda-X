@@ -17,7 +17,7 @@ export default function LocationSection({
         <Residencies
           subHeading="Related properties"
           heading="Properties"
-          className="px-1"
+          className="px-1 sm:px-1 xl:px-1"
         />
         {/* <Button variant="link" className="text-text ">
           Find properties in this area
