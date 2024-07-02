@@ -39,7 +39,7 @@ export default async function Onboarding() {
       ) : (
         <Card>
           <CardHeader className="flex justify-center items-center">
-            <CardTitle>First, let's create your account</CardTitle>
+            <CardTitle>First, let&apos;s create your account</CardTitle>
             <CardDescription>Our agents are here to assist you</CardDescription>
           </CardHeader>
           <CardContent>
