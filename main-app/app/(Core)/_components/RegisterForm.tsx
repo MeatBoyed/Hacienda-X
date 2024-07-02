@@ -10,6 +10,7 @@ import {
   FormLabel,
   FormControl,
   FormMessage,
+  FormDescription,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
@@ -225,6 +226,9 @@ export default function RegisterForm({
                         <FormLabel>
                           Interested in selling your property?
                         </FormLabel>
+                        <FormDescription>
+                          Our sales team will contact you shortly.
+                        </FormDescription>
                         <FormControl className="">
                           <Switch
                             checked={field.value}

@@ -17,7 +17,10 @@ export default async function Home() {
           <div className="white-gradient" />
           <Hero />
         </div>
-        <Residencies />
+        <Residencies
+          subHeading="Featured Properties"
+          heading="Popular Residencies"
+        />
 
         <HowItWorks />
         <Value />

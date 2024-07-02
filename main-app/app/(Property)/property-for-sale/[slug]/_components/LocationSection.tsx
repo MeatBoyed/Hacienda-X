@@ -1,18 +1,6 @@
-import { Button } from "@/components/ui/button";
-import { Property } from "@prisma/client";
-import { Home } from "lucide-react";
-import Map, {
-  FullscreenControl,
-  GeolocateControl,
-  Marker,
-  NavigationControl,
-  Popup,
-  ScaleControl,
-} from "react-map-gl";
-import { useState, useMemo } from "react";
-import Link from "next/link";
 import { MapComp } from "@/components/Map";
 import { PropertyWithAddress } from "@/Server/utils/utils";
+import Residencies from "@/app/_components/Residencies";
 
 export default function LocationSection({
   property,
@@ -26,9 +14,14 @@ export default function LocationSection({
         <div className="w-full mb-8 min-h-[40vw]">
           <MapComp height="40vw" focusedProperty={property} properties={[]} />
         </div>
-        <Button variant="link" className="text-text ">
+        <Residencies
+          subHeading="Related properties"
+          heading="Properties"
+          className="px-1"
+        />
+        {/* <Button variant="link" className="text-text ">
           Find properties in this area
-        </Button>
+        </Button> */}
       </div>
     </section>
   );

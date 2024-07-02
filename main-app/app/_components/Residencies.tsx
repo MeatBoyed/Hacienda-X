@@ -10,11 +10,20 @@ import Link from "next/link";
 import PropertyCarousel from "@/components/PropertyCarousel";
 import { GenericPropertyResponse } from "@/Server/utils/utils";
 import { PropertyCard } from "@/components/PropertyCard";
+import { cn } from "@/lib/utils";
 
 // Handles calling Fetch API (This is an example, it has been extracted into the Utils file)
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
-export default function Residencies() {
+export default function Residencies({
+  subHeading,
+  heading,
+  className,
+}: {
+  subHeading: string;
+  heading: string;
+  className?: string;
+}) {
   // Handles all data fetching states, calls the Fetching Handler
   const { data, error, isLoading } = useSWR<GenericPropertyResponse>(
     "/api/properties",
@@ -23,14 +32,19 @@ export default function Residencies() {
 
   return (
     <section id="residencies" className="my-12 w-full">
-      <div className="px-4 flex justify-center items-center flex-col w-full gap-5 sm:px-5 xl:px-32 ">
+      <div
+        className={cn(
+          "px-4 flex justify-center items-center flex-col w-full gap-5 sm:px-5 xl:px-32 ",
+          className
+        )}
+      >
         <div className="flex justify-between items-center w-full">
           <div className="flex flex-col">
             <p className="text-lg font-semibold opacity-80 text-accent">
-              Featured Properties
+              {subHeading}
             </p>
             <h2 className="text-3xl font-semibold tracking-tight pb-2">
-              Popular Residencies
+              {heading}
             </h2>
           </div>
           <Button
