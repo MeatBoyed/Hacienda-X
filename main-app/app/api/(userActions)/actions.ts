@@ -1,3 +1,4 @@
+import { InferRequestType } from "hono";
 import { honoClient } from "../[[...route]]/route";
 
 export async function getServerUser(userId: string) {
@@ -8,3 +9,7 @@ export async function getServerUser(userId: string) {
     return await res.json();
   }
 }
+
+const $post = honoClient.user.create.$post;
+export const PostAgent = (arg: InferRequestType<typeof $post>) => async () =>
+  await $post(arg).then(async (res) => await res.json());

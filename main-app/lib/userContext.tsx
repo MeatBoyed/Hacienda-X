@@ -23,6 +23,9 @@ export const UserContextProvider: React.FC<{
     console.log("Server User: ", serverUser);
 
     if (!serverUser) return SignIn;
+
+    // TODO: Ensure user has valid Subscription to enter pages
+    // TODO BEFORE Prod
     setUser(serverUser);
   }, []);
 
