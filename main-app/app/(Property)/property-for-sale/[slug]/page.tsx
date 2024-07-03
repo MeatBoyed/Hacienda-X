@@ -175,31 +175,31 @@ function PropertyCarousel({ images }: PropertyCarouselProps) {
 
   return (
     <>
-      <div className="w-full max-w-2xl h-64 overflow-hidden">
+      <Carousel className="w-full max-w-2xl h-[500px]">
         {" "}
-        {/* Wrapper div with fixed height */}
-        <Carousel className="w-full h-full">
-          <CarouselContent className="h-full">
-            {images.map((image: string, index: number) => (
-              <CarouselItem key={index} className="h-full">
-                <div className="p-1 h-full">
-                  <Card className="aspect-w-16 aspect-h-7 h-full">
-                    <CardContent className="flex items-center justify-center p-0 h-full">
-                      <img
-                        src={image}
-                        alt={`Property image ${index + 1}`}
-                        className="object-cover w-full h-full rounded"
-                      />
-                    </CardContent>
-                  </Card>
-                </div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
-        </Carousel>
-      </div>
+        {/* Set fixed height */}
+        <CarouselContent>
+          {images.map((image: string, index: number) => (
+            <CarouselItem key={index}>
+              <div className="p-1">
+                <Card className="aspect-w-16 aspect-h-7 h-full">
+                  {" "}
+                  {/* Ensure height fits */}
+                  <CardContent className="flex items-center justify-center p-0 h-full">
+                    <img
+                      src={image}
+                      alt={`Property image ${index + 1}`}
+                      className="w-full h-full object-cover rounded"
+                    />
+                  </CardContent>
+                </Card>
+              </div>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+        <CarouselPrevious />
+        <CarouselNext />
+      </Carousel>
 
       <div className="flex justify-center items-center gap-2 mt-4">
         {images.slice(0, 3).map((image, index) => (
