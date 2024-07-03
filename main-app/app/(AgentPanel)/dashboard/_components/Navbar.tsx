@@ -31,9 +31,6 @@ export default function Navbar() {
         </div>
 
         <div className="flex justify-start items-center w-full gap-4">
-          <Link className="leading-7 text-sm sm:text-lg" href="/">
-            Back To Home
-          </Link>
           <Link className="leading-7 text-sm sm:text-lg" href="/dashboard">
             Dashboard
           </Link>
