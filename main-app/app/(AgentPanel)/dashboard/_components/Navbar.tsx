@@ -36,37 +36,33 @@ export const Header = () => {
           <div className="hidden md:flex w-full justify-center">
             {/* <NavLinks /> */}
             <div className="flex justify-center gap-8 items-center">
-              <Link href="/">
-                <p className="text-base text-black hover:text-gray-700 transition">
-                  Home
-                </p>
+              <div className="flex justify-center items-center gap-4">
+                <UserActions />
+                {/* // <UserButton /> */}
+              </div>
+            </div>
+
+            <div className="flex justify-start items-center w-full gap-4">
+              <Link className="leading-7 text-sm sm:text-lg" href="/dashboard">
+                Dashboard
               </Link>
-              <Link href="/property-for-sale">
-                <p className="text-base text-black hover:text-gray-700 transition">
-                  Search
-                </p>
+              <Link
+                className="leading-7 text-sm sm:text-lg "
+                href="/dashboard/property"
+              >
+                Property
               </Link>
-              <Link href="/pricing">
-                <p className="text-base text-black hover:text-gray-700 transition">
-                  Pricing
-                </p>
+              <Link
+                className="leading-7 text-sm  sm:text-lg"
+                href="/dashboard/"
+              >
+                Profile
               </Link>
-              <Link href="/pricing">
-                <p className="text-base text-black hover:text-gray-700 transition">
-                  Sell your property
-                </p>
-              </Link>
-              {userId && (
-                <Link href="/dashboard">
-                  <p className="text-base text-black hover:text-gray-700 transition">
-                    Dashboard
-                  </p>
-                </Link>
-              )}
-              <Link href="/contactus">
-                <p className="text-base text-black hover:text-gray-700 transition">
-                  Contact Us
-                </p>
+              <Link
+                className="leading-7 text-sm sm:text-lg "
+                href="/dashboard/"
+              >
+                Usage
               </Link>
             </div>
           </div>
@@ -87,23 +83,17 @@ function NavSlider() {
         <MenuIcon size={25} />
       </SheetTrigger>
       <SheetContent className="flex justify-between py-80 items-start flex-col shadow-lg">
-        <Link href="/property-for-sale">
-          <p className="text-xl">Search</p>
-        </Link>
-        <Link href="/bookmarks">
-          <p className="text-xl">Favorites</p>
-        </Link>
-        <Link href="/pricing">
-          <p className="text-xl">Pricing</p>
-        </Link>
-        <Link href="/pricing">
-          <p className="text-xl text-blue-500">Sell your Property</p>
-        </Link>
         <Link href="/dashboard">
           <p className="text-xl">Dashboard</p>
         </Link>
-        <Link href="/contactus">
-          <p className="text-xl">Contact Us</p>
+        <Link href="/dashboard/property">
+          <p className="text-xl">Create Property</p>
+        </Link>
+        <Link href="/dashboard/">
+          <p className="text-xl">Profile</p>
+        </Link>
+        <Link href="/dashboard/">
+          <p className="text-xl text-blue-500">Usage</p>
         </Link>
       </SheetContent>
     </Sheet>
