@@ -3,6 +3,7 @@
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -30,7 +31,7 @@ import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ChevronLeft, Eye, Save, Trash2 } from "lucide-react";
+import { ChevronLeft, Eye, Save, Trash2, X, XCircle } from "lucide-react";
 import { PuffLoader } from "react-spinners";
 
 import { z } from "zod";
@@ -68,6 +69,7 @@ import {
 } from "@/components/ui/dialog";
 import image from "next/image";
 import { UserContext, UserContextType } from "@/lib/userContext";
+import { Badge } from "@/components/ui/badge";
 
 export default function PropertyForm({
   initProperty,
@@ -652,15 +654,57 @@ export default function PropertyForm({
                           <FormControl>
                             <TagInput
                               {...field}
-                              clearAll
+                              customTagRenderer={(tag, isActiveTag) => (
+                                // <div
+                                //   key={tag.id}
+                                //   className={`px-2 py-1 bg-red-500 rounded-full ${
+                                //     isActiveTag
+                                //       ? "ring-ring ring-offset-2 ring-2 ring-offset-background"
+                                //       : ""
+                                //   }`}
+                                // >
+                                //   <span className="text-white text-sm mr-1">
+                                //     {tag.text}
+                                //   </span>
+                                //   <X
+                                //     size={20}
+                                //     onClick={() =>
+                                //       setValue(
+                                //         "extraFeatures",
+                                //         form
+                                //           .getValues("extraFeatures")
+                                //           .filter((t) => t.id != tag.id)
+                                //       )
+                                //     }
+                                //   />
+                                // </div>
+                                <Badge
+                                  key={tag.id}
+                                  className="flex justify-center items-center gap-4 border bg-slate-100 rounded-md shadow-md text-black hover:cursor-pointer"
+                                >
+                                  <p className="leading-7">{tag.text}</p>
+                                  <XCircle
+                                    onClick={() =>
+                                      setValue(
+                                        "extraFeatures",
+                                        form
+                                          .getValues("extraFeatures")
+                                          .filter((t) => tag.id != t.id)
+                                      )
+                                    }
+                                    size={18}
+                                  />
+                                </Badge>
+                              )}
                               variant="Primary"
                               sortTags={true}
                               includeTagsInInput={false}
                               activeTagIndex={activeExtraTagIndex}
                               setActiveTagIndex={setActiveExtraTagIndex}
                               placeholder="Enter a feature"
+                              minTags={3}
                               tags={field.value}
-                              className=" w-full "
+                              className=" w-full overflow-auto "
                               setTags={(newTags) => {
                                 // setExtras(newTags);
                                 setValue(
@@ -670,6 +714,9 @@ export default function PropertyForm({
                               }}
                             />
                           </FormControl>
+                          <FormDescription>
+                            (Press Enter to add)
+                          </FormDescription>
                           <FormMessage />
                         </FormItem>
                       )}

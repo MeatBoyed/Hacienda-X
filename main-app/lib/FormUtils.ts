@@ -146,7 +146,7 @@ export const PropertySchema = z.object({
         }),
       })
     )
-    .min(1, { message: "There must be at least one extra feature." }),
+    .min(3, { message: "There must be at least 3 extra feature." }),
   visibility: z.enum(["Public", "Private", "Draft", "Deleted"], {
     required_error: "Pool information is required.",
     invalid_type_error: "Pool must be a boolean.",

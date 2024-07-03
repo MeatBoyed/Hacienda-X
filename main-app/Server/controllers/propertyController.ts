@@ -21,7 +21,6 @@ const app = new Hono()
   })
   .get("/search", async (c) => {
     const { minPrice, maxPrice, bathrooms, bedrooms } = c.req.query();
-    console.log("Recieved Query: ", bedrooms);
 
     const minP = parseInt(minPrice);
     const maxP = parseInt(maxPrice);
