@@ -80,7 +80,7 @@ export default function PropertyPage() {
             </div>
           </div>
 
-          <div className="pt-8 px-2 gap-3 w-full flex justify-start items-center">
+          <div className="py-8 sm:max-w-3xl lg:max-w-4xl gap-3 w-full flex justify-start items-center">
             <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
               {data.title}
             </h3>
