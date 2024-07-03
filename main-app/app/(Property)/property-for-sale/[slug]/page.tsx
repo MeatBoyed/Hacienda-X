@@ -185,7 +185,7 @@ function PropertyCarousel({ images }: PropertyCarouselProps) {
                     <img
                       src={image}
                       alt={`Property image ${index + 1}`}
-                      className="w-full h-full object-cover rounded"
+                      className="w-full h-full max-h-64 object-cover rounded"
                     />
                   </CardContent>
                 </Card>
