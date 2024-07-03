@@ -411,7 +411,9 @@ export default function PropertyForm({
                 <Card className="w-full">
                   <CardHeader>
                     <CardTitle>Images</CardTitle>
-                    <CardDescription>Upload your images.</CardDescription>
+                    <CardDescription>
+                      Upload at least 1 image for your property.
+                    </CardDescription>
                   </CardHeader>
                   <CardContent className="grid gap-6">
                     {/* Images */}
@@ -655,29 +657,6 @@ export default function PropertyForm({
                             <TagInput
                               {...field}
                               customTagRenderer={(tag, isActiveTag) => (
-                                // <div
-                                //   key={tag.id}
-                                //   className={`px-2 py-1 bg-red-500 rounded-full ${
-                                //     isActiveTag
-                                //       ? "ring-ring ring-offset-2 ring-2 ring-offset-background"
-                                //       : ""
-                                //   }`}
-                                // >
-                                //   <span className="text-white text-sm mr-1">
-                                //     {tag.text}
-                                //   </span>
-                                //   <X
-                                //     size={20}
-                                //     onClick={() =>
-                                //       setValue(
-                                //         "extraFeatures",
-                                //         form
-                                //           .getValues("extraFeatures")
-                                //           .filter((t) => t.id != tag.id)
-                                //       )
-                                //     }
-                                //   />
-                                // </div>
                                 <Badge
                                   key={tag.id}
                                   className="flex justify-center items-center gap-4 border bg-slate-100 rounded-md shadow-md text-black hover:cursor-pointer"
