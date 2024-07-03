@@ -33,14 +33,6 @@ import {
 } from "@/components/ui/select";
 import { SelectGroup } from "@radix-ui/react-select";
 
-export const OrderByEnum = z.enum([
-  "Default",
-  "PriceH",
-  "PriceL",
-  "MostRecent",
-  "Size",
-]);
-
 export default function PropertiesSearch() {
   const itemRef = useRef(null);
   const searchP = useSearchParams();
