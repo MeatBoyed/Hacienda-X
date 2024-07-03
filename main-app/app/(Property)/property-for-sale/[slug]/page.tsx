@@ -175,27 +175,31 @@ function PropertyCarousel({ images }: PropertyCarouselProps) {
 
   return (
     <>
-      <Carousel className="w-full max-w-2xl h-64 overflow-hidden">
-        <CarouselContent>
-          {images.map((image: string, index: number) => (
-            <CarouselItem key={index} className="h-full">
-              <div className="p-1 h-full">
-                <Card className="h-full">
-                  <CardContent className="flex items-center justify-center p-0 h-full">
-                    <img
-                      src={image}
-                      alt={`Property image ${index + 1}`}
-                      className="object-cover w-full h-full"
-                    />
-                  </CardContent>
-                </Card>
-              </div>
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-        <CarouselPrevious />
-        <CarouselNext />
-      </Carousel>
+      <div className="w-full max-w-2xl h-64 overflow-hidden">
+        {" "}
+        {/* Wrapper div with fixed height */}
+        <Carousel className="h-full">
+          <CarouselContent>
+            {images.map((image: string, index: number) => (
+              <CarouselItem key={index} className="h-full">
+                <div className="p-1 h-full">
+                  <Card className="h-full">
+                    <CardContent className="flex items-center justify-center p-0 h-full">
+                      <img
+                        src={image}
+                        alt={`Property image ${index + 1}`}
+                        className="object-cover w-full h-full"
+                      />
+                    </CardContent>
+                  </Card>
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious />
+          <CarouselNext />
+        </Carousel>
+      </div>
 
       <div className="flex justify-center items-center gap-2 mt-4">
         {images.slice(0, 3).map((image, index) => (
