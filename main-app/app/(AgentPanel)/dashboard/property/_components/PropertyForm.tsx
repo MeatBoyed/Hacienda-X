@@ -540,7 +540,7 @@ export default function PropertyForm({
                       name="squareMeter"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Square Meter</FormLabel>
+                          <FormLabel>Square Meters</FormLabel>
                           <FormControl>
                             <Input
                               className="w-full"

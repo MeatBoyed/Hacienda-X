@@ -59,32 +59,27 @@ export function MapComp({
   );
 
   const propertiesMarkers = useMemo(
-    () => (
-      <>
-        {properties &&
-          properties.map((property, index) => (
-            <>
-              {property.Address && (
-                <Marker
-                  longitude={property.Address.longitude}
-                  latitude={property.Address.latitude}
-                  anchor="center"
-                  onClick={(e) => {
-                    e.originalEvent.stopPropagation();
-                    setPopupInfo(property);
-                  }}
-                  key={index}
-                >
-                  <PropertyTagMarker
-                    price={property.price}
-                    saleType={property.saleType}
-                  />
-                </Marker>
-              )}
-            </>
-          ))}
-      </>
-    ),
+    () =>
+      properties &&
+      properties.map((property, index) => {
+        property.Address && (
+          <Marker
+            longitude={property.Address.longitude}
+            latitude={property.Address.latitude}
+            anchor="center"
+            onClick={(e) => {
+              e.originalEvent.stopPropagation();
+              setPopupInfo(property);
+            }}
+            key={index}
+          >
+            <PropertyTagMarker
+              price={property.price}
+              saleType={property.saleType}
+            />
+          </Marker>
+        );
+      }),
     [properties]
   );
 

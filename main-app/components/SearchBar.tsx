@@ -1,5 +1,5 @@
 "use client";
-import React, { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import { Input } from "./ui/input";
 import { HomeIcon, MapPin, Search, SlidersHorizontal } from "lucide-react";
 import SearchFilters from "@/app/_components/SearchFilters";
@@ -23,6 +23,7 @@ export function SearchBar({
   classname?: string;
   mapView?: boolean;
 }) {
+  const [filterOpen, setFilterOpen] = useState(false);
   return (
     <div
       id="searchbar"
@@ -38,12 +39,10 @@ export function SearchBar({
       /> */}
 
       <div className="flex justify-center w-full items-center gap-3 flex-col sm:flex-row">
-        <Dialog>
+        <Dialog open={filterOpen} onOpenChange={setFilterOpen}>
           <DialogTrigger className="w-full">
-            {/* <p className="text-lg bg-prima">Filter</p> */}
             <Button
               size={"lg"}
-              // className="bg-transparent text-text w-full hover:text-primary gap-3"
               className="bg-white w-full shadow-lg hover:border-background hover:bg-gray-100 hover:border rounded-md"
             >
               <div className="text-black w-full flex justify-center items-center gap-3">
@@ -56,9 +55,8 @@ export function SearchBar({
             <DialogHeader>
               <DialogTitle>Filter your search</DialogTitle>
             </DialogHeader>
-
             <div className="mt-5">
-              <SearchFilters />
+              <SearchFilters onSubmit={() => setFilterOpen(false)} />
             </div>
           </DialogContent>
         </Dialog>

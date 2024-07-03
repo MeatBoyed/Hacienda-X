@@ -13,3 +13,7 @@ export async function getServerUser(userId: string) {
 const $post = honoClient.user.create.$post;
 export const PostAgent = (arg: InferRequestType<typeof $post>) => async () =>
   await $post(arg).then(async (res) => await res.json());
+
+const $get = honoClient.properties.search.$get;
+export const GetSearch = (arg: InferRequestType<typeof $get>) => async () =>
+  await $get(arg).then(async (res) => await res.json());

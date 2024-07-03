@@ -8,6 +8,8 @@ import { PropertyWithAddress } from "@/Server/utils/utils";
 import { Property } from "@prisma/client";
 import { LeadFormSchema } from "@/app/(Property)/property-for-sale/[slug]/_components/LeadForm";
 import { UserFormSchema } from "@/app/(Core)/_components/RegisterForm";
+import { SearchQueryParameterSchema } from "@/app/_components/SearchFilters";
+import { ReadonlyURLSearchParams } from "next/navigation";
 
 export interface PostPropertyResponse {
   results: PropertyWithAddress;
@@ -123,5 +125,11 @@ export async function PostLead(
       "Content-type": "application/json",
     },
     body: JSON.stringify(arg.lead),
+  }).then((res) => res.json());
+}
+
+export async function GetPropertySearch(url: string) {
+  return fetch(`${url}`, {
+    method: "GET",
   }).then((res) => res.json());
 }
