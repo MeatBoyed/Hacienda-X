@@ -178,17 +178,17 @@ function PropertyCarousel({ images }: PropertyCarouselProps) {
       <div className="w-full max-w-2xl h-64 overflow-hidden">
         {" "}
         {/* Wrapper div with fixed height */}
-        <Carousel className="h-full">
-          <CarouselContent>
+        <Carousel className="w-full h-full">
+          <CarouselContent className="h-full">
             {images.map((image: string, index: number) => (
               <CarouselItem key={index} className="h-full">
                 <div className="p-1 h-full">
-                  <Card className="h-full">
+                  <Card className="aspect-w-16 aspect-h-7 h-full">
                     <CardContent className="flex items-center justify-center p-0 h-full">
                       <img
                         src={image}
                         alt={`Property image ${index + 1}`}
-                        className="object-cover w-full h-full"
+                        className="object-cover w-full h-full rounded"
                       />
                     </CardContent>
                   </Card>
