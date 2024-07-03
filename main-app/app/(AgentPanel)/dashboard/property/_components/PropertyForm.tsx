@@ -319,7 +319,7 @@ export default function PropertyForm({
                   <CardHeader>
                     <CardTitle>Property Details</CardTitle>
                     <CardDescription>
-                      Easily add your property in 5 minutes.
+                      Create your new property now!
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
@@ -530,7 +530,7 @@ export default function PropertyForm({
                   <CardHeader>
                     <CardTitle>Features</CardTitle>
                     <CardDescription>
-                      Lipsum dolor sit amet, consectetur adipiscing elit
+                      Unique features for your property!
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="grid gap-6">
@@ -559,7 +559,7 @@ export default function PropertyForm({
                       name="bedrooms"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Bedroom</FormLabel>
+                          <FormLabel>Bedrooms</FormLabel>
                           <FormControl>
                             <Select
                               value={field.value.toString()}

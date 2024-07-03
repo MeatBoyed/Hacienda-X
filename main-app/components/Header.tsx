@@ -23,6 +23,11 @@ export const Header = () => {
           <div className="hidden md:flex w-full justify-center">
             {/* <NavLinks /> */}
             <div className="flex justify-center gap-8 items-center">
+              <Link href="/">
+                <p className="text-base text-black hover:text-gray-700 transition">
+                  Home
+                </p>
+              </Link>
               <Link href="/property-for-sale">
                 <p className="text-base text-black hover:text-gray-700 transition">
                   Search
