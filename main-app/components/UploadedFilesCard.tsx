@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 
 import {
@@ -21,6 +22,13 @@ export function UploadedFilesCard({
   onFileDelete,
   uploadedImages,
 }: UploadedFilesCardProps) {
+  // const sensors = useSensors(
+  //   useSensor(PointerSensor),
+  //   useSensor(KeyboardSensor, {
+  //     coordinateGetter: sortableKeyboardCoordinates,
+  //   })
+  // );
+
   const images = useMemo(
     () =>
       uploadedImages?.map((image, index) => (
@@ -32,6 +40,20 @@ export function UploadedFilesCard({
       )),
     [uploadedImages]
   );
+  // const [images, setImage] = useState<string[]>([])
+
+  //   function handleDragEnd(event: any) {
+  //     const {active, over} = event;
+
+  //     if (active.id !== over.id) {
+  //       setImage((items) => {
+  //         const oldIndex = items.indexOf(active.id);
+  //         const newIndex = items.indexOf(over.id);
+
+  //         return arrayMove(items, oldIndex, newIndex);
+  //       });
+  //     }
+  //   }
 
   return (
     <div className="flex justify-center items-start flex-col w-full gap-5 ">
@@ -40,7 +62,7 @@ export function UploadedFilesCard({
         <CardDescription>View the uploaded files here</CardDescription>
       </div>
       <CardContent className="p-0 w-full">
-        {uploadedImages.length > 0 ? (
+        {/* {uploadedImages.length > 0 ? (
           <>
             <div className="grid gap-3 lg:grid-cols-2">{images}</div>
           </>
@@ -50,11 +72,46 @@ export function UploadedFilesCard({
             description="Upload some files to see them here"
             className="w-full"
           />
-        )}
+        )} */}
+        {/* <DndContext 
+      sensors={sensors}
+      collisionDetection={closestCenter}
+      onDragEnd={handleDragEnd}
+    >
+      <SortableContext 
+        items={images.map((file) => file.file)}
+        strategy={verticalListSortingStrategy}
+      >
+        <div className="grid gap-3 lg:grid-cols-2">
+        {uploadedImages.map(id => <SortableItem key={id} id={id} />)}
+        </div>
+      </SortableContext>
+    </DndContext> */}
       </CardContent>
     </div>
   );
 }
+
+// export function SortableItem(props) {
+//   const {
+//     attributes,
+//     listeners,
+//     setNodeRef,
+//     transform,
+//     transition,
+//   } = useSortable({id: props.id});
+
+//   const style = {
+//     transform: CSS.Transform.toString(transform),
+//     transition,
+//   };
+
+//   return (
+//     <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
+//       <ImagePreviewCard image={} onRemove={() => return} />
+//     </div>
+//   );
+// }
 
 function ImagePreviewCard({
   image,
