@@ -55,7 +55,7 @@ export function SearchBar({
             <DialogHeader>
               <DialogTitle>Filter your search</DialogTitle>
             </DialogHeader>
-            <div className="mt-5">
+            <div className="">
               <SearchFilters onSubmit={() => setFilterOpen(false)} />
             </div>
           </DialogContent>

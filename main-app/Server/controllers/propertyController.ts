@@ -20,10 +20,11 @@ const app = new Hono()
     );
   })
   .get("/search", async (c) => {
-    const { price, bathrooms, bedrooms } = c.req.query();
+    const { minPrice, maxPrice, bathrooms, bedrooms } = c.req.query();
     console.log("Recieved Query: ", bedrooms);
 
-    const priceAmount = parseInt(price);
+    const minP = parseInt(minPrice);
+    const maxP = parseInt(maxPrice);
     const baths = parseInt(bathrooms);
     const beds = parseInt(bedrooms);
 
@@ -33,6 +34,10 @@ const app = new Hono()
           visibility: { not: "Deleted" },
           bathrooms: { equals: baths > 0 ? baths : undefined },
           bedrooms: { equals: beds > 0 ? beds : undefined },
+          price: {
+            lte: maxP > 100000 ? maxP : undefined,
+            gte: minP > 100000 ? minP : undefined,
+          },
         },
         include: { Address: true },
       })

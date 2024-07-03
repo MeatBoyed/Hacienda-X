@@ -12,7 +12,11 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { SelectBathroomsOptions, SelectBedroomsOptions } from "@/lib/FormUtils";
+import {
+  SelectBathroomsOptions,
+  SelectBedroomsOptions,
+  SelectPriceOptions,
+} from "@/lib/FormUtils";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import {
   Form,
@@ -27,7 +31,10 @@ import { coerce, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 export const SearchQueryParameterSchema = z.object({
-  price: z.coerce
+  minPrice: z.coerce
+    .number({ invalid_type_error: "Price range must be a number" })
+    .optional(),
+  maxPrice: z.coerce
     .number({ invalid_type_error: "Price range must be a number" })
     .optional(),
   bedrooms: z.coerce
@@ -46,7 +53,8 @@ export default function SearchFilters({ onSubmit }: { onSubmit: () => void }) {
   const form = useForm<z.infer<typeof SearchQueryParameterSchema>>({
     resolver: zodResolver(SearchQueryParameterSchema),
     defaultValues: {
-      price: parseInt(searchParams.get("price") || "0"),
+      minPrice: parseInt(searchParams.get("minPrice") || "0"),
+      maxPrice: parseInt(searchParams.get("maxPrice") || "0"),
       bedrooms: parseInt(searchParams.get("bedrooms") || "0"),
       bathrooms: parseInt(searchParams.get("bathrooms") || "0"),
     },
@@ -60,10 +68,14 @@ export default function SearchFilters({ onSubmit }: { onSubmit: () => void }) {
     params.delete("price");
     params.delete("bedrooms");
     params.delete("bathrooms");
+    params.delete("minPrice");
+    params.delete("maxPrice");
 
     // Set new values
-    if (values.price && values.price > 0)
-      params.set("bathrooms", values.price.toString());
+    if (values.minPrice && values.minPrice > 100000)
+      params.set("minPrice", values.minPrice.toString());
+    if (values.maxPrice && values.maxPrice > 100000)
+      params.set("maxPrice", values.maxPrice.toString());
     if (values.bedrooms && values.bedrooms > 0)
       params.set("bedrooms", values.bedrooms.toString());
     if (values.bathrooms && values.bathrooms > 0)
@@ -81,9 +93,9 @@ export default function SearchFilters({ onSubmit }: { onSubmit: () => void }) {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(submitHandler)}
-          className="w-full h-full"
+          className="w-full h-full flex flex-col justify-center items-center gap-6"
         >
-          <div className="flex flex-col justify-center items-center flex-wrap text-black w-full gap-8">
+          <div className="flex flex-col justify-center items-start flex-wrap text-black w-full gap-4">
             {/* Bedroom */}
             <FormField
               control={form.control}
@@ -152,41 +164,104 @@ export default function SearchFilters({ onSubmit }: { onSubmit: () => void }) {
                 </FormItem>
               )}
             />
-            {/* <Label>Price</Label>
-            <Select
-              name="price"
-              defaultValue={searchParams.get("price") || undefined}
-            >
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="Price" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="0">0 - 50K</SelectItem>
-                <SelectItem value="1">150K - 200K</SelectItem>
-                <SelectItem value="2">250K - 500K</SelectItem>
-                <SelectItem value="3">500K - 1M</SelectItem>
-                <SelectItem value="4">1M+</SelectItem>
-              </SelectContent>
-            </Select> */}
-
-            <div className="w-full flex space-x-3">
-              <Button
-                type="button"
-                onClick={() => {
-                  submitHandler({ bathrooms: 0, bedrooms: 0, price: 0 });
-                }}
-                variant={"outline"}
-                className="hover:bg-red-500 hover:text-white"
-              >
-                Reset
-              </Button>
-              <Button
-                type="submit"
-                className="bg-accent hover:bg-blue-500 hover:text-white w-full shadow-md"
-              >
-                Apply filter
-              </Button>
+            <div className="flex justify-center items-start flex-col gap-3 w-full">
+              <FormLabel className="w-full">Price range</FormLabel>
+              <div className="flex justify-center items-center  gap-4 w-full ">
+                {/* Min Price */}
+                <FormField
+                  control={form.control}
+                  name="minPrice"
+                  render={({ field }) => (
+                    <FormItem className="w-full">
+                      <FormControl>
+                        <Select
+                          value={field.value?.toString()}
+                          onValueChange={field.onChange}
+                        >
+                          <SelectTrigger className="">
+                            <SelectValue placeholder="Min price range" />
+                          </SelectTrigger>
+                          <SelectContent className="">
+                            <SelectGroup>
+                              <SelectLabel>Min Price</SelectLabel>
+                              <SelectItem key={"0 Bathrooms"} value={"0"}>
+                                Min price
+                              </SelectItem>
+                              {SelectPriceOptions.map((option) => (
+                                <SelectItem
+                                  key={option.key}
+                                  value={option.value.toString()}
+                                >
+                                  R {option.value.toLocaleString()}
+                                </SelectItem>
+                              ))}
+                            </SelectGroup>
+                          </SelectContent>
+                        </Select>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                {/* Max Price */}
+                <FormField
+                  control={form.control}
+                  name="maxPrice"
+                  render={({ field }) => (
+                    <FormItem className="w-full">
+                      <FormControl>
+                        <Select
+                          value={field.value?.toString()}
+                          onValueChange={field.onChange}
+                        >
+                          <SelectTrigger className="">
+                            <SelectValue placeholder="Max price range" />
+                          </SelectTrigger>
+                          <SelectContent className="">
+                            <SelectGroup>
+                              <SelectLabel>Max Price</SelectLabel>
+                              <SelectItem value={"0"}>Max Price</SelectItem>
+                              {SelectPriceOptions.map((option) => (
+                                <SelectItem
+                                  key={option.key}
+                                  value={option.value.toString()}
+                                >
+                                  R {option.value.toLocaleString()}
+                                </SelectItem>
+                              ))}
+                            </SelectGroup>
+                          </SelectContent>
+                        </Select>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
             </div>
+          </div>
+          <div className="w-full flex space-x-3">
+            <Button
+              type="button"
+              onClick={() => {
+                submitHandler({
+                  bathrooms: 0,
+                  bedrooms: 0,
+                  maxPrice: 0,
+                  minPrice: 0,
+                });
+              }}
+              variant={"outline"}
+              className="hover:bg-red-500 hover:text-white"
+            >
+              Reset
+            </Button>
+            <Button
+              type="submit"
+              className="bg-accent hover:bg-blue-500 hover:text-white w-full shadow-md"
+            >
+              Apply filter
+            </Button>
           </div>
         </form>
       </Form>
