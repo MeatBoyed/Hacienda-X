@@ -8,7 +8,7 @@ import useSWR from "swr";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import PropertyCarousel from "@/components/PropertyCarousel";
-import { GenericPropertyResponse } from "@/Server/utils/utils";
+import { PropertyWithAddress } from "@/Server/utils/utils";
 import { PropertyCard } from "@/components/PropertyCard";
 import { cn } from "@/lib/utils";
 
@@ -25,7 +25,7 @@ export default function Residencies({
   className?: string;
 }) {
   // Handles all data fetching states, calls the Fetching Handler
-  const { data, error, isLoading } = useSWR<GenericPropertyResponse>(
+  const { data, error, isLoading } = useSWR<PropertyWithAddress[]>(
     "/api/properties",
     fetcher
   );
@@ -73,7 +73,7 @@ export default function Residencies({
 
         <PropertyCarousel className="">
           {data &&
-            data.results.map((property, index) => (
+            data.map((property, index) => (
               <PropertyCard key={index} property={property} />
             ))}
         </PropertyCarousel>

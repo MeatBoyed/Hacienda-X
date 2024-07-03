@@ -12,7 +12,7 @@ export default function LocationSection({
 }: {
   property: PropertyWithAddress;
 }) {
-  const { data } = useSWR<GenericPropertyResponse>("/api/properties", fetcher);
+  const { data } = useSWR<PropertyWithAddress[]>("/api/properties", fetcher);
 
   return (
     <section className="flex justify-center items-center w-full flex-col">
@@ -22,7 +22,7 @@ export default function LocationSection({
           <MapComp
             height="40vw"
             focusedProperty={property}
-            properties={data?.results || []}
+            properties={data || []}
           />
         </div>
         <Residencies

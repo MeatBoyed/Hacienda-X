@@ -1,6 +1,9 @@
 "use client";
 
-import { GenericPropertyResponse } from "@/Server/utils/utils";
+import {
+  GenericPropertyResponse,
+  PropertyWithAddress,
+} from "@/Server/utils/utils";
 import { MapComp } from "@/components/Map";
 import { SearchBar } from "@/components/SearchBar";
 import { fetcher } from "@/lib/utils";
@@ -8,7 +11,7 @@ import PuffLoader from "react-spinners/PuffLoader";
 import useSWR from "swr";
 
 export default function MapSearchView() {
-  const { data, isLoading } = useSWR<GenericPropertyResponse>(
+  const { data, isLoading } = useSWR<PropertyWithAddress[]>(
     "/api/properties",
     fetcher
   );
@@ -26,8 +29,8 @@ export default function MapSearchView() {
           {data && (
             <MapComp
               height={"100vh"}
-              properties={data.results}
-              focusedProperty={data.results[0]}
+              properties={data}
+              focusedProperty={data[0]}
             />
           )}
         </div>
