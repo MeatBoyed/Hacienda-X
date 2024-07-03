@@ -127,16 +127,16 @@ export default function PropertiesSearch() {
 
   return (
     <div className="bg-white" ref={itemRef}>
-      <div className=" mb-2  lg:max-h-screen">
-        <div className="flex justify-between flex-col  w-full h-full ">
-          <div className="flex justify-center sm:flex-row flex-col items-start border gap-3 lg:h-screen rounded-md shadow-md bg-background">
-            <div className="w-full pt-[4.8rem] lg:max-h-screen flex justify-center items-center flex-col gap-2">
+      <div className=" mb-2 lg:min-h-screen lg:max-h-screen">
+        <div className="flex justify-center flex-col  w-full h-full ">
+          <div className="flex justify-center sm:flex-row flex-col items-start border gap-3 lg:min-h-screen lg:h-screen rounded-md shadow-md bg-background">
+            <div className="w-full pt-[4.8rem] lg:max-h-screen lg:min-h-screen flex justify-start items-center flex-col gap-2">
               <SearchBar classname="px-4" />
 
               {itemWidth >= 1024 && (
                 <ResizablePanelGroup
                   direction="horizontal"
-                  className="max-h-[95vh] w-full rounded-lg border overflow-y-auto scroll-smooth"
+                  className="max-h-[95vh] min-h-[95vh] w-full rounded-lg border overflow-y-auto scroll-smooth"
                 >
                   <ResizablePanel
                     minSize={38}

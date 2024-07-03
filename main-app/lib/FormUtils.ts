@@ -6,6 +6,39 @@ import { zfd } from "zod-form-data";
 export const MINFILES = 1;
 export const MAXFILES = 12;
 
+export const SelectPriceOptions = [
+  { key: "100000", value: 100000 },
+  { key: "150000", value: 150000 },
+  { key: "200000", value: 200000 },
+  { key: "250000", value: 250000 },
+  { key: "300000", value: 300000 },
+  { key: "350000", value: 350000 },
+  { key: "400000", value: 400000 },
+  { key: "450000", value: 450000 },
+  { key: "500000", value: 500000 },
+  { key: "600000", value: 600000 },
+  { key: "700000", value: 700000 },
+  { key: "800000", value: 800000 },
+  { key: "900000", value: 900000 },
+  { key: "1000000", value: 1000000 },
+  { key: "1250000", value: 1250000 },
+  { key: "1500000", value: 1500000 },
+  { key: "1750000", value: 1750000 },
+  { key: "2000000", value: 2000000 },
+  { key: "2500000", value: 2500000 },
+  { key: "3000000", value: 3000000 },
+  { key: "3500000", value: 3500000 },
+  { key: "4000000", value: 4000000 },
+  { key: "4500000", value: 4500000 },
+  { key: "5000000", value: 5000000 },
+  { key: "6000000", value: 6000000 },
+  { key: "7000000", value: 7000000 },
+  { key: "8000000", value: 8000000 },
+  { key: "9000000", value: 9000000 },
+  { key: "10000000", value: 10000000 },
+  { key: "15000000", value: 15000000 },
+];
+
 export const SelectBedroomsOptions = [
   { key: "1 Bedroom", value: "1" },
   { key: "2 Bedroom", value: "2" },
