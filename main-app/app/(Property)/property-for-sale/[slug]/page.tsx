@@ -175,7 +175,7 @@ function PropertyCarousel({ images }: PropertyCarouselProps) {
 
   return (
     <>
-      <Carousel className="w-full max-w-2xl max-h-12">
+      <Carousel className="w-full max-w-2xl">
         <CarouselContent>
           {images.map((image: string, index: number) => (
             <CarouselItem key={index}>
