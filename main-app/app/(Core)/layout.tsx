@@ -1,7 +1,6 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
 import "mapbox-gl/dist/mapbox-gl.css";
-import "mapbox-gl/dist/mapbox-gl.css";
 import { Inter } from "next/font/google";
 import Footer from "@/components/Footer";
 import { Header } from "@/components/Header";

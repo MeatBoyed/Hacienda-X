@@ -72,9 +72,10 @@ export default function Residencies({
         )}
 
         <PropertyCarousel className="">
-          {data?.results.map((property, index) => (
-            <PropertyCard key={index} property={property} />
-          ))}
+          {data &&
+            data.results.map((property, index) => (
+              <PropertyCard key={index} property={property} />
+            ))}
         </PropertyCarousel>
       </div>
     </section>
