@@ -42,10 +42,10 @@ export function SearchBar({
         <Dialog open={filterOpen} onOpenChange={setFilterOpen}>
           <DialogTrigger className="w-full">
             <Button
-              size={"lg"}
-              className="bg-white w-full shadow-lg hover:border-background hover:bg-gray-100 hover:border rounded-md"
+              size={"sm"}
+              className="bg-accent text-white hover:text-black w-full shadow-md hover:border-background hover:bg-gray-100 hover:border rounded-md"
             >
-              <div className="text-black w-full flex justify-center items-center gap-3">
+              <div className=" w-full flex justify-center items-center gap-3">
                 <SlidersHorizontal size={15} className="" />
                 <p className="text-text ">Filter</p>
               </div>
@@ -61,9 +61,9 @@ export function SearchBar({
           </DialogContent>
         </Dialog>
 
-        {!mapView && (
+        {!mapView ? (
           <Button
-            size={"lg"}
+            size={"sm"}
             className="bg-white w-full lg:hidden text-black hover:border-background hover:bg-accent hover:text-white shadow-md gap-3 hover: rounded-md"
           >
             <Link
@@ -73,26 +73,25 @@ export function SearchBar({
               <MapPin size={15} /> Map Search
             </Link>
           </Button>
-        )}
-        {mapView && (
-          <Button
-            size={"lg"}
-            className="bg-white w-full text-black hover:border-background hover:bg-accent hover:text-white shadow-md gap-3 hover: rounded-md"
+        ) : (
+          <Link
+            href="/property-for-sale"
+            className="flex justify-center items-center gap-3 w-full"
           >
-            <Link
-              href="/property-for-sale"
-              className="flex justify-center items-center gap-3"
+            <Button
+              size={"sm"}
+              className="bg-white w-full text-black hover:border-background hover:bg-accent hover:text-white shadow-md gap-3 hover: rounded-md"
             >
               <HomeIcon size={15} /> Property Search
-            </Link>
-          </Button>
+            </Button>
+          </Link>
         )}
-        <Button
+        {/* <Button
           size={"lg"}
           className="bg-accent w-full text-white hover:bg-blue-600  hover:text-white shadow-lg gap-3"
         >
           <Search size={15} /> Search
-        </Button>
+        </Button> */}
       </div>
     </div>
   );
@@ -105,30 +104,30 @@ export function HomePageSearchBar() {
       className={cn("w-full flex justify-center items-center flex-col gap-2")}
     >
       <div className="flex justify-center w-full items-center gap-3 flex-col sm:flex-row">
-        <Button
-          size={"lg"}
-          className="bg-white w-full  text-black hover:border-background hover:bg-accent hover:text-white shadow-lg gap-3 hover: rounded-md"
+        <Link
+          href="/property-for-sale/map"
+          className="flex justify-center items-center gap-3 w-full"
         >
-          <Link
-            href="/property-for-sale/map"
-            className="flex justify-center items-center gap-3"
+          <Button
+            size={"lg"}
+            className="bg-white w-full  text-black hover:border-background hover:bg-accent hover:text-white shadow-lg gap-3 hover: rounded-md"
           >
             <MapPin size={15} />
             <p className="text-text ">Map Search</p>
-          </Link>
-        </Button>
-        <Button
-          size={"lg"}
-          className="bg-accent w-full text-white hover:bg-blue-600  hover:text-white shadow-lg gap-3"
+          </Button>
+        </Link>
+        <Link
+          href="/property-for-sale"
+          className="w-full h-full flex justify-center items-center gap-3"
         >
-          <Link
-            href="/property-for-sale"
-            className="w-full h-full flex justify-center items-center gap-3"
+          <Button
+            size={"lg"}
+            className="bg-accent w-full text-white hover:bg-blue-600  hover:text-white shadow-lg gap-3"
           >
             <Search size={15} />
             <p className="text-text ">Find properties</p>
-          </Link>
-        </Button>
+          </Button>
+        </Link>
       </div>
     </div>
   );

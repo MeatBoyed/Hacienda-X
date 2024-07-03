@@ -32,6 +32,8 @@ import {
   SelectLabel,
 } from "@/components/ui/select";
 import { SelectGroup } from "@radix-ui/react-select";
+import { Button } from "@/components/ui/button";
+import { SlidersHorizontal } from "lucide-react";
 
 export default function PropertiesSearch() {
   const itemRef = useRef(null);
@@ -127,11 +129,11 @@ export default function PropertiesSearch() {
 
   return (
     <div className="bg-white" ref={itemRef}>
-      <div className=" mb-2 lg:min-h-screen lg:max-h-screen">
+      <div className="md:mt-10 lg:mt-0 mb-2 lg:min-h-screen lg:max-h-screen">
         <div className="flex justify-center flex-col  w-full h-full ">
           <div className="flex justify-center sm:flex-row flex-col items-start border gap-3 lg:min-h-screen lg:h-screen rounded-md shadow-md bg-background">
-            <div className="w-full pt-[4.8rem] lg:max-h-screen lg:min-h-screen flex justify-start items-center flex-col gap-2">
-              <SearchBar classname="px-4" />
+            <div className="w-full  pt-[4.8rem] lg:max-h-screen lg:min-h-screen flex justify-start items-center flex-col gap-2">
+              {itemWidth < 1024 && <SearchBar classname="px-4" />}
 
               {itemWidth >= 1024 && (
                 <ResizablePanelGroup
@@ -145,12 +147,13 @@ export default function PropertiesSearch() {
                     style={{ overflowY: "auto" }}
                     className="overflow-y-auto max-h-screen scroll-smooth space-y-4 pt-1 px-4"
                   >
-                    <div className="">
+                    <div className="w-full grid items-center gap-2">
+                      <SearchBar classname="" />
                       <Select
                         value={orderBy}
                         onValueChange={(value) => setOrderBy(value)}
                       >
-                        <SelectTrigger className="w-fit">
+                        <SelectTrigger className="bg-white shadow-md w-full hover:bg-gray-100 ">
                           <SelectValue placeholder="Order by" />
                         </SelectTrigger>
                         <SelectContent>
