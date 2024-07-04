@@ -10,7 +10,7 @@ import Link from "next/link";
 import PropertyCarousel from "@/components/PropertyCarousel";
 import { PropertyWithAddress } from "@/Server/utils/utils";
 import { PropertyCard } from "@/components/PropertyCard";
-import { cn } from "@/lib/utils";
+import { cn } from "@/components/ImagesInput/FileInputUtils";
 
 // Handles calling Fetch API (This is an example, it has been extracted into the Utils file)
 const fetcher = (url: string) => fetch(url).then((res) => res.json());

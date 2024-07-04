@@ -7,13 +7,14 @@ import Dropzone, {
   type FileRejection,
 } from "react-dropzone";
 import { toast } from "sonner";
-
-import { cn, formatBytes } from "@/lib/utils";
+import { cn, formatBytes } from "./FileInputUtils";
 import { useControllableState } from "@/lib/useControllableState";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { UploadIcon, X } from "lucide-react";
+import { useContext } from "react";
+import { UploadContext, UploadContextType } from "./uploadContext";
 
 interface FileUploaderProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
@@ -32,13 +33,13 @@ interface FileUploaderProps extends React.HTMLAttributes<HTMLDivElement> {
    */
   onValueChange?: React.Dispatch<React.SetStateAction<File[]>>;
 
-  /**
-   * Function to be called when files are uploaded.
-   * @type (files: File[]) => Promise<void>
-   * @default undefined
-   * @example onUpload={(files) => uploadFiles(files)}
-   */
-  onUpload?: (files: File[]) => Promise<void>;
+  // /**
+  //  * Function to be called when files are uploaded.
+  //  * @type (files: File[]) => Promise<void>
+  //  * @default undefined
+  //  * @example onUpload={(files) => uploadFiles(files)}
+  //  */
+  // onUpload?: (files: File[]) => Promise<void>;
   // onUpload?: (files: File[]) => Promise<{ files: File[]}>;
 
   /**
@@ -97,7 +98,6 @@ export function FileUploader(props: FileUploaderProps) {
   const {
     value: valueProp,
     onValueChange,
-    onUpload,
     progresses,
     accept = { "image/*": [] },
     maxSize = 1024 * 1024 * 2,
@@ -107,6 +107,11 @@ export function FileUploader(props: FileUploaderProps) {
     className,
     ...dropzoneProps
   } = props;
+
+  // Upload Context state
+  const { uploadedImages, handleUpload } = useContext(
+    UploadContext
+  ) as UploadContextType;
 
   const [files, setFiles] = useControllableState({
     prop: valueProp,
@@ -124,7 +129,12 @@ export function FileUploader(props: FileUploaderProps) {
         return;
       }
 
-      if ((files?.length ?? 0) + acceptedFiles.length > maxFiles) {
+      console.log(
+        "Totoal Input length",
+        uploadedImages?.length || 0 + acceptedFiles.length
+      );
+      if ((uploadedImages?.length ?? 0) + acceptedFiles.length > maxFiles) {
+        console.log("Hello youu");
         toast.error("Oops, you can't do that.", {
           description: `Cannot upload more than ${maxFiles} files`,
           duration: 10000,
@@ -174,15 +184,11 @@ export function FileUploader(props: FileUploaderProps) {
         });
       }
 
-      if (
-        onUpload &&
-        updatedFiles.length > 0 &&
-        updatedFiles.length <= maxFiles
-      ) {
+      if (updatedFiles.length > 0 && updatedFiles.length <= maxFiles) {
         const target =
           updatedFiles.length > 0 ? `${updatedFiles.length} files` : `file`;
 
-        toast.promise(onUpload(updatedFiles), {
+        toast.promise(handleUpload(updatedFiles), {
           loading: `Uploading ${target}...`,
           success: () => {
             setFiles([]);
@@ -193,7 +199,7 @@ export function FileUploader(props: FileUploaderProps) {
       }
     },
 
-    [files, maxFiles, maxSize, multiple, onUpload, setFiles]
+    [files, maxFiles, maxSize, multiple, handleUpload, setFiles]
   );
 
   function onRemove(index: number) {
@@ -216,7 +222,7 @@ export function FileUploader(props: FileUploaderProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const isDisabled = disabled || (files?.length ?? 0) >= maxFiles;
+  const isDisabled = disabled || (uploadedImages?.length ?? 0) >= maxFiles;
 
   return (
     <div className="relative flex flex-col w-full gap-6 overflow-hidden">

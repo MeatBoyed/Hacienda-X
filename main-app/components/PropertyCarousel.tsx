@@ -8,7 +8,7 @@ import {
 } from "./ui/carousel";
 import React, { ReactNode } from "react";
 import Autoplay from "embla-carousel-autoplay";
-import { cn } from "@/lib/utils";
+import { cn } from "@/components/ImagesInput/FileInputUtils";
 
 export default function PropertyCarousel({
   children,

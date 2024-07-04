@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@/components/ImagesInput/FileInputUtils";
 import React from "react";
 import { PuffLoader } from "react-spinners";
 

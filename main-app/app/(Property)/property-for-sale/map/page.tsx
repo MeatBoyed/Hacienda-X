@@ -3,7 +3,7 @@
 import { PropertyWithAddress } from "@/Server/utils/utils";
 import { MapComp } from "@/components/Map";
 import { SearchBar } from "@/components/SearchBar";
-import { fetcher } from "@/lib/utils";
+import { fetcher } from "@/components/ImagesInput/FileInputUtils";
 import PuffLoader from "react-spinners/PuffLoader";
 import useSWR from "swr";
 

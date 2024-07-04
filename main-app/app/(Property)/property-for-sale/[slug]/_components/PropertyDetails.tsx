@@ -107,7 +107,7 @@ function OffersList({
         {extraFeatures.map((feature, index) => (
           <div key={index} className="flex justify-center items-center gap-5">
             <CheckCircle size={20} />
-            <p className="leading-7">{feature} Bathrooms</p>
+            <p className="leading-7">{feature}</p>
           </div>
         ))}
       </div>

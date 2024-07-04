@@ -5,7 +5,7 @@ import {
 } from "@/Server/utils/utils";
 import Residencies from "@/app/_components/Residencies";
 import useSWR from "swr";
-import { fetcher } from "@/lib/utils";
+import { fetcher } from "@/components/ImagesInput/FileInputUtils";
 
 export default function LocationSection({
   property,

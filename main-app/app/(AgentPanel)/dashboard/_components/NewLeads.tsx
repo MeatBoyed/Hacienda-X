@@ -2,7 +2,7 @@
 
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Skeleton } from "@/components/ui/skeleton";
-import { fetcher } from "@/lib/utils";
+import { fetcher } from "@/components/ImagesInput/FileInputUtils";
 import { Lead } from "@prisma/client";
 import { ChevronRight } from "lucide-react";
 import { useMemo } from "react";

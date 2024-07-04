@@ -5,7 +5,7 @@ import { Bath, BedDouble, Bookmark, Ruler } from "lucide-react";
 import { PropertyWithAddress } from "@/Server/utils/utils";
 import { MdPool } from "react-icons/md";
 import { Card, CardContent } from "./ui/card";
-import { cn } from "@/lib/utils";
+import { cn } from "@/components/ImagesInput/FileInputUtils";
 import { SavePropertyBTN } from "@/lib/bookmarksContext";
 import { Skeleton } from "./ui/skeleton";
 

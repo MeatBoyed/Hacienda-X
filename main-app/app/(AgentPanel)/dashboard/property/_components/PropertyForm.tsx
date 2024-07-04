@@ -31,12 +31,12 @@ import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ChevronLeft, Eye, Save, Trash2, X, XCircle } from "lucide-react";
+import { ChevronLeft, Save, Trash2, X, XCircle } from "lucide-react";
 import { PuffLoader } from "react-spinners";
 
 import { z } from "zod";
-import { useContext, useState } from "react";
-import { useForm } from "react-hook-form";
+import { useContext, useState, use, useEffect } from "react";
+import { FieldError, useForm } from "react-hook-form";
 import {
   PropertySchema,
   SelectBedroomsOptions,
@@ -44,20 +44,15 @@ import {
   SelectVisibilityOptions,
   SelectSaleTypeOptions,
   MAXFILES,
-  propertyToFormData,
+  MINFILES,
 } from "../../../../../lib/FormUtils";
 import useSWRMutation from "swr/mutation";
 import { toast } from "sonner";
 import { AddressInput } from "../../../../../components/AddressInput";
-import { ImagesInput } from "@/components/ImagesInput";
-import {
-  DeleteProperty,
-  PostProperty,
-  PostPropertyResponse,
-} from "@/lib/RequestUtils";
+import { ImagesInput } from "@/components/ImagesInput/ImagesInput";
+import { DeleteProperty, PostProperty } from "@/lib/RequestUtils";
 import { PropertyWithAddress } from "@/Server/utils/utils";
 import { useRouter } from "next/navigation";
-import { useUser } from "@clerk/nextjs";
 import {
   Dialog,
   DialogContent,
@@ -67,7 +62,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import image from "next/image";
 import { UserContext, UserContextType } from "@/lib/userContext";
 import { Badge } from "@/components/ui/badge";
 
@@ -84,9 +78,23 @@ export default function PropertyForm({
     resolver: zodResolver(PropertySchema),
     defaultValues: defaultValues,
   });
-  const { setValue, getValues, formState } = form;
+  const {
+    setValue,
+    getValues,
+    setError,
+    formState: { errors, isDirty, isSubmitted },
+  } = form;
   // console.log("Values: ", getValues());
-  // console.log("Errors: ", formState.errors);
+
+  useEffect(() => {
+    if (isDirty && isSubmitted)
+      Object.entries(errors).forEach(([key, value]) => {
+        toast.error("Oops! Seems you've entered something wrong.", {
+          description: value.message,
+          duration: 10000,
+        });
+      });
+  }, [errors, isDirty, isSubmitted]);
 
   // Extra Features's Tag management
   const [activeExtraTagIndex, setActiveExtraTagIndex] = useState<number | null>(
@@ -131,7 +139,7 @@ export default function PropertyForm({
           toast.success("Your property has been posted!", {
             description: `View your property at ....`,
           });
-          router.push(`/dashboard/property/${data.property_id}`);
+          router.replace(`/dashboard/property/${data.property_id}`);
         }
       },
     }
@@ -205,12 +213,25 @@ export default function PropertyForm({
   );
 
   async function submitHandler(values: z.infer<typeof PropertySchema>) {
-    console.log("Hello!");
     console.log("Submitted Form: ", values);
 
     if (!initProperty) {
+      if (values.images.length < MINFILES) {
+        setError("images", {
+          message: `There must be at least ${MINFILES} Image.`,
+        });
+        return;
+      }
+
       await triggerCreate({ property: values });
     } else {
+      if (values.imagesOrder && values.imagesOrder.length < MINFILES) {
+        setError("images", {
+          message: `There must be at least ${MINFILES} Image.`,
+        });
+        return;
+      }
+
       await triggerUpdate({
         property: values,
       });
@@ -412,7 +433,7 @@ export default function PropertyForm({
                   <CardHeader>
                     <CardTitle>Images</CardTitle>
                     <CardDescription>
-                      Upload at least 1 image for your property.
+                      Upload at least {MINFILES} image for your property.
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="grid gap-6">
@@ -425,6 +446,8 @@ export default function PropertyForm({
                           <FormMessage />
                           <FormControl className="px-2 pb-4">
                             <ImagesInput
+                              maxFiles={MAXFILES}
+                              maxSize={5 * 1024 * 1024}
                               defaultValues={initProperty ? field.value : []}
                               handleChange={(uploadedImages, deletedImages) => {
                                 console.log("Images: ", uploadedImages);

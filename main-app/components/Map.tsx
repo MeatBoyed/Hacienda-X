@@ -16,7 +16,7 @@ import { PropertyWithAddress } from "@/Server/utils/utils";
 import { Card, CardContent } from "./ui/card";
 import { buttonVariants } from "./ui/button";
 import { MdPool } from "react-icons/md";
-import { cn } from "@/lib/utils";
+import { cn } from "@/components/ImagesInput/FileInputUtils";
 import Image from "next/image";
 import { Badge } from "./ui/badge";
 

@@ -15,7 +15,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { cn, fetcher } from "@/lib/utils";
+import { cn, fetcher } from "@/components/ImagesInput/FileInputUtils";
 import {
   Card,
   CardHeader,

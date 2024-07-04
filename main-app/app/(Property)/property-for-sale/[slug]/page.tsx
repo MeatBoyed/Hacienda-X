@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { useParams } from "next/navigation";
-import { fetcher } from "@/lib/utils";
+import { fetcher } from "@/components/ImagesInput/FileInputUtils";
 import useSWR from "swr";
 import { PropertyWithAddressAndAgent } from "@/Server/utils/utils";
 import Loader from "@/components/ui/loader";

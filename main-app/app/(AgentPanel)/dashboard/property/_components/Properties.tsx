@@ -7,7 +7,7 @@ import PropertyInsightCard, {
   PropertyInsightCardSkeleton,
 } from "../../_components/PropertyInsightCard";
 import { useMemo } from "react";
-import { cn } from "@/lib/utils";
+import { cn } from "@/components/ImagesInput/FileInputUtils";
 
 export default function Properties({ className }: { className?: string }) {
   const { data, error, isLoading } = useSWR<PropertyWithAddress[]>(

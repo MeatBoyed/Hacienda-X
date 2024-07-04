@@ -1,9 +1,8 @@
 import { PreSignRequest } from "@/Server/controllers/imagesController";
-import { Property } from "@prisma/client";
 import { z } from "zod";
 import { zfd } from "zod-form-data";
 
-export const MINFILES = 1;
+export const MINFILES = 4;
 export const MAXFILES = 12;
 
 export const SelectPriceOptions = [
@@ -131,7 +130,7 @@ export const PropertySchema = z.object({
   lng: z.number(),
   images: z
     .array(typeof window === "undefined" ? z.any() : z.instanceof(File))
-    // .min(1, { message: `There must be at least ${MINFILES} Image.` })
+    // .min(1, { message: `There must be at least ${MINFILES} Image.` }) Handled in Property Form Submit
     .max(MAXFILES, { message: `No more than ${MAXFILES} Images allowed.` }),
   extraFeatures: z
     .array(
@@ -211,12 +210,6 @@ export const DeletePropertyRequestSchema = z.object({
 export const PropertyRequestFormDataSchema = zfd.formData(
   PropertyRequestSchema
 );
-
-export interface FileState {
-  file: File | string;
-  key: string; // used to identify the file in the progress callback
-  progress: "PENDING" | "COMPLETE" | "ERROR";
-}
 
 export function propertyToFormData(
   property: z.infer<typeof PropertySchema>
