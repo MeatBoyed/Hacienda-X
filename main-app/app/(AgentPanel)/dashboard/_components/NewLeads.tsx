@@ -21,6 +21,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
+import Link from "next/link";
 
 export default function NewLeads() {
   const { data, error, isLoading } = useSWR<{
@@ -87,7 +88,15 @@ function LeadCard({
       </DialogTrigger>
       <DialogContent className="sm:max-w-md space-y-4">
         <DialogHeader>
-          <DialogTitle>Your Lead for {propertyTitle}</DialogTitle>
+          <DialogTitle>
+            Your Lead for{" "}
+            <Link
+              className="underline"
+              href={`/dashboard/property/${lead.property_id}`}
+            >
+              {propertyTitle}
+            </Link>
+          </DialogTitle>
           <DialogDescription>
             Use these details to contact the customer and close your deal.
           </DialogDescription>
