@@ -51,7 +51,7 @@ export const Header = ({ isDashboard }: { isDashboard?: boolean }) => {
 
           {/* NavSlider for smaller screens */}
           <div className="md:hidden">
-            <NavSlider />
+            {isDashboard ? <DashboardNavSlider /> : <MainNavSlider />}
           </div>
         </div>
       </div>
@@ -59,7 +59,7 @@ export const Header = ({ isDashboard }: { isDashboard?: boolean }) => {
   );
 };
 
-function NavSlider() {
+function MainNavSlider() {
   return (
     <Sheet>
       <SheetTrigger>
@@ -83,6 +83,38 @@ function NavSlider() {
         </Link>
         <Link href="/contactus">
           <p className="text-xl">Contact Us</p>
+        </Link>
+      </SheetContent>
+    </Sheet>
+  );
+}
+
+function DashboardNavSlider() {
+  return (
+    <Sheet>
+      <SheetTrigger>
+        <MenuIcon size={25} />
+      </SheetTrigger>
+      <SheetContent className="flex justify-between py-80 items-start flex-col shadow-lg">
+        <Link href="/dashboard">
+          <p className="text-base text-black hover:text-gray-700 transition">
+            Dashboard
+          </p>
+        </Link>
+        <Link href="/dashboard/property">
+          <p className="text-base text-black hover:text-gray-700 transition">
+            Property
+          </p>
+        </Link>
+        <Link href="/">
+          <p className="text-base text-black hover:text-gray-700 transition">
+            Usage
+          </p>
+        </Link>
+        <Link href="/contactus">
+          <p className="text-base text-black hover:text-gray-700 transition">
+            Contact Us
+          </p>
         </Link>
       </SheetContent>
     </Sheet>
