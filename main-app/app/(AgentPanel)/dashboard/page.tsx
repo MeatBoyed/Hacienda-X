@@ -15,7 +15,7 @@ export default function Dashboard() {
   // Track via Posthog & set role
 
   return (
-    <div className="w-full flex justify-center items-center pb-20 md:px-10 lg:px-10 xl:px-32 my-10 px-4">
+    <div className="w-full flex justify-center items-center pb-20 md:px-10 lg:px-10 xl:px-32 my-24 px-4">
       <section className="w-full flex justify-center flex-col-reverse md:flex-row md:justify-between gap-10 md:gap-16 items-start">
         {/* Left Side */}
         <div className="flex justify-center items-start flex-col gap-5 w-full">
@@ -28,7 +28,7 @@ export default function Dashboard() {
         <div className="border w-full border-gray-600 md:hidden" />
 
         {/* Right */}
-        <div className="w-full flex justify-center items-start gap-2 flex-col">
+        <div className="w-full flex justify-center items-start gap-5 flex-col">
           <p className="scroll-m-20 text-2xl font-semibold tracking-tight">
             Leads
           </p>

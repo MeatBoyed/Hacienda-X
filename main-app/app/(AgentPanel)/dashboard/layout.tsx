@@ -7,6 +7,7 @@ import { Toaster as SonnerToaster } from "sonner";
 import Loader from "@/components/ui/loader";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { UserContextProvider } from "@/lib/userContext";
+import { Header } from "@/components/Header";
 
 const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
@@ -21,7 +22,8 @@ export default async function RootLayout({
 }>) {
   return (
     <div className="overflow-hidden bg-white">
-      <Navbar />
+      {/* <Navbar /> */}
+      <Header isDashboard />
       {/* <section
         id="dashboard"
         className=""

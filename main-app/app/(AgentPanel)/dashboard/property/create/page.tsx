@@ -5,7 +5,7 @@ export default async function CreatePropertyPage() {
   return (
     <section
       id="createpropertyform"
-      className="w-full flex justify-start items-center gap-10  pb-20  my-3 flex-col px-3 sm:px-5 min-h-screen  "
+      className="w-full flex justify-start items-center gap-10  pb-20  my-24 flex-col px-3 sm:px-5 min-h-screen  "
     >
       <PropertyForm />
     </section>

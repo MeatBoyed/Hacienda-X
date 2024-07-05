@@ -7,7 +7,7 @@ import { Bookmark, HeartIcon, MenuIcon } from "lucide-react";
 import Image from "next/image";
 import Logo from "@/public/newlogo.png";
 
-export const Header = () => {
+export const Header = ({ isDashboard }: { isDashboard?: boolean }) => {
   const { userId } = auth();
 
   return (
@@ -22,40 +22,11 @@ export const Header = () => {
           {/* NavLinks for larger screens */}
           <div className="hidden md:flex w-full justify-center">
             {/* <NavLinks /> */}
-            <div className="flex justify-center gap-8 items-center">
-              <Link href="/">
-                <p className="text-base text-black hover:text-gray-700 transition">
-                  Home
-                </p>
-              </Link>
-              <Link href="/property-for-sale">
-                <p className="text-base text-black hover:text-gray-700 transition">
-                  Search
-                </p>
-              </Link>
-              <Link href="/pricing">
-                <p className="text-base text-black hover:text-gray-700 transition">
-                  Pricing
-                </p>
-              </Link>
-              <Link href="/pricing">
-                <p className="text-base text-black hover:text-gray-700 transition">
-                  Sell your property
-                </p>
-              </Link>
-              {userId && (
-                <Link href="/dashboard">
-                  <p className="text-base text-black hover:text-gray-700 transition">
-                    Dashboard
-                  </p>
-                </Link>
-              )}
-              <Link href="/contactus">
-                <p className="text-base text-black hover:text-gray-700 transition">
-                  Contact Us
-                </p>
-              </Link>
-            </div>
+            {isDashboard ? (
+              <DashboardNavlinks />
+            ) : (
+              <MainNavlinks userId={!!userId} />
+            )}
           </div>
 
           {/* User button and signup */}
@@ -115,5 +86,71 @@ function NavSlider() {
         </Link>
       </SheetContent>
     </Sheet>
+  );
+}
+
+function MainNavlinks({ userId }: { userId: boolean }) {
+  return (
+    <div className="flex justify-center gap-8 items-center">
+      <Link href="/">
+        <p className="text-base text-black hover:text-gray-700 transition">
+          Home
+        </p>
+      </Link>
+      <Link href="/property-for-sale">
+        <p className="text-base text-black hover:text-gray-700 transition">
+          Search
+        </p>
+      </Link>
+      <Link href="/pricing">
+        <p className="text-base text-black hover:text-gray-700 transition">
+          Pricing
+        </p>
+      </Link>
+      <Link href="/pricing">
+        <p className="text-base text-black hover:text-gray-700 transition">
+          Sell your property
+        </p>
+      </Link>
+      {userId && (
+        <Link href="/dashboard">
+          <p className="text-base text-black hover:text-gray-700 transition">
+            Dashboard
+          </p>
+        </Link>
+      )}
+      <Link href="/contactus">
+        <p className="text-base text-black hover:text-gray-700 transition">
+          Contact Us
+        </p>
+      </Link>
+    </div>
+  );
+}
+
+function DashboardNavlinks() {
+  return (
+    <div className="flex justify-center gap-8 items-center">
+      <Link href="/dashboard">
+        <p className="text-base text-black hover:text-gray-700 transition">
+          Dashboard
+        </p>
+      </Link>
+      <Link href="/dashboard/property">
+        <p className="text-base text-black hover:text-gray-700 transition">
+          Property
+        </p>
+      </Link>
+      <Link href="/">
+        <p className="text-base text-black hover:text-gray-700 transition">
+          Usage
+        </p>
+      </Link>
+      <Link href="/contactus">
+        <p className="text-base text-black hover:text-gray-700 transition">
+          Contact Us
+        </p>
+      </Link>
+    </div>
   );
 }

@@ -5,7 +5,7 @@ import { PlusCircle } from "lucide-react";
 
 export default function ViewProperties() {
   return (
-    <div className="w-full flex justify-start items-center gap-10  pb-20  my-5 flex-col px-3 sm:px-5 min-h-screen  ">
+    <div className="w-full flex justify-start items-center gap-10  pb-20  my-24 flex-col px-3 sm:px-5 min-h-screen  ">
       <div className="flex w-full justify-between items-center sm:px-5 lg:max-w-7xl ">
         <p className="scroll-m-20 text- sm:text-lg font-semibold tracking-tight">
           Your Properties

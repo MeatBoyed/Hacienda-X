@@ -8,8 +8,10 @@ import { useMemo } from "react";
 import useSWR from "swr";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -160,6 +162,13 @@ function LeadCard({
               className="disabled:opacity-100"
             />
           </div>
+          <DialogFooter className="sm:justify-start w-full">
+            <DialogClose asChild>
+              <Button type="button" className="w-full" variant="outline">
+                Close
+              </Button>
+            </DialogClose>
+          </DialogFooter>
         </div>
       </DialogContent>
     </Dialog>
