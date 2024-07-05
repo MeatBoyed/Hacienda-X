@@ -59,6 +59,7 @@ export default function PropertyCarousel({ images }: { images: string[] }) {
       <div className="w-full flex justify-center items-center gap-3 flex-wrap">
         {images.slice(0, 3).map((image, index) => (
           <div
+            key={index}
             className="w-full h-full max-w-16 md:max-w-20"
             onClick={() => api && api.scrollTo(index)}
           >
@@ -76,6 +77,7 @@ export default function PropertyCarousel({ images }: { images: string[] }) {
           <>
             {images.slice(3).map((image, index) => (
               <div
+                key={index}
                 className="w-full h-full max-w-16 md:max-w-20"
                 onClick={() => api && api.scrollTo(index)}
               >
