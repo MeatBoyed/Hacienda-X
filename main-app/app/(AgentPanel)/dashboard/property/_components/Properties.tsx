@@ -27,8 +27,6 @@ export default function Properties({ className }: { className?: string }) {
     [data]
   );
 
-  console.log("User's Properties: ", data);
-
   return (
     <>
       {isLoading && <PropertiesSkeleton />}

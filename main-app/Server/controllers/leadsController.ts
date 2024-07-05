@@ -15,7 +15,23 @@ app.use(clerkMiddleware());
 
 // Fetch All Leads - Private Endpoint
 app.get("/", async (c) => {
-  return c.json(await db.lead.findMany());
+  const { userId } = authenticateUser(c);
+
+  const leads = await db.lead.findMany({ where: { agent_id: userId } });
+
+  return c.json({
+    leads: leads,
+    properties: await Promise.all(
+      leads.map(async (lead, index) => {
+        return await db.property
+          .findFirstOrThrow({
+            where: { property_id: lead.property_id },
+            select: { title: true },
+          })
+          .then((prop) => prop.title);
+      })
+    ),
+  });
 });
 
 // Fetch Specific Lead - Private Endpoint
