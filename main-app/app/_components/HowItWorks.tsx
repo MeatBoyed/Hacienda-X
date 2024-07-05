@@ -17,8 +17,8 @@ export default function HowItWorks() {
             <h2 className="text-2xl font-bold mb-4">Sell Property</h2>
             <p className="mb-4">
               Sell Your Property Now! Personalized property creation. Control
-              all your properties from the tips of your fingertips. Do not miss
-              out on your home being sold – Sell today!
+              all your properties from the tips of your fingertips. <br />
+              Do not miss out on your home being sold – Sell today!
             </p>
             <a
               href="./sign-in"
