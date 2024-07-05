@@ -13,6 +13,7 @@ import {
   PropertyWithAddress,
   PropertyWithAddressAndAgent,
 } from "@/Server/utils/utils";
+import { SavePropertyBTN } from "@/lib/bookmarksContext";
 
 export default function PropertyDetails({
   property,
@@ -24,8 +25,17 @@ export default function PropertyDetails({
       id="propertyDetails"
       className="flex justify-center items-center flex-col w-full px-2 "
     >
+      <div className="pb-3 sm:max-w-3xl lg:max-w-4xl gap-3 w-full flex justify-start items-center">
+        <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
+          {property.title}
+        </h3>
+        <div className="hidden sm:block">
+          <SavePropertyBTN property={property} />
+        </div>
+      </div>
+
       {/* Description */}
-      <div className="border-t border-b border-[#dddddd] py-10 flex justify-center items-start flex-col w-full gap-5">
+      <div className="border-t border-b border-[#dddddd] py-5 flex justify-center items-start flex-col w-full gap-5">
         <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
           About the property
         </h3>
@@ -33,10 +43,18 @@ export default function PropertyDetails({
         <div className="flex justify-center items-start flex-col gap-2">
           <p className="text-sm">{property.description}</p>
         </div>
+        <div className="flex justify-start w-full items-start">
+          <p className="text-sm">
+            Posted:{" "}
+            {typeof property.updatedAt === "string"
+              ? new Date(property.updatedAt).toLocaleDateString()
+              : property.createdAt.toLocaleDateString()}
+          </p>
+        </div>
       </div>
 
       {/* About the Agent (Agent Details) */}
-      <div className="border-t border-b border-[#dddddd] py-10 flex justify-center items-start flex-col w-full gap-5">
+      <div className="border-t border-b border-[#dddddd] py-5 flex justify-center items-start flex-col w-full gap-5">
         <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
           Meet your agent
         </h3>
@@ -59,7 +77,7 @@ export default function PropertyDetails({
       </div>
 
       {/* Offer / Features */}
-      <div className="border-t  border-[#dddddd] border-b-0 py-10 flex justify-center items-start flex-col w-full gap-5">
+      <div className="border-t  border-[#dddddd] border-b-0 py-5 flex justify-center items-start flex-col w-full gap-5">
         <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
           What this place offers
         </h3>

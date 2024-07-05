@@ -18,8 +18,8 @@ export default async function Home() {
         <Residencies
           subHeading="Featured Properties"
           heading="Popular Residencies"
+          margin="mb-0"
         />
-
         <HowItWorks />
         <Value />
         <OfferedSection />

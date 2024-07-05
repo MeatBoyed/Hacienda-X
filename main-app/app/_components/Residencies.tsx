@@ -19,10 +19,12 @@ export default function Residencies({
   subHeading,
   heading,
   className,
+  margin,
 }: {
   subHeading: string;
   heading: string;
   className?: string;
+  margin?: string;
 }) {
   // Handles all data fetching states, calls the Fetching Handler
   const { data, error, isLoading } = useSWR<PropertyWithAddress[]>(
@@ -31,7 +33,7 @@ export default function Residencies({
   );
 
   return (
-    <section id="residencies" className="my-12 w-full">
+    <section id="residencies" className={cn("my-12 w-full", margin)}>
       <div
         className={cn(
           "px-4 flex justify-center items-center flex-col w-full gap-5 sm:px-5 xl:px-32 ",
