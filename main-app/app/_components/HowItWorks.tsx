@@ -4,7 +4,7 @@ import cta1 from "@/ctapic1/r1.jpg";
 export default function HowItWorks() {
   return (
     <section className="pt-14 gap-5 max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3">
-      <article className="rounded-lg shadow-lg bg-white transform transition-transform hover:scale-105">
+      <article className="rounded-lg shadow-lg bg-white transform transition-transform hover:scale-105 w-11/12 md:w-full mx-auto">
         <div className="article-wrapper p-4">
           <figure className="mb-4">
             <img
@@ -14,8 +14,10 @@ export default function HowItWorks() {
             />
           </figure>
           <div className="article-body text-center">
-            <h2 className="text-xl md:text-lg font-bold mb-4">Sell Property</h2>
-            <p className="mb-4 text-sm md:text-xs">
+            <h2 className="text-2xl md:text-lg font-bold mb-4">
+              Sell Property
+            </h2>
+            <p className="mb-4 text-base md:text-sm">
               Sell Your Property Now! Personalized property creation. Control
               all your properties from the tips of your fingertips.
               <br /> Do not miss out on your home being sold – Sell today!
@@ -41,7 +43,7 @@ export default function HowItWorks() {
           </div>
         </div>
       </article>
-      <article className="rounded-lg shadow-lg bg-white transform transition-transform hover:scale-105">
+      <article className="rounded-lg shadow-lg bg-white transform transition-transform hover:scale-105 w-11/12 md:w-full mx-auto">
         <div className="article-wrapper p-4">
           <figure className="mb-4">
             <img
@@ -51,10 +53,10 @@ export default function HowItWorks() {
             />
           </figure>
           <div className="article-body text-center">
-            <h2 className="text-xl md:text-lg font-bold mb-4">
+            <h2 className="text-2xl md:text-lg font-bold mb-4">
               Buy Property Now!
             </h2>
-            <p className="mb-4 text-sm md:text-xs">
+            <p className="mb-4 text-base md:text-sm">
               Ready to make your homeownership dreams a reality? Explore a
               diverse range of properties tailored to your preferences and
               budget.
@@ -81,7 +83,7 @@ export default function HowItWorks() {
           </div>
         </div>
       </article>
-      <article className="rounded-lg shadow-lg bg-white transform transition-transform hover:scale-105">
+      <article className="rounded-lg shadow-lg bg-white transform transition-transform hover:scale-105 w-11/12 md:w-full mx-auto">
         <div className="article-wrapper p-4">
           <figure className="mb-4">
             <img
@@ -91,10 +93,10 @@ export default function HowItWorks() {
             />
           </figure>
           <div className="article-body text-center">
-            <h2 className="text-xl md:text-lg font-bold mb-4">
+            <h2 className="text-2xl md:text-lg font-bold mb-4">
               Discover Our Story!
             </h2>
-            <p className="mb-4 text-sm md:text-xs">
+            <p className="mb-4 text-base md:text-sm">
               We are your trusted partners in finding your perfect home. <br />
               Discover our story and let us help you write the next chapter of
               yours.
