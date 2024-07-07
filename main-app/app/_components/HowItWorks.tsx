@@ -3,7 +3,7 @@ import cta1 from "@/ctapic1/r1.jpg";
 
 export default function HowItWorks() {
   return (
-    <section className="pt-14 gap-5 max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-3">
+    <section className="pt-14 gap-5 max-w-5xl mx-auto grid grid-cols-3 md:grid-cols-3 lg:grid-cols-3">
       <article className="rounded-lg shadow-lg bg-white transform transition-transform hover:scale-105 mx-auto">
         <div className="article-wrapper p-4">
           <figure className="mb-4">
@@ -14,10 +14,10 @@ export default function HowItWorks() {
             />
           </figure>
           <div className="article-body text-center">
-            <h2 className="text-2xl md:text-lg font-bold mb-4">
+            <h2 className="text-xl sm:text-lg md:text-lg font-bold mb-4">
               Sell Property
             </h2>
-            <p className="mb-4 text-base md:text-sm">
+            <p className="mb-4 text-sm sm:text-xs md:text-xs">
               Sell Your Property Now! Personalized property creation. Control
               all your properties from the tips of your fingertips.
               <br /> Do not miss out on your home being sold – Sell today!
@@ -54,10 +54,10 @@ export default function HowItWorks() {
             />
           </figure>
           <div className="article-body text-center">
-            <h2 className="text-2xl md:text-lg font-bold mb-4">
+            <h2 className="text-xl sm:text-lg md:text-lg font-bold mb-4">
               Buy Property Now!
             </h2>
-            <p className="mb-4 text-base md:text-sm">
+            <p className="mb-4 text-sm sm:text-xs md:text-xs">
               Ready to make your homeownership dreams a reality? Explore a
               diverse range of properties tailored to your preferences and
               budget.
@@ -94,10 +94,10 @@ export default function HowItWorks() {
             />
           </figure>
           <div className="article-body text-center">
-            <h2 className="text-2xl md:text-lg font-bold mb-4">
+            <h2 className="text-xl sm:text-lg md:text-lg font-bold mb-4">
               Discover Our Story!
             </h2>
-            <p className="mb-4 text-base md:text-sm">
+            <p className="mb-4 text-sm sm:text-xs md:text-xs">
               We are your trusted partners in finding your perfect home. <br />
               Discover our story and let us help you write the next chapter of
               yours.
