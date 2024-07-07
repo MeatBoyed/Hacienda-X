@@ -4,8 +4,8 @@ import cta1 from "@/ctapic1/r1.jpg";
 export default function HowItWorks() {
   return (
     <section className="pt-14 gap-5 max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3">
-      <article className="rounded-lg shadow-lg bg-white transform transition-transform hover:scale-105 w-full md:w-full h-48 md:h-auto mx-auto">
-        <div className="article-wrapper p-4">
+      <article className="rounded-lg shadow-lg bg-white transform transition-transform hover:scale-105 w-full md:w-full h-56 md:h-auto mx-auto mb-8">
+        <div className="article-wrapper p-4 h-full flex flex-col justify-between">
           <figure className="mb-4">
             <img
               src="./ctapic2.jpg"
@@ -17,7 +17,7 @@ export default function HowItWorks() {
             <h2 className="text-sm md:text-lg font-bold mb-2 md:mb-4">
               Sell Property
             </h2>
-            <p className="mb-2 text-xs md:text-sm">
+            <p className="mb-4 text-xs md:text-sm">
               Sell Your Property Now! Personalized property creation. Control
               all your properties from the tips of your fingertips.
               <br /> Do not miss out on your home being sold – Sell today!
@@ -44,8 +44,8 @@ export default function HowItWorks() {
           </div>
         </div>
       </article>
-      <article className="rounded-lg shadow-lg bg-white transform transition-transform hover:scale-105 w-full md:w-full h-48 md:h-auto mx-auto">
-        <div className="article-wrapper p-4">
+      <article className="rounded-lg shadow-lg bg-white transform transition-transform hover:scale-105 w-full md:w-full h-56 md:h-auto mx-auto mb-8">
+        <div className="article-wrapper p-4 h-full flex flex-col justify-between">
           <figure className="mb-4">
             <img
               src="./ctapic4.jpg"
@@ -57,7 +57,7 @@ export default function HowItWorks() {
             <h2 className="text-sm md:text-lg font-bold mb-2 md:mb-4">
               Buy Property Now!
             </h2>
-            <p className="mb-2 text-xs md:text-sm">
+            <p className="mb-4 text-xs md:text-sm">
               Ready to make your homeownership dreams a reality? Explore a
               diverse range of properties tailored to your preferences and
               budget.
@@ -84,8 +84,8 @@ export default function HowItWorks() {
           </div>
         </div>
       </article>
-      <article className="rounded-lg shadow-lg bg-white transform transition-transform hover:scale-105 w-full md:w-full h-48 md:h-auto mx-auto">
-        <div className="article-wrapper p-4">
+      <article className="rounded-lg shadow-lg bg-white transform transition-transform hover:scale-105 w-full md:w-full h-56 md:h-auto mx-auto mb-8">
+        <div className="article-wrapper p-4 h-full flex flex-col justify-between">
           <figure className="mb-4">
             <img
               src="./ctapic5.jpg"
@@ -97,7 +97,7 @@ export default function HowItWorks() {
             <h2 className="text-sm md:text-lg font-bold mb-2 md:mb-4">
               Discover Our Story!
             </h2>
-            <p className="mb-2 text-xs md:text-sm">
+            <p className="mb-4 text-xs md:text-sm">
               We are your trusted partners in finding your perfect home. <br />
               Discover our story and let us help you write the next chapter of
               yours.
