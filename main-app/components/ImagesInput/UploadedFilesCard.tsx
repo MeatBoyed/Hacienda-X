@@ -2,27 +2,14 @@
 
 import Image from "next/image";
 import { CardContent, CardDescription } from "@/components/ui/card";
-import { EmptyCard } from "@/components/EmptyCard";
 import { Trash2 } from "lucide-react";
-import {
-  DndContext,
-  closestCenter,
-  KeyboardSensor,
-  PointerSensor,
-  useSensor,
-  useSensors,
-  UniqueIdentifier,
-} from "@dnd-kit/core";
-import {
-  SortableContext,
-  sortableKeyboardCoordinates,
-  useSortable,
-  verticalListSortingStrategy,
-} from "@dnd-kit/sortable";
+import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors, UniqueIdentifier } from "@dnd-kit/core";
+import { SortableContext, sortableKeyboardCoordinates, useSortable, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { LegacyRef, ReactNode, useContext, useMemo, useRef } from "react";
 import { UploadContext, UploadContextType } from "./uploadContext";
 import { FileState } from "./Utils";
+import { EmptyCard } from "../Upload-Shad/main/EmptyCard";
 
 export function UploadedFilesCard() {
   // Sensors for DnD
@@ -33,19 +20,13 @@ export function UploadedFilesCard() {
     })
   );
 
-  const { uploadedImages, handleDelete, handleReOrder } = useContext(
-    UploadContext
-  ) as UploadContextType;
+  const { uploadedImages, handleDelete, handleReOrder } = useContext(UploadContext) as UploadContextType;
 
   const images = useMemo(
     () =>
       uploadedImages && uploadedImages.length > 0 ? (
         uploadedImages.map((fileState, index) => (
-          <SortableItem
-            key={fileState.key}
-            id={fileState.key}
-            fileState={fileState}
-          >
+          <SortableItem key={fileState.key} id={fileState.key} fileState={fileState}>
             <div
               className="absolute top-2 right-2 hover:cursor-pointer bg-white rounded-full p-2 flex justify-center items-center text-black hover:bg-white hover:text-red-500 "
               onClick={() => handleDelete(fileState)} // Takes 2,3,4 clicks to actually delete
@@ -55,11 +36,7 @@ export function UploadedFilesCard() {
           </SortableItem>
         ))
       ) : (
-        <EmptyCard
-          title="No files uploaded"
-          description="Upload some files to see them here"
-          className="w-full"
-        />
+        <EmptyCard title="No files uploaded" description="Upload some files to see them here" className="w-full" />
       ),
     [uploadedImages]
   );
@@ -75,19 +52,12 @@ export function UploadedFilesCard() {
         </CardDescription>
       </div>
       <CardContent className="p-0 w-full">
-        <DndContext
-          sensors={sensors}
-          collisionDetection={closestCenter}
-          onDragEnd={handleReOrder}
-        >
+        <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleReOrder}>
           <SortableContext
             items={uploadedImages?.map((file) => file.key) || []} // Supply the a String unique value (or exact value) to Identify elements
             strategy={verticalListSortingStrategy}
           >
-            <div
-              className="grid gap-3 lg:grid-cols-2 w-full"
-              onClick={() => console.log("Pleasee")}
-            >
+            <div className="grid gap-3 lg:grid-cols-2 w-full" onClick={() => console.log("Pleasee")}>
               {images}
               {/* Render out Sortable Items, passing in the Card to render */}
             </div>
@@ -99,17 +69,8 @@ export function UploadedFilesCard() {
 }
 
 // DnD kit's Sortable item to handle sort, renders out passed children (card)
-export function SortableItem({
-  id,
-  fileState,
-  children,
-}: {
-  id: UniqueIdentifier;
-  fileState: FileState;
-  children: ReactNode;
-}) {
-  const { attributes, listeners, node, setNodeRef, transform, transition } =
-    useSortable({ id: id });
+export function SortableItem({ id, fileState, children }: { id: UniqueIdentifier; fileState: FileState; children: ReactNode }) {
+  const { attributes, listeners, node, setNodeRef, transform, transition } = useSortable({ id: id });
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -117,20 +78,10 @@ export function SortableItem({
   };
 
   return (
-    <div
-      ref={setNodeRef}
-      style={style}
-      onClick={() => console.log("Heelo fro top")}
-      {...attributes}
-      {...listeners}
-    >
+    <div ref={setNodeRef} style={style} onClick={() => console.log("Heelo fro top")} {...attributes} {...listeners}>
       <div className="relative aspect-video w-full border">
         <Image
-          src={
-            typeof fileState.file === "string"
-              ? fileState.file
-              : URL.createObjectURL(fileState.file)
-          }
+          src={typeof fileState.file === "string" ? fileState.file : URL.createObjectURL(fileState.file)}
           alt={`image 1`}
           fill
           className="rounded-md object-cover"
