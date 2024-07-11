@@ -528,7 +528,7 @@ export default function PropertyForm({
                                 defaultValue={field.value}
                               >
                                 <SelectTrigger className="w-full">
-                                  <SelectValue placeholder="Number of Bathrooms" />
+                                  <SelectValue placeholder="Sale type" />
                                 </SelectTrigger>
                                 <SelectContent className="w-full">
                                   <SelectGroup>

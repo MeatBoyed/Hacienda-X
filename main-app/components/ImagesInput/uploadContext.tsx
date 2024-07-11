@@ -1,10 +1,9 @@
 "use client";
 
-import React, { useState, useEffect, createContext, useCallback } from "react";
-import { ServerUser } from "@/Server/controllers/userController";
+import React, { useState, useEffect, createContext } from "react";
 import { AWS_S3_BASE_URL } from "@/Server/utils/utils";
 import { arrayMove } from "@dnd-kit/sortable";
-import { Active, DragEndEvent, Over } from "@dnd-kit/core";
+import { DragEndEvent } from "@dnd-kit/core";
 import {
   convertDeletedImages,
   convertUploadedImages,
