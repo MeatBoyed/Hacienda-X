@@ -2,26 +2,21 @@
 
 import React, { useMemo, useState } from "react";
 import "leaflet/dist/leaflet.css";
-import { Bath, BedDouble, Home, Ruler, XCircle } from "lucide-react";
-import Map, {
-  FullscreenControl,
-  GeolocateControl,
-  Marker,
-  NavigationControl,
-  Popup,
-  ScaleControl,
-} from "react-map-gl";
+import { Bath, BedDouble, Home, Ruler } from "lucide-react";
+import Map, { FullscreenControl, GeolocateControl, Marker, NavigationControl, Popup, ScaleControl } from "react-map-gl";
 import Link from "next/link";
 import { PropertyWithAddress } from "@/Server/utils/utils";
-import { Card, CardContent } from "./ui/card";
 import { buttonVariants } from "./ui/button";
 import { MdPool } from "react-icons/md";
 import { cn } from "@/components/ImagesInput/FileInputUtils";
 import Image from "next/image";
 import { Badge } from "./ui/badge";
 
-// FIX Popup's state not resetting
+const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
 
+if (!MAPBOX_TOKEN) throw new Error("Environment Variable: NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN is not set.");
+
+// FIX Popup's state not resetting
 export function MapComp({
   focusedProperty,
   properties,
@@ -31,8 +26,7 @@ export function MapComp({
   properties: PropertyWithAddress[];
   height: string;
 }) {
-  const [showFocusedPropPopup, setShowFocusedPropPopup] =
-    useState<boolean>(false);
+  const [showFocusedPropPopup, setShowFocusedPropPopup] = useState<boolean>(false);
   const [popupInfo, setPopupInfo] = useState<PropertyWithAddress | null>(null);
 
   const focusedPropertyMarker = useMemo(
@@ -73,10 +67,7 @@ export function MapComp({
             }}
             key={index}
           >
-            <PropertyTagMarker
-              price={property.price}
-              saleType={property.saleType}
-            />
+            <PropertyTagMarker price={property.price} saleType={property.saleType} />
           </Marker>
         );
       }),
@@ -93,7 +84,7 @@ export function MapComp({
       style={{ width: "100%", height: height, borderRadius: 10 }}
       // mapStyle="mapbox://styles/mapbox/streets-v9"
       mapStyle="mapbox://styles/meatboyed/clvz01a2901xh01o099c695mu"
-      mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
+      mapboxAccessToken={MAPBOX_TOKEN}
     >
       {/* User Map Controls */}
       <GeolocateControl position="top-left" />
@@ -141,11 +132,7 @@ function PropertyPopup({ property }: { property: PropertyWithAddress }) {
   return (
     <div className="flex justify-center items-start gap-3 w-full flex-col ">
       <Link href={`/property-for-sale/${property.property_id}`}>
-        <div
-          className={cn(
-            "relative h-32  w-full overflow-hidden rounded-xl  hover:cursor-pointer"
-          )}
-        >
+        <div className={cn("relative h-32  w-full overflow-hidden rounded-xl  hover:cursor-pointer")}>
           <Image
             src={property.images[0]} // Assuming you have an array of images
             alt={"yess"}
@@ -176,27 +163,19 @@ function PropertyPopup({ property }: { property: PropertyWithAddress }) {
         {property.squareMeter && (
           <div className="flex justify-center items-center gap-2">
             <Ruler size={20} />
-            <p className="leading-7">
-              {property.squareMeter.toLocaleString()} m&#178;
-            </p>
+            <p className="leading-7">{property.squareMeter.toLocaleString()} m&#178;</p>
           </div>
         )}
       </div>
-      <Link
-        href={`/property-for-sale/${property.property_id}`}
-        className="line-clamp-1 text-sm font-medium leading-none"
-      >
+      <Link href={`/property-for-sale/${property.property_id}`} className="line-clamp-1 text-sm font-medium leading-none">
         {property.title}
       </Link>
-      <p className="text-lg font-semibold">
-        R {property.price.toLocaleString()}
-      </p>
+      <p className="text-lg font-semibold">R {property.price.toLocaleString()}</p>
       <Link
         className={buttonVariants({
           size: "lg",
           variant: "outline",
-          className:
-            "w-full bg-blue-500 text-white hover:bg-blue-600 hover:text-white",
+          className: "w-full bg-blue-500 text-white hover:bg-blue-600 hover:text-white",
         })}
         href={`/property-for-sale/${property.title}`}
       >
@@ -206,19 +185,11 @@ function PropertyPopup({ property }: { property: PropertyWithAddress }) {
   );
 }
 
-function PropertyTagMarker({
-  price,
-  saleType,
-}: {
-  price: number;
-  saleType: string;
-}) {
+function PropertyTagMarker({ price, saleType }: { price: number; saleType: string }) {
   return (
     <div className="bg-background px-3 py-2 rounded-full shadow-md flex justify-center items-center gap-2 hover:cursor-pointer">
       <p className="text-base font-semibold">R {price.toLocaleString()}</p>
-      <Badge className="text-white bg-[#1f93ff] hover:bg-[#1f93ff] hover:cursor-pointer">
-        For {saleType}
-      </Badge>
+      <Badge className="text-white bg-[#1f93ff] hover:bg-[#1f93ff] hover:cursor-pointer">For {saleType}</Badge>
     </div>
   );
 }
