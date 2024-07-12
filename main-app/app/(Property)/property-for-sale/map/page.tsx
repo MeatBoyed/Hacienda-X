@@ -8,12 +8,7 @@ import PuffLoader from "react-spinners/PuffLoader";
 import useSWR from "swr";
 
 export default function MapSearchView() {
-  const { data, isLoading } = useSWR<PropertyWithAddress[]>(
-    "/api/properties",
-    fetcher
-  );
-
-  // TODO: Implement Search filtering
+  const { data, isLoading } = useSWR<PropertyWithAddress[]>("/api/properties", fetcher);
 
   return (
     <div className="flex justify-between flex-col gap-2 w-full min-h-screen mt-24 lg:mt-16 bg-white mb-10">
@@ -25,13 +20,7 @@ export default function MapSearchView() {
       <SearchBar classname="hidden md:flex w-full pt-5" mapView />
       {!isLoading && data && (
         <div className=" w-[100vw] min-h-screen">
-          {data && (
-            <MapComp
-              height={"100vh"}
-              properties={data}
-              focusedProperty={data[0]}
-            />
-          )}
+          {data && <MapComp height={"100vh"} properties={data} focusedProperty={data[0]} />}
         </div>
       )}
     </div>

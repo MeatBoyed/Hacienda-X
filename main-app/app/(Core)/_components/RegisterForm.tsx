@@ -3,15 +3,7 @@
 // Failure to do so will lead to a reduction in Equity
 "use client";
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormControl,
-  FormMessage,
-  FormDescription,
-} from "@/components/ui/form";
+import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage, FormDescription } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -22,13 +14,7 @@ import Loader from "@/components/ui/loader";
 import { useUser } from "@clerk/nextjs";
 import { isValidPhoneNumber } from "react-phone-number-input";
 import { PhoneInput } from "@/components/PhoneInput";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { PostAgent } from "@/app/api/(userActions)/actions";
 import { User } from "@prisma/client";
 import { useRouter } from "next/navigation";
@@ -36,20 +22,12 @@ import { RoleEnum } from "@/Server/controllers/userController";
 import { Switch } from "@/components/ui/switch";
 
 // Lead Form UTILS
-// TODO: Add Phone Number to User
 export const UserFormSchema = z.object({
-  firstName: z
-    .string()
-    .min(3, { message: "Name must be at least 3 characters long." }),
-  lastName: z
-    .string()
-    .min(3, { message: "Surname must be at least 3 characters long." }),
+  firstName: z.string().min(3, { message: "Name must be at least 3 characters long." }),
+  lastName: z.string().min(3, { message: "Surname must be at least 3 characters long." }),
   email: z.string().email({ message: "Email address must be valid." }),
   company: z.string().optional(),
-  phoneNumber: z
-    .string()
-    .refine(isValidPhoneNumber, { message: "Invalid phone number" })
-    .optional(),
+  phoneNumber: z.string().refine(isValidPhoneNumber, { message: "Invalid phone number" }).optional(),
   user_id: z.string().min(1, { message: "User Id is required" }),
   isAgent: z.boolean(),
 });
@@ -77,43 +55,42 @@ export default function RegisterForm({
     },
   });
 
-  const { trigger: triggerCreate, isMutating: isMutatingCreate } =
-    useSWRMutation(
-      "post-agent",
-      PostAgent({ json: form.getValues() }) /* options */,
-      {
-        onError: (error) => {
-          console.log("Received Error (Plain): ", error);
-          toast.error("Something unexpected happend.", {
-            description: "Please try again....",
-          });
-        },
-        onSuccess: (data) => {
-          console.log("Response Data: ", data);
-          const responseSchema = z.object({ status: z.string() });
-          const res = responseSchema.safeParse(data);
+  const { trigger: triggerCreate, isMutating: isMutatingCreate } = useSWRMutation(
+    "post-agent",
+    PostAgent({ json: form.getValues() }) /* options */,
+    {
+      onError: (error) => {
+        console.log("Received Error (Plain): ", error);
+        toast.error("Something unexpected happend.", {
+          description: "Please try again....",
+        });
+      },
+      onSuccess: (data) => {
+        console.log("Response Data: ", data);
+        const responseSchema = z.object({ status: z.string() });
+        const res = responseSchema.safeParse(data);
 
-          if (res.data?.status === "P2002") {
-            toast.info("Woops, looks like you've already registered.", {
-              description:
-                "Please wait for our sales team to contact you via email or phone.\nFeel free to visit our Contact page.",
-              duration: 10000,
-            });
-            return;
-          }
-
-          toast.success("Aye! You are now registered.", {
-            description: `Thanks for registering, our sales team will be in contact with you shortly via provided channels.`,
+        if (res.data?.status === "P2002") {
+          toast.info("Woops, looks like you've already registered.", {
+            description:
+              "Please wait for our sales team to contact you via email or phone.\nFeel free to visit our Contact page.",
             duration: 10000,
           });
-        },
-      }
-    );
+          return;
+        }
+
+        toast.success("Aye! You are now registered.", {
+          description: `Thanks for registering, our sales team will be in contact with you shortly via provided channels.`,
+          duration: 10000,
+        });
+      },
+    }
+  );
 
   function onSubmit(values: z.infer<typeof UserFormSchema>) {
     console.log("Submitted Form Values: ", values);
     triggerCreate();
-    router.push("/property-for-sale"); // TODO: Show them a success and onboarding page
+    router.push("/property-for-sale");
   }
 
   return (
@@ -137,11 +114,7 @@ export default function RegisterForm({
                       <FormItem className="w-full">
                         <FormLabel>Name</FormLabel>
                         <FormControl>
-                          <Input
-                            type="text"
-                            placeholder="Your name"
-                            {...field}
-                          />
+                          <Input type="text" placeholder="Your name" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -154,11 +127,7 @@ export default function RegisterForm({
                       <FormItem className="w-full">
                         <FormLabel>Surname</FormLabel>
                         <FormControl>
-                          <Input
-                            type="text"
-                            placeholder="Your surname"
-                            {...field}
-                          />
+                          <Input type="text" placeholder="Your surname" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -173,11 +142,7 @@ export default function RegisterForm({
                       <FormItem className="w-full">
                         <FormLabel>Email address</FormLabel>
                         <FormControl>
-                          <Input
-                            type="email"
-                            placeholder="Email address"
-                            {...field}
-                          />
+                          <Input type="email" placeholder="Email address" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -190,11 +155,7 @@ export default function RegisterForm({
                       <FormItem className="w-full">
                         <FormLabel>Company (optional)</FormLabel>
                         <FormControl>
-                          <Input
-                            type="text"
-                            placeholder="Company name"
-                            {...field}
-                          />
+                          <Input type="text" placeholder="Company name" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -207,12 +168,7 @@ export default function RegisterForm({
                       <FormItem className="w-full">
                         <FormLabel>Phone number</FormLabel>
                         <FormControl>
-                          <PhoneInput
-                            placeholder="Enter a phone number"
-                            {...field}
-                            defaultCountry="ZA"
-                            international
-                          />
+                          <PhoneInput placeholder="Enter a phone number" {...field} defaultCountry="ZA" international />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -223,12 +179,8 @@ export default function RegisterForm({
                     name="isAgent"
                     render={({ field }) => (
                       <FormItem className="w-full flex justify-start items-center gap-5">
-                        <FormLabel>
-                          Interested in selling your property?
-                        </FormLabel>
-                        <FormDescription>
-                          Our sales team will contact you shortly.
-                        </FormDescription>
+                        <FormLabel>Interested in selling your property?</FormLabel>
+                        <FormDescription>Our sales team will contact you shortly.</FormDescription>
                         <FormControl className="">
                           <Switch
                             checked={field.value}

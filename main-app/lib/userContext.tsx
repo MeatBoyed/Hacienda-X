@@ -11,7 +11,6 @@ export type UserContextType = {
 
 export const UserContext = createContext<UserContextType | null>(null);
 
-// TODO: Test & implement
 export const UserContextProvider: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
@@ -31,12 +30,8 @@ export const UserContextProvider: React.FC<{
 
   useEffect(() => {
     if (!isSignedIn && !currentUser) return;
-    validateUser(currentUser.id).catch((err) =>
-      console.error("User Context Error: Fetching Server user failed")
-    );
+    validateUser(currentUser.id).catch((err) => console.error("User Context Error: Fetching Server user failed"));
   }, [isSignedIn]);
 
-  return (
-    <UserContext.Provider value={{ user }}>{children}</UserContext.Provider>
-  );
+  return <UserContext.Provider value={{ user }}>{children}</UserContext.Provider>;
 };
