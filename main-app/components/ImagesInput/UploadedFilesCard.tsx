@@ -9,7 +9,7 @@ import { CSS } from "@dnd-kit/utilities";
 import { LegacyRef, ReactNode, useContext, useMemo, useRef } from "react";
 import { UploadContext, UploadContextType } from "./uploadContext";
 import { FileState } from "./Utils";
-import { EmptyCard } from "../Upload-Shad/main/EmptyCard";
+import { EmptyCard } from "./EmptyCard";
 
 export function UploadedFilesCard() {
   // Sensors for DnD

@@ -48,7 +48,7 @@ const app = new Hono()
 
     return c.json(
       await db.property.findFirstOrThrow({
-        where: { title: slug, visibility: { not: "Deleted" } }, // Property needs a Slug field in DB
+        where: { title: slug, visibility: { not: "Deleted" } }, // TODO: Property needs a Slug field in DB
         include: { Address: true, agent: true },
       })
     );

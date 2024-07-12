@@ -5,14 +5,13 @@ import Image from "next/image";
 import Dropzone, { type DropzoneProps, type FileRejection } from "react-dropzone";
 import { toast } from "sonner";
 import { cn, formatBytes } from "./FileInputUtils";
-// import { useControllableState } from "@/lib/useControllableState";
+import { useControllableState } from "@/lib/useControllableState";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { UploadIcon, X } from "lucide-react";
 import { useContext } from "react";
 import { UploadContext, UploadContextType } from "./uploadContext";
-import { useControllableState } from "../Upload-Shad/main/hooks/useControllableState";
 
 interface FileUploaderProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
