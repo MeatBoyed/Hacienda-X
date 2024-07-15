@@ -106,7 +106,7 @@ function DashboardNavSlider() {
             Property
           </p>
         </Link>
-        <Link href="/">
+        <Link href="/usage">
           <p className="text-base text-black hover:text-gray-700 transition">
             Usage
           </p>
@@ -173,7 +173,7 @@ function DashboardNavlinks() {
           Property
         </p>
       </Link>
-      <Link href="/">
+      <Link href="/usage">
         <p className="text-base text-black hover:text-gray-700 transition">
           Usage
         </p>
