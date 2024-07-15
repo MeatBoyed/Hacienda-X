@@ -83,7 +83,7 @@ export function MapComp({
       }}
       style={{ width: "100%", height: height, borderRadius: 10 }}
       // mapStyle="mapbox://styles/mapbox/streets-v9"
-      mapStyle="mapbox://styles/meatboyed/clvz01a2901xh01o099c695mu"
+      mapStyle="mapbox://styles/haciendax/clykm2gp5011601pn7nvjanc3"
       mapboxAccessToken={MAPBOX_TOKEN}
     >
       {/* User Map Controls */}
