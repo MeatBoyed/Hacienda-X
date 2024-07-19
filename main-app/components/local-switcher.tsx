@@ -3,32 +3,46 @@
 import { useLocale } from "next-intl";
 import { useRouter } from "next/navigation";
 
-import { ChangeEvent, useTransition } from "react";
+import { useTransition } from "react";
 
-export default function LocalSwitcher() {
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
+export default function LocaleSwitcher() {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
   const localActive = useLocale();
 
-  const onSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    const nextLocale = e.target.value;
+  const onSelectChange = (nextLocale: string) => {
     startTransition(() => {
       router.replace(`/${nextLocale}`);
     });
   };
 
   return (
-    <label className="border-2 rounded">
+    <div className="border-2 border-blue-400 rounded">
       <p className="sr-only">Change Language</p>
-      <select
+      <Select
         defaultValue={localActive}
-        className="bg-transparent py-2"
-        onChange={onSelectChange}
+        onValueChange={onSelectChange}
         disabled={isPending}
       >
-        <option value={"en"}>English</option>
-        <option value={"es"}>Español</option>
-      </select>
-    </label>
+        <SelectTrigger className="w-[100px] bg-transparent py-2">
+          <SelectValue placeholder="Change Language" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectGroup>
+            <SelectItem value="en">English</SelectItem>
+            <SelectItem value="es">Español</SelectItem>
+          </SelectGroup>
+        </SelectContent>
+      </Select>
+    </div>
   );
 }
