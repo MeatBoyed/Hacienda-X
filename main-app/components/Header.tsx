@@ -6,6 +6,7 @@ import { Sheet, SheetTrigger, SheetContent } from "./ui/sheet";
 import { Bookmark, HeartIcon, MenuIcon } from "lucide-react";
 import Image from "next/image";
 import Logo from "@/public/newlogo.png";
+import LocalSwitcher from "./local-switcher";
 
 export const Header = ({ isDashboard }: { isDashboard?: boolean }) => {
   const { userId } = auth();
@@ -84,6 +85,7 @@ function MainNavSlider() {
         <Link href="/contactus">
           <p className="text-xl">Contact Us</p>
         </Link>
+        <LocalSwitcher />
       </SheetContent>
     </Sheet>
   );
@@ -116,6 +118,7 @@ function DashboardNavSlider() {
             Contact Us
           </p>
         </Link>
+        <LocalSwitcher />
       </SheetContent>
     </Sheet>
   );
@@ -156,6 +159,7 @@ function MainNavlinks({ userId }: { userId: boolean }) {
           Contact Us
         </p>
       </Link>
+      <LocalSwitcher />
     </div>
   );
 }
@@ -183,6 +187,7 @@ function DashboardNavlinks() {
           Contact Us
         </p>
       </Link>
+      <LocalSwitcher />
     </div>
   );
 }
