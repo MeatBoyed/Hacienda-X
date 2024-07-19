@@ -2,36 +2,17 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
 import { Input } from "./ui/input";
 import { HomeIcon, MapPin, Search, SlidersHorizontal } from "lucide-react";
-import SearchFilters from "@/app/_components/SearchFilters";
+import SearchFilters from "@/app/[locale]/_components/SearchFilters";
 import { Button, buttonVariants } from "./ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import Link from "next/link";
 import { cn } from "@/components/ImagesInput/FileInputUtils";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-export function SearchBar({
-  classname,
-  mapView,
-}: {
-  classname?: string;
-  mapView?: boolean;
-}) {
+export function SearchBar({ classname, mapView }: { classname?: string; mapView?: boolean }) {
   const [filterOpen, setFilterOpen] = useState(false);
   return (
-    <div
-      id="searchbar"
-      className={cn(
-        "w-full flex justify-center items-center flex-col gap-2",
-        classname
-      )}
-    >
+    <div id="searchbar" className={cn("w-full flex justify-center items-center flex-col gap-2", classname)}>
       {/* <Input
         type="text"
         placeholder="Search town, city, provience"
@@ -66,18 +47,12 @@ export function SearchBar({
             size={"sm"}
             className="bg-white w-full lg:hidden text-black hover:border-background hover:bg-accent hover:text-white shadow-md gap-3 hover: rounded-md"
           >
-            <Link
-              href="/property-for-sale/map"
-              className="flex justify-center items-center gap-3"
-            >
+            <Link href="/property-for-sale/map" className="flex justify-center items-center gap-3">
               <MapPin size={15} /> Map Search
             </Link>
           </Button>
         ) : (
-          <Link
-            href="/property-for-sale"
-            className="flex justify-center items-center gap-3 w-full"
-          >
+          <Link href="/property-for-sale" className="flex justify-center items-center gap-3 w-full">
             <Button
               size={"sm"}
               className="bg-white w-full text-black hover:border-background hover:bg-accent hover:text-white shadow-md gap-3 hover: rounded-md"
@@ -99,15 +74,9 @@ export function SearchBar({
 
 export function HomePageSearchBar() {
   return (
-    <div
-      id="searchbar"
-      className={cn("w-full flex justify-center items-center flex-col gap-2")}
-    >
+    <div id="searchbar" className={cn("w-full flex justify-center items-center flex-col gap-2")}>
       <div className="flex justify-center w-full items-center gap-3 flex-col sm:flex-row">
-        <Link
-          href="/property-for-sale/map"
-          className="flex justify-center items-center gap-3 w-full"
-        >
+        <Link href="/property-for-sale/map" className="flex justify-center items-center gap-3 w-full">
           <Button
             size={"lg"}
             className="bg-white w-full  text-black hover:border-background hover:bg-accent hover:text-white shadow-lg gap-3 hover: rounded-md"
@@ -116,14 +85,8 @@ export function HomePageSearchBar() {
             <p className="text-text ">Map Search</p>
           </Button>
         </Link>
-        <Link
-          href="/property-for-sale"
-          className="w-full h-full flex justify-center items-center gap-3"
-        >
-          <Button
-            size={"lg"}
-            className="bg-accent w-full text-white hover:bg-blue-600  hover:text-white shadow-lg gap-3"
-          >
+        <Link href="/property-for-sale" className="w-full h-full flex justify-center items-center gap-3">
+          <Button size={"lg"} className="bg-accent w-full text-white hover:bg-blue-600  hover:text-white shadow-lg gap-3">
             <Search size={15} />
             <p className="text-text ">Find properties</p>
           </Button>

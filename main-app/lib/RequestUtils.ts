@@ -1,15 +1,7 @@
 import { z } from "zod";
-import {
-  DeletePropertyRequestSchema,
-  PropertySchema,
-  propertyToFormData,
-} from "./FormUtils";
+import { DeletePropertyRequestSchema, PropertySchema, propertyToFormData } from "./FormUtils";
 import { PropertyWithAddress } from "@/Server/utils/utils";
-import { Property } from "@prisma/client";
-import { LeadFormSchema } from "@/app/(Property)/property-for-sale/[slug]/_components/LeadForm";
-import { UserFormSchema } from "@/app/(Core)/_components/RegisterForm";
-import { SearchQueryParameterSchema } from "@/app/_components/SearchFilters";
-import { ReadonlyURLSearchParams } from "next/navigation";
+import { LeadFormSchema } from "@/app/[locale]/(Property)/property-for-sale/[slug]/_components/LeadForm";
 
 export interface PostPropertyResponse {
   results: PropertyWithAddress;

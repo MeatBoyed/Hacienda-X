@@ -1,13 +1,7 @@
 import { currentUser } from "@clerk/nextjs/server";
-import RegisterForm from "@/app/(Core)/_components/RegisterForm";
+import RegisterForm from "@/app/[locale]/(Core)/_components/RegisterForm";
 import { SignInButton } from "@clerk/nextjs";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-} from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Toaster } from "sonner";
 
 // Allow user to navigate with just Clerk auth
@@ -20,14 +14,10 @@ export default async function Onboarding() {
     <div className="bg-background flex justify-center items-center flex-col px-4 pt-14 pb-28 w-full gap-8">
       <div className="flex justify-center items-center flex-col w-full gap-1">
         <h1 className="text-center text-3xl">
-          {user
-            ? `Welcome ${user.firstName} ${user.lastName} 👋`
-            : "Welcome! Daniel come fix this please"}
+          {user ? `Welcome ${user.firstName} ${user.lastName} 👋` : "Welcome! Daniel come fix this please"}
         </h1>
 
-        <h2 className="mt-4 text-center text-base text-muted-foreground">
-          Let&apos;s get started by setting up your account.
-        </h2>
+        <h2 className="mt-4 text-center text-base text-muted-foreground">Let&apos;s get started by setting up your account.</h2>
       </div>
       {user ? (
         <RegisterForm

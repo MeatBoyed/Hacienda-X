@@ -1,30 +1,8 @@
 "use client";
 
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-  SelectGroup,
-  SelectLabel,
-} from "@/components/ui/select";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-} from "@/components/ui/card";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, SelectGroup, SelectLabel } from "@/components/ui/select";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Tag, TagInput } from "emblor";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
@@ -45,10 +23,10 @@ import {
   SelectSaleTypeOptions,
   MAXFILES,
   MINFILES,
-} from "../../../../../lib/FormUtils";
+} from "../../../../../../lib/FormUtils";
 import useSWRMutation from "swr/mutation";
 import { toast } from "sonner";
-import { AddressInput } from "../../../../../components/AddressInput";
+import { AddressInput } from "../../../../../../components/AddressInput";
 import { ImagesInput } from "@/components/ImagesInput/ImagesInput";
 import { DeleteProperty, PostProperty } from "@/lib/RequestUtils";
 import { PropertyWithAddress } from "@/Server/utils/utils";
@@ -65,11 +43,7 @@ import {
 import { UserContext, UserContextType } from "@/lib/userContext";
 import { Badge } from "@/components/ui/badge";
 
-export default function PropertyForm({
-  initProperty,
-}: {
-  initProperty?: PropertyWithAddress;
-}) {
+export default function PropertyForm({ initProperty }: { initProperty?: PropertyWithAddress }) {
   const { user } = useContext(UserContext) as UserContextType;
   const router = useRouter();
 
@@ -97,120 +71,103 @@ export default function PropertyForm({
   }, [errors, isDirty, isSubmitted]);
 
   // Extra Features's Tag management
-  const [activeExtraTagIndex, setActiveExtraTagIndex] = useState<number | null>(
-    null
-  );
+  const [activeExtraTagIndex, setActiveExtraTagIndex] = useState<number | null>(null);
 
   const {
     trigger: triggerCreate,
     isMutating: isMutatingCreate,
     error: createError,
-  } = useSWRMutation(
-    "/api/dashboard/property/create",
-    PostProperty /* options */,
-    {
-      onError: (error) => {
-        console.log("Server Error Occured: ", error);
-        toast.error("Something unexpected happend.", {
-          description: "Please try again....",
+  } = useSWRMutation("/api/dashboard/property/create", PostProperty /* options */, {
+    onError: (error) => {
+      console.log("Server Error Occured: ", error);
+      toast.error("Something unexpected happend.", {
+        description: "Please try again....",
+      });
+    },
+    onSuccess: (data) => {
+      console.log(data);
+      if (data.error === "Image is required") {
+        toast.error("Ooops! Looks like you forgot to add images.", {
+          description: "You must upload at least 2 Images for your post.",
+          duration: 500000,
         });
-      },
-      onSuccess: (data) => {
-        console.log(data);
-        if (data.error === "Image is required") {
-          toast.error("Ooops! Looks like you forgot to add images.", {
-            description: "You must upload at least 2 Images for your post.",
-            duration: 500000,
-          });
-          return;
-        }
-        if (data.error === "Unable to upload image") {
-          toast.error(
-            "Ooops! Something went wrong when uploading your images. Please try again",
-            {
-              duration: 500000,
-            }
-          );
-          return;
-        }
+        return;
+      }
+      if (data.error === "Unable to upload image") {
+        toast.error("Ooops! Something went wrong when uploading your images. Please try again", {
+          duration: 500000,
+        });
+        return;
+      }
 
-        if (data) {
-          // Show message
-          toast.success("Your property has been posted!", {
-            description: `View your property at ....`,
-          });
-          router.replace(`/dashboard/property/${data.property_id}`);
-        }
-      },
-    }
-  );
+      if (data) {
+        // Show message
+        toast.success("Your property has been posted!", {
+          description: `View your property at ....`,
+        });
+        router.replace(`/dashboard/property/${data.property_id}`);
+      }
+    },
+  });
 
   const {
     trigger: triggerUpdate,
     isMutating: isMutatingUpdate,
     error: updateError,
-  } = useSWRMutation(
-    "/api/dashboard/property/update",
-    PostProperty /* options */,
-    {
-      onError: (error) => {
-        console.log("SERVER RESPONSE ERROR: ", error);
-        toast.error("Something unexpected happend.", {
-          description: "Please try again....",
-        });
-      },
-      onSuccess: (data: PropertyWithAddress) => {
-        const createdProp: z.infer<typeof PropertySchema> = {
-          property_id: data.property_id,
-          title: data.title,
-          price: data.price,
-          description: data.description,
-          bathrooms: data.bathrooms,
-          bedrooms: data.bedrooms,
-          squareMeter: data.squareMeter ? data.squareMeter : 0, // TODO: Remove Square Meter being an optional field
-          pool: data.pool,
-          images: data.images,
-          extraFeatures: data.extraFeatures.map((feat, i) => ({
-            id: i.toString(),
-            text: feat,
-          })),
-          address: data.Address ? data.Address.address : "",
-          lat: data.Address ? data.Address.latitude : 0,
-          lng: data.Address ? data.Address.longitude : 0,
-          visibility: data.visibility,
-          saleType: data.saleType,
-        };
+  } = useSWRMutation("/api/dashboard/property/update", PostProperty /* options */, {
+    onError: (error) => {
+      console.log("SERVER RESPONSE ERROR: ", error);
+      toast.error("Something unexpected happend.", {
+        description: "Please try again....",
+      });
+    },
+    onSuccess: (data: PropertyWithAddress) => {
+      const createdProp: z.infer<typeof PropertySchema> = {
+        property_id: data.property_id,
+        title: data.title,
+        price: data.price,
+        description: data.description,
+        bathrooms: data.bathrooms,
+        bedrooms: data.bedrooms,
+        squareMeter: data.squareMeter ? data.squareMeter : 0, // TODO: Remove Square Meter being an optional field
+        pool: data.pool,
+        images: data.images,
+        extraFeatures: data.extraFeatures.map((feat, i) => ({
+          id: i.toString(),
+          text: feat,
+        })),
+        address: data.Address ? data.Address.address : "",
+        lat: data.Address ? data.Address.latitude : 0,
+        lng: data.Address ? data.Address.longitude : 0,
+        visibility: data.visibility,
+        saleType: data.saleType,
+      };
 
-        // Set result (property) value to the Form's state, convert object values..
-        form.reset(createdProp);
+      // Set result (property) value to the Form's state, convert object values..
+      form.reset(createdProp);
 
-        // Show message
-        toast.success("Your property has been Updated!", {
-          description: `View your property at ....`,
-        });
-      },
-    }
-  );
+      // Show message
+      toast.success("Your property has been Updated!", {
+        description: `View your property at ....`,
+      });
+    },
+  });
 
   const {
     trigger: triggerDelete,
     isMutating: isMutatingDelete,
     error: deleteError,
-  } = useSWRMutation(
-    `/api/dashboard/property/delete/${initProperty?.property_id || ""}`,
-    DeleteProperty /* options */,
-    {
-      onError: () => {
-        toast.error("Something unexpected happend.", {
-          description: "Please try again....",
-        });
-      },
-      onSuccess: (data) => {
-        // Show message
-        toast.success("Your property has been Deleted!");
-      },
-    }
-  );
+  } = useSWRMutation(`/api/dashboard/property/delete/${initProperty?.property_id || ""}`, DeleteProperty /* options */, {
+    onError: () => {
+      toast.error("Something unexpected happend.", {
+        description: "Please try again....",
+      });
+    },
+    onSuccess: (data) => {
+      // Show message
+      toast.success("Your property has been Deleted!");
+    },
+  });
 
   async function submitHandler(values: z.infer<typeof PropertySchema>) {
     console.log("Submitted Form: ", values);
@@ -284,49 +241,31 @@ export default function PropertyForm({
                 {initProperty && (
                   <Dialog>
                     <DialogTrigger asChild>
-                      <Button
-                        variant={"destructive"}
-                        size="sm"
-                        className="gap-2"
-                      >
+                      <Button variant={"destructive"} size="sm" className="gap-2">
                         <Trash2 size={16} className="text-black" />
                         Delete
                       </Button>
                     </DialogTrigger>
                     <DialogContent className="sm:max-w-[425px]">
                       <DialogHeader>
-                        <DialogTitle>
-                          Warning! This is can not be undone.
-                        </DialogTitle>
+                        <DialogTitle>Warning! This is can not be undone.</DialogTitle>
                         <DialogDescription>
-                          Deleting this image will be a permanent action, and
-                          can not be undone.
+                          Deleting this image will be a permanent action, and can not be undone.
                         </DialogDescription>
                       </DialogHeader>
                       <DialogFooter
                         style={{ justifyContent: "space-between" }}
                         className="flex p-0 m-0 justify-between items-center w-full"
                       >
-                        <p className="text-sm font-normal ">
-                          Are you sure you want to do this?
-                        </p>
-                        <Button
-                          variant={"destructive"}
-                          type="button"
-                          onClick={async () => await deleteHandler()}
-                        >
+                        <p className="text-sm font-normal ">Are you sure you want to do this?</p>
+                        <Button variant={"destructive"} type="button" onClick={async () => await deleteHandler()}>
                           Confirm Delete
                         </Button>
                       </DialogFooter>
                     </DialogContent>
                   </Dialog>
                 )}
-                <Button
-                  variant="outline"
-                  size="sm"
-                  type="submit"
-                  className="gap-2"
-                >
+                <Button variant="outline" size="sm" type="submit" className="gap-2">
                   <Save size={16} />
                   {initProperty ? "Save" : "Create"}
                 </Button>
@@ -341,9 +280,7 @@ export default function PropertyForm({
                 <Card className="w-full">
                   <CardHeader>
                     <CardTitle>Property Details</CardTitle>
-                    <CardDescription>
-                      Create your new property now!
-                    </CardDescription>
+                    <CardDescription>Create your new property now!</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <div className="grid gap-6">
@@ -355,12 +292,7 @@ export default function PropertyForm({
                           <FormItem>
                             <FormLabel>Title</FormLabel>
                             <FormControl>
-                              <Input
-                                className="w-full"
-                                type="text"
-                                placeholder="Give your property a title"
-                                {...field}
-                              />
+                              <Input className="w-full" type="text" placeholder="Give your property a title" {...field} />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -374,11 +306,7 @@ export default function PropertyForm({
                           <FormItem>
                             <FormLabel>Price</FormLabel>
                             <FormControl>
-                              <Input
-                                className="w-full"
-                                type="number"
-                                {...field}
-                              />
+                              <Input className="w-full" type="number" {...field} />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -432,9 +360,7 @@ export default function PropertyForm({
                 <Card className="w-full">
                   <CardHeader>
                     <CardTitle>Images</CardTitle>
-                    <CardDescription>
-                      Upload at least {MINFILES} image for your property.
-                    </CardDescription>
+                    <CardDescription>Upload at least {MINFILES} image for your property.</CardDescription>
                   </CardHeader>
                   <CardContent className="grid gap-6">
                     {/* Images */}
@@ -452,8 +378,7 @@ export default function PropertyForm({
                               handleChange={(uploadedImages, deletedImages) => {
                                 console.log("Images: ", uploadedImages);
                                 if (initProperty) {
-                                  if (deletedImages)
-                                    setValue("deletedImages", deletedImages);
+                                  if (deletedImages) setValue("deletedImages", deletedImages);
                                   setValue("imagesOrder", uploadedImages.order); // Store File Order
                                 }
                                 setValue("images", uploadedImages.newImages); // Stores Uploaded Files
@@ -471,9 +396,7 @@ export default function PropertyForm({
                 <Card className="w-full">
                   <CardHeader>
                     <CardTitle>Meta Data</CardTitle>
-                    <CardDescription>
-                      Manage the Visability, and Sale Type.
-                    </CardDescription>
+                    <CardDescription>Manage the Visability, and Sale Type.</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <div className="grid gap-6">
@@ -498,10 +421,7 @@ export default function PropertyForm({
                                   <SelectGroup>
                                     <SelectLabel>visibility</SelectLabel>
                                     {SelectVisibilityOptions.map((option) => (
-                                      <SelectItem
-                                        key={option.key}
-                                        value={option.value}
-                                      >
+                                      <SelectItem key={option.key} value={option.value}>
                                         {option.value}
                                       </SelectItem>
                                     ))}
@@ -534,10 +454,7 @@ export default function PropertyForm({
                                   <SelectGroup>
                                     <SelectLabel>Sale Type</SelectLabel>
                                     {SelectSaleTypeOptions.map((option) => (
-                                      <SelectItem
-                                        key={option.key}
-                                        value={option.value}
-                                      >
+                                      <SelectItem key={option.key} value={option.value}>
                                         {option.value}
                                       </SelectItem>
                                     ))}
@@ -556,9 +473,7 @@ export default function PropertyForm({
                 <Card className="w-full">
                   <CardHeader>
                     <CardTitle>Features</CardTitle>
-                    <CardDescription>
-                      Unique features for your property!
-                    </CardDescription>
+                    <CardDescription>Unique features for your property!</CardDescription>
                   </CardHeader>
                   <CardContent className="grid gap-6">
                     {/* Square Meter */}
@@ -569,11 +484,7 @@ export default function PropertyForm({
                         <FormItem>
                           <FormLabel>Square Meters</FormLabel>
                           <FormControl>
-                            <Input
-                              className="w-full"
-                              type="number"
-                              {...field}
-                            />
+                            <Input className="w-full" type="number" {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -588,10 +499,7 @@ export default function PropertyForm({
                         <FormItem>
                           <FormLabel>Bedrooms</FormLabel>
                           <FormControl>
-                            <Select
-                              value={field.value.toString()}
-                              onValueChange={field.onChange}
-                            >
+                            <Select value={field.value.toString()} onValueChange={field.onChange}>
                               <SelectTrigger className="">
                                 <SelectValue placeholder="Number of Bedrooms" />
                               </SelectTrigger>
@@ -599,10 +507,7 @@ export default function PropertyForm({
                                 <SelectGroup>
                                   <SelectLabel>Bedrooms</SelectLabel>
                                   {SelectBedroomsOptions.map((option) => (
-                                    <SelectItem
-                                      key={option.key}
-                                      value={option.value}
-                                    >
+                                    <SelectItem key={option.key} value={option.value}>
                                       {option.value}
                                     </SelectItem>
                                   ))}
@@ -622,11 +527,7 @@ export default function PropertyForm({
                         <FormItem>
                           <FormLabel>Bathrooms</FormLabel>
                           <FormControl>
-                            <Select
-                              key="bathrooms"
-                              value={field.value.toString()}
-                              onValueChange={field.onChange}
-                            >
+                            <Select key="bathrooms" value={field.value.toString()} onValueChange={field.onChange}>
                               <SelectTrigger className="w-full">
                                 <SelectValue placeholder="Number of Bathrooms" />
                               </SelectTrigger>
@@ -634,10 +535,7 @@ export default function PropertyForm({
                                 <SelectGroup>
                                   <SelectLabel>Bathrooms</SelectLabel>
                                   {SelectBathroomsOptions.map((option) => (
-                                    <SelectItem
-                                      key={option.key}
-                                      value={option.value}
-                                    >
+                                    <SelectItem key={option.key} value={option.value}>
                                       {option.value}
                                     </SelectItem>
                                   ))}
@@ -689,9 +587,7 @@ export default function PropertyForm({
                                     onClick={() =>
                                       setValue(
                                         "extraFeatures",
-                                        form
-                                          .getValues("extraFeatures")
-                                          .filter((t) => tag.id != t.id)
+                                        form.getValues("extraFeatures").filter((t) => tag.id != t.id)
                                       )
                                     }
                                     size={18}
@@ -709,16 +605,11 @@ export default function PropertyForm({
                               className=" w-full overflow-auto "
                               setTags={(newTags) => {
                                 // setExtras(newTags);
-                                setValue(
-                                  "extraFeatures",
-                                  newTags as [Tag, ...Tag[]]
-                                );
+                                setValue("extraFeatures", newTags as [Tag, ...Tag[]]);
                               }}
                             />
                           </FormControl>
-                          <FormDescription>
-                            (Press Enter to add)
-                          </FormDescription>
+                          <FormDescription>(Press Enter to add)</FormDescription>
                           <FormMessage />
                         </FormItem>
                       )}

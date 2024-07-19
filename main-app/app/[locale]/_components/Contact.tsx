@@ -5,49 +5,24 @@ import { MdCall } from "react-icons/md";
 import { BsFillChatDotsFill } from "react-icons/bs";
 import Image from "next/image";
 import ContactImage from "@/public/contact.jpg";
-import { useToast } from "@/components/ui/use-toast";
+import { toast } from "sonner";
+import { useTranslations } from "next-intl";
 
 export default function Contact() {
-  const { toast } = useToast();
-
-  const handleButtonClick = (text: any) => {
-    copyTextcall(text);
-    showToast();
-  };
-
-  const handleEmailClick = (text: any) => {
-    copyText(text);
-    showToast();
-  };
-
-  const showToast = () => {
-    toast({
-      description: "Copied Successfully",
-    });
-  };
+  const t = useTranslations("Index.Contact");
 
   return (
-    <div
-      id="contact-us"
-      className="w-full flex justify-between items-center px-5 md:px-10 lg:px-32 pb-10"
-    >
+    <div id="contact-us" className="w-full flex justify-between items-center px-5 md:px-10 lg:px-32 pb-10">
       <div className="paddings innerWidth flexCenter c-container">
         {/* left side */}
         <div className="flexColStart c-left">
           <div className="flex justify-center items-start flex-col gap-5 w-full">
             <div className="flex justify-center items-start flex-col gap-1 w-full">
-              <p className="text-lg font-semibold opacity-80 text-accent w-full">
-                Contact Us
-              </p>
-              <h2 className="scroll-m-20 text-3xl font-semibold tracking-tight first:mt-0 w-full">
-                Get in touch today
-              </h2>
+              <p className="text-lg font-semibold opacity-80 text-accent w-full">{t("sub-heading")}</p>
+              <h2 className="scroll-m-20 text-3xl font-semibold tracking-tight first:mt-0 w-full">{t("heading")}</h2>
             </div>
 
-            <p className="leading-7 w-full text-muted-foreground">
-              We are always ready to help by providing the best services for
-              you. We believe a good place to live can make your life better.
-            </p>
+            <p className="leading-7 w-full text-muted-foreground">{t("content")}</p>
           </div>
 
           <div className="flexColStart contactModes">
@@ -59,15 +34,18 @@ export default function Contact() {
                     <MdCall size={25} />
                   </div>
                   <div className="flexColStart detail">
-                    <span className="primaryText">Call</span>
-                    <span className="secondaryText">021 123 145 14</span>
+                    <span className="primaryText">{t("Call")}</span>
+                    <span className="secondaryText">{t("phone-number")}</span>
                   </div>
                 </div>
                 <button
                   className="flexCenter button"
-                  onClick={() => handleButtonClick("021 123 145 14")}
+                  onClick={() => {
+                    navigator.clipboard.writeText("021 123 145 14");
+                    toast.success("Phone number saved to clipboard");
+                  }}
                 >
-                  Copy To Clipboard
+                  {t("CopyToClipboard")}
                 </button>
               </div>
 
@@ -77,16 +55,19 @@ export default function Contact() {
                     <BsFillChatDotsFill size={25} />
                   </div>
                   <div className="flexColStart detail">
-                    <span className="primaryText">Email</span>
-                    <span className="secondaryText">Hacienda@gmail.com</span>
+                    <span className="primaryText">{t("email")}</span>
+                    <span className="secondaryText">{t("businessEmail")}</span>
                   </div>
                 </div>
 
                 <button
                   className="flexCenter button"
-                  onClick={() => handleEmailClick("Haciendaemail@gmail.com")}
+                  onClick={() => {
+                    navigator.clipboard.writeText("hacienda@gmail.com");
+                    toast.success("Phone number saved to clipboard");
+                  }}
                 >
-                  Copy To Clipboard
+                  {t("CopyToClipboard")}
                 </button>
               </div>
             </div>
@@ -96,22 +77,10 @@ export default function Contact() {
         {/* right side */}
         <div className="flexEnd c-right">
           <div className="image-container">
-            <Image
-              src={ContactImage}
-              alt="Contact Image"
-              className="contact-image"
-            />
+            <Image src={ContactImage} alt="Contact Image" className="contact-image" />
           </div>
         </div>
       </div>
     </div>
   );
-}
-
-function copyText(text: any) {
-  navigator.clipboard.writeText(text);
-}
-
-function copyTextcall(text: any) {
-  navigator.clipboard.writeText(text);
 }

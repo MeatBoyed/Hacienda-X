@@ -1,21 +1,11 @@
 "use client";
 
-import React, {
-  useCallback,
-  useLayoutEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import React, { useCallback, useLayoutEffect, useMemo, useRef, useState } from "react";
 import "./Properties.css";
-import { SearchQueryParameterSchema } from "@/app/_components/SearchFilters";
+import { SearchQueryParameterSchema } from "@/app/[locale]/_components/SearchFilters";
 import { SearchBar } from "@/components/SearchBar";
 import { PropertyCard } from "@/components/PropertyCard";
-import {
-  ResizablePanelGroup,
-  ResizablePanel,
-  ResizableHandle,
-} from "@/components/ui/resizable";
+import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from "@/components/ui/resizable";
 import { PuffLoader } from "react-spinners";
 import useSWR from "swr";
 import { TypeOf, z } from "zod";
@@ -23,14 +13,7 @@ import { useSearchParams } from "next/navigation";
 import { GetPropertySearch } from "@/lib/RequestUtils";
 import { PropertyWithAddress } from "@/Server/utils/utils";
 import { MapComp } from "@/components/Map";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-  SelectLabel,
-} from "@/components/ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, SelectLabel } from "@/components/ui/select";
 import { SelectGroup } from "@radix-ui/react-select";
 import { Button } from "@/components/ui/button";
 import { SlidersHorizontal } from "lucide-react";
@@ -117,13 +100,7 @@ export default function PropertiesSearch() {
   const properties = useMemo(
     () =>
       data &&
-      orderProperties()?.map((prop, i) => (
-        <PropertyCard
-          className=" h-48 sm:h-60  md:h-52 lg:h-40"
-          property={prop}
-          key={i}
-        />
-      )),
+      orderProperties()?.map((prop, i) => <PropertyCard className=" h-48 sm:h-60  md:h-52 lg:h-40" property={prop} key={i} />),
     [data, orderBy]
   );
 
@@ -149,10 +126,7 @@ export default function PropertiesSearch() {
                   >
                     <div className="w-full grid items-center gap-2">
                       <SearchBar classname="" />
-                      <Select
-                        value={orderBy}
-                        onValueChange={(value) => setOrderBy(value)}
-                      >
+                      <Select value={orderBy} onValueChange={(value) => setOrderBy(value)}>
                         <SelectTrigger className="bg-white shadow-md w-full hover:bg-gray-100 ">
                           <SelectValue placeholder="Order by" />
                         </SelectTrigger>
@@ -160,15 +134,9 @@ export default function PropertiesSearch() {
                           <SelectGroup>
                             <SelectLabel>Order by</SelectLabel>
                             <SelectItem value="Default">Default</SelectItem>
-                            <SelectItem value="PriceL">
-                              Price - low to high
-                            </SelectItem>
-                            <SelectItem value="PriceH">
-                              Price - high to low
-                            </SelectItem>
-                            <SelectItem value="MostRecent">
-                              Most recent
-                            </SelectItem>
+                            <SelectItem value="PriceL">Price - low to high</SelectItem>
+                            <SelectItem value="PriceH">Price - high to low</SelectItem>
+                            <SelectItem value="MostRecent">Most recent</SelectItem>
                             <SelectItem value="Size">Size</SelectItem>
                           </SelectGroup>
                         </SelectContent>
@@ -182,12 +150,8 @@ export default function PropertiesSearch() {
 
                     {!isLoading && !error && data && data.length === 0 && (
                       <div className="flex flex-col justify-center items-center gap-1 mb-5">
-                        <p className="text-lg font-semibold ">
-                          Oh no, it looks like no properties match you query.
-                        </p>
-                        <p className="text-base font-normal ">
-                          Checkout our other properties
-                        </p>
+                        <p className="text-lg font-semibold ">Oh no, it looks like no properties match you query.</p>
+                        <p className="text-base font-normal ">Checkout our other properties</p>
                       </div>
                     )}
                     <div className=" py-2 px-2 grid grid-cols-1 w-full sm:gap-10 md:grid-cols-2 md:gap-5 lg:grid-cols-2 lg:gap-5">
@@ -196,13 +160,7 @@ export default function PropertiesSearch() {
                   </ResizablePanel>
                   <ResizableHandle withHandle />
                   <ResizablePanel minSize={35} maxSize={62} defaultSize={55}>
-                    {data && !isLoading && !error && (
-                      <MapComp
-                        height={"100%"}
-                        properties={data}
-                        focusedProperty={data[0]}
-                      />
-                    )}
+                    {data && !isLoading && !error && <MapComp height={"100%"} properties={data} focusedProperty={data[0]} />}
                   </ResizablePanel>
                 </ResizablePanelGroup>
               )}
@@ -210,10 +168,7 @@ export default function PropertiesSearch() {
               {itemWidth < 1024 && (
                 <div className="w-full flex flex-col justify-center items-center gap-5 px-4">
                   <div className="w-full">
-                    <Select
-                      value={orderBy}
-                      onValueChange={(value) => setOrderBy(value)}
-                    >
+                    <Select value={orderBy} onValueChange={(value) => setOrderBy(value)}>
                       <SelectTrigger className="w-full md:w-fit">
                         <SelectValue placeholder="Order by" />
                       </SelectTrigger>
@@ -221,15 +176,9 @@ export default function PropertiesSearch() {
                         <SelectGroup>
                           <SelectLabel>Order by</SelectLabel>
                           <SelectItem value="Default">Default</SelectItem>
-                          <SelectItem value="PriceL">
-                            Price - low to high
-                          </SelectItem>
-                          <SelectItem value="PriceH">
-                            Price - high to low
-                          </SelectItem>
-                          <SelectItem value="MostRecent">
-                            Most recent
-                          </SelectItem>
+                          <SelectItem value="PriceL">Price - low to high</SelectItem>
+                          <SelectItem value="PriceH">Price - high to low</SelectItem>
+                          <SelectItem value="MostRecent">Most recent</SelectItem>
                           <SelectItem value="Size">Size</SelectItem>
                         </SelectGroup>
                       </SelectContent>
@@ -243,12 +192,8 @@ export default function PropertiesSearch() {
 
                   {!isLoading && !error && data && data.length === 0 && (
                     <div className="flex flex-col justify-center items-center gap-1 mb-5">
-                      <p className="text-lg font-semibold ">
-                        Oh no, it looks like no properties match you query.
-                      </p>
-                      <p className="text-base font-normal ">
-                        Checkout our other properties
-                      </p>
+                      <p className="text-lg font-semibold ">Oh no, it looks like no properties match you query.</p>
+                      <p className="text-base font-normal ">Checkout our other properties</p>
                     </div>
                   )}
                   <div className=" py-2 px-2 grid grid-cols-1 w-full sm:gap-10 md:grid-cols-2 md:gap-5 lg:grid-cols-2 lg:gap-5">

@@ -1,11 +1,11 @@
 import { Suspense } from "react";
+import CallToAction from "../_components/CallToAction";
 import Hero from "../_components/Hero";
 import HowItWorks from "../_components/HowItWorks";
+import OfferedSection from "../_components/OfferedSection";
 import Residencies from "../_components/Residencies";
 import Value from "../_components/Value";
-import CallToAction from "../_components/CallToAction";
 import Contact from "../_components/Contact";
-import OfferedSection from "../_components/OfferedSection";
 
 export default async function Home() {
   return (
@@ -15,11 +15,7 @@ export default async function Home() {
           <div className="white-gradient" />
           <Hero />
         </div>
-        <Residencies
-          subHeading="Featured Properties"
-          heading="Popular Residencies"
-          margin="mb-0"
-        />
+        <Residencies subHeading="Featured Properties" heading="Popular Residencies" margin="mb-0" />
         <HowItWorks />
         <Value />
         <OfferedSection />

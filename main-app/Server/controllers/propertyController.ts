@@ -5,7 +5,7 @@ import { clerkMiddleware } from "@hono/clerk-auth";
 import { PropertyWithAddress } from "../utils/utils";
 import { zValidator } from "@hono/zod-validator";
 import { z } from "zod";
-import { SearchQueryParameterSchema } from "@/app/_components/SearchFilters";
+import { SearchQueryParameterSchema } from "@/app/[locale]/_components/SearchFilters";
 import { validator } from "hono/validator";
 
 const app = new Hono()

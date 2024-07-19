@@ -5,10 +5,7 @@ import { Link } from "lucide-react";
 import { useState } from "react";
 import useSWRMutation from "swr/mutation";
 import { z } from "zod";
-import {
-  PropertySchema,
-  propertyToFormData,
-} from "../../../../../lib/FormUtils";
+import { PropertySchema, propertyToFormData } from "../../../../../../lib/FormUtils";
 
 export default function usePropertyForm() {
   // const [toastMessage, setToastMessage] = useState<{

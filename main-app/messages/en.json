@@ -1,0 +1,69 @@
+{
+  "Index": {
+    "Hero": {
+      "heading": "Find your Perfect Home",
+      "sub-heading": "Discover Properties That Match Your Lifestyle"
+    },
+    "HowItWorks": {
+      "sellPropertyCard": {
+        "heading": "Sell Property",
+        "content": "Sell Your Property Now! Personalized property creation. Control all your properties from the tips of your fingertips.",
+        "content2": "Do not miss out on your home being sold – Sell today!",
+        "button": "Sign up"
+      },
+      "buyPropertyCard": {
+        "heading": "Buy Property Now!",
+        "content": "Ready to make your homeownership dreams a reality? Explore a diverse range of properties tailored to your preferences and budget.",
+        "button": "Browse Properties"
+      },
+      "discoverCard": {
+        "heading": "Discover Our Story!",
+        "content": "We are your trusted partners in finding your perfect home. Discover our story and let us help you write the next chapter of yours.",
+        "button": "Learn more"
+      }
+    },
+    "AboutUs": {
+      "heading": "About HaciendaX",
+      "sub-heading": "About us",
+      "content-heading": "Our Mission:",
+      "content": "At Hacienda, our mission is to empower buyers and sellers with knowledge, support, and personalized service. Driven by a passion for people and properties, we strive to exceed expectations and build lasting relationships. Our listings feature unbeatable prices and incredible deals, making it easy to find your perfect home without breaking the bank. Whether you&apos;re looking for a cozy starter home or a luxurious estate, Hacienda combines affordability with quality. We are committed to excellence in every transaction, focusing on integrity, transparency, and professionalism to achieve your real estate goals and earn your trust. Discover what sets us apart at Hacienda.",
+      "button": "Learn More"
+    },
+    "Offer": {
+      "tag": "Why choose us?",
+      "heading": "We are Hacienda",
+      "sub-heading": "We know how to handle your needs for finding a new home. We care for You and your needs.",
+      "offer1": {
+        "heading": "Personalized Home Search",
+        "content": "Our team offers a personalized home search experience, ensuring that we match you with the perfect property that suits your lifestyle and preferences. We listen to your needs and use our extensive network to find your dream home."
+      },
+      "offer2": {
+        "heading": "Expert Market Analysis",
+        "content": "We provide in-depth market analysis to help you make informed decisions. Our experts analyze current market trends, property values, and neighborhood insights to guide you through the home buying process with confidence."
+      },
+      "offer3": {
+        "heading": "Seamless Transaction Process",
+        "content": "At Hacienda, we simplify the home buying process. Our experienced agents handle all the details, from negotiations to closing, ensuring a smooth and stress-free transaction. We prioritize your convenience and satisfaction."
+      },
+      "offer4": {
+        "heading": "Comprehensive Support Services",
+        "content": "Our commitment to you goes beyond just finding a home. We offer comprehensive support services, including mortgage advice, legal assistance, and post-purchase support, to make your transition as seamless as possible."
+      }
+    },
+    "CallToAction": {
+      "heading": "Want To Sell Your Property?",
+      "content": "Sell Your Properties With Hacienda. Click now to get started.",
+      "button": "Get Started"
+    },
+    "Contact": {
+      "sub-heading": "Contact Us",
+      "heading": "Get in touch today",
+      "content": "We are always ready to help by providing the best services for you. We believe a good place to live can make your life better.",
+      "Call": "Call",
+      "phone-number": "021 123 145 14",
+      "CopyToClipboard": "Copy To Clipboard",
+      "email": "Email",
+      "businessEmail": "Hacienda@gmail.com"
+    }
+  }
+}

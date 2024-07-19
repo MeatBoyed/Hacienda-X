@@ -15,30 +15,22 @@ import LeadForm from "./_components/LeadForm";
 import LocationSection from "./_components/LocationSection";
 import { useRouter } from "next/navigation";
 import PropertyCarousel from "./_components/ImageCarousel";
-import Residencies from "@/app/_components/Residencies";
+import Residencies from "@/app/[locale]/_components/Residencies";
 
 // Handler for the API request (Server Side)
 export default function PropertyPage() {
   const router = useRouter();
   const params = useParams();
-  const slug = decodeURIComponent(
-    typeof params.slug === "string" ? params.slug : ""
-  );
+  const slug = decodeURIComponent(typeof params.slug === "string" ? params.slug : "");
 
-  const { data, error, isLoading } = useSWR<PropertyWithAddressAndAgent>(
-    `/api/properties/${slug}`,
-    fetcher
-  );
+  const { data, error, isLoading } = useSWR<PropertyWithAddressAndAgent>(`/api/properties/${slug}`, fetcher);
 
   if (isLoading) {
     return <Loader />;
   }
 
   return (
-    <section
-      id={"view-property"}
-      className="w-full flex flex-col justify-center items-center gap-2 py-16 bg-[#fff]"
-    >
+    <section id={"view-property"} className="w-full flex flex-col justify-center items-center gap-2 py-16 bg-[#fff]">
       {error && !isLoading && (
         <div className="w-full flex justify-center items-center h-[100vh] bg-[#ffff]">
           <span>Error while fetching the property details</span>
@@ -47,10 +39,7 @@ export default function PropertyPage() {
       {data && !error && (
         <>
           <div className="flex justify-between items-center z-50 border-t bg-white py-4 px-4 w-full fixed top-0 shadow-sm sm:hidden">
-            <Button
-              onClick={() => router.back()}
-              className="text-text bg-transparent gap-1 p-0"
-            >
+            <Button onClick={() => router.back()} className="text-text bg-transparent gap-1 p-0">
               <ChevronLeft size={15} /> Back
             </Button>
 
@@ -73,12 +62,7 @@ export default function PropertyPage() {
             <LocationSection property={data} />
           </div>
           <div className="w-full flex justify-center items-start gap-10 lg:gap-20 pt-5 px-4 sm:max-w-3xl lg:max-w-5xl">
-            <Residencies
-              subHeading="Related properties"
-              heading="Properties"
-              className="px-1 sm:px-1 xl:px-1"
-              margin="mt-0"
-            />
+            <Residencies subHeading="Related properties" heading="Properties" className="px-1 sm:px-1 xl:px-1" margin="mt-0" />
           </div>
           <BottomNavbar price={data.price} />
         </>

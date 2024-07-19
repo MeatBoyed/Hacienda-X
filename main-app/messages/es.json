@@ -1,0 +1,69 @@
+{
+  "Index": {
+    "Hero": {
+      "heading": "Encuentra tu Hogar Perfecto",
+      "sub-heading": "Descubre Propiedades que Se Adaptan a Tu Estilo de Vida"
+    },
+    "HowItWorks": {
+      "sellPropertyCard": {
+        "heading": "Vender Propiedad",
+        "content": "¡Vende Tu Propiedad Ahora! Creación de propiedades personalizada. Controla todas tus propiedades desde la punta de tus dedos.",
+        "content2": "No te pierdas la oportunidad de vender tu hogar – ¡Vende hoy!",
+        "button": "Regístrate"
+      },
+      "buyPropertyCard": {
+        "heading": "¡Compra Propiedad Ahora!",
+        "content": "¿Listo para hacer realidad tus sueños de ser propietario? Explora una amplia gama de propiedades adaptadas a tus preferencias y presupuesto.",
+        "button": "Buscar Propiedades"
+      },
+      "discoverCard": {
+        "heading": "¡Descubre Nuestra Historia!",
+        "content": "Somos tus socios de confianza para encontrar tu hogar perfecto. Descubre nuestra historia y permítenos ayudarte a escribir el próximo capítulo de la tuya.",
+        "button": "Aprende más"
+      }
+    },
+    "AboutUs": {
+      "heading": "Sobre HaciendaX",
+      "sub-heading": "Sobre nosotros",
+      "content-heading": "Nuestra Misión:",
+      "content": "En Hacienda, nuestra misión es empoderar a compradores y vendedores con conocimiento, apoyo y servicio personalizado. Impulsados por una pasión por las personas y las propiedades, nos esforzamos por superar las expectativas y construir relaciones duraderas. Nuestras listas cuentan con precios inmejorables y ofertas increíbles, lo que facilita encontrar tu hogar perfecto sin gastar de más. Ya sea que busques una acogedora casa inicial o una lujosa mansión, Hacienda combina asequibilidad con calidad. Estamos comprometidos con la excelencia en cada transacción, enfocándonos en la integridad, la transparencia y el profesionalismo para alcanzar tus objetivos inmobiliarios y ganar tu confianza. Descubre lo que nos diferencia en Hacienda.",
+      "button": "Aprende más"
+    },
+    "Offer": {
+      "tag": "¿Por qué elegirnos?",
+      "heading": "Somos Hacienda",
+      "sub-heading": "Sabemos cómo atender tus necesidades para encontrar un nuevo hogar. Nos preocupamos por ti y tus necesidades.",
+      "offer1": {
+        "heading": "Búsqueda de Hogar Personalizada",
+        "content": "Nuestro equipo ofrece una experiencia de búsqueda de hogar personalizada, asegurando que te emparejemos con la propiedad perfecta que se adapte a tu estilo de vida y preferencias. Escuchamos tus necesidades y usamos nuestra extensa red para encontrar tu hogar soñado."
+      },
+      "offer2": {
+        "heading": "Análisis de Mercado Experto",
+        "content": "Proporcionamos un análisis de mercado profundo para ayudarte a tomar decisiones informadas. Nuestros expertos analizan las tendencias actuales del mercado, los valores de las propiedades y las percepciones del vecindario para guiarte con confianza durante el proceso de compra de tu hogar."
+      },
+      "offer3": {
+        "heading": "Proceso de Transacción Sin Problemas",
+        "content": "En Hacienda, simplificamos el proceso de compra de hogar. Nuestros agentes experimentados manejan todos los detalles, desde las negociaciones hasta el cierre, asegurando una transacción fluida y sin estrés. Priorizamos tu conveniencia y satisfacción."
+      },
+      "offer4": {
+        "heading": "Servicios de Apoyo Integral",
+        "content": "Nuestro compromiso contigo va más allá de solo encontrar un hogar. Ofrecemos servicios de apoyo integral, incluyendo asesoría hipotecaria, asistencia legal y apoyo post-compra, para hacer tu transición lo más fluida posible."
+      }
+    },
+    "CallToAction": {
+      "heading": "¿Quieres Vender Tu Propiedad?",
+      "content": "Vende Tus Propiedades Con Hacienda. Haz clic ahora para comenzar.",
+      "button": "Comenzar"
+    },
+    "Contact": {
+      "sub-heading": "Contáctanos",
+      "heading": "Ponte en contacto hoy",
+      "content": "Siempre estamos listos para ayudar, brindándote los mejores servicios. Creemos que un buen lugar para vivir puede mejorar tu vida.",
+      "Call": "Llamar",
+      "phone-number": "021 123 145 14",
+      "CopyToClipboard": "Copiar al Portapapeles",
+      "email": "Correo Electrónico",
+      "businessEmail": "Hacienda@gmail.com"
+    }
+  }
+}
