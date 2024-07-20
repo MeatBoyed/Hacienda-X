@@ -33,7 +33,7 @@ export default async function LocaleRootLayout({ children, params: { locale } }:
           src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&libraries=places`}
         ></script>
       </head>
-      <Providers>
+      <Providers locale={locale}>
         <body className={cn("min-h-screen bg-background font-sans antialiased", inter)}>{children}</body>
       </Providers>
     </html>
