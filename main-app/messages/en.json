@@ -11,8 +11,7 @@
     "HowItWorks": {
       "sellPropertyCard": {
         "heading": "Sell Property",
-        "content": "Sell Your Property Now! Personalized property creation. Control all your properties from the tips of your fingertips.",
-        "content2": "Do not miss out on your home being sold – Sell today!",
+        "content": "Sell Your Property Now! Control all your properties from the tips of your fingertips. Do not miss out on your home being sold – Sell today!",
         "button": "Sign up"
       },
       "buyPropertyCard": {
@@ -120,6 +119,43 @@
       "feature3": "Email Support",
       "feature4": "Monthly Analytics Report"
     },
+    "PricingTable": {
+      "Information": {
+        "feature1": "Property Listings",
+        "feature2": "Exposure",
+        "feature3": "Support",
+        "feature4": "Analytics Report",
+        "feature5": "Featured Listings",
+        "feature6": "Custom Branding Options"
+      },
+      "basic": {
+        "type": "Basic",
+        "price": "$29",
+        "subscription": "month",
+        "feature1": "1",
+        "feature2": "Standard",
+        "feature3": "Email Support",
+        "feature4": "Monthly"
+      },
+      "pro": {
+        "type": "Pro",
+        "price": "$99",
+        "subscription": "month",
+        "feature1": "10",
+        "feature2": "Enhanced",
+        "feature3": "Priority Email Support",
+        "feature4": "Weekly"
+      },
+      "enterprise": {
+        "type": "Enterprise",
+        "price": "$499",
+        "subscription": "year",
+        "feature1": "Unlimited",
+        "feature2": "Maximum",
+        "feature3": "Dedicated Account Manager",
+        "feature4": "Daily"
+      }
+    },
     "FAQ": {
       "subHeading": "FAQ",
       "heading": "Any Questions? Look Here",
@@ -133,8 +169,8 @@
         "answer": "Answer: When choosing a neighborhood, consider factors such as proximity to work or school, safety, amenities like parks and shopping centers, public transportation, and the overall vibe of the community. Researching school districts, local crime rates, and future development plans can also provide valuable insights into the suitability of a neighborhood for your needs."
       },
       "question3": {
-        "question": "Your third question here",
-        "answer": "Your answer to the third question here"
+        "question": "What is the role of a real estate agent in the home buying process?",
+        "answer": "Answer: A real estate agent acts as an intermediary between buyers and sellers. They assist buyers by helping them find properties that meet their needs and budget, negotiate offers, and navigate the paperwork involved in the purchase. They also provide valuable insights into market conditions and can recommend professionals such as home inspectors and attorneys. Their expertise can make the home buying process smoother and more efficient."
       },
       "question4": {
         "question": "How can I determine the value of my home?",
@@ -148,6 +184,25 @@
         "question": "Can I buy a property if I have bad credit?",
         "answer": "Answer: Yes, it is possible to buy a property with bad credit, but it may be more challenging. Options include securing a loan through a specialized lender, making a larger down payment, finding a co-signer, or improving your credit score before applying for a mortgage. Consulting with a mortgage advisor can help you understand your options and find the best path forward."
       }
+    }
+  },
+  "contacts": {
+    "companyName": "Hacienda",
+    "mission": "At Hacienda, our mission is to empower buyers and sellers with knowledge, support, and personalized service. Driven by a passion for people and properties, we strive to exceed expectations and build lasting relationships.",
+    "contactUs": "Contact Us",
+    "contactMessage": "Feel free to reach out to us! Whether you have a question, feedback, or a collaboration proposal, we'd love to hear from you.",
+    "emailLabel": "Email",
+    "email": "hacienda@gmail.com",
+    "phoneLabel": "Phone number",
+    "phone": "(555) 555-5555",
+    "enquiryPrompt": "Write Your Enquiry Below",
+    "assistanceMessage": "We are here to assist you",
+    "formLabels": {
+      "name": "Name",
+      "email": "Email",
+      "subject": "Subject",
+      "message": "Message",
+      "submit": "Submit"
     }
   },
   "Usage": {

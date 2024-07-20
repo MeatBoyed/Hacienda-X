@@ -1,6 +1,9 @@
 import React from "react";
+import { useTranslations } from "next-intl";
 
 const Contactus = () => {
+  const t = useTranslations();
+
   return (
     <div className="bg-gray-900 min-h-screen">
       <div className="bg-gray-900 pt-20">
@@ -8,13 +11,10 @@ const Contactus = () => {
           <div className="lg:text-center">
             <h2 className="text-base text-blue-600 font-semibold tracking-wide uppercase"></h2>
             <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-white sm:text-4xl">
-              Hacienda
+              {t("contacts.companyName")}
             </p>
             <p className="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
-              At Hacienda, our mission is to empower buyers and sellers with
-              knowledge, support, and personalized service. Driven by a passion
-              for people and properties, we strive to exceed expectations and
-              build lasting relationships.
+              {t("contacts.mission")}
             </p>
           </div>
         </div>
@@ -24,12 +24,10 @@ const Contactus = () => {
         <div className="flex flex-wrap items-start justify-center gap-12">
           <div className="flex flex-col w-full max-w-md bg-gray-800 p-6 rounded-lg shadow-lg">
             <h1 className="title-font mb-4 text-2xl font-medium text-white sm:text-3xl">
-              Contact Us
+              {t("contacts.contactUs")}
             </h1>
             <p className="text-base leading-relaxed mb-4 text-gray-400">
-              Feel free to reach out to us! Whether you have a question,
-              feedback, or a collaboration proposal, we&apos;d love to hear from
-              you.
+              {t("contacts.contactMessage")}
             </p>
             <div className="flex flex-col gap-4 mb-8">
               <div className="flex items-center space-x-4">
@@ -49,10 +47,10 @@ const Contactus = () => {
                 </svg>
                 <div>
                   <dt className="text-lg leading-6 font-medium text-gray-200">
-                    Email
+                    {t("contacts.emailLabel")}
                   </dt>
                   <dd className="mt-2 text-base text-gray-400">
-                    hacienda@gmail.com
+                    {t("contacts.email")}
                   </dd>
                 </div>
               </div>
@@ -73,10 +71,10 @@ const Contactus = () => {
                 </svg>
                 <div>
                   <dt className="text-lg leading-6 font-medium text-gray-200">
-                    Phone number
+                    {t("contacts.phoneLabel")}
                   </dt>
                   <dd className="mt-2 text-base text-gray-400">
-                    (555) 555-5555
+                    {t("contacts.phone")}
                   </dd>
                 </div>
               </div>
@@ -85,22 +83,22 @@ const Contactus = () => {
 
           <div className="w-full max-w-md bg-white p-6 rounded-lg shadow-xl">
             <h2 className="text-2xl font-bold text-black mb-2 text-center">
-              Write Your Enquiry Below
+              {t("contacts.enquiryPrompt")}
             </h2>
             <p className="text-gray-500 mb-4 text-center">
-              We are here to assist you
+              {t("contacts.assistanceMessage")}
             </p>
             <div className="mb-4">
               <label
                 className="block text-gray-700 text-sm font-bold mb-2"
                 htmlFor="name"
               >
-                Name
+                {t("contacts.formLabels.name")}
               </label>
               <input
                 id="name"
                 className="w-full rounded border border-gray-300 bg-gray-100 px-4 py-2 text-base text-gray-800 outline-none transition-colors duration-200 ease-in-out focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500"
-                placeholder="Name"
+                placeholder={t("contacts.formLabels.name")}
                 type="text"
               />
             </div>
@@ -109,12 +107,12 @@ const Contactus = () => {
                 className="block text-gray-700 text-sm font-bold mb-2"
                 htmlFor="email"
               >
-                Email
+                {t("contacts.formLabels.email")}
               </label>
               <input
                 id="email"
                 className="w-full rounded border border-gray-300 bg-gray-100 px-4 py-2 text-base text-gray-800 outline-none transition-colors duration-200 ease-in-out focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500"
-                placeholder="Email"
+                placeholder={t("contacts.formLabels.email")}
                 type="email"
               />
             </div>
@@ -123,12 +121,12 @@ const Contactus = () => {
                 className="block text-gray-700 text-sm font-bold mb-2"
                 htmlFor="subject"
               >
-                Subject
+                {t("contacts.formLabels.subject")}
               </label>
               <input
                 id="subject"
                 className="w-full rounded border border-gray-300 bg-gray-100 px-4 py-2 text-base text-gray-800 outline-none transition-colors duration-200 ease-in-out focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500"
-                placeholder="Subject"
+                placeholder={t("contacts.formLabels.subject")}
                 type="text"
               />
             </div>
@@ -137,16 +135,16 @@ const Contactus = () => {
                 className="block text-gray-700 text-sm font-bold mb-2"
                 htmlFor="message"
               >
-                Message
+                {t("contacts.formLabels.message")}
               </label>
               <textarea
                 id="message"
                 className="h-32 w-full resize-none rounded border border-gray-300 bg-gray-100 px-4 py-2 text-base text-gray-800 outline-none transition-colors duration-200 ease-in-out focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500"
-                placeholder="Message"
+                placeholder={t("contacts.formLabels.message")}
               ></textarea>
             </div>
             <button className="mt-4 w-full rounded bg-blue-500 px-4 py-2 text-lg text-white hover:bg-blue-600 focus:outline-none">
-              Submit
+              {t("contacts.formLabels.submit")}
             </button>
           </div>
         </div>

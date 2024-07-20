@@ -119,6 +119,43 @@
       "feature3": "Soporte por Email",
       "feature4": "Informe Mensual de Analíticas"
     },
+    "PricingTable": {
+      "Information": {
+        "feature1": "Listados de Propiedades",
+        "feature2": "Exposición",
+        "feature3": "Soporte",
+        "feature4": "Informe de Analíticas",
+        "feature5": "Listados Destacados",
+        "feature6": "Opciones de Branding Personalizado"
+      },
+      "basic": {
+        "type": "Básico",
+        "price": "$29",
+        "subscription": "mes",
+        "feature1": "1",
+        "feature2": "Estándar",
+        "feature3": "Soporte por Correo Electrónico",
+        "feature4": "Mensual"
+      },
+      "pro": {
+        "type": "Pro",
+        "price": "$99",
+        "subscription": "mes",
+        "feature1": "10",
+        "feature2": "Mejorado",
+        "feature3": "Soporte Prioritario por Correo Electrónico",
+        "feature4": "Semanal"
+      },
+      "enterprise": {
+        "type": "Enterprise",
+        "price": "$499",
+        "subscription": "año",
+        "feature1": "Ilimitado",
+        "feature2": "Máximo",
+        "feature3": "Gerente de Cuenta Dedicado",
+        "feature4": "Diario"
+      }
+    },
     "FAQ": {
       "subHeading": "Preguntas Frecuentes",
       "heading": "¿Alguna Pregunta? Mira Aquí",
@@ -132,8 +169,8 @@
         "answer": "Respuesta: Al elegir un vecindario, considera factores como la proximidad al trabajo o la escuela, la seguridad, servicios como parques y centros comerciales, el transporte público y el ambiente general de la comunidad. Investigar los distritos escolares, las tasas de criminalidad locales y los planes de desarrollo futuro también puede proporcionar información valiosa sobre la idoneidad de un vecindario para tus necesidades."
       },
       "question3": {
-        "question": "Tu tercera pregunta aquí",
-        "answer": "Tu respuesta a la tercera pregunta aquí"
+        "question": "¿Cuál es el papel de un agente inmobiliario en el proceso de compra de una vivienda?",
+        "answer": "Respuesta: Un agente inmobiliario actúa como intermediario entre compradores y vendedores. Ayudan a los compradores a encontrar propiedades que se ajusten a sus necesidades y presupuesto, negocian ofertas y navegan por el papeleo involucrado en la compra. También proporcionan información valiosa sobre las condiciones del mercado y pueden recomendar profesionales como inspectores de viviendas y abogados. Su experiencia puede hacer que el proceso de compra de una vivienda sea más fluido y eficiente."
       },
       "question4": {
         "question": "¿Cómo puedo determinar el valor de mi casa?",
@@ -147,6 +184,25 @@
         "question": "¿Puedo comprar una propiedad si tengo mal crédito?",
         "answer": "Respuesta: Sí, es posible comprar una propiedad con mal crédito, pero puede ser más desafiante. Las opciones incluyen asegurar un préstamo a través de un prestamista especializado, hacer un pago inicial más grande, encontrar un co-firmante o mejorar tu puntaje crediticio antes de solicitar una hipoteca. Consultar con un asesor hipotecario puede ayudarte a entender tus opciones y encontrar el mejor camino a seguir."
       }
+    }
+  },
+  "contacts": {
+    "companyName": "Hacienda",
+    "mission": "En Hacienda, nuestra misión es capacitar a compradores y vendedores con conocimientos, apoyo y servicio personalizado. Impulsados por una pasión por las personas y las propiedades, nos esforzamos por superar las expectativas y construir relaciones duraderas.",
+    "contactUs": "Contáctenos",
+    "contactMessage": "No dude en ponerse en contacto con nosotros. Si tiene una pregunta, comentarios o una propuesta de colaboración, nos encantaría saber de usted.",
+    "emailLabel": "Correo electrónico",
+    "email": "hacienda@gmail.com",
+    "phoneLabel": "Número de teléfono",
+    "phone": "(555) 555-5555",
+    "enquiryPrompt": "Escriba su consulta a continuación",
+    "assistanceMessage": "Estamos aquí para ayudarle",
+    "formLabels": {
+      "name": "Nombre",
+      "email": "Correo electrónico",
+      "subject": "Asunto",
+      "message": "Mensaje",
+      "submit": "Enviar"
     }
   },
   "Usage": {

@@ -9,13 +9,18 @@ export default function HowItWorks() {
       <article className="rounded-lg shadow-lg bg-white transform transition-transform hover:scale-105 w-11/12 md:w-full mx-auto">
         <div className="article-wrapper p-4">
           <figure className="mb-4">
-            <img src="./ctapic2.jpg" alt="" className="w-full h-24 md:h-auto object-cover rounded-md" />
+            <img
+              src="./ctapic3.jpg"
+              alt=""
+              className="w-full h-24 md:h-auto object-cover rounded-md"
+            />
           </figure>
           <div className="article-body text-center">
-            <h2 className="text-xl md:text-lg font-bold mb-2 md:mb-4">{t("sellPropertyCard.heading")}</h2>
-            <p className="mb-4 text-sm md:text-sm">
+            <h2 className="text-xl md:text-lg font-bold mb-2 md:mb-4">
+              {t("sellPropertyCard.heading")}
+            </h2>
+            <p className="mb-4 text-sm md:text-xs">
               {t("sellPropertyCard.content")}
-              <br /> {t("sellPropertyCard.content2")}
             </p>
 
             <Link
@@ -30,13 +35,21 @@ export default function HowItWorks() {
         </div>
       </article>
       <article className="rounded-lg shadow-lg bg-white transform transition-transform hover:scale-105 w-11/12 md:w-full mx-auto">
-        <div className="article-wrapper p-4 h-full flex flex-col justify-between">
+        <div className="article-wrapper p-4">
           <figure className="mb-4">
-            <img src="./ctapic4.jpg" alt="" className="w-full h-24 md:h-auto object-cover rounded-md" />
+            <img
+              src="./ctapic4.jpg"
+              alt=""
+              className="w-full h-24 md:h-auto object-cover rounded-md"
+            />
           </figure>
           <div className="article-body text-center">
-            <h2 className="text-xl md:text-lg font-bold mb-2 md:mb-4">{t("buyPropertyCard.heading")}</h2>
-            <p className="mb-4 text-sm md:text-xs">{t("buyPropertyCard.content")}</p>
+            <h2 className="text-xl md:text-lg font-bold mb-2 md:mb-4">
+              {t("buyPropertyCard.heading")}
+            </h2>
+            <p className="mb-4 text-sm md:text-xs">
+              {t("buyPropertyCard.content")}
+            </p>
 
             <Link
               href="/pricing"
@@ -52,11 +65,19 @@ export default function HowItWorks() {
       <article className="rounded-lg shadow-lg bg-white transform transition-transform hover:scale-105 w-11/12 md:w-full mx-auto">
         <div className="article-wrapper p-4">
           <figure className="mb-4">
-            <img src="./ctapic5.jpg" alt="" className="w-full h-24 md:h-auto object-cover rounded-md" />
+            <img
+              src="./ctapic5.jpg"
+              alt=""
+              className="w-full h-24 md:h-auto object-cover rounded-md"
+            />
           </figure>
           <div className="article-body text-center">
-            <h2 className="text-xl md:text-lg font-bold mb-2 md:mb-4">{t("discoverCard.heading")}</h2>
-            <p className="mb-4 text-sm md:text-xs">{t("discoverCard.content")}</p>
+            <h2 className="text-xl md:text-lg font-bold mb-2 md:mb-4">
+              {t("discoverCard.heading")}
+            </h2>
+            <p className="mb-4 text-sm md:text-xs">
+              {t("discoverCard.content")}
+            </p>
             <Link
               href="/pricing"
               className="
