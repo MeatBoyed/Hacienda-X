@@ -1,20 +1,16 @@
 import React from "react";
 
-const Contactus = () => {
+export default function ContactForum() {
   return (
     <div>
-      <div className="bg-gray-100 py-12">
+      <div className="bg-gray-100 py-14">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="lg:text-center">
-            <h2 className="text-base text-indigo-600 font-semibold tracking-wide uppercase">
-              Location
-            </h2>
-            <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-              Our Store
-            </p>
+            <h2 className="text-base text-indigo-600 font-semibold tracking-wide uppercase">Location</h2>
+            <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">Our Store</p>
             <p className="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus
-              magnam voluptatum cupiditate veritatis in, accusamus quisquam.
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus magnam voluptatum cupiditate veritatis in,
+              accusamus quisquam.
             </p>
           </div>
 
@@ -40,9 +36,7 @@ const Contactus = () => {
                   </div>
                 </div>
                 <div className="ml-4">
-                  <dt className="text-lg leading-6 font-medium text-gray-900">
-                    Address
-                  </dt>
+                  <dt className="text-lg leading-6 font-medium text-gray-900">Address</dt>
                   <dd className="mt-2 text-base text-gray-500">
                     123 Main St, Suite 100
                     <br />
@@ -71,12 +65,8 @@ const Contactus = () => {
                   </div>
                 </div>
                 <div className="ml-4">
-                  <dt className="text-lg leading-6 font-medium text-gray-900">
-                    Phone number
-                  </dt>
-                  <dd className="mt-2 text-base text-gray-500">
-                    (555) 555-5555
-                  </dd>
+                  <dt className="text-lg leading-6 font-medium text-gray-900">Phone number</dt>
+                  <dd className="mt-2 text-base text-gray-500">(555) 555-5555</dd>
                 </div>
               </div>
 
@@ -100,12 +90,8 @@ const Contactus = () => {
                   </div>
                 </div>
                 <div className="ml-4">
-                  <dt className="text-lg leading-6 font-medium text-gray-900">
-                    Email
-                  </dt>
-                  <dd className="mt-2 text-base text-gray-500">
-                    info@ourstore.com
-                  </dd>
+                  <dt className="text-lg leading-6 font-medium text-gray-900">Email</dt>
+                  <dd className="mt-2 text-base text-gray-500">info@ourstore.com</dd>
                 </div>
               </div>
 
@@ -120,18 +106,12 @@ const Contactus = () => {
                       stroke="currentColor"
                       className="w-6 h-6"
                     >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"
-                      />
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                   </div>
                 </div>
                 <div className="ml-4">
-                  <dt className="text-lg leading-6 font-medium text-gray-900">
-                    Store Hours
-                  </dt>
+                  <dt className="text-lg leading-6 font-medium text-gray-900">Store Hours</dt>
                   <dd className="mt-2 text-base text-gray-500">
                     Monday - Friday: 9am to 8pm
                     <br />
@@ -149,13 +129,10 @@ const Contactus = () => {
       <section className="body-font relative bg-gray-900 text-gray-400">
         <div className="container mx-auto px-5 py-24">
           <div className="mb-12 flex w-full flex-col text-center">
-            <h1 className="title-font mb-4 text-2xl font-medium text-white sm:text-3xl">
-              Contact Us
-            </h1>
+            <h1 className="title-font mb-4 text-2xl font-medium text-white sm:text-3xl">Contact Us</h1>
             <p className="mx-auto text-base leading-relaxed lg:w-2/3">
-              Feel free to reach out to us! Whether you have a question,
-              feedback, or a collaboration proposal, we&apos;d love to hear from
-              you.
+              Feel free to reach out to us! Whether you have a question, feedback, or a collaboration proposal, we&apos;d love to
+              hear from you.
             </p>
           </div>
           <div className="mx-auto md:w-2/3 lg:w-1/2">
@@ -234,14 +211,7 @@ const Contactus = () => {
                       className="h-5 w-5"
                       viewBox="0 0 24 24"
                     >
-                      <rect
-                        width="20"
-                        height="20"
-                        x="2"
-                        y="2"
-                        rx="5"
-                        ry="5"
-                      ></rect>
+                      <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
                       <path d="M16 11.4a4 4 0 01-7.4 2.2A4 4 0 1112 8c.6 0 1.1.1 1.6.3"></path>
                       <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
                     </svg>
@@ -270,6 +240,4 @@ const Contactus = () => {
       </section>
     </div>
   );
-};
-
-export default Contactus;
+}

@@ -18,7 +18,7 @@ export default function Contact() {
         <div className="flexColStart c-left">
           <div className="flex justify-center items-start flex-col gap-5 w-full">
             <div className="flex justify-center items-start flex-col gap-1 w-full">
-              <p className="text-lg font-semibold opacity-80 text-accent w-full">{t("sub-heading")}</p>
+              <p className="text-lg font-semibold opacity-80 text-accent w-full">{t("subHeading")}</p>
               <h2 className="scroll-m-20 text-3xl font-semibold tracking-tight first:mt-0 w-full">{t("heading")}</h2>
             </div>
 

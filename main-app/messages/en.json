@@ -2,7 +2,11 @@
   "Index": {
     "Hero": {
       "heading": "Find your Perfect Home",
-      "sub-heading": "Discover Properties That Match Your Lifestyle"
+      "subHeading": "Discover Properties That Match Your Lifestyle"
+    },
+    "Residencies": {
+      "heading": "Popular Residencies",
+      "subHeading": "Featured Properties"
     },
     "HowItWorks": {
       "sellPropertyCard": {
@@ -56,7 +60,7 @@
       "button": "Get Started"
     },
     "Contact": {
-      "sub-heading": "Contact Us",
+      "subHeading": "Contact Us",
       "heading": "Get in touch today",
       "content": "We are always ready to help by providing the best services for you. We believe a good place to live can make your life better.",
       "Call": "Call",
@@ -64,6 +68,102 @@
       "CopyToClipboard": "Copy To Clipboard",
       "email": "Email",
       "businessEmail": "Hacienda@gmail.com"
+    }
+  },
+  "AboutUs": {
+    "heading": "HaciendaX Real Estate",
+    "content1": "We are committed to empowering buyers and sellers with knowledge, support, and personalized service. At Hacienda, our passion for people and properties drives us to exceed expectations and create lasting relationships.",
+    "content2": "Discover what sets us apart at Hacienda. We strive for excellence in every transaction, aiming to surpass industry standards and client expectations. With a focus on integrity, transparency, and professionalism, we are dedicated to achieving your real estate goals and earning your trust."
+  },
+  "Bookmarks": {
+    "heading": "Your saved properties",
+    "emptyMessage": "You have no properties. Let&#39;s go add one!"
+  },
+  "Pricing": {
+    "subHeading": "Pricing Table",
+    "heading": "Our Pricing Plan",
+    "content": "Choose the plan that best suits your needs.",
+    "enterprisePlan": {
+      "type": "Enterprise",
+      "price": "$499",
+      "subscription": "year",
+      "description": "Best for large real estate firms needing comprehensive features.",
+      "button": "Choose Enterprise",
+      "feature1": "Unlimited Property Listings",
+      "feature2": "Maximum Exposure",
+      "feature3": "Dedicated Account Manager",
+      "feature4": "Daily Analytics Report",
+      "feature5": "Premium Featured Listings",
+      "feature6": "Custom Branding Options"
+    },
+    "proPlan": {
+      "type": "Pro Plan",
+      "price": "$99",
+      "subscription": "month",
+      "description": "Perfect for small real estate teams.",
+      "button": "Choose Pro",
+      "feature1": "10 Property Listings",
+      "feature2": "Enhanced Exposure",
+      "feature3": "Priority Email Support",
+      "feature4": "Weekly Analytics Report",
+      "feature5": "Featured Listings"
+    },
+    "basicPlan": {
+      "type": "Basic",
+      "price": "$29",
+      "subscription": "month",
+      "description": "Ideal for individual agents starting out.",
+      "button": "Choose Basic",
+      "buttonText": "Choose Basic",
+      "feature1": "1 Property Listing",
+      "feature2": "Standard Exposure",
+      "feature3": "Email Support",
+      "feature4": "Monthly Analytics Report"
+    },
+    "FAQ": {
+      "subHeading": "FAQ",
+      "heading": "Any Questions? Look Here",
+      "content": "We, Hacienda, are more than welcome to answer any questions you may have!",
+      "question1": {
+        "question": "What is the process for buying a property?",
+        "answer": "Answer: The process for buying a property typically involves getting pre-approved for a mortgage, working with a real estate agent to find a suitable property, making an offer, conducting a home inspection, securing financing, and finally, closing the deal. Each step has its own set of details and requirements, so it's important to work closely with professionals throughout the process."
+      },
+      "question2": {
+        "question": "What should I consider when choosing a neighborhood?",
+        "answer": "Answer: When choosing a neighborhood, consider factors such as proximity to work or school, safety, amenities like parks and shopping centers, public transportation, and the overall vibe of the community. Researching school districts, local crime rates, and future development plans can also provide valuable insights into the suitability of a neighborhood for your needs."
+      },
+      "question3": {
+        "question": "Your third question here",
+        "answer": "Your answer to the third question here"
+      },
+      "question4": {
+        "question": "How can I determine the value of my home?",
+        "answer": "Answer: The value of your home can be determined through a professional appraisal, a comparative market analysis (CMA) conducted by a real estate agent, or online valuation tools. These methods take into account factors like the condition of your home, recent sales of similar properties in your area, and current market trends."
+      },
+      "question5": {
+        "question": "What are the costs associated with buying a home?",
+        "answer": "Answer: The costs associated with buying a home include the down payment, closing costs (which can range from 2% to 5% of the purchase price), home inspection fees, appraisal fees, mortgage insurance (if applicable), and moving expenses. It's important to budget for these costs in addition to the purchase price of the home."
+      },
+      "question6": {
+        "question": "Can I buy a property if I have bad credit?",
+        "answer": "Answer: Yes, it is possible to buy a property with bad credit, but it may be more challenging. Options include securing a loan through a specialized lender, making a larger down payment, finding a co-signer, or improving your credit score before applying for a mortgage. Consulting with a mortgage advisor can help you understand your options and find the best path forward."
+      }
+    }
+  },
+  "Usage": {
+    "heading": "How we calculate your usage",
+    "subHeading": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nostrum quam voluptatibus. How to use.",
+    "card1": {
+      "title": "Usage #1",
+      "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident ab nulla quod dignissimos vel non corrupti doloribus voluptatum eveniet"
+    },
+    "card2": {
+      "title": "Usage #2",
+      "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident ab nulla quod dignissimos vel non corrupti doloribus voluptatum eveniet"
+    },
+    "card3": {
+      "title": "Usage #3",
+      "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident ab nulla quod dignissimos vel non corrupti doloribus voluptatum eveniet"
     }
   }
 }

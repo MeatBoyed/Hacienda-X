@@ -7,15 +7,20 @@ import Residencies from "../_components/Residencies";
 import Value from "../_components/Value";
 import Contact from "../_components/Contact";
 
-export default async function Home() {
+import { getDictionary } from "@/messages/dictionaries";
+import { Messages } from "@/global";
+
+// Translated
+export default async function Home({ params: { locale } }: { params: { locale: string } }) {
+  const dict: Messages = await getDictionary(locale);
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <div className="App">
         <div>
           <div className="white-gradient" />
-          <Hero />
+          <Hero dict={dict.Index.Hero} />
         </div>
-        <Residencies subHeading="Featured Properties" heading="Popular Residencies" margin="mb-0" />
+        <Residencies subHeading={dict.Index.Residencies.subHeading} heading={dict.Index.Residencies.heading} margin="mb-0" />
         <HowItWorks />
         <Value />
         <OfferedSection />

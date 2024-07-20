@@ -2,7 +2,11 @@
   "Index": {
     "Hero": {
       "heading": "Encuentra tu Hogar Perfecto",
-      "sub-heading": "Descubre Propiedades que Se Adaptan a Tu Estilo de Vida"
+      "subHeading": "Descubre Propiedades que Se Adaptan a Tu Estilo de Vida"
+    },
+    "Residencies": {
+      "heading": "Residencias Populares",
+      "subHeading": "Propiedades Destacadas"
     },
     "HowItWorks": {
       "sellPropertyCard": {
@@ -56,7 +60,7 @@
       "button": "Comenzar"
     },
     "Contact": {
-      "sub-heading": "Contáctanos",
+      "subHeading": "Contáctanos",
       "heading": "Ponte en contacto hoy",
       "content": "Siempre estamos listos para ayudar, brindándote los mejores servicios. Creemos que un buen lugar para vivir puede mejorar tu vida.",
       "Call": "Llamar",
@@ -64,6 +68,101 @@
       "CopyToClipboard": "Copiar al Portapapeles",
       "email": "Correo Electrónico",
       "businessEmail": "Hacienda@gmail.com"
+    }
+  },
+  "AboutUs": {
+    "heading": "HaciendaX Bienes Raíces",
+    "content1": "Estamos comprometidos a empoderar a compradores y vendedores con conocimiento, apoyo y servicio personalizado. En Hacienda, nuestra pasión por las personas y las propiedades nos impulsa a superar las expectativas y crear relaciones duraderas.",
+    "content2": "Descubre lo que nos distingue en Hacienda. Nos esforzamos por la excelencia en cada transacción, con el objetivo de superar los estándares de la industria y las expectativas de los clientes. Con un enfoque en la integridad, la transparencia y el profesionalismo, nos dedicamos a alcanzar tus objetivos inmobiliarios y ganarnos tu confianza."
+  },
+  "Bookmarks": {
+    "heading": "Tus propiedades guardadas",
+    "emptyMessage": "No tienes propiedades. ¡Vamos a agregar una!"
+  },
+  "Pricing": {
+    "subHeading": "Tabla de Precios",
+    "heading": "Nuestro Plan de Precios",
+    "content": "Elige el plan que mejor se adapte a tus necesidades.",
+    "enterprisePlan": {
+      "type": "Empresarial",
+      "price": "$499",
+      "subscription": "año",
+      "description": "Ideal para grandes empresas inmobiliarias que necesitan características integrales.",
+      "button": "Elegir Empresarial",
+      "feature1": "Listados de Propiedades Ilimitados",
+      "feature2": "Exposición Máxima",
+      "feature3": "Gerente de Cuenta Dedicado",
+      "feature4": "Informe Diario de Analíticas",
+      "feature5": "Listados Destacados Premium",
+      "feature6": "Opciones de Marca Personalizadas"
+    },
+    "proPlan": {
+      "type": "Plan Pro",
+      "price": "$99",
+      "subscription": "mes",
+      "description": "Perfecto para pequeños equipos inmobiliarios.",
+      "button": "Elegir Pro",
+      "feature1": "10 Listados de Propiedades",
+      "feature2": "Exposición Mejorada",
+      "feature3": "Soporte Prioritario por Email",
+      "feature4": "Informe Semanal de Analíticas",
+      "feature5": "Listados Destacados"
+    },
+    "basicPlan": {
+      "type": "Básico",
+      "price": "$29",
+      "subscription": "mes",
+      "description": "Ideal para agentes individuales que están empezando.",
+      "button": "Elegir Básico",
+      "feature1": "1 Listado de Propiedad",
+      "feature2": "Exposición Estándar",
+      "feature3": "Soporte por Email",
+      "feature4": "Informe Mensual de Analíticas"
+    },
+    "FAQ": {
+      "subHeading": "Preguntas Frecuentes",
+      "heading": "¿Alguna Pregunta? Mira Aquí",
+      "content": "En Hacienda, estamos más que dispuestos a responder cualquier pregunta que puedas tener!",
+      "question1": {
+        "question": "¿Cuál es el proceso para comprar una propiedad?",
+        "answer": "Respuesta: El proceso para comprar una propiedad generalmente implica obtener una preaprobación para una hipoteca, trabajar con un agente inmobiliario para encontrar una propiedad adecuada, hacer una oferta, realizar una inspección de la vivienda, asegurar el financiamiento y, finalmente, cerrar el trato. Cada paso tiene sus propios detalles y requisitos, por lo que es importante trabajar de cerca con profesionales durante todo el proceso."
+      },
+      "question2": {
+        "question": "¿Qué debo considerar al elegir un vecindario?",
+        "answer": "Respuesta: Al elegir un vecindario, considera factores como la proximidad al trabajo o la escuela, la seguridad, servicios como parques y centros comerciales, el transporte público y el ambiente general de la comunidad. Investigar los distritos escolares, las tasas de criminalidad locales y los planes de desarrollo futuro también puede proporcionar información valiosa sobre la idoneidad de un vecindario para tus necesidades."
+      },
+      "question3": {
+        "question": "Tu tercera pregunta aquí",
+        "answer": "Tu respuesta a la tercera pregunta aquí"
+      },
+      "question4": {
+        "question": "¿Cómo puedo determinar el valor de mi casa?",
+        "answer": "Respuesta: El valor de tu casa puede determinarse mediante una tasación profesional, un análisis comparativo del mercado (CMA) realizado por un agente inmobiliario o herramientas de valoración en línea. Estos métodos tienen en cuenta factores como el estado de tu casa, las ventas recientes de propiedades similares en tu área y las tendencias actuales del mercado."
+      },
+      "question5": {
+        "question": "¿Cuáles son los costos asociados con la compra de una casa?",
+        "answer": "Respuesta: Los costos asociados con la compra de una casa incluyen el pago inicial, los costos de cierre (que pueden oscilar entre el 2% y el 5% del precio de compra), las tarifas de inspección de la vivienda, las tarifas de tasación, el seguro hipotecario (si corresponde) y los gastos de mudanza. Es importante presupuestar estos costos además del precio de compra de la casa."
+      },
+      "question6": {
+        "question": "¿Puedo comprar una propiedad si tengo mal crédito?",
+        "answer": "Respuesta: Sí, es posible comprar una propiedad con mal crédito, pero puede ser más desafiante. Las opciones incluyen asegurar un préstamo a través de un prestamista especializado, hacer un pago inicial más grande, encontrar un co-firmante o mejorar tu puntaje crediticio antes de solicitar una hipoteca. Consultar con un asesor hipotecario puede ayudarte a entender tus opciones y encontrar el mejor camino a seguir."
+      }
+    }
+  },
+  "Usage": {
+    "heading": "Cómo calculamos tu uso",
+    "subHeading": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nostrum quam voluptatibus. Cómo usar.",
+    "card1": {
+      "title": "Uso #1",
+      "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident ab nulla quod dignissimos vel non corrupti doloribus voluptatum eveniet"
+    },
+    "card2": {
+      "title": "Uso #2",
+      "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident ab nulla quod dignissimos vel non corrupti doloribus voluptatum eveniet"
+    },
+    "card3": {
+      "title": "Uso #3",
+      "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident ab nulla quod dignissimos vel non corrupti doloribus voluptatum eveniet"
     }
   }
 }
