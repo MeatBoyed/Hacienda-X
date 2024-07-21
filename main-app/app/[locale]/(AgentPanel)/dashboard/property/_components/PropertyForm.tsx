@@ -14,7 +14,7 @@ import { PuffLoader } from "react-spinners";
 
 import { z } from "zod";
 import { useContext, useState, use, useEffect } from "react";
-import { FieldError, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import {
   PropertySchema,
   SelectBedroomsOptions,
@@ -42,10 +42,13 @@ import {
 } from "@/components/ui/dialog";
 import { UserContext, UserContextType } from "@/lib/userContext";
 import { Badge } from "@/components/ui/badge";
+import { useTranslations } from "next-intl";
+import PropertyFormHead from "./PropertyFormHead";
 
 export default function PropertyForm({ initProperty }: { initProperty?: PropertyWithAddress }) {
-  const { user } = useContext(UserContext) as UserContextType;
+  const t = useTranslations("Dashboard.propertyFormComp");
   const router = useRouter();
+  const { user } = useContext(UserContext) as UserContextType;
 
   const defaultValues = getDefaultVaules(initProperty);
   const form = useForm<z.infer<typeof PropertySchema>>({
@@ -221,56 +224,7 @@ export default function PropertyForm({ initProperty }: { initProperty?: Property
             className="h-full w-full flex justify-start items-center flex-col gap-12"
           >
             {/* Head (Action Btns) */}
-            <div className="flex items-center justify-between w-full sm:px-5 lg:max-w-7xl flex-wrap gap-4">
-              <div className="flex justify-center items-center gap-4">
-                <Button
-                  variant="outline"
-                  size="icon"
-                  className="h-7 w-7 bg-white hidden sm:flex"
-                  type="button"
-                  onClick={() => router.back()}
-                >
-                  <ChevronLeft className="h-4 w-4" />
-                  <span className="sr-only">Back</span>
-                </Button>
-                <h1 className="flex-1 shrink-0 whitespace-nowrap text-xl font-semibold tracking-tight sm:grow-0">
-                  {!initProperty ? "Create Property" : "Edit Property"}
-                </h1>
-              </div>
-              <div className="flex justify-center items-center gap-2">
-                {initProperty && (
-                  <Dialog>
-                    <DialogTrigger asChild>
-                      <Button variant={"destructive"} size="sm" className="gap-2">
-                        <Trash2 size={16} className="text-black" />
-                        Delete
-                      </Button>
-                    </DialogTrigger>
-                    <DialogContent className="sm:max-w-[425px]">
-                      <DialogHeader>
-                        <DialogTitle>Warning! This is can not be undone.</DialogTitle>
-                        <DialogDescription>
-                          Deleting this image will be a permanent action, and can not be undone.
-                        </DialogDescription>
-                      </DialogHeader>
-                      <DialogFooter
-                        style={{ justifyContent: "space-between" }}
-                        className="flex p-0 m-0 justify-between items-center w-full"
-                      >
-                        <p className="text-sm font-normal ">Are you sure you want to do this?</p>
-                        <Button variant={"destructive"} type="button" onClick={async () => await deleteHandler()}>
-                          Confirm Delete
-                        </Button>
-                      </DialogFooter>
-                    </DialogContent>
-                  </Dialog>
-                )}
-                <Button variant="outline" size="sm" type="submit" className="gap-2">
-                  <Save size={16} />
-                  {initProperty ? "Save" : "Create"}
-                </Button>
-              </div>
-            </div>
+            <PropertyFormHead deleteHandler={deleteHandler} initProperty={!!initProperty} />
 
             {/* Form Inputs */}
             {/* <div className="flex justify-start items-center w-full gap-10 flex-col sm:flex-row sm:items-start  sm:px-5 lg:max-w-7xl"> */}
