@@ -6,10 +6,9 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/com
 import { Tag, TagInput } from "emblor";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
-import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ChevronLeft, Save, Trash2, X, XCircle } from "lucide-react";
+import { XCircle } from "lucide-react";
 import { PuffLoader } from "react-spinners";
 
 import { z } from "zod";
@@ -31,15 +30,6 @@ import { ImagesInput } from "@/components/ImagesInput/ImagesInput";
 import { DeleteProperty, PostProperty } from "@/lib/RequestUtils";
 import { PropertyWithAddress } from "@/Server/utils/utils";
 import { useRouter } from "next/navigation";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 import { UserContext, UserContextType } from "@/lib/userContext";
 import { Badge } from "@/components/ui/badge";
 import { useTranslations } from "next-intl";
@@ -156,21 +146,21 @@ export default function PropertyForm({ initProperty }: { initProperty?: Property
     },
   });
 
-  const {
-    trigger: triggerDelete,
-    isMutating: isMutatingDelete,
-    error: deleteError,
-  } = useSWRMutation(`/api/dashboard/property/delete/${initProperty?.property_id || ""}`, DeleteProperty /* options */, {
-    onError: () => {
-      toast.error("Something unexpected happend.", {
-        description: "Please try again....",
-      });
-    },
-    onSuccess: (data) => {
-      // Show message
-      toast.success("Your property has been Deleted!");
-    },
-  });
+  const { trigger: triggerDelete, isMutating: isMutatingDelete } = useSWRMutation(
+    `/api/dashboard/property/delete/${initProperty?.property_id || ""}`,
+    DeleteProperty /* options */,
+    {
+      onError: () => {
+        toast.error("Something unexpected happend.", {
+          description: "Please try again....",
+        });
+      },
+      onSuccess: (data) => {
+        // Show message
+        toast.success("Your property has been Deleted!");
+      },
+    }
+  );
 
   async function submitHandler(values: z.infer<typeof PropertySchema>) {
     console.log("Submitted Form: ", values);

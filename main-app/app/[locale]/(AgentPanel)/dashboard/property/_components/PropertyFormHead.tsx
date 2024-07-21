@@ -10,6 +10,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { ChevronLeft, Trash2, Save } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 
 export default function PropertyFormHead({
@@ -19,6 +20,7 @@ export default function PropertyFormHead({
   deleteHandler: () => Promise<void>;
   initProperty: boolean;
 }) {
+  const t = useTranslations("Dashboard.propertyFormComp.formHeadComp");
   const router = useRouter();
 
   return (
@@ -32,10 +34,10 @@ export default function PropertyFormHead({
           onClick={() => router.back()}
         >
           <ChevronLeft className="h-4 w-4" />
-          <span className="sr-only">Back</span>
+          <span className="sr-only">{t("backButton")}</span>
         </Button>
         <h1 className="flex-1 shrink-0 whitespace-nowrap text-xl font-semibold tracking-tight sm:grow-0">
-          {!initProperty ? "Create Property" : "Edit Property"}
+          {!initProperty ? `${t("createHeading")}` : `${t("editHeading")}`}
         </h1>
       </div>
       <div className="flex justify-center items-center gap-2">
@@ -44,21 +46,21 @@ export default function PropertyFormHead({
             <DialogTrigger asChild>
               <Button variant={"destructive"} size="sm" className="gap-2">
                 <Trash2 size={16} className="text-black" />
-                Delete
+                {t("deleteButton")}
               </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
               <DialogHeader>
-                <DialogTitle>Warning! This is can not be undone.</DialogTitle>
-                <DialogDescription>Deleting this image will be a permanent action, and can not be undone.</DialogDescription>
+                <DialogTitle>{t("deleteDialog.title")}</DialogTitle>
+                <DialogDescription>{t("deleteDialog.description")}</DialogDescription>
               </DialogHeader>
               <DialogFooter
                 style={{ justifyContent: "space-between" }}
                 className="flex p-0 m-0 justify-between items-center w-full"
               >
-                <p className="text-sm font-normal ">Are you sure you want to do this?</p>
+                <p className="text-sm font-normal ">{t("deleteDialog.confirmMessage")}</p>
                 <Button variant={"destructive"} type="button" onClick={async () => await deleteHandler()}>
-                  Confirm Delete
+                  {t("deleteDialog.button")}
                 </Button>
               </DialogFooter>
             </DialogContent>
@@ -66,7 +68,7 @@ export default function PropertyFormHead({
         )}
         <Button variant="outline" size="sm" type="submit" className="gap-2">
           <Save size={16} />
-          {initProperty ? "Save" : "Create"}
+          {initProperty ? `${t("saveButton")}` : `${t("createButton")}`}
         </Button>
       </div>
     </div>

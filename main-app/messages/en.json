@@ -256,6 +256,21 @@
       "heading": "Properties",
       "noProperties": "You have no properties. Let&#39;s go add one!"
     },
-    "propertyFormComp": {}
+    "propertyFormComp": {
+      "formHeadComp": {
+        "backButton": "Back",
+        "createHeading": "Create Property",
+        "editHeading": "Edit Property",
+        "deleteButton": "Delete",
+        "deleteDialog": {
+          "title": "Warning! This is can not be undone.",
+          "description": "Deleting this image will be a permanent action, and can not be undone.",
+          "confirmMessage": "Are you sure you want to do this?",
+          "button": "Confirm Delete"
+        },
+        "saveButton": "Save",
+        "createButton": "Create"
+      }
+    }
   }
 }

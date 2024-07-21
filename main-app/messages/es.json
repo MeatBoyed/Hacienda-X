@@ -254,6 +254,22 @@
       "_componentComment": "Esto se relaciona con el Componente de Propiedades.",
       "heading": "Propiedades",
       "noProperties": "No tienes propiedades. ¡Vamos a agregar una!"
+    },
+    "propertyFormComp": {
+      "formHeadComp": {
+        "backButton": "Atrás",
+        "createHeading": "Crear Propiedad",
+        "editHeading": "Editar Propiedad",
+        "deleteButton": "Eliminar",
+        "deleteDialog": {
+          "title": "¡Advertencia! Esto no se puede deshacer.",
+          "description": "Eliminar esta imagen será una acción permanente y no se podrá deshacer.",
+          "confirmMessage": "¿Estás seguro de que quieres hacer esto?",
+          "button": "Confirmar Eliminación"
+        },
+        "saveButton": "Guardar",
+        "createButton": "Crear"
+      }
     }
   }
 }
