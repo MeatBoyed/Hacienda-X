@@ -186,7 +186,7 @@
       }
     }
   },
-  "contacts": {
+  "Contact": {
     "companyName": "Hacienda",
     "mission": "En Hacienda, nuestra misión es capacitar a compradores y vendedores con conocimientos, apoyo y servicio personalizado. Impulsados por una pasión por las personas y las propiedades, nos esforzamos por superar las expectativas y construir relaciones duraderas.",
     "contactUs": "Contáctenos",
@@ -219,6 +219,41 @@
     "card3": {
       "title": "Uso #3",
       "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident ab nulla quod dignissimos vel non corrupti doloribus voluptatum eveniet"
+    }
+  },
+  "_dashboardPagesComment": "Se relaciona con el contenido del Panel de Control, siguiendo un formato similar al anterior. Los objetos con Comp son para contenido específico de Componentes (ver clave: _componentComment).",
+  "Dashboard": {
+    "Index": {
+      "heading": "Propiedades",
+      "Leads": {
+        "heading": "Prospectos",
+        "subHeading": "Ver todos tus prospectos.",
+        "noLeads": "Actualmente no tienes prospectos, pero no te preocupes, ¡te notificaremos sobre nuevos prospectos!",
+        "leadCard": {
+          "title": "Tu Prospecto para",
+          "description": "Usa estos detalles para contactar al cliente y cerrar tu trato.",
+          "name": "Nombre",
+          "surname": "Apellido",
+          "email": "Correo Electrónico",
+          "phoneNumber": "Número de Teléfono",
+          "message": "Mensaje",
+          "copy": "Copiar",
+          "closeButton": "Cerrar",
+          "copySuccess": {
+            "part1": "El",
+            "part2": "del cliente ha sido copiado a tu portapapeles."
+          }
+        }
+      }
+    },
+    "Property": {
+      "heading": "Tus Propiedades",
+      "addButton": "Agregar Propiedad"
+    },
+    "propertiesComp": {
+      "_componentComment": "Esto se relaciona con el Componente de Propiedades.",
+      "heading": "Propiedades",
+      "noProperties": "No tienes propiedades. ¡Vamos a agregar una!"
     }
   }
 }

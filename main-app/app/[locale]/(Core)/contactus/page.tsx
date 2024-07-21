@@ -1,8 +1,8 @@
 import React from "react";
 import { useTranslations } from "next-intl";
 
-const Contactus = () => {
-  const t = useTranslations();
+export default function ContactUs() {
+  const t = useTranslations("Contact");
 
   return (
     <div className="bg-gray-900 min-h-screen">
@@ -10,12 +10,8 @@ const Contactus = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="lg:text-center">
             <h2 className="text-base text-blue-600 font-semibold tracking-wide uppercase"></h2>
-            <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-white sm:text-4xl">
-              {t("contacts.companyName")}
-            </p>
-            <p className="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
-              {t("contacts.mission")}
-            </p>
+            <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-white sm:text-4xl">{t("companyName")}</p>
+            <p className="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">{t("mission")}</p>
           </div>
         </div>
       </div>
@@ -23,12 +19,8 @@ const Contactus = () => {
       <section className="container mx-auto px-5 py-24">
         <div className="flex flex-wrap items-start justify-center gap-12">
           <div className="flex flex-col w-full max-w-md bg-gray-800 p-6 rounded-lg shadow-lg">
-            <h1 className="title-font mb-4 text-2xl font-medium text-white sm:text-3xl">
-              {t("contacts.contactUs")}
-            </h1>
-            <p className="text-base leading-relaxed mb-4 text-gray-400">
-              {t("contacts.contactMessage")}
-            </p>
+            <h1 className="title-font mb-4 text-2xl font-medium text-white sm:text-3xl">{t("contactUs")}</h1>
+            <p className="text-base leading-relaxed mb-4 text-gray-400">{t("contactMessage")}</p>
             <div className="flex flex-col gap-4 mb-8">
               <div className="flex items-center space-x-4">
                 <svg
@@ -46,12 +38,8 @@ const Contactus = () => {
                   />
                 </svg>
                 <div>
-                  <dt className="text-lg leading-6 font-medium text-gray-200">
-                    {t("contacts.emailLabel")}
-                  </dt>
-                  <dd className="mt-2 text-base text-gray-400">
-                    {t("contacts.email")}
-                  </dd>
+                  <dt className="text-lg leading-6 font-medium text-gray-200">{t("emailLabel")}</dt>
+                  <dd className="mt-2 text-base text-gray-400">{t("email")}</dd>
                 </div>
               </div>
               <div className="flex items-center space-x-4">
@@ -70,87 +58,65 @@ const Contactus = () => {
                   />
                 </svg>
                 <div>
-                  <dt className="text-lg leading-6 font-medium text-gray-200">
-                    {t("contacts.phoneLabel")}
-                  </dt>
-                  <dd className="mt-2 text-base text-gray-400">
-                    {t("contacts.phone")}
-                  </dd>
+                  <dt className="text-lg leading-6 font-medium text-gray-200">{t("phoneLabel")}</dt>
+                  <dd className="mt-2 text-base text-gray-400">{t("phone")}</dd>
                 </div>
               </div>
             </div>
           </div>
 
           <div className="w-full max-w-md bg-white p-6 rounded-lg shadow-xl">
-            <h2 className="text-2xl font-bold text-black mb-2 text-center">
-              {t("contacts.enquiryPrompt")}
-            </h2>
-            <p className="text-gray-500 mb-4 text-center">
-              {t("contacts.assistanceMessage")}
-            </p>
+            <h2 className="text-2xl font-bold text-black mb-2 text-center">{t("enquiryPrompt")}</h2>
+            <p className="text-gray-500 mb-4 text-center">{t("assistanceMessage")}</p>
             <div className="mb-4">
-              <label
-                className="block text-gray-700 text-sm font-bold mb-2"
-                htmlFor="name"
-              >
-                {t("contacts.formLabels.name")}
+              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
+                {t("formLabels.name")}
               </label>
               <input
                 id="name"
                 className="w-full rounded border border-gray-300 bg-gray-100 px-4 py-2 text-base text-gray-800 outline-none transition-colors duration-200 ease-in-out focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500"
-                placeholder={t("contacts.formLabels.name")}
+                placeholder={t("formLabels.name")}
                 type="text"
               />
             </div>
             <div className="mb-4">
-              <label
-                className="block text-gray-700 text-sm font-bold mb-2"
-                htmlFor="email"
-              >
-                {t("contacts.formLabels.email")}
+              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
+                {t("formLabels.email")}
               </label>
               <input
                 id="email"
                 className="w-full rounded border border-gray-300 bg-gray-100 px-4 py-2 text-base text-gray-800 outline-none transition-colors duration-200 ease-in-out focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500"
-                placeholder={t("contacts.formLabels.email")}
+                placeholder={t("formLabels.email")}
                 type="email"
               />
             </div>
             <div className="mb-4">
-              <label
-                className="block text-gray-700 text-sm font-bold mb-2"
-                htmlFor="subject"
-              >
-                {t("contacts.formLabels.subject")}
+              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="subject">
+                {t("formLabels.subject")}
               </label>
               <input
                 id="subject"
                 className="w-full rounded border border-gray-300 bg-gray-100 px-4 py-2 text-base text-gray-800 outline-none transition-colors duration-200 ease-in-out focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500"
-                placeholder={t("contacts.formLabels.subject")}
+                placeholder={t("formLabels.subject")}
                 type="text"
               />
             </div>
             <div className="mb-4">
-              <label
-                className="block text-gray-700 text-sm font-bold mb-2"
-                htmlFor="message"
-              >
-                {t("contacts.formLabels.message")}
+              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="message">
+                {t("formLabels.message")}
               </label>
               <textarea
                 id="message"
                 className="h-32 w-full resize-none rounded border border-gray-300 bg-gray-100 px-4 py-2 text-base text-gray-800 outline-none transition-colors duration-200 ease-in-out focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500"
-                placeholder={t("contacts.formLabels.message")}
+                placeholder={t("formLabels.message")}
               ></textarea>
             </div>
             <button className="mt-4 w-full rounded bg-blue-500 px-4 py-2 text-lg text-white hover:bg-blue-600 focus:outline-none">
-              {t("contacts.formLabels.submit")}
+              {t("formLabels.submit")}
             </button>
           </div>
         </div>
       </section>
     </div>
   );
-};
-
-export default Contactus;
+}

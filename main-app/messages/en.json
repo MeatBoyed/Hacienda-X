@@ -1,4 +1,5 @@
 {
+  "_corePagesComment": "(Index) Home, AboutUs, and following are the pages - Capitalized (children) Objects are the page's Section",
   "Index": {
     "Hero": {
       "heading": "Find your Perfect Home",
@@ -186,7 +187,7 @@
       }
     }
   },
-  "contacts": {
+  "Contact": {
     "companyName": "Hacienda",
     "mission": "At Hacienda, our mission is to empower buyers and sellers with knowledge, support, and personalized service. Driven by a passion for people and properties, we strive to exceed expectations and build lasting relationships.",
     "contactUs": "Contact Us",
@@ -220,5 +221,41 @@
       "title": "Usage #3",
       "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident ab nulla quod dignissimos vel non corrupti doloribus voluptatum eveniet"
     }
+  },
+  "_dashboardPagesComment": "Relates to the Dashboard's Content, following similar formatting above. Objects with Comp are for Component specific content (see key: _componentComment).",
+  "Dashboard": {
+    "Index": {
+      "heading": "Properties",
+      "Leads": {
+        "heading": "Leads",
+        "subHeading": "View all your leads.",
+        "noLeads": "You currently have no Leads, but don&#39;t worry we will notify you of new leads!",
+        "leadCard": {
+          "title": "Your Lead for",
+          "description": "Use these details to contact the customer and close your deal.",
+          "name": "Name",
+          "surname": "Surname",
+          "email": "Email",
+          "phoneNumber": "Phone number",
+          "message": "Message",
+          "copy": "Copy",
+          "closeButton": "Close",
+          "copySuccess": {
+            "part1": "Customer's",
+            "part2": "has been copied to your clipboard."
+          }
+        }
+      }
+    },
+    "Property": {
+      "heading": "Your Properties",
+      "addButton": "Add Property"
+    },
+    "propertiesComp": {
+      "_componentComment": "This relates to the Properties Component.",
+      "heading": "Properties",
+      "noProperties": "You have no properties. Let&#39;s go add one!"
+    },
+    "propertyFormComp": {}
   }
 }

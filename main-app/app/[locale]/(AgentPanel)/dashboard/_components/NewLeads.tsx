@@ -22,8 +22,11 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 export default function NewLeads() {
+  const t = useTranslations("Dashboard.Index.Leads");
+
   const { data, error, isLoading } = useSWR<{
     leads: Lead[];
     properties: string[];
@@ -32,48 +35,41 @@ export default function NewLeads() {
   const leads = useMemo(
     () =>
       data && data.leads.length > 0 ? (
-        data.leads.map((lead, index) => (
-          <LeadCard
-            lead={lead}
-            propertyTitle={data.properties[index]}
-            key={index}
-          />
-        ))
+        data.leads.map((lead, index) => <LeadCard lead={lead} propertyTitle={data.properties[index]} key={index} />)
       ) : (
-        <p>You have no properties. Let&#39;s go add one!</p>
+        <p>{t("noLeads")}</p>
       ),
     [data]
   );
 
   return (
-    <div className=" w-full">
-      <p className="text-base text-muted-foreground">View all your leads.</p>
+    <div className="w-full flex justify-center items-start gap-2 flex-col">
+      <p className="scroll-m-20 text-2xl font-semibold tracking-tight">{t("heading")}</p>
+      <div className=" w-full">
+        <p className="text-base text-muted-foreground">{t("subHeading")}</p>
 
-      <div className="mt-10 w-full flex justify-center items-center gap-4 flex-col">
-        {/* {leads} */}
-        {data && !isLoading && !error && <>{leads}</>}
-        {isLoading && !error && (
-          <>
-            <LeadCardSkeleton />
-            <LeadCardSkeleton />
-            <LeadCardSkeleton />
-          </>
-        )}
+        <div className="mt-10 w-full flex justify-center items-center gap-4 flex-col">
+          {/* {leads} */}
+          {data && !isLoading && !error && <>{leads}</>}
+          {isLoading && !error && (
+            <>
+              <LeadCardSkeleton />
+              <LeadCardSkeleton />
+              <LeadCardSkeleton />
+            </>
+          )}
+        </div>
       </div>
     </div>
   );
 }
 
-function LeadCard({
-  lead,
-  propertyTitle,
-}: {
-  lead: Lead;
-  propertyTitle: string;
-}) {
+function LeadCard({ lead, propertyTitle }: { lead: Lead; propertyTitle: string }) {
+  const t = useTranslations("Dashboard.Index.Leads.leadCard");
+
   function handleCopy(head: string, text: string) {
     navigator.clipboard.writeText(text);
-    toast.success(`Customer's ${head} has been copied to your clipboard.`);
+    toast.success(`${t("copySuccess.part1")} ${head} ${t("copySuccess.part2")}`);
   }
   return (
     <Dialog>
@@ -89,92 +85,58 @@ function LeadCard({
       <DialogContent className="sm:max-w-md space-y-4">
         <DialogHeader>
           <DialogTitle>
-            Your Lead for{" "}
-            <Link
-              className="underline"
-              href={`/dashboard/property/${lead.property_id}`}
-            >
+            {t("title")}{" "}
+            <Link className="underline" href={`/dashboard/property/${lead.property_id}`}>
               {propertyTitle}
             </Link>
           </DialogTitle>
-          <DialogDescription>
-            Use these details to contact the customer and close your deal.
-          </DialogDescription>
+          <DialogDescription>{t("description")}</DialogDescription>
         </DialogHeader>
 
         <div className="w-full flex justify-center items-start flex-col gap-5">
           <div className="w-full flex justify-center items-center gap-4">
             <div className="flex justify-center items-start flex-col gap-3 w-full">
-              <Label>Name</Label>
-              <Input
-                disabled
-                type="text"
-                value={lead.name}
-                className="disabled:opacity-100"
-              />
+              <Label>{t("name")}</Label>
+              <Input disabled type="text" value={lead.name} className="disabled:opacity-100" />
             </div>
             <div className="flex justify-center items-start gap-3 flex-col w-full">
-              <Label>Surname</Label>
-              <Input
-                disabled
-                type="text"
-                value={lead.surname}
-                className="disabled:opacity-100"
-              />
+              <Label>{t("surname")}</Label>
+              <Input disabled type="text" value={lead.surname} className="disabled:opacity-100" />
             </div>
           </div>
           <div className="flex justify-center items-start flex-col gap-3 w-full">
-            <Label>Email</Label>
+            <Label>{t("email")}</Label>
             <div className="w-full flex justify-center items-center gap-3">
-              <Input
-                disabled
-                type="text"
-                value={lead.email}
-                className="disabled:opacity-100"
-              />
-              <Button
-                size="sm"
-                className="px-3"
-                variant={"outline"}
-                onClick={() => handleCopy("Email", lead.email)}
-              >
-                <span className="sr-only">Copy</span>
+              <Input disabled type="text" value={lead.email} className="disabled:opacity-100" />
+              <Button size="sm" className="px-3" variant={"outline"} onClick={() => handleCopy(t("email"), lead.email)}>
+                <span className="sr-only">{t("copy")}</span>
                 <Copy className="h-4 w-4" color="black" />
               </Button>
             </div>
           </div>
           <div className="flex justify-center items-start flex-col gap-3 w-full">
-            <Label>Phone number</Label>
+            <Label>{t("phoneNumber")}</Label>
             <div className="w-full flex justify-center items-center gap-3">
-              <Input
-                disabled
-                type="text"
-                value={lead.phoneNumber}
-                className="disabled:opacity-100"
-              />
+              <Input disabled type="text" value={lead.phoneNumber} className="disabled:opacity-100" />
               <Button
                 size="sm"
                 className="px-3"
                 variant={"outline"}
-                onClick={() => handleCopy("Phone number", lead.phoneNumber)}
+                onClick={() => handleCopy(t("phoneNumber"), lead.phoneNumber)}
               >
-                <span className="sr-only">Copy</span>
+                <span className="sr-only">{t("copy")}</span>
                 <Copy className="h-4 w-4" color="black" />
               </Button>
             </div>
           </div>
           <div className="flex justify-center items-start gap-3 flex-col w-full">
-            <Label>Message</Label>
-            <Textarea
-              disabled
-              value={lead.message}
-              className="disabled:opacity-100"
-            />
+            <Label>{t("message")}</Label>
+            <Textarea disabled value={lead.message} className="disabled:opacity-100" />
           </div>
           <DialogFooter className="sm:justify-start w-full">
             <DialogClose asChild>
               <Button type="button" className="w-full" variant="outline">
-                Close
+                {t("closeButton")}
               </Button>
             </DialogClose>
           </DialogFooter>
