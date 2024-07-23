@@ -269,7 +269,203 @@
         },
         "saveButton": "Guardar",
         "createButton": "Crear"
+      },
+      "formFields": {
+        "core": {
+          "title": "Detalles de la Propiedad",
+          "description": "¡Crea tu nueva propiedad ahora!",
+          "titleField": {
+            "label": "Título",
+            "placeholder": "Dale un título a tu propiedad"
+          },
+          "priceField": {
+            "label": "Precio"
+          },
+          "descriptionField": {
+            "label": "Descripción",
+            "placeholder": "Describe tu propiedad. Deja que fluyan tus palabras"
+          },
+          "addressField": {
+            "label": "Dirección"
+          }
+        },
+        "meta": {
+          "title": "Metadatos",
+          "description": "Gestiona la Visibilidad y el Tipo de Venta.",
+          "visibilityField": {
+            "label": "Visibilidad",
+            "options": {
+              "public": "Público",
+              "private": "Privado"
+            }
+          },
+          "saleType": {
+            "label": "Tipo de Venta"
+          }
+        },
+
+        "features": {
+          "title": "Características",
+          "description": "¡Características únicas para tu propiedad!",
+          "squareMetersField": {
+            "label": "Metros Cuadrados"
+          },
+          "bedroomsField": {
+            "label": "Habitaciones",
+            "placeholder": "Número de Habitaciones"
+          },
+          "bathroomsField": {
+            "label": "Baños",
+            "placeholder": "Número de Baños"
+          },
+          "poolField": {
+            "label": "Piscina"
+          },
+          "extraFeatures": {
+            "label": "Características Adicionales",
+            "placeholder": "Ingresa una característica",
+            "description": "Presiona Enter para añadir"
+          }
+        },
+        "images": {
+          "title": "Imágenes",
+          "description": {
+            "part1": "Sube al menos",
+            "part2": "imagen para tu propiedad."
+          },
+          "fileUploaderComp": {
+            "dropActive": "Suelta los archivos aquí",
+            "heading": {
+              "part1": "Arrastra y",
+              "part2": "suelta archivos aquí, o haz clic para seleccionar archivos"
+            },
+            "subHeading": {
+              "part1": "Puedes subir",
+              "part2": "archivos (hasta",
+              "part3": "cada uno)",
+              "part4": "un archivo con"
+            },
+            "removeFile": "Eliminar archivo",
+            "error": {
+              "main": "Ooops, no puedes hacer eso.",
+              "multipleError": "No se puede subir más de 1 archivo a la vez",
+              "maxFiles": {
+                "part1": "No se pueden subir más de",
+                "part2": "archivos"
+              },
+              "filesTooLarge": {
+                "title": {
+                  "part1": "¡Oh no! Imágenes mayores de",
+                  "part2": "no están permitidas."
+                },
+                "description": {
+                  "part1": "El archivo",
+                  "part2": "fue rechazado."
+                }
+              },
+              "invalidType": {
+                "title": {
+                  "part1": "¡Oh no!",
+                  "part2": "no están permitidos."
+                },
+                "description": {
+                  "part1": "El archivo",
+                  "part2": "fue rechazado."
+                }
+              },
+              "defaultMessage": "Oops, algo pasó."
+            }
+          },
+          "uploadedFilesComp": {
+            "title": "Archivos subidos",
+            "emptyCard": {
+              "title": "No se han subido archivos",
+              "description": "Sube algunos archivos para verlos aquí"
+            },
+            "maxImages": {
+              "part1": "Has subido",
+              "part2": "imágenes."
+            },
+            "empty": "Aún no has subido imágenes."
+          }
+        }
+      },
+      "propertySchema": {
+        "title": {
+          "required": "El título es obligatorio",
+          "invalid": "El título debe ser una cadena de texto",
+          "min": "El título debe tener al menos 5 caracteres"
+        },
+        "description": {
+          "required": "La descripción es obligatoria.",
+          "invalid": "La descripción debe ser una cadena de texto.",
+          "min": "La descripción debe tener al menos 10 caracteres."
+        },
+        "price": {
+          "required": "El precio es obligatorio.",
+          "invalid": "El precio debe ser un número.",
+          "positive": "El precio debe ser un número positivo."
+        },
+        "bathrooms": {
+          "required": "El número de baños es obligatorio.",
+          "invalid": "Los baños deben ser un número.",
+          "min": "Debe haber al menos 1 baño."
+        },
+        "bedrooms": {
+          "required": "El número de habitaciones es obligatorio.",
+          "invalid": "Las habitaciones deben ser un número.",
+          "min": "Debe haber al menos 1 habitación."
+        },
+        "pool": {
+          "required": "La información sobre la piscina es obligatoria.",
+          "invalid": "La piscina debe ser un valor booleano."
+        },
+        "squareMeter": {
+          "required": "Los metros cuadrados de la propiedad son obligatorios.",
+          "invalid": "Los metros cuadrados deben ser un número.",
+          "min": "La propiedad debe tener más de 1 metro cuadrado."
+        },
+        "address": {
+          "required": "La dirección es obligatoria",
+          "invalid": "La dirección debe ser una cadena de texto",
+          "min": "La dirección debe tener al menos 5 caracteres"
+        },
+        "extraFeatures": {
+          "id": {
+            "required": "El ID de la característica es obligatorio.",
+            "invalid": "El ID de la característica debe ser una cadena de texto."
+          },
+          "text": {
+            "required": "El texto de la característica es obligatorio.",
+            "invalid": "El texto de la característica debe ser una cadena de texto."
+          },
+          "min": "Debe haber al menos 3 características adicionales."
+        },
+        "visibility": {
+          "required": "La información sobre la visibilidad es obligatoria.",
+          "invalid": "La visibilidad debe ser un valor booleano."
+        },
+        "saleType": {
+          "required": "El tipo de venta es obligatorio",
+          "invalid": "El tipo de venta debe ser Venta o Alquiler"
+        },
+        "images": {
+          "part1": "No más de",
+          "part2": "imágenes permitidas."
+        }
       }
     }
+  },
+  "NavbarComp": {
+    "signup": "Registrarse",
+    "home": "Inicio",
+    "search": "Buscar",
+    "favorites": "Favoritos",
+    "property": "Propiedad",
+    "usage": "Uso",
+    "pricing": "Precios",
+    "sellYourProperty": "Vender tu Propiedad",
+    "dashboard": "Panel de Control",
+    "contactUs": "Contáctanos"
   }
 }

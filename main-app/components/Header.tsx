@@ -7,8 +7,10 @@ import { Bookmark, HeartIcon, MenuIcon } from "lucide-react";
 import Image from "next/image";
 import Logo from "@/public/newlogo.png";
 import LocalSwitcher from "./local-switcher";
+import { useTranslations } from "next-intl";
 
 export const Header = ({ isDashboard }: { isDashboard?: boolean }) => {
+  const t = useTranslations("NavbarComp");
   const { userId } = auth();
 
   return (
@@ -24,9 +26,21 @@ export const Header = ({ isDashboard }: { isDashboard?: boolean }) => {
           <div className="hidden md:flex w-full justify-center">
             {/* <NavLinks /> */}
             {isDashboard ? (
-              <DashboardNavlinks />
+              <DashboardNavlinks
+                dict={{ dashboard: t("dashboard"), property: t("property"), usage: t("usage"), contact: t("contactUs") }}
+              />
             ) : (
-              <MainNavlinks userId={!!userId} />
+              <MainNavlinks
+                userId={!!userId}
+                dict={{
+                  dashboard: t("dashboard"),
+                  home: t("home"),
+                  search: t("search"),
+                  pricing: t("pricing"),
+                  sellYourProperty: t("sellYourProperty"),
+                  contactUs: t("contactUs"),
+                }}
+              />
             )}
           </div>
 
@@ -36,23 +50,35 @@ export const Header = ({ isDashboard }: { isDashboard?: boolean }) => {
               <SignUpButton mode="modal" forceRedirectUrl={"/onboarding"}>
                 <p className="text-base text-white bg-blue-500 hover:bg-blue-700 transition px-4 py-2 rounded min-w-[100px] text-center cursor-pointer">
                   {/* TODO: Should be Get Started and go to /pricing  */}
-                  Sign Up
+                  {t("signup")}
                 </p>
               </SignUpButton>
             ) : (
               <UserButton />
             )}
             <Link href="/bookmarks">
-              <Bookmark
-                className="p-2 border rounded-full text-pink-500 hover:bg-pink-500 hover:text-white"
-                size={35}
-              />
+              <Bookmark className="p-2 border rounded-full text-pink-500 hover:bg-pink-500 hover:text-white" size={35} />
             </Link>
           </div>
 
           {/* NavSlider for smaller screens */}
           <div className="md:hidden">
-            {isDashboard ? <DashboardNavSlider /> : <MainNavSlider />}
+            {isDashboard ? (
+              <DashboardNavSlider
+                dict={{ dashboard: t("dashboard"), property: t("property"), usage: t("usage"), contact: t("contactUs") }}
+              />
+            ) : (
+              <MainNavSlider
+                dict={{
+                  search: t("search"),
+                  favorites: t("favorites"),
+                  pricing: t("pricing"),
+                  sellYourProperty: t("sellYourProperty"),
+                  dashboard: t("dashboard"),
+                  contact: t("contactUs"),
+                }}
+              />
+            )}
           </div>
         </div>
       </div>
@@ -60,7 +86,11 @@ export const Header = ({ isDashboard }: { isDashboard?: boolean }) => {
   );
 };
 
-function MainNavSlider() {
+function MainNavSlider({
+  dict: { search, favorites, pricing, sellYourProperty, dashboard, contact },
+}: {
+  dict: { search: string; favorites: string; pricing: string; sellYourProperty: string; dashboard: string; contact: string };
+}) {
   return (
     <Sheet>
       <SheetTrigger>
@@ -68,22 +98,22 @@ function MainNavSlider() {
       </SheetTrigger>
       <SheetContent className="flex justify-between py-80 items-start flex-col shadow-lg">
         <Link href="/property-for-sale">
-          <p className="text-xl">Search</p>
+          <p className="text-xl">{search}</p>
         </Link>
         <Link href="/bookmarks">
-          <p className="text-xl">Favorites</p>
+          <p className="text-xl">{favorites}</p>
         </Link>
         <Link href="/pricing">
-          <p className="text-xl">Pricing</p>
+          <p className="text-xl">{pricing}</p>
         </Link>
         <Link href="/pricing">
-          <p className="text-xl text-blue-500">Sell your Property</p>
+          <p className="text-xl text-blue-500">{sellYourProperty}</p>
         </Link>
         <Link href="/dashboard">
-          <p className="text-xl">Dashboard</p>
+          <p className="text-xl">{dashboard}</p>
         </Link>
         <Link href="/contactus">
-          <p className="text-xl">Contact Us</p>
+          <p className="text-xl">{contact}</p>
         </Link>
         <LocalSwitcher />
       </SheetContent>
@@ -91,7 +121,11 @@ function MainNavSlider() {
   );
 }
 
-function DashboardNavSlider() {
+function DashboardNavSlider({
+  dict: { dashboard, property, usage, contact },
+}: {
+  dict: { dashboard: string; property: string; usage: string; contact: string };
+}) {
   return (
     <Sheet>
       <SheetTrigger>
@@ -99,24 +133,16 @@ function DashboardNavSlider() {
       </SheetTrigger>
       <SheetContent className="flex justify-between py-80 items-start flex-col shadow-lg">
         <Link href="/dashboard">
-          <p className="text-base text-black hover:text-gray-700 transition">
-            Dashboard
-          </p>
+          <p className="text-base text-black hover:text-gray-700 transition">{dashboard}</p>
         </Link>
         <Link href="/dashboard/property">
-          <p className="text-base text-black hover:text-gray-700 transition">
-            Property
-          </p>
+          <p className="text-base text-black hover:text-gray-700 transition">{property}</p>
         </Link>
         <Link href="/usage">
-          <p className="text-base text-black hover:text-gray-700 transition">
-            Usage
-          </p>
+          <p className="text-base text-black hover:text-gray-700 transition">{usage}</p>
         </Link>
         <Link href="/contactus">
-          <p className="text-base text-black hover:text-gray-700 transition">
-            Contact Us
-          </p>
+          <p className="text-base text-black hover:text-gray-700 transition">{contact}</p>
         </Link>
         <LocalSwitcher />
       </SheetContent>
@@ -124,68 +150,65 @@ function DashboardNavSlider() {
   );
 }
 
-function MainNavlinks({ userId }: { userId: boolean }) {
+function MainNavlinks({
+  userId,
+  dict: { home, search, pricing, sellYourProperty, dashboard, contactUs },
+}: {
+  userId: boolean;
+  dict: {
+    home: string;
+    search: string;
+    pricing: string;
+    sellYourProperty: string;
+    dashboard: string;
+    contactUs: string;
+  };
+}) {
   return (
     <div className="flex justify-center gap-8 items-center">
       <Link href="/">
-        <p className="text-base text-black hover:text-gray-700 transition">
-          Home
-        </p>
+        <p className="text-base text-black hover:text-gray-700 transition">{home}</p>
       </Link>
       <Link href="/property-for-sale">
-        <p className="text-base text-black hover:text-gray-700 transition">
-          Search
-        </p>
+        <p className="text-base text-black hover:text-gray-700 transition">{search}</p>
       </Link>
       <Link href="/pricing">
-        <p className="text-base text-black hover:text-gray-700 transition">
-          Pricing
-        </p>
+        <p className="text-base text-black hover:text-gray-700 transition">{pricing}</p>
       </Link>
       <Link href="/pricing">
-        <p className="text-base text-black hover:text-gray-700 transition">
-          Sell your property
-        </p>
+        <p className="text-base text-black hover:text-gray-700 transition">{sellYourProperty}</p>
       </Link>
       {userId && (
         <Link href="/dashboard">
-          <p className="text-base text-black hover:text-gray-700 transition">
-            Dashboard
-          </p>
+          <p className="text-base text-black hover:text-gray-700 transition">{dashboard}</p>
         </Link>
       )}
       <Link href="/contactus">
-        <p className="text-base text-black hover:text-gray-700 transition">
-          Contact Us
-        </p>
+        <p className="text-base text-black hover:text-gray-700 transition">{contactUs}</p>
       </Link>
       <LocalSwitcher />
     </div>
   );
 }
 
-function DashboardNavlinks() {
+function DashboardNavlinks({
+  dict: { dashboard, property, usage, contact },
+}: {
+  dict: { dashboard: string; property: string; usage: string; contact: string };
+}) {
   return (
     <div className="flex justify-center gap-8 items-center">
       <Link href="/dashboard">
-        <p className="text-base text-black hover:text-gray-700 transition">
-          Dashboard
-        </p>
+        <p className="text-base text-black hover:text-gray-700 transition">{dashboard}</p>
       </Link>
       <Link href="/dashboard/property">
-        <p className="text-base text-black hover:text-gray-700 transition">
-          Property
-        </p>
+        <p className="text-base text-black hover:text-gray-700 transition">{property}</p>
       </Link>
       <Link href="/usage">
-        <p className="text-base text-black hover:text-gray-700 transition">
-          Usage
-        </p>
+        <p className="text-base text-black hover:text-gray-700 transition">{usage}</p>
       </Link>
       <Link href="/contactus">
-        <p className="text-base text-black hover:text-gray-700 transition">
-          Contact Us
-        </p>
+        <p className="text-base text-black hover:text-gray-700 transition">{contact}</p>
       </Link>
       <LocalSwitcher />
     </div>

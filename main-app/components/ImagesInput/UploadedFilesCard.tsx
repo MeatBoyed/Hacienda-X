@@ -10,6 +10,7 @@ import { LegacyRef, ReactNode, useContext, useMemo, useRef } from "react";
 import { UploadContext, UploadContextType } from "./uploadContext";
 import { FileState } from "./Utils";
 import { EmptyCard } from "./EmptyCard";
+import { useTranslations } from "next-intl";
 
 export function UploadedFilesCard() {
   // Sensors for DnD
@@ -20,6 +21,7 @@ export function UploadedFilesCard() {
     })
   );
 
+  const t = useTranslations("Dashboard.propertyFormComp.formFields.images.uploadedFilesComp");
   const { uploadedImages, handleDelete, handleReOrder } = useContext(UploadContext) as UploadContextType;
 
   const images = useMemo(
@@ -36,7 +38,7 @@ export function UploadedFilesCard() {
           </SortableItem>
         ))
       ) : (
-        <EmptyCard title="No files uploaded" description="Upload some files to see them here" className="w-full" />
+        <EmptyCard title={t("emptyCard.title")} description={t("emptyCard.description")} className="w-full" />
       ),
     [uploadedImages]
   );
@@ -44,11 +46,11 @@ export function UploadedFilesCard() {
   return (
     <div className="flex justify-center items-start flex-col w-full gap-5 ">
       <div className="flex justify-center items-start w-full flex-col text-start">
-        <h3 className="text-xl font-semibold">Uploaded files</h3>
+        <h3 className="text-xl font-semibold">{t("title")}</h3>
         <CardDescription>
           {uploadedImages && uploadedImages?.length > 0
-            ? `You have uploaded ${uploadedImages?.length} images.`
-            : `You have no images uploaded yet.`}
+            ? `${t("maxImages.part1")} ${uploadedImages?.length} {t('maxImages.part2')}`
+            : `${t("empty")}`}
         </CardDescription>
       </div>
       <CardContent className="p-0 w-full">

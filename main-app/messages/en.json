@@ -270,7 +270,205 @@
         },
         "saveButton": "Save",
         "createButton": "Create"
+      },
+      "formFields": {
+        "core": {
+          "title": "Property Details",
+          "description": "Create your new property now!",
+          "titleField": {
+            "label": "Title",
+            "placeholder": "Give your property a title"
+          },
+          "priceField": {
+            "label": "Price"
+          },
+          "descriptionField": {
+            "label": "Description",
+            "placeholder": "Describe your property. Let your words flow"
+          },
+          "addressField": {
+            "label": "Address"
+          }
+        },
+        "meta": {
+          "title": "Meta Data",
+          "description": "Manage the Visability, and Sale Type.",
+          "visibilityField": {
+            "label": "Visability",
+            "options": {
+              "public": "Public",
+              "private": "Private"
+            }
+          },
+          "saleType": {
+            "label": "Sale Type"
+          }
+        },
+        "features": {
+          "title": "Features",
+          "description": "Unique features for your property!",
+          "squareMetersField": {
+            "label": "Square Meters"
+          },
+          "bedroomsField": {
+            "label": "Bedrooms",
+            "placeholder": "Number of Bedrooms"
+          },
+          "bathroomsField": {
+            "label": "Bathrooms",
+            "placeholder": "Number of Bathrooms"
+          },
+          "poolField": {
+            "label": "Pool"
+          },
+          "extraFeatures": {
+            "label": "Extra Features",
+            "placeholder": "Enter a feature",
+            "description": "Press Enter to add"
+          }
+        },
+        "images": {
+          "title": "Images",
+          "description": {
+            "part1": "Upload at least",
+            "part2": "image for your property."
+          },
+          "fileUploaderComp": {
+            "dropActive": "Drop the files here",
+            "heading": {
+              "part1": "Drag",
+              "part2": "drop files here, or click to select files"
+            },
+            "subHeading": {
+              "part1": "You can upload",
+              "part2": "files (up to",
+              "part3": "each)",
+              "part4": "a file with"
+            },
+            "removeFile": "Remove file",
+            "error": {
+              "main": "Ooops, you can't do that.",
+              "multipleError": "Cannot upload more than 1 file at a time",
+              "maxFiles": {
+                "part1": "Cannot upload more than",
+                "part2": "files"
+              },
+              "filesTooLarge": {
+                "title": {
+                  "part1": "Oh no! Images bigger than",
+                  "part2": "are not allowed."
+                },
+                "description": {
+                  "part1": "File",
+                  "part2": "was rejected."
+                }
+              },
+              "invalidType": {
+                "title": {
+                  "part1": "Oh no!",
+                  "part2": "are not allowed."
+                },
+                "description": {
+                  "part1": "File",
+                  "part2": "was rejected."
+                }
+              },
+              "defaultMessage": "Oops, something happened."
+            }
+          },
+          "uploadedFilesComp": {
+            "title": "Uploaded files",
+            "emptyCard": {
+              "title": "No files uploaded",
+              "description": "Upload some files to see them here"
+            },
+            "maxImages": {
+              "part1": "You have uploaded",
+              "part2": "images."
+            },
+            "empty": "You have no images uploaded yet."
+          }
+        }
+      },
+      "propertySchema": {
+        "title": {
+          "required": "Title is required",
+          "invalid": "Title must be a string",
+          "min": "Tile must be at least 5 character long"
+        },
+        "description": {
+          "required": "Description is required.",
+          "invalid": "Description must be a string.",
+          "min": "Description must be at least 10 characters long."
+        },
+        "price": {
+          "required": "Price is required.",
+          "invalid": "Price must be a number.",
+          "positive": "Price must be a positive number."
+        },
+        "bathrooms": {
+          "required": "Number of bathrooms is required.",
+          "invalid": "Bathrooms must be a number.",
+          "min": "There must be at least 1 bathroom."
+        },
+        "bedrooms": {
+          "required": "Number of bedrooms is required.",
+          "invalid": "Bedrooms must be a number.",
+          "min": "There must be at least 1 bedroom."
+        },
+        "pool": {
+          "required": "Pool information is required.",
+          "invalid": "Pool must be a boolean."
+        },
+        "squareMeter": {
+          "required": "Square Meter of property is required.",
+          "invalid": "Square meter must be a number.",
+          "min": "Property must be larger than 1 meter squared."
+        },
+        "address": {
+          "required": "Address is required",
+          "invalid": "Address must be a string",
+          "min": "Address must be at least 5 characters long"
+        },
+        "extraFeatures": {
+          "id": {
+            "required": "Feature ID is required.",
+            "invalid": "Feature ID must be a string."
+          },
+          "text": {
+            "required": "Feature text is required.",
+            "invalid": "Feature text must be a string."
+          },
+          "min": "There must be at least 3 extra feature."
+        },
+        "visibility": {
+          "required": "Pool information is required.",
+          "invalid": "Pool must be a boolean."
+        },
+        "saleType": {
+          "required": "Sale Type is required",
+          "invalid": "Sale type must be either Sale or Rent"
+        },
+        "images": {
+          "part1": "No more than",
+          "part2": "Images allowed."
+        }
       }
+    },
+    "EditProperty": {
+      "error": "Error while fetching the property details"
     }
+  },
+  "NavbarComp": {
+    "signup": "Sign Up",
+    "home": "Home",
+    "search": "Search",
+    "favorites": "Favorites",
+    "property": "Property",
+    "usage": "Usage",
+    "pricing": "Pricing",
+    "sellYourProperty": "Sell your Property",
+    "dashboard": "Dashboard",
+    "contactUs": "Contact Us"
   }
 }

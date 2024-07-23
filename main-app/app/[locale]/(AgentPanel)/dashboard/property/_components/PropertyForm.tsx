@@ -15,13 +15,14 @@ import { z } from "zod";
 import { useContext, useState, use, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import {
-  PropertySchema,
+  // PropertySchema,
   SelectBedroomsOptions,
   SelectBathroomsOptions,
   SelectVisibilityOptions,
   SelectSaleTypeOptions,
   MAXFILES,
   MINFILES,
+  PropertySchemaTranslated,
 } from "../../../../../../lib/FormUtils";
 import useSWRMutation from "swr/mutation";
 import { toast } from "sonner";
@@ -29,20 +30,23 @@ import { AddressInput } from "../../../../../../components/AddressInput";
 import { ImagesInput } from "@/components/ImagesInput/ImagesInput";
 import { DeleteProperty, PostProperty } from "@/lib/RequestUtils";
 import { PropertyWithAddress } from "@/Server/utils/utils";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { UserContext, UserContextType } from "@/lib/userContext";
 import { Badge } from "@/components/ui/badge";
 import { useTranslations } from "next-intl";
 import PropertyFormHead from "./PropertyFormHead";
 
-export default function PropertyForm({ initProperty }: { initProperty?: PropertyWithAddress }) {
+// TODO: Make Select translated & make Schema follow translations
+export default function PropertyForm({ initProperty, locale }: { initProperty?: PropertyWithAddress; locale?: string }) {
   const t = useTranslations("Dashboard.propertyFormComp");
   const router = useRouter();
   const { user } = useContext(UserContext) as UserContextType;
 
+  const PropSchema = PropertySchemaTranslated(t);
+
   const defaultValues = getDefaultVaules(initProperty);
-  const form = useForm<z.infer<typeof PropertySchema>>({
-    resolver: zodResolver(PropertySchema),
+  const form = useForm<z.infer<typeof PropSchema>>({
+    resolver: zodResolver(PropSchema),
     defaultValues: defaultValues,
   });
   const {
@@ -52,16 +56,6 @@ export default function PropertyForm({ initProperty }: { initProperty?: Property
     formState: { errors, isDirty, isSubmitted },
   } = form;
   // console.log("Values: ", getValues());
-
-  useEffect(() => {
-    if (isDirty && isSubmitted)
-      Object.entries(errors).forEach(([key, value]) => {
-        toast.error("Oops! Seems you've entered something wrong.", {
-          description: value.message,
-          duration: 10000,
-        });
-      });
-  }, [errors, isDirty, isSubmitted]);
 
   // Extra Features's Tag management
   const [activeExtraTagIndex, setActiveExtraTagIndex] = useState<number | null>(null);
@@ -115,7 +109,7 @@ export default function PropertyForm({ initProperty }: { initProperty?: Property
       });
     },
     onSuccess: (data: PropertyWithAddress) => {
-      const createdProp: z.infer<typeof PropertySchema> = {
+      const createdProp: z.infer<typeof PropSchema> = {
         property_id: data.property_id,
         title: data.title,
         price: data.price,
@@ -162,7 +156,7 @@ export default function PropertyForm({ initProperty }: { initProperty?: Property
     }
   );
 
-  async function submitHandler(values: z.infer<typeof PropertySchema>) {
+  async function submitHandler(values: z.infer<typeof PropSchema>) {
     console.log("Submitted Form: ", values);
 
     if (!initProperty) {
@@ -223,8 +217,8 @@ export default function PropertyForm({ initProperty }: { initProperty?: Property
                 {/* Core fields */}
                 <Card className="w-full">
                   <CardHeader>
-                    <CardTitle>Property Details</CardTitle>
-                    <CardDescription>Create your new property now!</CardDescription>
+                    <CardTitle>{t("formFields.core.title")}</CardTitle>
+                    <CardDescription>{t("formFields.core.description")}</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <div className="grid gap-6">
@@ -234,9 +228,14 @@ export default function PropertyForm({ initProperty }: { initProperty?: Property
                         name="title"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Title</FormLabel>
+                            <FormLabel>{t("formFields.core.titleField.label")}</FormLabel>
                             <FormControl>
-                              <Input className="w-full" type="text" placeholder="Give your property a title" {...field} />
+                              <Input
+                                className="w-full"
+                                type="text"
+                                placeholder={t("formFields.core.titleField.placeholder")}
+                                {...field}
+                              />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -248,7 +247,7 @@ export default function PropertyForm({ initProperty }: { initProperty?: Property
                         name="price"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Price</FormLabel>
+                            <FormLabel>{t("formFields.core.priceField.label")}</FormLabel>
                             <FormControl>
                               <Input className="w-full" type="number" {...field} />
                             </FormControl>
@@ -262,11 +261,11 @@ export default function PropertyForm({ initProperty }: { initProperty?: Property
                         name="description"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Description</FormLabel>
+                            <FormLabel>{t("formFields.core.descriptionField.label")}</FormLabel>
                             <FormControl>
                               <Textarea
                                 className="min-h-32"
-                                placeholder="Describe your property. Let your words flow"
+                                placeholder={t("formFields.core.descriptionField.placeholder")}
                                 {...field}
                               />
                             </FormControl>
@@ -280,7 +279,7 @@ export default function PropertyForm({ initProperty }: { initProperty?: Property
                         name="address"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Address</FormLabel>
+                            <FormLabel>{t("formFields.core.addressField.label")}</FormLabel>
                             <FormControl>
                               <AddressInput
                                 name={field.name}
@@ -301,10 +300,13 @@ export default function PropertyForm({ initProperty }: { initProperty?: Property
                   </CardContent>
                 </Card>
                 {/* Image Input */}
+                {/* TODO: Translate Images Input */}
                 <Card className="w-full">
                   <CardHeader>
-                    <CardTitle>Images</CardTitle>
-                    <CardDescription>Upload at least {MINFILES} image for your property.</CardDescription>
+                    <CardTitle>{t("formFields.images.title")}</CardTitle>
+                    <CardDescription>
+                      {t("formFields.images.description.part1")} {MINFILES} {t("formFields.images.description.part2")}
+                    </CardDescription>
                   </CardHeader>
                   <CardContent className="grid gap-6">
                     {/* Images */}
@@ -339,8 +341,8 @@ export default function PropertyForm({ initProperty }: { initProperty?: Property
                 {/* Meta Data Fields */}
                 <Card className="w-full">
                   <CardHeader>
-                    <CardTitle>Meta Data</CardTitle>
-                    <CardDescription>Manage the Visability, and Sale Type.</CardDescription>
+                    <CardTitle>{t("formFields.meta.title")}</CardTitle>
+                    <CardDescription>{t("formFields.meta.description")}</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <div className="grid gap-6">
@@ -350,7 +352,7 @@ export default function PropertyForm({ initProperty }: { initProperty?: Property
                         name="visibility"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Visability</FormLabel>
+                            <FormLabel>{t("formFields.meta.visibilityField.label")}</FormLabel>
                             <FormControl>
                               <Select
                                 key="visability"
@@ -363,7 +365,7 @@ export default function PropertyForm({ initProperty }: { initProperty?: Property
                                 </SelectTrigger>
                                 <SelectContent className="w-full">
                                   <SelectGroup>
-                                    <SelectLabel>visibility</SelectLabel>
+                                    <SelectLabel>{t("formFields.meta.visibilityField.label")}</SelectLabel>
                                     {SelectVisibilityOptions.map((option) => (
                                       <SelectItem key={option.key} value={option.value}>
                                         {option.value}
@@ -383,7 +385,7 @@ export default function PropertyForm({ initProperty }: { initProperty?: Property
                         name="saleType"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Sale Type</FormLabel>
+                            <FormLabel>{t("formFields.meta.saleType.label")}</FormLabel>
                             <FormControl>
                               <Select
                                 key="saleType"
@@ -396,7 +398,7 @@ export default function PropertyForm({ initProperty }: { initProperty?: Property
                                 </SelectTrigger>
                                 <SelectContent className="w-full">
                                   <SelectGroup>
-                                    <SelectLabel>Sale Type</SelectLabel>
+                                    <SelectLabel>{t("formFields.meta.saleType.label")}</SelectLabel>
                                     {SelectSaleTypeOptions.map((option) => (
                                       <SelectItem key={option.key} value={option.value}>
                                         {option.value}
@@ -416,8 +418,8 @@ export default function PropertyForm({ initProperty }: { initProperty?: Property
                 {/* Property Features */}
                 <Card className="w-full">
                   <CardHeader>
-                    <CardTitle>Features</CardTitle>
-                    <CardDescription>Unique features for your property!</CardDescription>
+                    <CardTitle>{t("formFields.features.title")}</CardTitle>
+                    <CardDescription>{t("formFields.features.description")}</CardDescription>
                   </CardHeader>
                   <CardContent className="grid gap-6">
                     {/* Square Meter */}
@@ -426,7 +428,7 @@ export default function PropertyForm({ initProperty }: { initProperty?: Property
                       name="squareMeter"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Square Meters</FormLabel>
+                          <FormLabel>{t("formFields.features.squareMetersField.label")}</FormLabel>
                           <FormControl>
                             <Input className="w-full" type="number" {...field} />
                           </FormControl>
@@ -441,15 +443,15 @@ export default function PropertyForm({ initProperty }: { initProperty?: Property
                       name="bedrooms"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Bedrooms</FormLabel>
+                          <FormLabel>{t("formFields.features.bedroomsField.label")}</FormLabel>
                           <FormControl>
                             <Select value={field.value.toString()} onValueChange={field.onChange}>
                               <SelectTrigger className="">
-                                <SelectValue placeholder="Number of Bedrooms" />
+                                <SelectValue placeholder={t("formFields.features.bedroomsField.placeholder")} />
                               </SelectTrigger>
                               <SelectContent className="">
                                 <SelectGroup>
-                                  <SelectLabel>Bedrooms</SelectLabel>
+                                  <SelectLabel>{t("formFields.features.bedroomsField.label")}</SelectLabel>
                                   {SelectBedroomsOptions.map((option) => (
                                     <SelectItem key={option.key} value={option.value}>
                                       {option.value}
@@ -469,15 +471,15 @@ export default function PropertyForm({ initProperty }: { initProperty?: Property
                       name="bathrooms"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Bathrooms</FormLabel>
+                          <FormLabel>{t("formFields.features.bathroomsField.label")}</FormLabel>
                           <FormControl>
                             <Select key="bathrooms" value={field.value.toString()} onValueChange={field.onChange}>
                               <SelectTrigger className="w-full">
-                                <SelectValue placeholder="Number of Bathrooms" />
+                                <SelectValue placeholder={t("formFields.features.bathroomsField.placeholder")} />
                               </SelectTrigger>
                               <SelectContent className="w-full">
                                 <SelectGroup>
-                                  <SelectLabel>Bathrooms</SelectLabel>
+                                  <SelectLabel>{t("formFields.features.bathroomsField.label")}</SelectLabel>
                                   {SelectBathroomsOptions.map((option) => (
                                     <SelectItem key={option.key} value={option.value}>
                                       {option.value}
@@ -498,7 +500,7 @@ export default function PropertyForm({ initProperty }: { initProperty?: Property
                       render={({ field }) => (
                         <FormItem>
                           <div className="flex justify-start items-center gap-8">
-                            <FormLabel>Pool</FormLabel>
+                            <FormLabel>{t("formFields.features.poolField.label")}</FormLabel>
                             <FormControl>
                               <Switch
                                 className="data-[state=checked]:bg-accent"
@@ -517,7 +519,7 @@ export default function PropertyForm({ initProperty }: { initProperty?: Property
                       name="extraFeatures"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Extra Features</FormLabel>
+                          <FormLabel>{t("formFields.features.extraFeatures.label")}</FormLabel>
                           <FormControl>
                             <TagInput
                               {...field}
@@ -543,7 +545,7 @@ export default function PropertyForm({ initProperty }: { initProperty?: Property
                               includeTagsInInput={false}
                               activeTagIndex={activeExtraTagIndex}
                               setActiveTagIndex={setActiveExtraTagIndex}
-                              placeholder="Enter a feature"
+                              placeholder={t("formFields.features.extraFeatures.placeholder")}
                               minTags={3}
                               tags={field.value}
                               className=" w-full overflow-auto "
@@ -553,7 +555,7 @@ export default function PropertyForm({ initProperty }: { initProperty?: Property
                               }}
                             />
                           </FormControl>
-                          <FormDescription>(Press Enter to add)</FormDescription>
+                          <FormDescription>({t("formFields.features.extraFeatures.description")})</FormDescription>
                           <FormMessage />
                         </FormItem>
                       )}

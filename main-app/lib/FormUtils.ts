@@ -1,4 +1,7 @@
+import { Messages } from "@/global";
+import { getDictionary } from "@/messages/dictionaries";
 import { PreSignRequest } from "@/Server/controllers/imagesController";
+import { getLocale, getTranslations } from "next-intl/server";
 import { z } from "zod";
 import { zfd } from "zod-form-data";
 
@@ -77,8 +80,17 @@ export const SelectSaleTypeOptions = [
   // { key: "Auction", value: "Auction"}, // UPDATE: uncomment to make it avaible to customers
 ];
 
+export const SelectProvider = (t: any) => {
+  const visibilityOptions = [
+    { key: t("formFields.meta.visibilityField.options.public"), value: t("formFields.meta.visibilityField.options.public") },
+    { key: t("formFields.meta.visibilityField.options.private"), value: t("formFields.meta.visibilityField.options.private") },
+  ];
+
+  return visibilityOptions;
+};
+
 // Property Form UTILS
-export const PropertySchema = z.object({
+export const PropertySchemaBackEnd = z.object({
   property_id: z.string(),
   title: z
     .string({
@@ -158,38 +170,119 @@ export const PropertySchema = z.object({
   deletedImages: z.string().array().optional(),
 });
 
+export const PropertySchemaTranslated = (t: any) => {
+  // const visibility = z.enum(
+  //   [
+  //     t("formFields.meta.visibilityField.options.public"),
+  //     t("formFields.meta.visibilityField.options.private"),
+  //     t("formFields.meta.visibilityField.options.draft"),
+  //     t("formFields.meta.visibilityField.options.deleted"),
+  //   ],
+  //   {
+  //     required_error: t("propertySchema.visibility.required"),
+  //     invalid_type_error: t("propertySchema.visibility.invalid"),
+  //   }
+  // );
+
+  // const saleType = z.enum([t("formFields.meta.saleTypeField.options.rent"), t("formFields.meta.saleTypeField.options.sale")], {
+  //   required_error: t("propertySchema.saleType.required"),
+  //   invalid_type_error: t("propertySchema.saleType.invalid"),
+  // });
+  return z.object({
+    property_id: z.string(),
+    title: z
+      .string({
+        required_error: t("propertySchema.title.required"),
+        invalid_type_error: t("propertySchema.title.invalid"),
+      })
+      .min(5, { message: t("propertySchema.title.min") }),
+    description: z
+      .string({
+        required_error: t("propertySchema.description.required"),
+        invalid_type_error: t("propertySchema.description.invalid"),
+      })
+      .min(10, { message: t("propertySchema.description.min") }),
+    price: z.coerce
+      .number({
+        required_error: t("propertySchema.price.required"),
+        invalid_type_error: t("propertySchema.price.invalid"),
+      })
+      .positive({ message: t("propertySchema.price.positive") }),
+    bathrooms: z.coerce
+      .number({
+        required_error: t("propertySchema.bathrooms.required"),
+        invalid_type_error: t("propertySchema.bathrooms.invalid"),
+      })
+      .min(1, { message: t("propertySchema.bathrooms.min") }),
+    bedrooms: z.coerce
+      .number({
+        required_error: t("propertySchema.bedrooms.required"),
+        invalid_type_error: t("propertySchema.bedrooms.invalid"),
+      })
+      .min(1, { message: t("propertySchema.bedrooms.min") }),
+    pool: z.boolean({
+      required_error: t("propertySchema.pool.required"),
+      invalid_type_error: t("propertySchema.pool.invalid"),
+    }),
+    squareMeter: z.coerce
+      .number({
+        required_error: t("propertySchema.squareMeter.required"),
+        invalid_type_error: t("propertySchema.squareMeter.invalid"),
+      })
+      .min(1, { message: t("propertySchema.squareMeter.min") }),
+    address: z
+      .string({
+        required_error: t("propertySchema.address.required"),
+        invalid_type_error: t("propertySchema.address.invalid"),
+      })
+      .min(5, { message: t("propertySchema.address.min") }),
+    lat: z.number(),
+    lng: z.number(),
+    images: z
+      .array(typeof window === "undefined" ? z.any() : z.instanceof(File))
+      // .min(1, { message: `There must be at least ${MINFILES} Image.` }) Handled in Property Form Submit
+      .max(MAXFILES, { message: `$t('propertySchema.images.part1') ${MAXFILES} $t('propertySchema.images.part2')` }),
+    extraFeatures: z
+      .array(
+        z.object({
+          id: z.string({
+            required_error: t("propertySchema.extraFeatures.id.required"),
+            invalid_type_error: t("propertySchema.extraFeatures.id.invalid"),
+          }),
+          text: z.string({
+            required_error: t("propertySchema.extraFeatures.text.required"),
+            invalid_type_error: t("propertySchema.extraFeatures.text.invalid"),
+          }),
+        })
+      )
+      .min(3, { message: t("propertySchema.extraFeatures.min") }),
+    visibility: z.enum(["Public", "Private", "Draft", "Deleted"], {
+      required_error: t("propertySchema.visibility.required"),
+      invalid_type_error: t("propertySchema.visibility.invalid"),
+    }),
+    saleType: z.enum(["Sale", "Rent", "Auction"], {
+      required_error: t("propertySchema.saleType.required"),
+      invalid_type_error: t("propertySchema.saleType.invalid"),
+    }),
+    imagesOrder: z.string().array().optional(),
+    deletedImages: z.string().array().optional(),
+  });
+};
+
 export const PropertyRequestSchema = z.object({
   property_id: z.string(),
-  title: z
-    .string()
-    .min(5, { message: "Title must be at least 5 characters long." }),
-  description: z
-    .string()
-    .min(10, { message: "Description must be at least 10 characters long." }),
-  price: z.coerce
-    .number()
-    .positive({ message: "Price must be a positive number." }),
-  bathrooms: z.coerce
-    .number()
-    .min(1, { message: "There must be at least 1 bathroom." }),
-  bedrooms: z.coerce
-    .number()
-    .min(1, { message: "There must be at least 1 bedroom." }),
-  squareMeter: z.coerce
-    .number()
-    .min(1, { message: "There must be at least 1 Square Meter." }),
+  title: z.string().min(5, { message: "Title must be at least 5 characters long." }),
+  description: z.string().min(10, { message: "Description must be at least 10 characters long." }),
+  price: z.coerce.number().positive({ message: "Price must be a positive number." }),
+  bathrooms: z.coerce.number().min(1, { message: "There must be at least 1 bathroom." }),
+  bedrooms: z.coerce.number().min(1, { message: "There must be at least 1 bedroom." }),
+  squareMeter: z.coerce.number().min(1, { message: "There must be at least 1 Square Meter." }),
   pool: z.boolean(),
-  address: z
-    .string()
-    .min(5, { message: "Address must be at least 5 characters long" }),
+  address: z.string().min(5, { message: "Address must be at least 5 characters long" }),
   lat: z.number(), // add Max and Min Val
   lng: z.number(),
-  images: z
-    .array(z.instanceof(File))
-    .max(MAXFILES, { message: `No more than ${MAXFILES} Images allowed.` }),
-  extraFeatures: z
-    .array(z.string())
-    .min(1, { message: "There must be at least one extra feature." }),
+  images: z.array(z.instanceof(File)).max(MAXFILES, { message: `No more than ${MAXFILES} Images allowed.` }),
+  extraFeatures: z.array(z.string()).min(1, { message: "There must be at least one extra feature." }),
   visibility: z.enum(["Public", "Private", "Draft", "Deleted"], {
     required_error: "Pool information is required.",
     invalid_type_error: "Pool must be a boolean.",
@@ -207,13 +300,9 @@ export const DeletePropertyRequestSchema = z.object({
   images: z.string().array(),
 });
 
-export const PropertyRequestFormDataSchema = zfd.formData(
-  PropertyRequestSchema
-);
+export const PropertyRequestFormDataSchema = zfd.formData(PropertyRequestSchema);
 
-export function propertyToFormData(
-  property: z.infer<typeof PropertySchema>
-): FormData {
+export function propertyToFormData(property: z.infer<typeof PropertySchemaBackEnd>): FormData {
   const formData = new FormData();
 
   formData.append("property_id", property.property_id);
@@ -243,19 +332,14 @@ export function propertyToFormData(
   }
   if (property.deletedImages) {
     for (let i = 0; i < property.deletedImages.length; i++) {
-      formData.append(
-        `deletedImages[${i}]`,
-        property.deletedImages[i] as string
-      );
+      formData.append(`deletedImages[${i}]`, property.deletedImages[i] as string);
     }
   }
 
   return formData;
 }
 
-export const parseFormData = (
-  formData: Record<string, string | File> | FormData
-): z.infer<typeof PropertyRequestSchema> => {
+export const parseFormData = (formData: Record<string, string | File> | FormData): z.infer<typeof PropertyRequestSchema> => {
   const data: Record<string, any> = {};
 
   if (formData instanceof FormData) {
@@ -308,8 +392,7 @@ export const parseFormData = (
   let deletedImages: File[] = [];
   if (Array.isArray(data.deletedImages)) {
     data.deletedImages.forEach((image) => {
-      if (typeof image.undefined === "string")
-        deletedImages.push(image.undefined);
+      if (typeof image.undefined === "string") deletedImages.push(image.undefined);
     });
   }
 
@@ -340,9 +423,7 @@ export const parseFormData = (
   return parsed;
 };
 
-export const parseImageUploadFormData = (
-  formData: Record<string, string | File> | FormData
-): z.infer<typeof PreSignRequest> => {
+export const parseImageUploadFormData = (formData: Record<string, string | File> | FormData): z.infer<typeof PreSignRequest> => {
   const data: Record<string, any> = {};
 
   if (formData instanceof FormData) {
