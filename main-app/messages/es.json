@@ -453,6 +453,34 @@
           "part1": "No más de",
           "part2": "imágenes permitidas."
         }
+      },
+      "toasts": {
+        "error": {
+          "title": "Algo inesperado sucedió.",
+          "description": "Por favor, intente nuevamente....",
+          "images": {
+            "part1": "Debe haber al menos",
+            "part2": "Imagen."
+          }
+        },
+        "create": {
+          "imageRequired": {
+            "title": "¡Vaya! Parece que olvidaste agregar imágenes.",
+            "description": "Debes subir al menos 2 imágenes para tu publicación."
+          },
+          "unableToUpload": "¡Vaya! Algo salió mal al subir tus imágenes. Por favor, intenta nuevamente.",
+          "success": {
+            "title": "¡Tu propiedad ha sido publicada!",
+            "description": "Ver tu propiedad en ...."
+          }
+        },
+        "update": {
+          "title": "¡Tu propiedad ha sido actualizada!",
+          "description": "Ver tu propiedad en ...."
+        },
+        "delete": {
+          "title": "¡Tu propiedad ha sido eliminada!"
+        }
       }
     }
   },

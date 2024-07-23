@@ -453,6 +453,34 @@
           "part1": "No more than",
           "part2": "Images allowed."
         }
+      },
+      "toasts": {
+        "error": {
+          "title": "Something unexpected happend.",
+          "description": "Please try again....",
+          "images": {
+            "part1": "There must be at least",
+            "part2": "Image."
+          }
+        },
+        "create": {
+          "imageRequired": {
+            "title": "Ooops! Looks like you forgot to add images.",
+            "description": "You must upload at least 2 Images for your post."
+          },
+          "unableToUpload": "Ooops! Something went wrong when uploading your images. Please try again",
+          "success": {
+            "title": "Your property has been posted!",
+            "description": "View your property at ...."
+          }
+        },
+        "update": {
+          "title": "Your property has been Updated!",
+          "description": "View your property at ...."
+        },
+        "delete": {
+          "title": "Your property has been Deleted!"
+        }
       }
     },
     "EditProperty": {

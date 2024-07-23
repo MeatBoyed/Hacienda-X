@@ -67,21 +67,21 @@ export default function PropertyForm({ initProperty, locale }: { initProperty?: 
   } = useSWRMutation("/api/dashboard/property/create", PostProperty /* options */, {
     onError: (error) => {
       console.log("Server Error Occured: ", error);
-      toast.error("Something unexpected happend.", {
-        description: "Please try again....",
+      toast.error(t("toasts.error.title"), {
+        description: t("toasts.error.description"),
       });
     },
     onSuccess: (data) => {
       console.log(data);
       if (data.error === "Image is required") {
-        toast.error("Ooops! Looks like you forgot to add images.", {
-          description: "You must upload at least 2 Images for your post.",
+        toast.error(t("toasts.create.imageRequired.title"), {
+          description: t("toasts.create.imageRequired.description"),
           duration: 500000,
         });
         return;
       }
       if (data.error === "Unable to upload image") {
-        toast.error("Ooops! Something went wrong when uploading your images. Please try again", {
+        toast.error(t("toasts.create.unableToUpload"), {
           duration: 500000,
         });
         return;
@@ -89,8 +89,8 @@ export default function PropertyForm({ initProperty, locale }: { initProperty?: 
 
       if (data) {
         // Show message
-        toast.success("Your property has been posted!", {
-          description: `View your property at ....`,
+        toast.success(t("toasts.create.success.title"), {
+          description: t("toasts.create.success.description"),
         });
         router.replace(`/dashboard/property/${data.property_id}`);
       }
@@ -104,8 +104,8 @@ export default function PropertyForm({ initProperty, locale }: { initProperty?: 
   } = useSWRMutation("/api/dashboard/property/update", PostProperty /* options */, {
     onError: (error) => {
       console.log("SERVER RESPONSE ERROR: ", error);
-      toast.error("Something unexpected happend.", {
-        description: "Please try again....",
+      toast.error(t("toasts.error.title"), {
+        description: t("toasts.error.description"),
       });
     },
     onSuccess: (data: PropertyWithAddress) => {
@@ -134,8 +134,8 @@ export default function PropertyForm({ initProperty, locale }: { initProperty?: 
       form.reset(createdProp);
 
       // Show message
-      toast.success("Your property has been Updated!", {
-        description: `View your property at ....`,
+      toast.success(t("toasts.update.title"), {
+        description: t("toasts.update.description"),
       });
     },
   });
@@ -145,13 +145,13 @@ export default function PropertyForm({ initProperty, locale }: { initProperty?: 
     DeleteProperty /* options */,
     {
       onError: () => {
-        toast.error("Something unexpected happend.", {
-          description: "Please try again....",
+        toast.error(t("toasts.error.title"), {
+          description: t("toasts.error.description"),
         });
       },
       onSuccess: (data) => {
         // Show message
-        toast.success("Your property has been Deleted!");
+        toast.success(t("toasts.delete.title"));
       },
     }
   );
@@ -162,7 +162,7 @@ export default function PropertyForm({ initProperty, locale }: { initProperty?: 
     if (!initProperty) {
       if (values.images.length < MINFILES) {
         setError("images", {
-          message: `There must be at least ${MINFILES} Image.`,
+          message: `${t("toasts.error.images.part1")} ${MINFILES} ${t("toasts.error.images.part2")}`,
         });
         return;
       }
@@ -171,7 +171,7 @@ export default function PropertyForm({ initProperty, locale }: { initProperty?: 
     } else {
       if (values.imagesOrder && values.imagesOrder.length < MINFILES) {
         setError("images", {
-          message: `There must be at least ${MINFILES} Image.`,
+          message: `${t("toasts.error.images.part1")} ${MINFILES} ${t("toasts.error.images.part2")}`,
         });
         return;
       }
@@ -192,6 +192,7 @@ export default function PropertyForm({ initProperty, locale }: { initProperty?: 
         images: initProperty.images,
       },
     });
+
     router.push("/dashboard/property");
   }
 
