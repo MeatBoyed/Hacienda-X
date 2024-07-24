@@ -495,5 +495,23 @@
     "sellYourProperty": "Vender tu Propiedad",
     "dashboard": "Panel de Control",
     "contactUs": "Contáctanos"
+  },
+  "Property": {
+    "Index": {
+      "orderBy": {
+        "error": {
+          "heading": "Oh no, parece que no hay propiedades que coincidan con tu consulta.",
+          "subHeading": "Consulta nuestras otras propiedades"
+        },
+        "title": "Ordenar por",
+        "options": {
+          "default": "Por defecto",
+          "priceLow": "Precio - de menor a mayor",
+          "priceHigh": "Precio - de mayor a menor",
+          "mostRecent": "Más recientes",
+          "size": "Tamaño"
+        }
+      }
+    }
   }
 }

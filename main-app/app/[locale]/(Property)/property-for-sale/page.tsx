@@ -2,23 +2,21 @@
 
 import React, { useCallback, useLayoutEffect, useMemo, useRef, useState } from "react";
 import "./Properties.css";
-import { SearchQueryParameterSchema } from "@/app/[locale]/_components/SearchFilters";
 import { SearchBar } from "@/components/SearchBar";
 import { PropertyCard } from "@/components/PropertyCard";
 import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from "@/components/ui/resizable";
 import { PuffLoader } from "react-spinners";
 import useSWR from "swr";
-import { TypeOf, z } from "zod";
 import { useSearchParams } from "next/navigation";
 import { GetPropertySearch } from "@/lib/RequestUtils";
 import { PropertyWithAddress } from "@/Server/utils/utils";
 import { MapComp } from "@/components/Map";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, SelectLabel } from "@/components/ui/select";
 import { SelectGroup } from "@radix-ui/react-select";
-import { Button } from "@/components/ui/button";
-import { SlidersHorizontal } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export default function PropertiesSearch() {
+  const t = useTranslations("Property.Index");
   const itemRef = useRef(null);
   const searchP = useSearchParams();
 
@@ -127,17 +125,17 @@ export default function PropertiesSearch() {
                     <div className="w-full grid items-center gap-2">
                       <SearchBar classname="" />
                       <Select value={orderBy} onValueChange={(value) => setOrderBy(value)}>
-                        <SelectTrigger className="bg-white shadow-md w-full hover:bg-gray-100 ">
-                          <SelectValue placeholder="Order by" />
+                        <SelectTrigger className="w-full md:w-fit">
+                          <SelectValue placeholder={t("orderBy.title")} />
                         </SelectTrigger>
                         <SelectContent>
                           <SelectGroup>
-                            <SelectLabel>Order by</SelectLabel>
-                            <SelectItem value="Default">Default</SelectItem>
-                            <SelectItem value="PriceL">Price - low to high</SelectItem>
-                            <SelectItem value="PriceH">Price - high to low</SelectItem>
-                            <SelectItem value="MostRecent">Most recent</SelectItem>
-                            <SelectItem value="Size">Size</SelectItem>
+                            <SelectLabel>{t("orderBy.title")}</SelectLabel>
+                            <SelectItem value="Default">{t("orderBy.options.default")}</SelectItem>
+                            <SelectItem value="PriceL">{t("orderBy.options.priceLow")}</SelectItem>
+                            <SelectItem value="PriceH">{t("orderBy.options.priceHigh")}</SelectItem>
+                            <SelectItem value="MostRecent">{t("orderBy.options.mostRecent")}</SelectItem>
+                            <SelectItem value="Size">{t("orderBy.options.size")}</SelectItem>
                           </SelectGroup>
                         </SelectContent>
                       </Select>
@@ -150,8 +148,8 @@ export default function PropertiesSearch() {
 
                     {!isLoading && !error && data && data.length === 0 && (
                       <div className="flex flex-col justify-center items-center gap-1 mb-5">
-                        <p className="text-lg font-semibold ">Oh no, it looks like no properties match you query.</p>
-                        <p className="text-base font-normal ">Checkout our other properties</p>
+                        <p className="text-lg font-semibold ">{t("orderBy.error.heading")}</p>
+                        <p className="text-base font-normal ">{t("orderBy.error.subHeading")}</p>
                       </div>
                     )}
                     <div className=" py-2 px-2 grid grid-cols-1 w-full sm:gap-10 md:grid-cols-2 md:gap-5 lg:grid-cols-2 lg:gap-5">
@@ -170,16 +168,16 @@ export default function PropertiesSearch() {
                   <div className="w-full">
                     <Select value={orderBy} onValueChange={(value) => setOrderBy(value)}>
                       <SelectTrigger className="w-full md:w-fit">
-                        <SelectValue placeholder="Order by" />
+                        <SelectValue placeholder={t("orderBy.title")} />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectGroup>
-                          <SelectLabel>Order by</SelectLabel>
-                          <SelectItem value="Default">Default</SelectItem>
-                          <SelectItem value="PriceL">Price - low to high</SelectItem>
-                          <SelectItem value="PriceH">Price - high to low</SelectItem>
-                          <SelectItem value="MostRecent">Most recent</SelectItem>
-                          <SelectItem value="Size">Size</SelectItem>
+                          <SelectLabel>{t("orderBy.title")}</SelectLabel>
+                          <SelectItem value="Default">{t("orderBy.options.default")}</SelectItem>
+                          <SelectItem value="PriceL">{t("orderBy.options.priceLow")}</SelectItem>
+                          <SelectItem value="PriceH">{t("orderBy.options.priceHigh")}</SelectItem>
+                          <SelectItem value="MostRecent">{t("orderBy.options.mostRecent")}</SelectItem>
+                          <SelectItem value="Size">{t("orderBy.options.size")}</SelectItem>
                         </SelectGroup>
                       </SelectContent>
                     </Select>
@@ -192,8 +190,8 @@ export default function PropertiesSearch() {
 
                   {!isLoading && !error && data && data.length === 0 && (
                     <div className="flex flex-col justify-center items-center gap-1 mb-5">
-                      <p className="text-lg font-semibold ">Oh no, it looks like no properties match you query.</p>
-                      <p className="text-base font-normal ">Checkout our other properties</p>
+                      <p className="text-lg font-semibold ">{t("orderBy.error.heading")}</p>
+                      <p className="text-base font-normal ">{t("orderBy.error.subHeading")}</p>
                     </div>
                   )}
                   <div className=" py-2 px-2 grid grid-cols-1 w-full sm:gap-10 md:grid-cols-2 md:gap-5 lg:grid-cols-2 lg:gap-5">

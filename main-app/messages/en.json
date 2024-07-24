@@ -498,5 +498,32 @@
     "sellYourProperty": "Sell your Property",
     "dashboard": "Dashboard",
     "contactUs": "Contact Us"
+  },
+  "Property": {
+    "Index": {
+      "orderBy": {
+        "error": {
+          "heading": "Oh no, it looks like no properties match you query.",
+          "subHeading": "Checkout our other properties"
+        },
+        "title": "Order by",
+        "options": {
+          "default": "Default",
+          "priceLow": "Price - low to high",
+          "priceHigh": "Price - high to low",
+          "mostRecent": "Most recent",
+          "size": "Size"
+        }
+      }
+    },
+    "Property": {
+      "errors": {
+        "fetchingError": "Error while fetching the property details"
+      },
+      "viewMore": {
+        "subHeading": "Related properties",
+        "heading": "Properties"
+      }
+    }
   }
 }

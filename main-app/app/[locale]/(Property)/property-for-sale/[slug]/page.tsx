@@ -16,9 +16,11 @@ import LocationSection from "./_components/LocationSection";
 import { useRouter } from "next/navigation";
 import PropertyCarousel from "./_components/ImageCarousel";
 import Residencies from "@/app/[locale]/_components/Residencies";
+import { useTranslations } from "next-intl";
 
 // Handler for the API request (Server Side)
 export default function PropertyPage() {
+  const t = useTranslations("Property.Property");
   const router = useRouter();
   const params = useParams();
   const slug = decodeURIComponent(typeof params.slug === "string" ? params.slug : "");
@@ -33,7 +35,7 @@ export default function PropertyPage() {
     <section id={"view-property"} className="w-full flex flex-col justify-center items-center gap-2 py-16 bg-[#fff]">
       {error && !isLoading && (
         <div className="w-full flex justify-center items-center h-[100vh] bg-[#ffff]">
-          <span>Error while fetching the property details</span>
+          <span>{t("errors.fetchingError")}</span>
         </div>
       )}
       {data && !error && (
@@ -62,7 +64,12 @@ export default function PropertyPage() {
             <LocationSection property={data} />
           </div>
           <div className="w-full flex justify-center items-start gap-10 lg:gap-20 pt-5 px-4 sm:max-w-3xl lg:max-w-5xl">
-            <Residencies subHeading="Related properties" heading="Properties" className="px-1 sm:px-1 xl:px-1" margin="mt-0" />
+            <Residencies
+              subHeading={t("viewMore.subHeading")}
+              heading={t("viewMore.heading")}
+              className="px-1 sm:px-1 xl:px-1"
+              margin="mt-0"
+            />
           </div>
           <BottomNavbar price={data.price} />
         </>
