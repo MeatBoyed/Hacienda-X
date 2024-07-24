@@ -525,5 +525,68 @@
         "heading": "Properties"
       }
     }
+  },
+  "Onboarding": {
+    "greeting": {
+      "welcome": "Welcome",
+      "subHeading": "Let&apos;s get started by setting up your account."
+    },
+    "unAuthed": {
+      "title": "First, let&apos;s create your account",
+      "subHeading": "Our agents are here to assist you",
+      "button": "Sign In"
+    },
+    "registerFormComp": {
+      "title": "Become an Agent today",
+      "description": "Our agents are here to assist you",
+      "formFields": {
+        "name": {
+          "label": "Name",
+          "placeholder": "Your name"
+        },
+        "surname": {
+          "label": "Surname",
+          "placeholder": "Your surname"
+        },
+        "email": {
+          "label": "Email address",
+          "placeholder": "Email address"
+        },
+        "company": {
+          "label": "Company (optional)",
+          "placeholder": "Company name"
+        },
+        "phonenumber": {
+          "label": "Phone number",
+          "placeholder": "Enter a phone number"
+        },
+        "isAgent": {
+          "label": "Interested in selling your property?",
+          "description": "Our sales team will contact you shortly."
+        },
+        "submitButton": "Submit"
+      },
+      "toasts": {
+        "error": {
+          "title": "Something unexpected happend.",
+          "description": "Please try again....",
+          "alreadyRegisterd": {
+            "title": "Woops, looks like you've already registered.",
+            "description": "Please wait for our sales team to contact you via email or phone. Feel free to visit our Contact page."
+          }
+        },
+        "success": {
+          "title": "Aye! You are now registered.",
+          "description": "Thanks for registering, our sales team will be in contact with you shortly via provided channels."
+        }
+      },
+      "userFormSchema": {
+        "firstName": "Name must be at least 3 characters long.",
+        "lastName": "Surname must be at least 3 characters long.",
+        "email": "Email address must be valid.",
+        "phoneNumber": "Invalid phone number",
+        "userId": "User Id is required"
+      }
+    }
   }
 }

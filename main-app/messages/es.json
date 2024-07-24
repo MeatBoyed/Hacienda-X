@@ -513,5 +513,68 @@
         }
       }
     }
+  },
+  "Onboarding": {
+    "greeting": {
+      "welcome": "Bienvenido",
+      "subHeading": "Comencemos configurando tu cuenta."
+    },
+    "unAuthed": {
+      "title": "Primero, creemos tu cuenta",
+      "subHeading": "Nuestros agentes están aquí para asistirte",
+      "button": "Iniciar sesión"
+    },
+    "registerFormComp": {
+      "title": "Conviértete en un Agente hoy",
+      "description": "Nuestros agentes están aquí para asistirte",
+      "formFields": {
+        "name": {
+          "label": "Nombre",
+          "placeholder": "Tu nombre"
+        },
+        "surname": {
+          "label": "Apellido",
+          "placeholder": "Tu apellido"
+        },
+        "email": {
+          "label": "Dirección de correo electrónico",
+          "placeholder": "Dirección de correo electrónico"
+        },
+        "company": {
+          "label": "Empresa (opcional)",
+          "placeholder": "Nombre de la empresa"
+        },
+        "phonenumber": {
+          "label": "Número de teléfono",
+          "placeholder": "Ingresa un número de teléfono"
+        },
+        "isAgent": {
+          "label": "¿Interesado en vender tu propiedad?",
+          "description": "Nuestro equipo de ventas te contactará en breve."
+        },
+        "submitButton": "Enviar"
+      },
+      "toasts": {
+        "error": {
+          "title": "Algo inesperado ocurrió.",
+          "description": "Por favor, inténtalo de nuevo....",
+          "alreadyRegisterd": {
+            "title": "Vaya, parece que ya te has registrado.",
+            "description": "Por favor, espera a que nuestro equipo de ventas te contacte por correo electrónico o teléfono. No dudes en visitar nuestra página de contacto."
+          }
+        },
+        "success": {
+          "title": "¡Sí! Ahora estás registrado.",
+          "description": "Gracias por registrarte, nuestro equipo de ventas se pondrá en contacto contigo en breve a través de los canales proporcionados."
+        }
+      },
+      "userFormSchema": {
+        "firstName": "El nombre debe tener al menos 3 caracteres.",
+        "lastName": "El apellido debe tener al menos 3 caracteres.",
+        "email": "La dirección de correo electrónico debe ser válida.",
+        "phoneNumber": "Número de teléfono inválido",
+        "userId": "Se requiere el ID de usuario"
+      }
+    }
   }
 }

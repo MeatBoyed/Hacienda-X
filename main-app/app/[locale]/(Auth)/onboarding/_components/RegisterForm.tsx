@@ -11,26 +11,39 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import useSWRMutation from "swr/mutation";
 import Loader from "@/components/ui/loader";
-import { useUser } from "@clerk/nextjs";
 import { isValidPhoneNumber } from "react-phone-number-input";
 import { PhoneInput } from "@/components/PhoneInput";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { PostAgent } from "@/app/api/(userActions)/actions";
-import { User } from "@prisma/client";
 import { useRouter } from "next/navigation";
-import { RoleEnum } from "@/Server/controllers/userController";
 import { Switch } from "@/components/ui/switch";
+import { useTranslations } from "next-intl";
 
 // Lead Form UTILS
-export const UserFormSchema = z.object({
-  firstName: z.string().min(3, { message: "Name must be at least 3 characters long." }),
-  lastName: z.string().min(3, { message: "Surname must be at least 3 characters long." }),
-  email: z.string().email({ message: "Email address must be valid." }),
-  company: z.string().optional(),
-  phoneNumber: z.string().refine(isValidPhoneNumber, { message: "Invalid phone number" }).optional(),
-  user_id: z.string().min(1, { message: "User Id is required" }),
-  isAgent: z.boolean(),
-});
+// export const UserFormSchema = z.object({
+//   firstName: z.string().min(3, { message: "Name must be at least 3 characters long." }),
+//   lastName: z.string().min(3, { message: "Surname must be at least 3 characters long." }),
+//   email: z.string().email({ message: "Email address must be valid." }),
+//   company: z.string().optional(),
+//   phoneNumber: z.string().refine(isValidPhoneNumber, { message: "Invalid phone number" }).optional(),
+//   user_id: z.string().min(1, { message: "User Id is required" }),
+//   isAgent: z.boolean(),
+// });
+
+const UserFormSchemaTranslated = (t: any) => {
+  return z.object({
+    firstName: z.string().min(3, { message: t("userFormSchema.firstName") }),
+    lastName: z.string().min(3, { message: t("userFormSchema.lastName") }),
+    email: z.string().email({ message: t("userFormSchema.email") }),
+    company: z.string().optional(),
+    phoneNumber: z
+      .string()
+      .refine(isValidPhoneNumber, { message: t("userFormSchema.phoneNumber") })
+      .optional(),
+    user_id: z.string().min(1, { message: t("userFormSchema.userId") }),
+    isAgent: z.boolean(),
+  });
+};
 
 export default function RegisterForm({
   userId,
@@ -43,7 +56,11 @@ export default function RegisterForm({
   lastName: string | null;
   email?: string;
 }) {
+  const t = useTranslations("Onboarding.registerFormComp");
   const router = useRouter();
+
+  const UserFormSchema = UserFormSchemaTranslated(t);
+
   const form = useForm<z.infer<typeof UserFormSchema>>({
     resolver: zodResolver(UserFormSchema),
     defaultValues: {
@@ -61,8 +78,8 @@ export default function RegisterForm({
     {
       onError: (error) => {
         console.log("Received Error (Plain): ", error);
-        toast.error("Something unexpected happend.", {
-          description: "Please try again....",
+        toast.error(t("toasts.error.title"), {
+          description: t("toasts.error.description"),
         });
       },
       onSuccess: (data) => {
@@ -71,16 +88,15 @@ export default function RegisterForm({
         const res = responseSchema.safeParse(data);
 
         if (res.data?.status === "P2002") {
-          toast.info("Woops, looks like you've already registered.", {
-            description:
-              "Please wait for our sales team to contact you via email or phone.\nFeel free to visit our Contact page.",
+          toast.info(t("toasts.error.alreadyRegisterd.title"), {
+            description: t("toasts.error.alreadyRegisterd.description"),
             duration: 10000,
           });
           return;
         }
 
-        toast.success("Aye! You are now registered.", {
-          description: `Thanks for registering, our sales team will be in contact with you shortly via provided channels.`,
+        toast.success(t("toasts.success.title"), {
+          description: t("toasts.success.description"),
           duration: 10000,
         });
       },
@@ -96,8 +112,8 @@ export default function RegisterForm({
   return (
     <Card>
       <CardHeader className="flex justify-center items-center">
-        <CardTitle>Become an Agent today</CardTitle>
-        <CardDescription>Our agents are here to assist you</CardDescription>
+        <CardTitle>{t("title")}</CardTitle>
+        <CardDescription>{t("description")}</CardDescription>
       </CardHeader>
       <CardContent>
         {isMutatingCreate ? (
@@ -112,9 +128,9 @@ export default function RegisterForm({
                     name="firstName"
                     render={({ field }) => (
                       <FormItem className="w-full">
-                        <FormLabel>Name</FormLabel>
+                        <FormLabel>{t("formFields.name.label")}</FormLabel>
                         <FormControl>
-                          <Input type="text" placeholder="Your name" {...field} />
+                          <Input type="text" placeholder={t("formFields.name.placeholder")} {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -125,9 +141,9 @@ export default function RegisterForm({
                     name="lastName"
                     render={({ field }) => (
                       <FormItem className="w-full">
-                        <FormLabel>Surname</FormLabel>
+                        <FormLabel>{t("formFields.surname.label")}</FormLabel>
                         <FormControl>
-                          <Input type="text" placeholder="Your surname" {...field} />
+                          <Input type="text" placeholder={t("formFields.surname.placeholder")} {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -140,9 +156,9 @@ export default function RegisterForm({
                     name="email"
                     render={({ field }) => (
                       <FormItem className="w-full">
-                        <FormLabel>Email address</FormLabel>
+                        <FormLabel>{t("formFields.email.label")}</FormLabel>
                         <FormControl>
-                          <Input type="email" placeholder="Email address" {...field} />
+                          <Input type="email" placeholder={t("formFields.email.placeholder")} {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -153,9 +169,9 @@ export default function RegisterForm({
                     name="company"
                     render={({ field }) => (
                       <FormItem className="w-full">
-                        <FormLabel>Company (optional)</FormLabel>
+                        <FormLabel>{t("formFields.company.label")}</FormLabel>
                         <FormControl>
-                          <Input type="text" placeholder="Company name" {...field} />
+                          <Input type="text" placeholder={t("formFields.company.placeholder")} {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -166,9 +182,14 @@ export default function RegisterForm({
                     name="phoneNumber"
                     render={({ field }) => (
                       <FormItem className="w-full">
-                        <FormLabel>Phone number</FormLabel>
+                        <FormLabel>{t("formFields.phonenumber.label")}</FormLabel>
                         <FormControl>
-                          <PhoneInput placeholder="Enter a phone number" {...field} defaultCountry="ZA" international />
+                          <PhoneInput
+                            placeholder={t("formFields.phonenumber.placeholder")}
+                            {...field}
+                            defaultCountry="ZA"
+                            international
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -179,8 +200,8 @@ export default function RegisterForm({
                     name="isAgent"
                     render={({ field }) => (
                       <FormItem className="w-full flex justify-start items-center gap-5">
-                        <FormLabel>Interested in selling your property?</FormLabel>
-                        <FormDescription>Our sales team will contact you shortly.</FormDescription>
+                        <FormLabel>{t("formFields.isAgent.label")}</FormLabel>
+                        <FormDescription>{t("formFields.isAgent.description")}</FormDescription>
                         <FormControl className="">
                           <Switch
                             checked={field.value}
@@ -196,7 +217,7 @@ export default function RegisterForm({
               </div>
 
               <Button type="submit" className="text-white bg-accent w-full">
-                Submit
+                {t("formFields.submitButton")}
               </Button>
             </form>
           </Form>

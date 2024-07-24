@@ -35,12 +35,8 @@ const app = new Hono()
       "json",
       z.object({
         user_id: z.string().min(10, { message: "User id is required" }),
-        firstName: z
-          .string()
-          .min(3, { message: "Name must be at least 3 characters long." }),
-        lastName: z
-          .string()
-          .min(3, { message: "Surname must be at least 3 characters long." }),
+        firstName: z.string().min(3, { message: "Name must be at least 3 characters long." }),
+        lastName: z.string().min(3, { message: "Surname must be at least 3 characters long." }),
         email: z.string().email({ message: "Email address must be valid." }),
         company: z.string().optional(),
         phoneNumber: z.string().optional(),
@@ -51,36 +47,31 @@ const app = new Hono()
       const { userId } = await authenticateUser(c);
       const userForm = c.req.valid("json");
 
-      if (userId !== userForm.user_id)
-        throw new HTTPException(401, { message: "Unable to Authenticate" });
+      if (userId !== userForm.user_id) throw new HTTPException(401, { message: "Unable to Authenticate" });
 
-      let user: User | null = null;
-      try {
-        user = await db.user.create({
-          data: {
-            email: userForm.email,
-            company: userForm.company,
-            public_id: userForm.user_id,
-            lastName: userForm.lastName,
-            firstName: userForm.firstName,
-            role: userForm.isAgent ? "agent" : "viewer",
-            subscriptions: {
-              create: {
-                end_date: new Date(),
-                start_date: new Date(),
-                plan_type: "Pending",
-                payment_status: "Unpaid",
-              },
+      const startDate = new Date();
+      const endDate = startDate;
+      endDate.setDate(startDate.getDate() + 30);
+
+      // Create User
+      await db.user.create({
+        data: {
+          email: userForm.email,
+          company: userForm.company,
+          public_id: userForm.user_id,
+          lastName: userForm.lastName,
+          firstName: userForm.firstName,
+          role: userForm.isAgent ? "agent" : "viewer",
+          subscriptions: {
+            create: {
+              start_date: startDate,
+              end_date: endDate,
+              plan_type: "Trail",
+              payment_status: "Unpaid",
             },
           },
-        });
-
-        return c.json({ status: "" });
-      } catch (e) {
-        if (e instanceof Prisma.PrismaClientKnownRequestError) {
-          if (e.code === "P2002") return c.json({ status: "P2002" });
-        }
-      }
+        },
+      });
     }
   )
   .post(
@@ -146,6 +137,7 @@ const app = new Hono()
 
     if (userId !== publicId) throw new HTTPException(401);
 
+    // TODO: Implement client side handling
     return c.json(
       await db.user.findUniqueOrThrow({
         where: { public_id: publicId },
@@ -154,6 +146,16 @@ const app = new Hono()
           lastName: true,
           email: true,
           public_id: true,
+          subscriptions: {
+            where: {
+              plan_type: { not: "Pending" },
+              end_date: {
+                not: {
+                  gt: new Date(),
+                },
+              },
+            },
+          },
         },
       })
     );
