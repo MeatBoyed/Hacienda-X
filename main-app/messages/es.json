@@ -2,11 +2,14 @@
   "Index": {
     "Hero": {
       "heading": "Encuentra tu Hogar Perfecto",
-      "subHeading": "Descubre Propiedades que Se Adaptan a Tu Estilo de Vida"
+      "subHeading": "Descubre Propiedades que Se Adaptan a Tu Estilo de Vida",
+      "button1": "Búsqueda en el mapa",
+      "button2": "Buscar propiedades"
     },
     "Residencies": {
       "heading": "Residencias Populares",
-      "subHeading": "Propiedades Destacadas"
+      "subHeading": "Propiedades Destacadas",
+      "button": "Ver más"
     },
     "HowItWorks": {
       "sellPropertyCard": {
@@ -576,5 +579,72 @@
         "userId": "Se requiere el ID de usuario"
       }
     }
+  },
+  "Footer": {
+    "servicesTitle": "Servicios",
+    "servicesDescription": "Esta es nuestra plataforma donde te ayudamos a encontrar tu hogar perfecto.",
+    "companyTitle": "Compañía",
+    "aboutUs": "Sobre Nosotros",
+    "contactUs": "Contáctenos",
+    "signUp": "Regístrate",
+    "usefulLinksTitle": "Enlaces Útiles",
+    "properties": "Propiedades",
+    "favorites": "Favoritos",
+    "pricing": "Precios",
+    "sellYourProperty": "Vende Tu Propiedad",
+    "letterboxTitle": "Buzón",
+    "emailPlaceholder": "Tu Correo Electrónico",
+    "subscribeButton": "Suscribirse",
+    "copyright": "© 2024. Hacienda. Todos los derechos reservados."
+  },
+  "bedrooms": "Dormitorio",
+  "numberOfBedrooms": "Número de dormitorios",
+  "bathrooms": "Baños",
+  "numberOfBathrooms": "Número de baños",
+  "priceRange": "Rango de precios",
+  "minPriceRange": "Rango de precio mínimo",
+  "minPrice": "Precio mínimo",
+  "maxPriceRange": "Rango de precio máximo",
+  "maxPrice": "Precio máximo",
+  "reset": "Restablecer",
+  "applyFilter": "Aplicar filtro",
+  "priceRangeError": "El rango de precios debe ser un número",
+  "bedroomsError": "La cantidad de dormitorios debe ser un número",
+  "bathroomsError": "La cantidad de baños debe ser un número",
+  "propertyform": {
+    "contactAgent": "Contactar al agente",
+    "agentDescription": "Nuestros agentes están aquí para ayudarte",
+    "name": "Nombre",
+    "yourName": "Tu nombre",
+    "surname": "Apellido",
+    "yourSurname": "Tu apellido",
+    "email": "Correo electrónico",
+    "emailPlaceholder": "Correo electrónico",
+    "phoneNumber": "Número de teléfono",
+    "phonePlaceholder": "Ingrese un número de teléfono",
+    "message": "Mensaje",
+    "messagePlaceholder": "Estoy interesado en esta propiedad, por favor contácteme.",
+    "submit": "Enviar",
+    "nameError": "El nombre debe tener al menos 3 caracteres.",
+    "surnameError": "El apellido debe tener al menos 3 caracteres.",
+    "emailError": "La dirección de correo electrónico debe ser válida.",
+    "messageError": "Por favor, ingrese un mensaje breve, de más de 10 caracteres.",
+    "phoneError": "Número de teléfono no válido",
+    "propertyIdError": "Se requiere Id de propiedad",
+    "agentIdError": "Se requiere Id de agente",
+    "unexpectedError": "Algo inesperado sucedió.",
+    "tryAgain": "Por favor, inténtalo de nuevo....",
+    "leadPosted": "¡Tu contacto ha sido enviado!",
+    "thankYou": "Gracias por tu consulta. Nos pondremos en contacto pronto."
+  },
+  "propertydetails": {
+    "aboutProperty": "Sobre la propiedad",
+    "posted": "Publicado:",
+    "meetAgent": "Conoce a tu agente",
+    "offerTitle": "Lo que este lugar ofrece",
+    "bedrooms": "{count} Dormitorios",
+    "bathrooms": "{count} Baños",
+    "squareMeters": "{count} m²",
+    "extraFeatures": "Características adicionales"
   }
 }

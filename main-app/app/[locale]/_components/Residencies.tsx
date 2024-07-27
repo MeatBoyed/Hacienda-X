@@ -12,6 +12,8 @@ import { PropertyWithAddress } from "@/Server/utils/utils";
 import { PropertyCard } from "@/components/PropertyCard";
 import { cn } from "@/components/ImagesInput/FileInputUtils";
 
+import { useTranslations } from "next-intl";
+
 // Handles calling Fetch API (This is an example, it has been extracted into the Utils file)
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 

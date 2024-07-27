@@ -27,8 +27,9 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
-import { coerce, z } from "zod";
+import { z, coerce } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useTranslations } from "next-intl";
 
 export const SearchQueryParameterSchema = z.object({
   minPrice: z.coerce
@@ -46,6 +47,7 @@ export const SearchQueryParameterSchema = z.object({
 });
 
 export default function SearchFilters({ onSubmit }: { onSubmit: () => void }) {
+  const t = useTranslations();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -102,20 +104,20 @@ export default function SearchFilters({ onSubmit }: { onSubmit: () => void }) {
               name="bedrooms"
               render={({ field }) => (
                 <FormItem className="w-full">
-                  <FormLabel>Bedroom</FormLabel>
+                  <FormLabel>{t("bedrooms")}</FormLabel>
                   <FormControl>
                     <Select
                       value={field.value?.toString()}
                       onValueChange={field.onChange}
                     >
                       <SelectTrigger className="">
-                        <SelectValue placeholder="Number of Bedrooms" />
+                        <SelectValue placeholder={t("numberOfBedrooms")} />
                       </SelectTrigger>
                       <SelectContent className="">
                         <SelectGroup>
-                          <SelectLabel>Bedrooms</SelectLabel>
+                          <SelectLabel>{t("bedrooms")}</SelectLabel>
                           <SelectItem key={"0 Bedrooms"} value={"0"}>
-                            Number of Bedrooms
+                            {t("numberOfBedrooms")}
                           </SelectItem>
                           {SelectBedroomsOptions.map((option) => (
                             <SelectItem key={option.key} value={option.value}>
@@ -136,20 +138,20 @@ export default function SearchFilters({ onSubmit }: { onSubmit: () => void }) {
               name="bathrooms"
               render={({ field }) => (
                 <FormItem className="w-full">
-                  <FormLabel>Bathrooms</FormLabel>
+                  <FormLabel>{t("bathrooms")}</FormLabel>
                   <FormControl>
                     <Select
                       value={field.value?.toString()}
                       onValueChange={field.onChange}
                     >
                       <SelectTrigger className="">
-                        <SelectValue placeholder="Number of Bathrooms" />
+                        <SelectValue placeholder={t("numberOfBathrooms")} />
                       </SelectTrigger>
                       <SelectContent className="">
                         <SelectGroup>
-                          <SelectLabel>Bathrooms</SelectLabel>
+                          <SelectLabel>{t("bathrooms")}</SelectLabel>
                           <SelectItem key={"0 Bathrooms"} value={"0"}>
-                            Number of Bathrooms
+                            {t("numberOfBathrooms")}
                           </SelectItem>
                           {SelectBathroomsOptions.map((option) => (
                             <SelectItem key={option.key} value={option.value}>
@@ -165,7 +167,7 @@ export default function SearchFilters({ onSubmit }: { onSubmit: () => void }) {
               )}
             />
             <div className="flex justify-center items-start flex-col gap-3 w-full">
-              <FormLabel className="w-full">Price range</FormLabel>
+              <FormLabel className="w-full">{t("priceRange")}</FormLabel>
               <div className="flex justify-center items-center  gap-4 w-full ">
                 {/* Min Price */}
                 <FormField
@@ -179,13 +181,13 @@ export default function SearchFilters({ onSubmit }: { onSubmit: () => void }) {
                           onValueChange={field.onChange}
                         >
                           <SelectTrigger className="">
-                            <SelectValue placeholder="Min price range" />
+                            <SelectValue placeholder={t("minPriceRange")} />
                           </SelectTrigger>
                           <SelectContent className="">
                             <SelectGroup>
-                              <SelectLabel>Min Price</SelectLabel>
+                              <SelectLabel>{t("minPrice")}</SelectLabel>
                               <SelectItem key={"0 Bathrooms"} value={"0"}>
-                                Min price
+                                {t("minPrice")}
                               </SelectItem>
                               {SelectPriceOptions.map((option) => (
                                 <SelectItem
@@ -215,12 +217,14 @@ export default function SearchFilters({ onSubmit }: { onSubmit: () => void }) {
                           onValueChange={field.onChange}
                         >
                           <SelectTrigger className="">
-                            <SelectValue placeholder="Max price range" />
+                            <SelectValue placeholder={t("maxPriceRange")} />
                           </SelectTrigger>
                           <SelectContent className="">
                             <SelectGroup>
-                              <SelectLabel>Max Price</SelectLabel>
-                              <SelectItem value={"0"}>Max Price</SelectItem>
+                              <SelectLabel>{t("maxPrice")}</SelectLabel>
+                              <SelectItem value={"0"}>
+                                {t("maxPrice")}
+                              </SelectItem>
                               {SelectPriceOptions.map((option) => (
                                 <SelectItem
                                   key={option.key}
@@ -254,13 +258,13 @@ export default function SearchFilters({ onSubmit }: { onSubmit: () => void }) {
               variant={"outline"}
               className="hover:bg-red-500 hover:text-white"
             >
-              Reset
+              {t("reset")}
             </Button>
             <Button
               type="submit"
               className="bg-accent hover:bg-blue-500 hover:text-white w-full shadow-md"
             >
-              Apply filter
+              {t("applyFilter")}
             </Button>
           </div>
         </form>
