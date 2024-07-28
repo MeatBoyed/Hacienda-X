@@ -1,21 +1,19 @@
 "use client";
-import React, { Dispatch, SetStateAction, useState } from "react";
+
+import React, { useState } from "react";
 import { Input } from "./ui/input";
 import { HomeIcon, MapPin, Search, SlidersHorizontal } from "lucide-react";
 import SearchFilters from "@/app/[locale]/_components/SearchFilters";
-import { Button, buttonVariants } from "./ui/button";
+import { Button } from "./ui/button";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import Link from "next/link";
 import { cn } from "@/components/ImagesInput/FileInputUtils";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-
 import { useTranslations } from "next-intl";
 
 export function SearchBar({
@@ -26,6 +24,8 @@ export function SearchBar({
   mapView?: boolean;
 }) {
   const [filterOpen, setFilterOpen] = useState(false);
+  const t = useTranslations("Index.SearchBar");
+
   return (
     <div
       id="searchbar"
@@ -34,12 +34,6 @@ export function SearchBar({
         classname
       )}
     >
-      {/* <Input
-        type="text"
-        placeholder="Search town, city, provience"
-        className="border-0 bg-white text-black shadow-lg "
-      /> */}
-
       <div className="flex justify-center w-full items-center gap-3 flex-col sm:flex-row">
         <Dialog open={filterOpen} onOpenChange={setFilterOpen}>
           <DialogTrigger className="w-full">
@@ -47,15 +41,15 @@ export function SearchBar({
               size={"sm"}
               className="bg-accent text-white hover:text-black w-full shadow-md hover:border-background hover:bg-gray-100 hover:border rounded-md"
             >
-              <div className=" w-full flex justify-center items-center gap-3">
+              <div className="w-full flex justify-center items-center gap-3">
                 <SlidersHorizontal size={15} className="" />
-                <p className="text-text ">Filter</p>
+                <p className="text-text">{t("filterButton")}</p>
               </div>
             </Button>
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>Filter your search</DialogTitle>
+              <DialogTitle>{t("filterDialogTitle")}</DialogTitle>
             </DialogHeader>
             <div className="">
               <SearchFilters onSubmit={() => setFilterOpen(false)} />
@@ -72,7 +66,7 @@ export function SearchBar({
               href="/property-for-sale/map"
               className="flex justify-center items-center gap-3"
             >
-              <MapPin size={15} /> Map Search
+              <MapPin size={15} /> {t("button1")}
             </Link>
           </Button>
         ) : (
@@ -84,23 +78,18 @@ export function SearchBar({
               size={"sm"}
               className="bg-white w-full text-black hover:border-background hover:bg-accent hover:text-white shadow-md gap-3 hover: rounded-md"
             >
-              <HomeIcon size={15} /> Property Search
+              <HomeIcon size={15} /> {t("propertySearchButton")}
             </Button>
           </Link>
         )}
-        {/* <Button
-          size={"lg"}
-          className="bg-accent w-full text-white hover:bg-blue-600  hover:text-white shadow-lg gap-3"
-        >
-          <Search size={15} /> Search
-        </Button> */}
       </div>
     </div>
   );
 }
 
 export function HomePageSearchBar() {
-  const t = useTranslations("Index");
+  const t = useTranslations("Index.Hero");
+
   return (
     <div
       id="searchbar"
@@ -113,10 +102,10 @@ export function HomePageSearchBar() {
         >
           <Button
             size={"lg"}
-            className="bg-white w-full  text-black hover:border-background hover:bg-accent hover:text-white shadow-lg gap-3 hover: rounded-md"
+            className="bg-white w-full text-black hover:border-background hover:bg-accent hover:text-white shadow-lg gap-3 hover: rounded-md"
           >
             <MapPin size={15} />
-            <p className="text-text ">{t("Hero.button1")}</p>
+            <p className="text-text">{t("button1")}</p>
           </Button>
         </Link>
         <Link
@@ -125,10 +114,10 @@ export function HomePageSearchBar() {
         >
           <Button
             size={"lg"}
-            className="bg-accent w-full text-white hover:bg-blue-600  hover:text-white shadow-lg gap-3"
+            className="bg-accent w-full text-white hover:bg-blue-600 hover:text-white shadow-lg gap-3"
           >
             <Search size={15} />
-            <p className="text-text ">{t("Hero.button2")}</p>
+            <p className="text-text">{t("button2")}</p>
           </Button>
         </Link>
       </div>

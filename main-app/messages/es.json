@@ -6,10 +6,18 @@
       "button1": "Búsqueda en el mapa",
       "button2": "Buscar propiedades"
     },
+    "SearchBar": {
+      "filterButton": "Filtrar",
+      "filterDialogTitle": "Filtra tu búsqueda",
+      "propertySearchButton": "Búsqueda de Propiedades",
+      "button1": "Búsqueda en el mapa",
+      "button2": "Buscar propiedades"
+    },
     "Residencies": {
       "heading": "Residencias Populares",
       "subHeading": "Propiedades Destacadas",
-      "button": "Ver más"
+      "button": "Ver más",
+      "error": "Ocurrió un error. Por favor, inténtelo de nuevo."
     },
     "HowItWorks": {
       "sellPropertyCard": {
@@ -514,6 +522,15 @@
           "mostRecent": "Más recientes",
           "size": "Tamaño"
         }
+      }
+    },
+    "Property": {
+      "errors": {
+        "fetchingError": "Error while fetching the property details"
+      },
+      "viewMore": {
+        "subHeading": "Propiedades relacionadas",
+        "heading": "Propiedades"
       }
     }
   },

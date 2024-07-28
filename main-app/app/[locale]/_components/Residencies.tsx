@@ -34,6 +34,7 @@ export default function Residencies({
     fetcher
   );
 
+  const t = useTranslations("Index.Residencies");
   return (
     <section id="residencies" className={cn("my-12 w-full", margin)}>
       <div
@@ -55,15 +56,13 @@ export default function Residencies({
             variant={"default"}
             className="bg-accent hover:bg-primary hover:border hover:border-accent hover:text-foreground hidden md:block"
           >
-            <Link href="/property-for-sale">See more</Link>
+            <Link href="/property-for-sale">{t("button")}</Link>
           </Button>
         </div>
 
         {error && !isLoading && (
           <div className="flex justify-center items-center py-20">
-            <p className="text-black text-lg">
-              An error occurred. Please try again.
-            </p>
+            <p className="text-black text-lg">{t("error")}</p>
           </div>
         )}
 

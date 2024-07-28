@@ -7,10 +7,18 @@
       "button1": "Map Search",
       "button2": "Find Properties"
     },
+    "SearchBar": {
+      "filterButton": "Filter",
+      "filterDialogTitle": "Filter your search",
+      "propertySearchButton": "Property Search",
+      "button1": "Map Search",
+      "button2": "Find Properties"
+    },
     "Residencies": {
       "heading": "Popular Residencies",
       "subHeading": "Featured Properties",
-      "button": "See More"
+      "button": "See More",
+      "error": "An error occurred. Please try again."
     },
     "HowItWorks": {
       "sellPropertyCard": {
