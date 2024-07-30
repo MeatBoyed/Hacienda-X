@@ -240,7 +240,7 @@
       "Leads": {
         "heading": "Leads",
         "subHeading": "View all your leads.",
-        "noLeads": "You currently have no Leads, but don&#39;t worry we will notify you of new leads!",
+        "noLeads": "You currently have no Leads, but don't worry we will notify you of new leads!",
         "leadCard": {
           "title": "Your Lead for",
           "description": "Use these details to contact the customer and close your deal.",
@@ -265,7 +265,7 @@
     "propertiesComp": {
       "_componentComment": "This relates to the Properties Component.",
       "heading": "Properties",
-      "noProperties": "You have no properties. Let&#39;s go add one!"
+      "noProperties": "You have no properties. Let's go add one!"
     },
     "propertyFormComp": {
       "formHeadComp": {
@@ -540,10 +540,10 @@
   "Onboarding": {
     "greeting": {
       "welcome": "Welcome",
-      "subHeading": "Let&apos;s get started by setting up your account."
+      "subHeading": "Let's get started by setting up your account."
     },
     "unAuthed": {
-      "title": "First, let&apos;s create your account",
+      "title": "First, let's create your account",
       "subHeading": "Our agents are here to assist you",
       "button": "Sign In"
     },
