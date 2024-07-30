@@ -1,11 +1,11 @@
 "use client";
 import useSWR from "swr";
-import { fetcher } from "@/components/ImagesInput/FileInputUtils";
 import { useParams } from "next/navigation";
 import PropertyForm from "../_components/PropertyForm";
 import { PropertyWithAddress } from "@/Server/utils/utils";
 import { PuffLoader } from "react-spinners";
 import { useTranslations } from "next-intl";
+import { fetcher } from "@/components/UploadShad/FileInputUtils";
 
 // Allow user's to request property features for us to add
 export default function ManageProperty() {

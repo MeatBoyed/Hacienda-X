@@ -19,6 +19,7 @@
     "@dnd-kit/sortable": "^8.0.0",
     "@dnd-kit/utilities": "^3.2.2",
     "@googlemaps/js-api-loader": "^1.16.6",
+    "@hello-pangea/dnd": "^16.6.0",
     "@hono-storage/s3": "^0.0.11",
     "@hono/clerk-auth": "^2.0.0",
     "@hono/zod-validator": "^0.2.1",

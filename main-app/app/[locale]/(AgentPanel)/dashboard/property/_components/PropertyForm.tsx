@@ -27,7 +27,6 @@ import {
 import useSWRMutation from "swr/mutation";
 import { toast } from "sonner";
 import { AddressInput } from "../../../../../../components/AddressInput";
-import { ImagesInput } from "@/components/ImagesInput/ImagesInput";
 import { DeleteProperty, PostProperty } from "@/lib/RequestUtils";
 import { PropertyWithAddress } from "@/Server/utils/utils";
 import { usePathname, useRouter } from "next/navigation";
@@ -35,6 +34,7 @@ import { UserContext, UserContextType } from "@/lib/userContext";
 import { Badge } from "@/components/ui/badge";
 import { useTranslations } from "next-intl";
 import PropertyFormHead from "./PropertyFormHead";
+import { UploadShad } from "@/components/UploadShad/main";
 
 // TODO: Make Select translated & make Schema follow translations
 export default function PropertyForm({ initProperty, locale }: { initProperty?: PropertyWithAddress; locale?: string }) {
@@ -318,7 +318,7 @@ export default function PropertyForm({ initProperty, locale }: { initProperty?: 
                         <FormItem>
                           <FormMessage />
                           <FormControl className="px-2 pb-4">
-                            <ImagesInput
+                            <UploadShad
                               maxFiles={MAXFILES}
                               maxSize={5 * 1024 * 1024}
                               defaultValues={initProperty ? field.value : []}

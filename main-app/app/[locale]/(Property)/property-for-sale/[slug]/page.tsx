@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import { useParams } from "next/navigation";
-import { fetcher } from "@/components/ImagesInput/FileInputUtils";
 import useSWR from "swr";
 import { PropertyWithAddressAndAgent } from "@/Server/utils/utils";
 import Loader from "@/components/ui/loader";
@@ -17,6 +16,7 @@ import { useRouter } from "next/navigation";
 import PropertyCarousel from "./_components/ImageCarousel";
 import Residencies from "@/app/[locale]/_components/Residencies";
 import { useTranslations } from "next-intl";
+import { fetcher } from "@/components/UploadShad/FileInputUtils";
 
 // Handler for the API request (Server Side)
 export default function PropertyPage() {

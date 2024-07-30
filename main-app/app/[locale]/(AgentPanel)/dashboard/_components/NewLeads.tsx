@@ -1,7 +1,6 @@
 "use client";
 
 import { Skeleton } from "@/components/ui/skeleton";
-import { fetcher } from "@/components/ImagesInput/FileInputUtils";
 import { Lead } from "@prisma/client";
 import { ChevronRight, Copy } from "lucide-react";
 import { useMemo } from "react";
@@ -23,6 +22,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
+import { fetcher } from "@/components/UploadShad/FileInputUtils";
 
 export default function NewLeads() {
   const t = useTranslations("Dashboard.Index.Leads");

@@ -10,7 +10,7 @@ import Link from "next/link";
 import PropertyCarousel from "@/components/PropertyCarousel";
 import { PropertyWithAddress } from "@/Server/utils/utils";
 import { PropertyCard } from "@/components/PropertyCard";
-import { cn } from "@/components/ImagesInput/FileInputUtils";
+import { cn } from "@/components/UploadShad/FileInputUtils";
 
 // Handles calling Fetch API (This is an example, it has been extracted into the Utils file)
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
@@ -27,27 +27,15 @@ export default function Residencies({
   margin?: string;
 }) {
   // Handles all data fetching states, calls the Fetching Handler
-  const { data, error, isLoading } = useSWR<PropertyWithAddress[]>(
-    "/api/properties",
-    fetcher
-  );
+  const { data, error, isLoading } = useSWR<PropertyWithAddress[]>("/api/properties", fetcher);
 
   return (
     <section id="residencies" className={cn("my-12 w-full", margin)}>
-      <div
-        className={cn(
-          "px-4 flex justify-center items-center flex-col w-full gap-5 sm:px-5 xl:px-32 ",
-          className
-        )}
-      >
+      <div className={cn("px-4 flex justify-center items-center flex-col w-full gap-5 sm:px-5 xl:px-32 ", className)}>
         <div className="flex justify-between items-center w-full">
           <div className="flex flex-col">
-            <p className="text-lg font-semibold opacity-80 text-accent">
-              {subHeading}
-            </p>
-            <h2 className="text-3xl font-semibold tracking-tight pb-2">
-              {heading}
-            </h2>
+            <p className="text-lg font-semibold opacity-80 text-accent">{subHeading}</p>
+            <h2 className="text-3xl font-semibold tracking-tight pb-2">{heading}</h2>
           </div>
           <Button
             variant={"default"}
@@ -59,9 +47,7 @@ export default function Residencies({
 
         {error && !isLoading && (
           <div className="flex justify-center items-center py-20">
-            <p className="text-black text-lg">
-              An error occurred. Please try again.
-            </p>
+            <p className="text-black text-lg">An error occurred. Please try again.</p>
           </div>
         )}
 
@@ -74,10 +60,7 @@ export default function Residencies({
         )}
 
         <PropertyCarousel className="">
-          {data &&
-            data.map((property, index) => (
-              <PropertyCard key={index} property={property} />
-            ))}
+          {data && data.map((property, index) => <PropertyCard key={index} property={property} />)}
         </PropertyCarousel>
       </div>
     </section>

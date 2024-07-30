@@ -5,8 +5,8 @@ import { GetUsersProperty } from "@/lib/RequestUtils";
 import { PropertyWithAddress } from "@/Server/utils/utils";
 import PropertyInsightCard, { PropertyInsightCardSkeleton } from "../../_components/PropertyInsightCard";
 import { useMemo } from "react";
-import { cn } from "@/components/ImagesInput/FileInputUtils";
 import { useTranslations } from "next-intl";
+import { cn } from "@/components/UploadShad/FileInputUtils";
 
 export default function Properties({ className }: { className?: string }) {
   const t = useTranslations("Dashboard.propertiesComp");

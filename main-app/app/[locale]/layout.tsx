@@ -1,10 +1,10 @@
 import "./globals.css";
-import { cn } from "@/components/ImagesInput/FileInputUtils";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Providers from "@/components/Providers/Providers";
 import PostHogClient from "@/components/Posthog";
 import { auth } from "@clerk/nextjs/server";
+import { cn } from "@/components/UploadShad/FileInputUtils";
 
 const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {

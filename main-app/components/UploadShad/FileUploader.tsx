@@ -5,14 +5,13 @@ import Image from "next/image";
 import Dropzone, { type DropzoneProps, type FileRejection } from "react-dropzone";
 import { toast } from "sonner";
 import { cn, formatBytes } from "./FileInputUtils";
-import { useControllableState } from "@/lib/useControllableState";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { UploadIcon, X } from "lucide-react";
 import { useContext } from "react";
-import { UploadContext, UploadContextType } from "./uploadContext";
-import { useTranslations } from "next-intl";
+import { UploadContext, UploadContextType } from "./hooks/uploadContext";
+import { useControllableState } from "./hooks/useControllableState";
 
 interface FileUploaderProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
@@ -92,7 +91,7 @@ interface FileUploaderProps extends React.HTMLAttributes<HTMLDivElement> {
   disabled?: boolean;
 }
 
-export function FileUploader(props: FileUploaderProps) {
+const FileUploader = React.forwardRef<HTMLInputElement, FileUploaderProps>((props, ref) => {
   const {
     value: valueProp,
     onValueChange,
@@ -106,8 +105,6 @@ export function FileUploader(props: FileUploaderProps) {
     ...dropzoneProps
   } = props;
 
-  const t = useTranslations("Dashboard.propertyFormComp.formFields.images.fileUploaderComp");
-
   // Upload Context state
   const { uploadedImages, handleUpload } = useContext(UploadContext) as UploadContextType;
 
@@ -120,8 +117,8 @@ export function FileUploader(props: FileUploaderProps) {
     (acceptedFiles: File[], rejectedFiles: FileRejection[]) => {
       // Manage Component's Validation
       if (!multiple && maxFiles === 1 && acceptedFiles.length > 1) {
-        toast.error(`${t("error.main")}`, {
-          description: `${t("error.multipleError")}`,
+        toast.error("Ooops, you can't do that.", {
+          description: "Cannot upload more than 1 file at a time",
           duration: 10000,
         });
         return;
@@ -130,8 +127,8 @@ export function FileUploader(props: FileUploaderProps) {
       console.log("Totoal Input length", uploadedImages?.length || 0 + acceptedFiles.length);
       if ((uploadedImages?.length ?? 0) + acceptedFiles.length > maxFiles) {
         console.log("Hello youu");
-        toast.error("${t('error.main')}", {
-          description: `${t("error.maxFiles.part1")} ${maxFiles} {t('error.maxFiles.part2')}`,
+        toast.error("Oops, you can't do that.", {
+          description: `Cannot upload more than ${maxFiles} files`,
           duration: 10000,
         });
         return;
@@ -153,24 +150,19 @@ export function FileUploader(props: FileUploaderProps) {
           errors.forEach((error) => {
             switch (error.code) {
               case "file-too-large":
-                toast.error(
-                  `${t("error.filesTooLarge.title.part1")} ${formatBytes(maxSize)} ${t("error.filesTooLarge.title.part2")}`,
-                  {
-                    description: `{t('error.filesTooLarge.description.part1')} ${file.name} ${t(
-                      "error.filesTooLarge.description.part2"
-                    )}`,
-                    duration: 10000,
-                  }
-                );
+                toast.error(`Oh no! Images bigger than ${formatBytes(maxSize)} are not allowed.`, {
+                  description: `File ${file.name} was rejected.`,
+                  duration: 10000,
+                });
                 break;
               case "file-invalid-type":
-                toast.error(`${t("error.invalidType.title.part1")} ${file.type} ${t("error.invalidType.title.part2")}`, {
-                  description: `{t('error.invalidType.description.part1')} ${file.name} {t('error.invalidType.description.part2')}`,
+                toast.error(`Oh no! ${file.type} are not allowed.`, {
+                  description: `File ${file.name} was rejected.`,
                   duration: 10000,
                 });
                 break;
               default:
-                toast.error(`${t("error.defaultMessage")}`, {
+                toast.error("Oops, something happened.", {
                   description: `File ${file.name} was rejected.`,
                   duration: 10000,
                 });
@@ -246,7 +238,7 @@ export function FileUploader(props: FileUploaderProps) {
                 <div className="rounded-full border border-dashed p-3">
                   <UploadIcon className="size-7 text-muted-foreground" aria-hidden="true" />
                 </div>
-                <p className="font-medium text-muted-foreground">{t("dropActive")}</p>
+                <p className="font-medium text-muted-foreground">Drop the files here</p>
               </div>
             ) : (
               <div className="flex flex-col items-center justify-center gap-4 sm:px-5">
@@ -254,15 +246,13 @@ export function FileUploader(props: FileUploaderProps) {
                   <UploadIcon className="size-7 text-muted-foreground" aria-hidden="true" />
                 </div>
                 <div className="flex justify-center items-center gap-3 flex-col">
-                  <p className="font-medium text-muted-foreground">
-                    {t("heading.part1")} {`'n'`} {t("heading.part2")}
-                  </p>
+                  <p className="font-medium text-muted-foreground">Drag {`'n'`} drop files here, or click to select files</p>
                   <p className="text-sm text-muted-foreground/70">
-                    {t("subHeading.part1")}
+                    You can upload
                     {maxFiles > 1
                       ? ` ${maxFiles === Infinity ? "multiple" : maxFiles}
-                      {t('subHeading.part2')} ${formatBytes(maxSize)} {t('subHeading.part3')}`
-                      : ` {t('subHeading.part4')} ${formatBytes(maxSize)}`}
+                      files (up to ${formatBytes(maxSize)} each)`
+                      : ` a file with ${formatBytes(maxSize)}`}
                   </p>
                 </div>
               </div>
@@ -281,16 +271,18 @@ export function FileUploader(props: FileUploaderProps) {
       ) : null}
     </div>
   );
-}
+});
+FileUploader.displayName = "FileUploader";
 
-interface FileCardProps {
+export { FileUploader };
+
+interface FileCardProps extends React.HTMLAttributes<HTMLDivElement> {
   file: File;
   onRemove: () => void;
   progress?: number;
 }
 
-function FileCard({ file, progress, onRemove }: FileCardProps) {
-  const t = useTranslations("Dashboard.propertyFormComp.formFields.images.fileUploaderComp");
+const FileCard = React.forwardRef<HTMLDivElement, FileCardProps>(({ className, file, onRemove, progress, ...props }, ref) => {
   return (
     <div className="relative flex items-center space-x-4">
       <div className="flex flex-1 space-x-4">
@@ -315,12 +307,13 @@ function FileCard({ file, progress, onRemove }: FileCardProps) {
       <div className="flex items-center gap-2">
         <Button type="button" variant="outline" size="icon" className="size-7" onClick={onRemove}>
           <X className="size-4 " aria-hidden="true" />
-          <span className="sr-only">{t("removeFile")}</span>
+          <span className="sr-only">Remove file</span>
         </Button>
       </div>
     </div>
   );
-}
+});
+FileCard.displayName = "FileCard";
 
 function isFileWithPreview(file: File): file is File & { preview: string } {
   return "preview" in file && typeof file.preview === "string";

@@ -2,7 +2,7 @@ import { MapComp } from "@/components/Map";
 import { GenericPropertyResponse, PropertyWithAddress } from "@/Server/utils/utils";
 import Residencies from "@/app/[locale]/_components/Residencies";
 import useSWR from "swr";
-import { fetcher } from "@/components/ImagesInput/FileInputUtils";
+import { fetcher } from "@/components/UploadShad/FileInputUtils";
 
 export default function LocationSection({ property }: { property: PropertyWithAddress }) {
   const { data } = useSWR<PropertyWithAddress[]>("/api/properties", fetcher);

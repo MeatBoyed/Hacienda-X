@@ -1,45 +1,21 @@
 import { FileUploader } from "./FileUploader";
 import { cn } from "./FileInputUtils";
 import React from "react";
-import { UploadedFilesCard } from "./UploadedFilesCard";
-import { UploadContextProvider } from "./uploadContext";
+import { UploadContextProvider } from "./hooks/uploadContext";
+import { UploadedFiles } from "./UploadedFiles";
 
-export interface InputProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   defaultValues?: string[];
   maxFiles: number;
   maxSize: number;
-  handleChange: (
-    uploadedImages: { newImages: File[]; order: string[] },
-    deletedImages?: string[],
-    newImages?: File[]
-  ) => void;
+  handleChange: (uploadedImages: { newImages: File[]; order: string[] }, deletedImages?: string[], newImages?: File[]) => void;
 }
 
-const ImagesInput = React.forwardRef<HTMLInputElement, InputProps>(
-  (
-    {
-      className,
-      type,
-      defaultValues,
-      handleChange,
-      maxFiles,
-      maxSize,
-      ...props
-    },
-    ref
-  ) => {
+const UploadShad = React.forwardRef<HTMLInputElement, InputProps>(
+  ({ className, type, defaultValues, handleChange, maxFiles, maxSize, ...props }, ref) => {
     return (
-      <UploadContextProvider
-        defaultImages={defaultValues}
-        handleChange={handleChange}
-      >
-        <div
-          className={cn(
-            "w-full flex justify-center items-center gap-5 flex-col",
-            className
-          )}
-        >
+      <UploadContextProvider defaultImages={defaultValues} handleChange={handleChange}>
+        <div className={cn("w-full flex justify-center items-center gap-5 flex-col", className)}>
           {/* File Uploader manages the File states of "Pending", "Error"
       1. It stores it's own file state (buffer of Pending and Error files)
       2. It returns the uploaded Image(s) stored in file state, for hook to manipluate
@@ -57,12 +33,12 @@ const ImagesInput = React.forwardRef<HTMLInputElement, InputProps>(
           {/* Handle when max inputted files is reached */}
           {/* Controlled By Context */}
           <FileUploader maxFiles={maxFiles} maxSize={maxSize} multiple />
-          <UploadedFilesCard />
+          <UploadedFiles />
         </div>
       </UploadContextProvider>
     );
   }
 );
-ImagesInput.displayName = "ImagesInput";
+UploadShad.displayName = "ImagesInput";
 
-export { ImagesInput };
+export { UploadShad };

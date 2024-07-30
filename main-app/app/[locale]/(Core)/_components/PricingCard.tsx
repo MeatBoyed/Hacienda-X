@@ -1,6 +1,6 @@
 import { ReactNode, useState } from "react";
 import Link from "next/link";
-import { cn } from "@/components/ImagesInput/FileInputUtils";
+import { cn } from "@/components/UploadShad/FileInputUtils";
 
 interface PricingCardProps {
   children: ReactNode;
