@@ -12,6 +12,8 @@ import { PropertyWithAddress } from "@/Server/utils/utils";
 import { PropertyCard } from "@/components/PropertyCard";
 import { cn } from "@/components/UploadShad/FileInputUtils";
 
+import { useTranslations } from "next-intl";
+
 // Handles calling Fetch API (This is an example, it has been extracted into the Utils file)
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
@@ -29,6 +31,7 @@ export default function Residencies({
   // Handles all data fetching states, calls the Fetching Handler
   const { data, error, isLoading } = useSWR<PropertyWithAddress[]>("/api/properties", fetcher);
 
+  const t = useTranslations("Index.Residencies");
   return (
     <section id="residencies" className={cn("my-12 w-full", margin)}>
       <div className={cn("px-4 flex justify-center items-center flex-col w-full gap-5 sm:px-5 xl:px-32 ", className)}>
@@ -41,13 +44,13 @@ export default function Residencies({
             variant={"default"}
             className="bg-accent hover:bg-primary hover:border hover:border-accent hover:text-foreground hidden md:block"
           >
-            <Link href="/property-for-sale">See more</Link>
+            <Link href="/property-for-sale">{t("button")}</Link>
           </Button>
         </div>
 
         {error && !isLoading && (
           <div className="flex justify-center items-center py-20">
-            <p className="text-black text-lg">An error occurred. Please try again.</p>
+            <p className="text-black text-lg">{t("error")}</p>
           </div>
         )}
 

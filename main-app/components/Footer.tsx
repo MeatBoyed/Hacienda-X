@@ -1,11 +1,13 @@
 import React from "react";
 import "./Footer.css";
 import Link from "next/link";
-import { Facebook } from "lucide-react";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Logo from "@/public/newlogo.png";
 
 export default function Footer() {
+  const t = useTranslations();
+
   return (
     <footer className="bg-blueish footer-bg dark:bg-gray-900">
       <div className="mx-auto max-w-screen-xl space-y-8 px-4 py-16 sm:px-6 lg:space-y-16 lg:px-8">
@@ -15,8 +17,6 @@ export default function Footer() {
               <Image
                 src={Logo} // or Logo.src
                 alt="Logo"
-                // width={100}
-                // height={100}
                 className="w-full h-full"
               />
             </div>
@@ -28,12 +28,11 @@ export default function Footer() {
                 href="#"
                 rel="noreferrer"
                 target="_blank"
-                className="text-black font-medium transition-all duration-300 hover:text-xl  dark:text-gray-200 link"
+                className="text-black font-medium transition-all duration-300 hover:text-xl dark:text-gray-200 link"
               >
                 <span className="sr-only">Facebook</span>
-
+                {/* Placeholder SVG for each social media platform */}
                 <svg
-                  // Use W-width and H-height for hover
                   className="h-6 w-6 transition-all duration-300 hover:text-lg hover:w-10 hover:h-10"
                   fill="#000000"
                   viewBox="0 0 24 24"
@@ -43,11 +42,10 @@ export default function Footer() {
                     fillRule="evenodd"
                     d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"
                     clipRule="evenodd"
-                  />
+                  />{" "}
                 </svg>
               </a>
             </li>
-
             <li>
               <a
                 href="#"
@@ -145,21 +143,21 @@ export default function Footer() {
         <div className="grid grid-cols-1 gap-8 border-t border-gray-100 pt-8 sm:grid-cols-2 lg:grid-cols-4 lg:pt-16 dark:border-gray-800">
           <div>
             <p className="text-xl font-bold text-gray-900 dark:text-white">
-              Services
+              {t("Footer.servicesTitle")}
             </p>
 
             <ul className="mt-4 mr-10 space-y-4 text-sm">
               <li>
-                <a className="text-black text-lg transition-all duration-300 hover:text-lg dark:text-gray-200">
-                  This is our platform where we help you find your perfect home.
-                </a>
+                <span className="text-black text-lg transition-all duration-300 hover:text-lg dark:text-gray-200">
+                  {t("Footer.servicesDescription")}
+                </span>
               </li>
             </ul>
           </div>
 
           <div>
             <p className="text-xl font-bold text-black dark:text-white">
-              Company
+              {t("Footer.companyTitle")}
             </p>
 
             <ul className="mt-6 space-y-4 text-sm">
@@ -168,7 +166,7 @@ export default function Footer() {
                   href="/aboutus"
                   className="text-black font-medium transition-all duration-300 hover:text-lg dark:text-gray-200"
                 >
-                  About Us
+                  {t("Footer.aboutUs")}
                 </Link>
               </li>
 
@@ -177,7 +175,7 @@ export default function Footer() {
                   href="/contactus"
                   className="text-black font-medium transition-all duration-300 hover:text-lg dark:text-gray-200"
                 >
-                  Contact Us
+                  {t("Footer.contactUs")}
                 </Link>
               </li>
 
@@ -186,7 +184,7 @@ export default function Footer() {
                   href="/sign-in"
                   className="text-black font-medium transition-all duration-300 hover:text-lg dark:text-gray-200"
                 >
-                  Sign Up
+                  {t("Footer.signUp")}
                 </a>
               </li>
             </ul>
@@ -194,7 +192,7 @@ export default function Footer() {
 
           <div>
             <p className="text-xl font-bold text-gray-900 dark:text-white">
-              Useful Links
+              {t("Footer.usefulLinksTitle")}
             </p>
 
             <ul className="mt-6 space-y-4 text-sm">
@@ -203,7 +201,7 @@ export default function Footer() {
                   href="/property-for-sale"
                   className="text-black font-medium transition-all duration-300 hover:text-lg dark:text-gray-200"
                 >
-                  Properties
+                  {t("Footer.properties")}
                 </a>
               </li>
 
@@ -212,7 +210,7 @@ export default function Footer() {
                   href="/bookmarks"
                   className="text-black font-medium transition-all duration-300 hover:text-lg dark:text-gray-200"
                 >
-                  Favorites
+                  {t("Footer.favorites")}
                 </a>
               </li>
 
@@ -221,7 +219,7 @@ export default function Footer() {
                   href="/pricing"
                   className="text-black font-medium transition-all duration-300 hover:text-lg dark:text-gray-200"
                 >
-                  Pricing
+                  {t("Footer.pricing")}
                 </a>
               </li>
 
@@ -230,31 +228,31 @@ export default function Footer() {
                   href="/pricing"
                   className="text-black font-medium transition-all duration-300 hover:text-lg dark:text-gray-200"
                 >
-                  Sell Your Property
+                  {t("Footer.sellYourProperty")}
                 </a>
               </li>
             </ul>
           </div>
+
           <div>
-            {/* Email Subscription Section */}
             <div className="text-xl font-bold text-black dark:text-white">
-              Letterbox
+              {t("Footer.letterboxTitle")}
             </div>
             <div className="mt-6 flex">
               <input
                 type="email"
-                placeholder="Your Email"
+                placeholder={t("Footer.emailPlaceholder")}
                 className="px-4 py-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-800 dark:text-white"
               />
               <button className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-r-lg transition-colors duration-300">
-                Subscribe
+                {t("Footer.subscribeButton")}
               </button>
             </div>
           </div>
         </div>
 
         <p className="text-lg text-black dark:text-gray-400">
-          &copy; 2024. Hacienda. All rights reserved.
+          {t("Footer.copyright")}
         </p>
       </div>
     </footer>

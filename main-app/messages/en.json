@@ -3,11 +3,22 @@
   "Index": {
     "Hero": {
       "heading": "Find your Perfect Home",
-      "subHeading": "Discover Properties That Match Your Lifestyle"
+      "subHeading": "Discover Properties That Match Your Lifestyle",
+      "button1": "Map Search",
+      "button2": "Find Properties"
+    },
+    "SearchBar": {
+      "filterButton": "Filter",
+      "filterDialogTitle": "Filter your search",
+      "propertySearchButton": "Property Search",
+      "button1": "Map Search",
+      "button2": "Find Properties"
     },
     "Residencies": {
       "heading": "Popular Residencies",
-      "subHeading": "Featured Properties"
+      "subHeading": "Featured Properties",
+      "button": "See More",
+      "error": "An error occurred. Please try again."
     },
     "HowItWorks": {
       "sellPropertyCard": {
@@ -588,5 +599,72 @@
         "userId": "User Id is required"
       }
     }
+  },
+  "Footer": {
+    "servicesTitle": "Services",
+    "servicesDescription": "This is our platform where we help you find your perfect home.",
+    "companyTitle": "Company",
+    "aboutUs": "About Us",
+    "contactUs": "Contact Us",
+    "signUp": "Sign Up",
+    "usefulLinksTitle": "Useful Links",
+    "properties": "Properties",
+    "favorites": "Favorites",
+    "pricing": "Pricing",
+    "sellYourProperty": "Sell Your Property",
+    "letterboxTitle": "Letterbox",
+    "emailPlaceholder": "Your Email",
+    "subscribeButton": "Subscribe",
+    "copyright": "© 2024. Hacienda. All rights reserved."
+  },
+  "bedrooms": "Bedroom",
+  "numberOfBedrooms": "Number of Bedrooms",
+  "bathrooms": "Bathrooms",
+  "numberOfBathrooms": "Number of Bathrooms",
+  "priceRange": "Price range",
+  "minPriceRange": "Min price range",
+  "minPrice": "Min Price",
+  "maxPriceRange": "Max price range",
+  "maxPrice": "Max Price",
+  "reset": "Reset",
+  "applyFilter": "Apply filter",
+  "priceRangeError": "Price range must be a number",
+  "bedroomsError": "Amount of Bedrooms must be a number",
+  "bathroomsError": "Amount of Bathrooms must be a number",
+  "propertyform": {
+    "contactAgent": "Contact Agent",
+    "agentDescription": "Our agents are here to assist you",
+    "name": "Name",
+    "yourName": "Your name",
+    "surname": "Surname",
+    "yourSurname": "Your surname",
+    "email": "Email address",
+    "emailPlaceholder": "Email address",
+    "phoneNumber": "Phone number",
+    "phonePlaceholder": "Enter a phone number",
+    "message": "Message",
+    "messagePlaceholder": "I'm interested in this property, please contact me.",
+    "submit": "Submit",
+    "nameError": "Name must be at least 3 characters long.",
+    "surnameError": "Surname must be at least 3 characters long.",
+    "emailError": "Email address must be valid.",
+    "messageError": "Please enter a short message, longer than 10 characters.",
+    "phoneError": "Invalid phone number",
+    "propertyIdError": "Property Id is required",
+    "agentIdError": "Agent Id is required",
+    "unexpectedError": "Something unexpected happened.",
+    "tryAgain": "Please try again....",
+    "leadPosted": "Your lead has been posted!",
+    "thankYou": "Thank you for enquiring. We will be reaching out soon."
+  },
+  "propertydetails": {
+    "aboutProperty": "About the property",
+    "posted": "Posted:",
+    "meetAgent": "Meet your agent",
+    "offerTitle": "What this place offers",
+    "bedrooms": "{count} Bedrooms",
+    "bathrooms": "{count} Bathrooms",
+    "squareMeters": "{count} m²",
+    "extraFeatures": "Extra Features"
   }
 }

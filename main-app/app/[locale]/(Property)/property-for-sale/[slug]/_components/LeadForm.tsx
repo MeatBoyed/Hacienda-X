@@ -1,9 +1,3 @@
-// This is part of the Core Business Logic
-// DO NOT Change & Push this file without Proper testing
-// Failure to do so will lead to a reduction in Equity
-
-// Every User who wishes to contact the Agent, must have an account
-
 "use client";
 
 import {
@@ -34,24 +28,21 @@ import { PostLead } from "@/lib/RequestUtils";
 import Loader from "@/components/ui/loader";
 import { isValidPhoneNumber } from "react-phone-number-input";
 import { useUser } from "@clerk/nextjs";
+import { useTranslations } from "next-intl";
 
 // Lead Form UTILS
 export const LeadFormSchema = z.object({
-  name: z
-    .string()
-    .min(3, { message: "Name must be at least 3 characters long." }),
-  surname: z
-    .string()
-    .min(3, { message: "Surname must be at least 3 characters long." }),
-  email: z.string().email({ message: "Email address must be valid." }),
+  name: z.string().min(3, { message: "propertyform.nameError" }),
+  surname: z.string().min(3, { message: "propertyform.surnameError" }),
+  email: z.string().email({ message: "propertyform.emailError" }),
   message: z.string().min(10, {
-    message: "Please enter a short message, longer than 10 characters.",
+    message: "propertyform.messageError",
   }),
   phoneNumber: z
     .string()
-    .refine(isValidPhoneNumber, { message: "Invalid phone number" }),
-  propertyId: z.string().min(3, { message: "Property Id is required" }),
-  agentId: z.string().min(3, { message: "Agent Id is required" }),
+    .refine(isValidPhoneNumber, { message: "propertyform.phoneError" }),
+  propertyId: z.string().min(3, { message: "propertyform.propertyIdError" }),
+  agentId: z.string().min(3, { message: "propertyform.agentIdError" }),
 });
 
 export default function LeadForm({
@@ -61,6 +52,7 @@ export default function LeadForm({
   propertyId: string;
   agentId: string;
 }) {
+  const t = useTranslations();
   const user = useUser();
   const form = useForm<z.infer<typeof LeadFormSchema>>({
     resolver: zodResolver(LeadFormSchema),
@@ -70,7 +62,7 @@ export default function LeadForm({
       surname: user.user?.lastName || "",
       agentId: agentId,
       propertyId: propertyId,
-      message: "I'm interested in this property, please contact me.",
+      message: t("propertyform.messagePlaceholder"),
     },
   });
 
@@ -78,15 +70,15 @@ export default function LeadForm({
     useSWRMutation("/api/leads/create", PostLead /* options */, {
       onError: (error) => {
         console.log("Received Error (Plain): ", error);
-        toast.error("Something unexpected happened.", {
-          description: "Please try again....",
+        toast.error(t("propertyform.unexpectedError"), {
+          description: t("propertyform.tryAgain"),
         });
       },
       onSuccess: (data) => {
         // Show message
         console.log(data);
-        toast.success("Your lead has been posted!", {
-          description: `Thank you for enquiring. We will be reaching out soon.`,
+        toast.success(t("propertyform.leadPosted"), {
+          description: t("propertyform.thankYou"),
           duration: 10000,
         });
       },
@@ -100,8 +92,8 @@ export default function LeadForm({
   return (
     <Card id="LeadForm" className="w-full sm:w-[70%] shadow-lg px-2">
       <CardHeader className="flex justify-center items-center">
-        <CardTitle>Contact Agent</CardTitle>
-        <CardDescription>Our agents are here to assist you</CardDescription>
+        <CardTitle>{t("propertyform.contactAgent")}</CardTitle>
+        <CardDescription>{t("propertyform.agentDescription")}</CardDescription>
       </CardHeader>
       <CardContent>
         {isMutatingCreate ? (
@@ -115,9 +107,13 @@ export default function LeadForm({
                   name="name"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Name</FormLabel>
+                      <FormLabel>{t("propertyform.name")}</FormLabel>
                       <FormControl>
-                        <Input type="text" placeholder="Your name" {...field} />
+                        <Input
+                          type="text"
+                          placeholder={t("propertyform.yourName")}
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -128,11 +124,11 @@ export default function LeadForm({
                   name="surname"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Surname</FormLabel>
+                      <FormLabel>{t("propertyform.surname")}</FormLabel>
                       <FormControl>
                         <Input
                           type="text"
-                          placeholder="Your surname"
+                          placeholder={t("propertyform.yourSurname")}
                           {...field}
                         />
                       </FormControl>
@@ -146,11 +142,11 @@ export default function LeadForm({
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Email address</FormLabel>
+                    <FormLabel>{t("propertyform.email")}</FormLabel>
                     <FormControl>
                       <Input
                         type="email"
-                        placeholder="Email address"
+                        placeholder={t("propertyform.emailPlaceholder")}
                         {...field}
                       />
                     </FormControl>
@@ -163,10 +159,10 @@ export default function LeadForm({
                 name="phoneNumber"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Phone number</FormLabel>
+                    <FormLabel>{t("propertyform.phoneNumber")}</FormLabel>
                     <FormControl>
                       <PhoneInput
-                        placeholder="Enter a phone number"
+                        placeholder={t("propertyform.phonePlaceholder")}
                         {...field}
                         defaultCountry="ZA"
                         international
@@ -181,10 +177,10 @@ export default function LeadForm({
                 name="message"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Message</FormLabel>
+                    <FormLabel>{t("propertyform.message")}</FormLabel>
                     <FormControl>
                       <Textarea
-                        placeholder="I'm interested in this property, please contact me."
+                        placeholder={t("propertyform.messagePlaceholder")}
                         className="resize-none"
                         {...field}
                       />
@@ -194,7 +190,7 @@ export default function LeadForm({
                 )}
               />
               <Button type="submit" className="text-white bg-accent w-full">
-                Submit
+                {t("propertyform.submit")}
               </Button>
             </form>
           </Form>
