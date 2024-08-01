@@ -5,6 +5,7 @@ import Providers from "@/components/Providers/Providers";
 import PostHogClient from "@/components/Posthog";
 import { auth } from "@clerk/nextjs/server";
 import { cn } from "@/components/UploadShad/FileInputUtils";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
@@ -35,6 +36,7 @@ export default async function LocaleRootLayout({ children, params: { locale } }:
       </head>
       <Providers locale={locale}>
         <body className={cn("min-h-screen bg-background font-sans antialiased", inter)}>{children}</body>
+        <GoogleAnalytics gaId="G-8V781NCSR4" />
       </Providers>
     </html>
   );
