@@ -540,10 +540,10 @@
   "Onboarding": {
     "greeting": {
       "welcome": "Welcome",
-      "subHeading": "Let&apos;s get started by setting up your account."
+      "subHeading": "Let's get started by setting up your account."
     },
     "unAuthed": {
-      "title": "First, let&apos;s create your account",
+      "title": "First, let's create your account",
       "subHeading": "Our agents are here to assist you",
       "button": "Sign In"
     },

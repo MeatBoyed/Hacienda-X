@@ -2,8 +2,8 @@
 
 import { useLocale } from "next-intl";
 import { useRouter } from "next/navigation";
-
 import { useTransition } from "react";
+import { useEffect } from "react";
 
 import {
   Select,
@@ -19,9 +19,18 @@ export default function LocaleSwitcher() {
   const router = useRouter();
   const localActive = useLocale();
 
+  useEffect(() => {
+    const savedLocale = localStorage.getItem("locale");
+    if (savedLocale && savedLocale !== localActive) {
+      onSelectChange(savedLocale);
+    }
+  }, [localActive]);
+
   const onSelectChange = (nextLocale: string) => {
+    localStorage.setItem("locale", nextLocale);
     startTransition(() => {
       router.replace(`/${nextLocale}`);
+      router.refresh();
     });
   };
 
