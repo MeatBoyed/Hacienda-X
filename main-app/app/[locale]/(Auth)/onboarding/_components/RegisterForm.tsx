@@ -18,6 +18,7 @@ import { PostAgent } from "@/app/api/(userActions)/actions";
 import { useRouter } from "next/navigation";
 import { Switch } from "@/components/ui/switch";
 import { useTranslations } from "next-intl";
+import { Checkbox } from "@/components/ui/checkbox";
 
 // Lead Form UTILS
 // export const UserFormSchema = z.object({
@@ -110,7 +111,7 @@ export default function RegisterForm({
   }
 
   return (
-    <Card>
+    <Card className="">
       <CardHeader className="flex justify-center items-center">
         <CardTitle>{t("title")}</CardTitle>
         <CardDescription>{t("description")}</CardDescription>
@@ -200,14 +201,31 @@ export default function RegisterForm({
                     name="isAgent"
                     render={({ field }) => (
                       <FormItem className="w-full flex justify-start items-center gap-5">
-                        <FormLabel>{t("formFields.isAgent.label")}</FormLabel>
-                        <FormDescription>{t("formFields.isAgent.description")}</FormDescription>
+                        {/* <FormLabel>{t("formFields.isAgent.label")}</FormLabel>
+                        <FormDescription>{t("")}</FormDescription> */}
                         <FormControl className="">
-                          <Switch
+                          {/* <Switch
                             checked={field.value}
                             onCheckedChange={field.onChange}
                             style={{ backgroundColor: "#3b82f6", margin: "0" }}
-                          />
+                          /> */}
+                          <div className="items-top flex mt-2 space-x-3">
+                            <Checkbox
+                              id="terms1"
+                              className="data-[state=checked]:border-green-500 data-[state=checked]:bg-green-500 w-6 h-6"
+                              checked={field.value}
+                              onCheckedChange={field.onChange}
+                            />
+                            <div className="grid gap-1.5 leading-none">
+                              <label
+                                htmlFor="terms1"
+                                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                              >
+                                {t("formFields.isAgent.label")}
+                              </label>
+                              <p className="text-sm text-muted-foreground">{t("formFields.isAgent.description")}</p>
+                            </div>
+                          </div>
                         </FormControl>
                         <FormMessage />
                       </FormItem>

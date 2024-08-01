@@ -573,7 +573,7 @@
         },
         "isAgent": {
           "label": "Interested in selling your property?",
-          "description": "Our sales team will contact you shortly."
+          "description": "You agree to our Sales team to contact you shortly via provided channels."
         },
         "submitButton": "Submit"
       },
