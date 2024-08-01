@@ -9,10 +9,11 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
   maxFiles: number;
   maxSize: number;
   handleChange: (uploadedImages: { newImages: File[]; order: string[] }, deletedImages?: string[], newImages?: File[]) => void;
+  customLoader?: () => string;
 }
 
 const UploadShad = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, defaultValues, handleChange, maxFiles, maxSize, ...props }, ref) => {
+  ({ className, type, defaultValues, handleChange, maxFiles, maxSize, customLoader, ...props }, ref) => {
     return (
       <UploadContextProvider defaultImages={defaultValues} handleChange={handleChange}>
         <div className={cn("w-full flex justify-center items-center gap-5 flex-col", className)}>
@@ -33,7 +34,7 @@ const UploadShad = React.forwardRef<HTMLInputElement, InputProps>(
           {/* Handle when max inputted files is reached */}
           {/* Controlled By Context */}
           <FileUploader maxFiles={maxFiles} maxSize={maxSize} multiple />
-          <UploadedFiles />
+          <UploadedFiles customLoader={customLoader} />
         </div>
       </UploadContextProvider>
     );

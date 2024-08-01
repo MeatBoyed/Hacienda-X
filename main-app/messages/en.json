@@ -88,7 +88,7 @@
   },
   "Bookmarks": {
     "heading": "Your saved properties",
-    "emptyMessage": "You have no properties. Let&#39;s go add one!"
+    "emptyMessage": "You have no properties. Let's go add one!"
   },
   "Pricing": {
     "subHeading": "Pricing Table",
@@ -240,7 +240,7 @@
       "Leads": {
         "heading": "Leads",
         "subHeading": "View all your leads.",
-        "noLeads": "You currently have no Leads, but don&#39;t worry we will notify you of new leads!",
+        "noLeads": "You currently have no Leads, but don't worry we will notify you of new leads!",
         "leadCard": {
           "title": "Your Lead for",
           "description": "Use these details to contact the customer and close your deal.",
@@ -265,7 +265,7 @@
     "propertiesComp": {
       "_componentComment": "This relates to the Properties Component.",
       "heading": "Properties",
-      "noProperties": "You have no properties. Let&#39;s go add one!"
+      "noProperties": "You have no properties. Let's go add one!"
     },
     "propertyFormComp": {
       "formHeadComp": {
