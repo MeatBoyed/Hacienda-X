@@ -1,0 +1,168 @@
+Index: ../main-app/app/[locale]/(Property)/property-for-sale/[slug]/_components/LeadForm.tsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>\"use client\";\r\n\r\nimport {\r\n  Card,\r\n  CardHeader,\r\n  CardTitle,\r\n  CardDescription,\r\n  CardContent,\r\n} from \"@/components/ui/card\";\r\nimport { Button } from \"@/components/ui/button\";\r\nimport {\r\n  Form,\r\n  FormField,\r\n  FormItem,\r\n  FormLabel,\r\n  FormControl,\r\n  FormMessage,\r\n} from \"@/components/ui/form\";\r\nimport { Input } from \"@/components/ui/input\";\r\nimport { useForm } from \"react-hook-form\";\r\nimport { z } from \"zod\";\r\nimport { zodResolver } from \"@hookform/resolvers/zod\";\r\nimport { Textarea } from \"@/components/ui/textarea\";\r\nimport { toast } from \"sonner\";\r\nimport { PhoneInput } from \"@/components/PhoneInput\";\r\nimport useSWRMutation from \"swr/mutation\";\r\nimport { PostLead } from \"@/lib/RequestUtils\";\r\nimport Loader from \"@/components/ui/loader\";\r\nimport { isValidPhoneNumber } from \"react-phone-number-input\";\r\nimport { useUser } from \"@clerk/nextjs\";\r\nimport { useTranslations } from \"next-intl\";\r\n\r\n// Lead Form UTILS\r\nexport const LeadFormSchema = z.object({\r\n  name: z.string().min(3, { message: \"propertyform.nameError\" }),\r\n  surname: z.string().min(3, { message: \"propertyform.surnameError\" }),\r\n  email: z.string().email({ message: \"propertyform.emailError\" }),\r\n  message: z.string().min(10, {\r\n    message: \"propertyform.messageError\",\r\n  }),\r\n  phoneNumber: z\r\n    .string()\r\n    .refine(isValidPhoneNumber, { message: \"propertyform.phoneError\" }),\r\n  propertyId: z.string().min(3, { message: \"propertyform.propertyIdError\" }),\r\n  agentId: z.string().min(3, { message: \"propertyform.agentIdError\" }),\r\n});\r\n\r\nexport default function LeadForm({\r\n  propertyId,\r\n  agentId,\r\n}: {\r\n  propertyId: string;\r\n  agentId: string;\r\n}) {\r\n  const t = useTranslations();\r\n  const user = useUser();\r\n  const form = useForm<z.infer<typeof LeadFormSchema>>({\r\n    resolver: zodResolver(LeadFormSchema),\r\n    defaultValues: {\r\n      name: user.user?.firstName || \"\",\r\n      email: user.user?.primaryEmailAddress?.emailAddress || \"\",\r\n      surname: user.user?.lastName || \"\",\r\n      agentId: agentId,\r\n      propertyId: propertyId,\r\n      message: t(\"propertyform.messagePlaceholder\"),\r\n    },\r\n  });\r\n\r\n  const { trigger: triggerCreate, isMutating: isMutatingCreate } =\r\n    useSWRMutation(\"/api/leads/create\", PostLead /* options */, {\r\n      onError: (error) => {\r\n        console.log(\"Received Error (Plain): \", error);\r\n        toast.error(t(\"propertyform.unexpectedError\"), {\r\n          description: t(\"propertyform.tryAgain\"),\r\n        });\r\n      },\r\n      onSuccess: (data) => {\r\n        // Show message\r\n        console.log(data);\r\n        toast.success(t(\"propertyform.leadPosted\"), {\r\n          description: t(\"propertyform.thankYou\"),\r\n          duration: 10000,\r\n        });\r\n      },\r\n    });\r\n\r\n  function onSubmit(values: z.infer<typeof LeadFormSchema>) {\r\n    console.log(values);\r\n    triggerCreate({ lead: values });\r\n  }\r\n\r\n  return (\r\n    <Card id=\"LeadForm\" className=\"w-full sm:w-[70%] shadow-lg px-2\">\r\n      <CardHeader className=\"flex justify-center items-center\">\r\n        <CardTitle>{t(\"propertyform.contactAgent\")}</CardTitle>\r\n        <CardDescription>{t(\"propertyform.agentDescription\")}</CardDescription>\r\n      </CardHeader>\r\n      <CardContent>\r\n        {isMutatingCreate ? (\r\n          <Loader className=\"h-[30vh]\" />\r\n        ) : (\r\n          <Form {...form}>\r\n            <form onSubmit={form.handleSubmit(onSubmit)} className=\"space-y-4\">\r\n              <div className=\"flex justify-center items-center gap-3\">\r\n                <FormField\r\n                  control={form.control}\r\n                  name=\"name\"\r\n                  render={({ field }) => (\r\n                    <FormItem>\r\n                      <FormLabel>{t(\"propertyform.name\")}</FormLabel>\r\n                      <FormControl>\r\n                        <Input\r\n                          type=\"text\"\r\n                          placeholder={t(\"propertyform.yourName\")}\r\n                          {...field}\r\n                        />\r\n                      </FormControl>\r\n                      <FormMessage />\r\n                    </FormItem>\r\n                  )}\r\n                />\r\n                <FormField\r\n                  control={form.control}\r\n                  name=\"surname\"\r\n                  render={({ field }) => (\r\n                    <FormItem>\r\n                      <FormLabel>{t(\"propertyform.surname\")}</FormLabel>\r\n                      <FormControl>\r\n                        <Input\r\n                          type=\"text\"\r\n                          placeholder={t(\"propertyform.yourSurname\")}\r\n                          {...field}\r\n                        />\r\n                      </FormControl>\r\n                      <FormMessage />\r\n                    </FormItem>\r\n                  )}\r\n                />\r\n              </div>\r\n              <FormField\r\n                control={form.control}\r\n                name=\"email\"\r\n                render={({ field }) => (\r\n                  <FormItem>\r\n                    <FormLabel>{t(\"propertyform.email\")}</FormLabel>\r\n                    <FormControl>\r\n                      <Input\r\n                        type=\"email\"\r\n                        placeholder={t(\"propertyform.emailPlaceholder\")}\r\n                        {...field}\r\n                      />\r\n                    </FormControl>\r\n                    <FormMessage />\r\n                  </FormItem>\r\n                )}\r\n              />\r\n              <FormField\r\n                control={form.control}\r\n                name=\"phoneNumber\"\r\n                render={({ field }) => (\r\n                  <FormItem>\r\n                    <FormLabel>{t(\"propertyform.phoneNumber\")}</FormLabel>\r\n                    <FormControl>\r\n                      <PhoneInput\r\n                        placeholder={t(\"propertyform.phonePlaceholder\")}\r\n                        {...field}\r\n                        defaultCountry=\"ZA\"\r\n                        international\r\n                      />\r\n                    </FormControl>\r\n                    <FormMessage />\r\n                  </FormItem>\r\n                )}\r\n              />\r\n              <FormField\r\n                control={form.control}\r\n                name=\"message\"\r\n                render={({ field }) => (\r\n                  <FormItem>\r\n                    <FormLabel>{t(\"propertyform.message\")}</FormLabel>\r\n                    <FormControl>\r\n                      <Textarea\r\n                        placeholder={t(\"propertyform.messagePlaceholder\")}\r\n                        className=\"resize-none\"\r\n                        {...field}\r\n                      />\r\n                    </FormControl>\r\n                    <FormMessage />\r\n                  </FormItem>\r\n                )}\r\n              />\r\n              <Button type=\"submit\" className=\"text-white bg-accent w-full\">\r\n                {t(\"propertyform.submit\")}\r\n              </Button>\r\n            </form>\r\n          </Form>\r\n        )}\r\n      </CardContent>\r\n    </Card>\r\n  );\r\n}\r\n
+===================================================================
+diff --git a/../main-app/app/[locale]/(Property)/property-for-sale/[slug]/_components/LeadForm.tsx b/../main-app/app/[locale]/(Property)/property-for-sale/[slug]/_components/LeadForm.tsx
+--- a/../main-app/app/[locale]/(Property)/property-for-sale/[slug]/_components/LeadForm.tsx	
++++ b/../main-app/app/[locale]/(Property)/property-for-sale/[slug]/_components/LeadForm.tsx	
+@@ -1,21 +1,8 @@
+ "use client";
+ 
+-import {
+-  Card,
+-  CardHeader,
+-  CardTitle,
+-  CardDescription,
+-  CardContent,
+-} from "@/components/ui/card";
++import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
+ import { Button } from "@/components/ui/button";
+-import {
+-  Form,
+-  FormField,
+-  FormItem,
+-  FormLabel,
+-  FormControl,
+-  FormMessage,
+-} from "@/components/ui/form";
++import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form";
+ import { Input } from "@/components/ui/input";
+ import { useForm } from "react-hook-form";
+ import { z } from "zod";
+@@ -38,20 +25,12 @@
+   message: z.string().min(10, {
+     message: "propertyform.messageError",
+   }),
+-  phoneNumber: z
+-    .string()
+-    .refine(isValidPhoneNumber, { message: "propertyform.phoneError" }),
++  phoneNumber: z.string().refine(isValidPhoneNumber, { message: "propertyform.phoneError" }),
+   propertyId: z.string().min(3, { message: "propertyform.propertyIdError" }),
+   agentId: z.string().min(3, { message: "propertyform.agentIdError" }),
+ });
+ 
+-export default function LeadForm({
+-  propertyId,
+-  agentId,
+-}: {
+-  propertyId: string;
+-  agentId: string;
+-}) {
++export default function LeadForm({ propertyId, agentId }: { propertyId: string; agentId: string }) {
+   const t = useTranslations();
+   const user = useUser();
+   const form = useForm<z.infer<typeof LeadFormSchema>>({
+@@ -66,23 +45,22 @@
+     },
+   });
+ 
+-  const { trigger: triggerCreate, isMutating: isMutatingCreate } =
+-    useSWRMutation("/api/leads/create", PostLead /* options */, {
+-      onError: (error) => {
+-        console.log("Received Error (Plain): ", error);
+-        toast.error(t("propertyform.unexpectedError"), {
+-          description: t("propertyform.tryAgain"),
+-        });
+-      },
+-      onSuccess: (data) => {
+-        // Show message
+-        console.log(data);
+-        toast.success(t("propertyform.leadPosted"), {
+-          description: t("propertyform.thankYou"),
+-          duration: 10000,
+-        });
+-      },
+-    });
++  const { trigger: triggerCreate, isMutating: isMutatingCreate } = useSWRMutation("/api/leads/create", PostLead /* options */, {
++    onError: (error) => {
++      console.log("Received Error (Plain): ", error);
++      toast.error(t("propertyform.unexpectedError"), {
++        description: t("propertyform.tryAgain"),
++      });
++    },
++    onSuccess: (data) => {
++      // Show message
++      console.log(data);
++      toast.success(t("propertyform.leadPosted"), {
++        description: t("propertyform.thankYou"),
++        duration: 10000,
++      });
++    },
++  });
+ 
+   function onSubmit(values: z.infer<typeof LeadFormSchema>) {
+     console.log(values);
+@@ -109,11 +87,7 @@
+                     <FormItem>
+                       <FormLabel>{t("propertyform.name")}</FormLabel>
+                       <FormControl>
+-                        <Input
+-                          type="text"
+-                          placeholder={t("propertyform.yourName")}
+-                          {...field}
+-                        />
++                        <Input type="text" placeholder={t("propertyform.yourName")} {...field} />
+                       </FormControl>
+                       <FormMessage />
+                     </FormItem>
+@@ -126,11 +100,7 @@
+                     <FormItem>
+                       <FormLabel>{t("propertyform.surname")}</FormLabel>
+                       <FormControl>
+-                        <Input
+-                          type="text"
+-                          placeholder={t("propertyform.yourSurname")}
+-                          {...field}
+-                        />
++                        <Input type="text" placeholder={t("propertyform.yourSurname")} {...field} />
+                       </FormControl>
+                       <FormMessage />
+                     </FormItem>
+@@ -144,11 +114,7 @@
+                   <FormItem>
+                     <FormLabel>{t("propertyform.email")}</FormLabel>
+                     <FormControl>
+-                      <Input
+-                        type="email"
+-                        placeholder={t("propertyform.emailPlaceholder")}
+-                        {...field}
+-                      />
++                      <Input type="email" placeholder={t("propertyform.emailPlaceholder")} {...field} />
+                     </FormControl>
+                     <FormMessage />
+                   </FormItem>
+@@ -161,12 +127,7 @@
+                   <FormItem>
+                     <FormLabel>{t("propertyform.phoneNumber")}</FormLabel>
+                     <FormControl>
+-                      <PhoneInput
+-                        placeholder={t("propertyform.phonePlaceholder")}
+-                        {...field}
+-                        defaultCountry="ZA"
+-                        international
+-                      />
++                      <PhoneInput placeholder={t("propertyform.phonePlaceholder")} {...field} defaultCountry="ZA" international />
+                     </FormControl>
+                     <FormMessage />
+                   </FormItem>
+@@ -179,17 +140,13 @@
+                   <FormItem>
+                     <FormLabel>{t("propertyform.message")}</FormLabel>
+                     <FormControl>
+-                      <Textarea
+-                        placeholder={t("propertyform.messagePlaceholder")}
+-                        className="resize-none"
+-                        {...field}
+-                      />
++                      <Textarea placeholder={t("propertyform.messagePlaceholder")} className="resize-none" {...field} />
+                     </FormControl>
+                     <FormMessage />
+                   </FormItem>
+                 )}
+               />
+-              <Button type="submit" className="text-white bg-accent w-full">
++              <Button id="submitLead" type="submit" className="text-white bg-accent w-full">
+                 {t("propertyform.submit")}
+               </Button>
+             </form>
