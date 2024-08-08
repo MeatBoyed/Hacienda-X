@@ -5,7 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="96445ecf-43ab-44ef-af38-8a0337d7f7ea" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../main-app/app/[locale]/(AgentPanel)/dashboard/property/create/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../main-app/app/[locale]/(AgentPanel)/dashboard/property/create/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TestLead.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_08_08_2024_14_17__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_08_08_2024_14_17__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../main-app/app/[locale]/(Property)/property-for-sale/[slug]/_components/LeadForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../main-app/app/[locale]/(Property)/property-for-sale/[slug]/_components/LeadForm.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,8 +25,25 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="Front-End" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "MeatBoyed"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/MeatBoyed/Hacienda-X.git",
+    "accountId": "0fc2b63b-e160-44dc-999b-5286ef742f14"
+  }
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
 }</component>
@@ -30,30 +52,80 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python tests.Python tests for Test_Create_Lead.test_create_lead.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for Test_Lead.Create_Lead.test_create_lead.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for Test_Lead.TestLead.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for Test_Lead.TestLead.test_form_submits_values.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Charl/Code/Hacienda-X/SeleniumTesting&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python tests.Python tests for TestLead.TestLead.executor": "Run",
+    "Python tests.Python tests for TestLead.TestLead.test_DB_captured_values.executor": "Run",
+    "Python tests.Python tests for TestLead.TestLead.test_form_submits.executor": "Run",
+    "Python tests.Python tests for TestLead.TestLead.test_form_values_capture.executor": "Run",
+    "Python tests.Python tests for Test_Create_Lead.test_create_lead.executor": "Run",
+    "Python tests.Python tests for Test_Lead.Create_Lead.test_create_lead.executor": "Run",
+    "Python tests.Python tests for Test_Lead.TestLead.executor": "Run",
+    "Python tests.Python tests for Test_Lead.TestLead.test_form_submits_values.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/Charl/Code/Hacienda-X/SeleniumTesting",
+    "settings.editor.selected.configurable": "preferences.keymap"
   }
-}</component>
-  <component name="RunManager" selected="Python tests.Python tests for Test_Lead.TestLead.test_form_submits_values">
-    <configuration name="Python tests for Test_Lead.TestLead" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+}]]></component>
+  <component name="RunManager" selected="Python tests.Python tests for TestLead.TestLead">
+    <configuration name="Python tests for TestLead.TestLead" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="SeleniumTesting" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Test_Lead" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;Test_Lead.TestLead&quot;" />
+      <option name="_new_target" value="&quot;TestLead.TestLead&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests for TestLead.TestLead.test_DB_captured_values" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="SeleniumTesting" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;TestLead.TestLead.test_DB_captured_values&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests for TestLead.TestLead.test_form_submits" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="SeleniumTesting" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;TestLead.TestLead.test_form_submits&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests for TestLead.TestLead.test_form_values_capture" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="SeleniumTesting" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;TestLead.TestLead.test_form_values_capture&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
@@ -74,8 +146,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python tests.Python tests for TestLead.TestLead" />
+        <item itemvalue="Python tests.Python tests for TestLead.TestLead.test_form_submits" />
+        <item itemvalue="Python tests.Python tests for TestLead.TestLead.test_DB_captured_values" />
+        <item itemvalue="Python tests.Python tests for TestLead.TestLead.test_form_values_capture" />
         <item itemvalue="Python tests.Python tests for Test_Lead.TestLead.test_form_submits_values" />
-        <item itemvalue="Python tests.Python tests for Test_Lead.TestLead" />
       </list>
     </recent_temporary>
   </component>
