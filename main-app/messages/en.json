@@ -1,0 +1,670 @@
+{
+  "_corePagesComment": "(Index) Home, AboutUs, and following are the pages - Capitalized (children) Objects are the page's Section",
+  "Index": {
+    "Hero": {
+      "heading": "Find your Perfect Home",
+      "subHeading": "Discover Properties That Match Your Lifestyle",
+      "button1": "Map Search",
+      "button2": "Find Properties"
+    },
+    "SearchBar": {
+      "filterButton": "Filter",
+      "filterDialogTitle": "Filter your search",
+      "propertySearchButton": "Property Search",
+      "button1": "Map Search",
+      "button2": "Find Properties"
+    },
+    "Residencies": {
+      "heading": "Popular Residencies",
+      "subHeading": "Featured Properties",
+      "button": "See More",
+      "error": "An error occurred. Please try again."
+    },
+    "HowItWorks": {
+      "sellPropertyCard": {
+        "heading": "Sell Property",
+        "content": "Sell Your Property Now! Control all your properties from the tips of your fingertips. Do not miss out on your home being sold – Sell today!",
+        "button": "Sign up"
+      },
+      "buyPropertyCard": {
+        "heading": "Buy Property Now!",
+        "content": "Ready to make your homeownership dreams a reality? Explore a diverse range of properties tailored to your preferences and budget.",
+        "button": "Browse Properties"
+      },
+      "discoverCard": {
+        "heading": "Discover Our Story!",
+        "content": "We are your trusted partners in finding your perfect home. Discover our story and let us help you write the next chapter of yours.",
+        "button": "Learn more"
+      }
+    },
+    "AboutUs": {
+      "heading": "About HaciendaX",
+      "sub-heading": "About us",
+      "content-heading": "Our Mission:",
+      "content": "At Hacienda, our mission is to empower buyers and sellers with knowledge, support, and personalized service. Driven by a passion for people and properties, we strive to exceed expectations and build lasting relationships. Our listings feature unbeatable prices and incredible deals, making it easy to find your perfect home without breaking the bank. Whether you&apos;re looking for a cozy starter home or a luxurious estate, Hacienda combines affordability with quality. We are committed to excellence in every transaction, focusing on integrity, transparency, and professionalism to achieve your real estate goals and earn your trust. Discover what sets us apart at Hacienda.",
+      "button": "Learn More"
+    },
+    "Offer": {
+      "tag": "Why choose us?",
+      "heading": "We are Hacienda",
+      "sub-heading": "We know how to handle your needs for finding a new home. We care for You and your needs.",
+      "offer1": {
+        "heading": "Personalized Home Search",
+        "content": "Our team offers a personalized home search experience, ensuring that we match you with the perfect property that suits your lifestyle and preferences. We listen to your needs and use our extensive network to find your dream home."
+      },
+      "offer2": {
+        "heading": "Expert Market Analysis",
+        "content": "We provide in-depth market analysis to help you make informed decisions. Our experts analyze current market trends, property values, and neighborhood insights to guide you through the home buying process with confidence."
+      },
+      "offer3": {
+        "heading": "Seamless Transaction Process",
+        "content": "At Hacienda, we simplify the home buying process. Our experienced agents handle all the details, from negotiations to closing, ensuring a smooth and stress-free transaction. We prioritize your convenience and satisfaction."
+      },
+      "offer4": {
+        "heading": "Comprehensive Support Services",
+        "content": "Our commitment to you goes beyond just finding a home. We offer comprehensive support services, including mortgage advice, legal assistance, and post-purchase support, to make your transition as seamless as possible."
+      }
+    },
+    "CallToAction": {
+      "heading": "Want To Sell Your Property?",
+      "content": "Sell Your Properties With Hacienda. Click now to get started.",
+      "button": "Get Started"
+    },
+    "Contact": {
+      "subHeading": "Contact Us",
+      "heading": "Get in touch today",
+      "content": "We are always ready to help by providing the best services for you. We believe a good place to live can make your life better.",
+      "Call": "Call",
+      "phone-number": "021 123 145 14",
+      "CopyToClipboard": "Copy To Clipboard",
+      "email": "Email",
+      "businessEmail": "Hacienda@gmail.com"
+    }
+  },
+  "AboutUs": {
+    "heading": "HaciendaX Real Estate",
+    "content1": "We are committed to empowering buyers and sellers with knowledge, support, and personalized service. At Hacienda, our passion for people and properties drives us to exceed expectations and create lasting relationships.",
+    "content2": "Discover what sets us apart at Hacienda. We strive for excellence in every transaction, aiming to surpass industry standards and client expectations. With a focus on integrity, transparency, and professionalism, we are dedicated to achieving your real estate goals and earning your trust."
+  },
+  "Bookmarks": {
+    "heading": "Your saved properties",
+    "emptyMessage": "You have no properties. Let's go add one!"
+  },
+  "Pricing": {
+    "subHeading": "Pricing Table",
+    "heading": "Our Pricing Plan",
+    "content": "Choose the plan that best suits your needs.",
+    "enterprisePlan": {
+      "type": "Enterprise",
+      "price": "$499",
+      "subscription": "year",
+      "description": "Best for large real estate firms needing comprehensive features.",
+      "button": "Choose Enterprise",
+      "feature1": "Unlimited Property Listings",
+      "feature2": "Maximum Exposure",
+      "feature3": "Dedicated Account Manager",
+      "feature4": "Daily Analytics Report",
+      "feature5": "Premium Featured Listings",
+      "feature6": "Custom Branding Options"
+    },
+    "proPlan": {
+      "type": "Pro Plan",
+      "price": "$99",
+      "subscription": "month",
+      "description": "Perfect for small real estate teams.",
+      "button": "Choose Pro",
+      "feature1": "10 Property Listings",
+      "feature2": "Enhanced Exposure",
+      "feature3": "Priority Email Support",
+      "feature4": "Weekly Analytics Report",
+      "feature5": "Featured Listings"
+    },
+    "basicPlan": {
+      "type": "Basic",
+      "price": "$29",
+      "subscription": "month",
+      "description": "Ideal for individual agents starting out.",
+      "button": "Choose Basic",
+      "buttonText": "Choose Basic",
+      "feature1": "1 Property Listing",
+      "feature2": "Standard Exposure",
+      "feature3": "Email Support",
+      "feature4": "Monthly Analytics Report"
+    },
+    "PricingTable": {
+      "Information": {
+        "feature1": "Property Listings",
+        "feature2": "Exposure",
+        "feature3": "Support",
+        "feature4": "Analytics Report",
+        "feature5": "Featured Listings",
+        "feature6": "Custom Branding Options"
+      },
+      "basic": {
+        "type": "Basic",
+        "price": "$29",
+        "subscription": "month",
+        "feature1": "1",
+        "feature2": "Standard",
+        "feature3": "Email Support",
+        "feature4": "Monthly"
+      },
+      "pro": {
+        "type": "Pro",
+        "price": "$99",
+        "subscription": "month",
+        "feature1": "10",
+        "feature2": "Enhanced",
+        "feature3": "Priority Email Support",
+        "feature4": "Weekly"
+      },
+      "enterprise": {
+        "type": "Enterprise",
+        "price": "$499",
+        "subscription": "year",
+        "feature1": "Unlimited",
+        "feature2": "Maximum",
+        "feature3": "Dedicated Account Manager",
+        "feature4": "Daily"
+      }
+    },
+    "FAQ": {
+      "subHeading": "FAQ",
+      "heading": "Any Questions? Look Here",
+      "content": "We, Hacienda, are more than welcome to answer any questions you may have!",
+      "question1": {
+        "question": "What is the process for buying a property?",
+        "answer": "Answer: The process for buying a property typically involves getting pre-approved for a mortgage, working with a real estate agent to find a suitable property, making an offer, conducting a home inspection, securing financing, and finally, closing the deal. Each step has its own set of details and requirements, so it's important to work closely with professionals throughout the process."
+      },
+      "question2": {
+        "question": "What should I consider when choosing a neighborhood?",
+        "answer": "Answer: When choosing a neighborhood, consider factors such as proximity to work or school, safety, amenities like parks and shopping centers, public transportation, and the overall vibe of the community. Researching school districts, local crime rates, and future development plans can also provide valuable insights into the suitability of a neighborhood for your needs."
+      },
+      "question3": {
+        "question": "What is the role of a real estate agent in the home buying process?",
+        "answer": "Answer: A real estate agent acts as an intermediary between buyers and sellers. They assist buyers by helping them find properties that meet their needs and budget, negotiate offers, and navigate the paperwork involved in the purchase. They also provide valuable insights into market conditions and can recommend professionals such as home inspectors and attorneys. Their expertise can make the home buying process smoother and more efficient."
+      },
+      "question4": {
+        "question": "How can I determine the value of my home?",
+        "answer": "Answer: The value of your home can be determined through a professional appraisal, a comparative market analysis (CMA) conducted by a real estate agent, or online valuation tools. These methods take into account factors like the condition of your home, recent sales of similar properties in your area, and current market trends."
+      },
+      "question5": {
+        "question": "What are the costs associated with buying a home?",
+        "answer": "Answer: The costs associated with buying a home include the down payment, closing costs (which can range from 2% to 5% of the purchase price), home inspection fees, appraisal fees, mortgage insurance (if applicable), and moving expenses. It's important to budget for these costs in addition to the purchase price of the home."
+      },
+      "question6": {
+        "question": "Can I buy a property if I have bad credit?",
+        "answer": "Answer: Yes, it is possible to buy a property with bad credit, but it may be more challenging. Options include securing a loan through a specialized lender, making a larger down payment, finding a co-signer, or improving your credit score before applying for a mortgage. Consulting with a mortgage advisor can help you understand your options and find the best path forward."
+      }
+    }
+  },
+  "Contact": {
+    "companyName": "Hacienda",
+    "mission": "At Hacienda, our mission is to empower buyers and sellers with knowledge, support, and personalized service. Driven by a passion for people and properties, we strive to exceed expectations and build lasting relationships.",
+    "contactUs": "Contact Us",
+    "contactMessage": "Feel free to reach out to us! Whether you have a question, feedback, or a collaboration proposal, we'd love to hear from you.",
+    "emailLabel": "Email",
+    "email": "hacienda@gmail.com",
+    "phoneLabel": "Phone number",
+    "phone": "(555) 555-5555",
+    "enquiryPrompt": "Write Your Enquiry Below",
+    "assistanceMessage": "We are here to assist you",
+    "formLabels": {
+      "name": "Name",
+      "email": "Email",
+      "subject": "Subject",
+      "message": "Message",
+      "submit": "Submit"
+    }
+  },
+  "Usage": {
+    "heading": "How we calculate your usage",
+    "subHeading": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nostrum quam voluptatibus. How to use.",
+    "card1": {
+      "title": "Usage #1",
+      "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident ab nulla quod dignissimos vel non corrupti doloribus voluptatum eveniet"
+    },
+    "card2": {
+      "title": "Usage #2",
+      "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident ab nulla quod dignissimos vel non corrupti doloribus voluptatum eveniet"
+    },
+    "card3": {
+      "title": "Usage #3",
+      "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident ab nulla quod dignissimos vel non corrupti doloribus voluptatum eveniet"
+    }
+  },
+  "_dashboardPagesComment": "Relates to the Dashboard's Content, following similar formatting above. Objects with Comp are for Component specific content (see key: _componentComment).",
+  "Dashboard": {
+    "Index": {
+      "heading": "Properties",
+      "Leads": {
+        "heading": "Leads",
+        "subHeading": "View all your leads.",
+        "noLeads": "You currently have no Leads, but don't worry we will notify you of new leads!",
+        "leadCard": {
+          "title": "Your Lead for",
+          "description": "Use these details to contact the customer and close your deal.",
+          "name": "Name",
+          "surname": "Surname",
+          "email": "Email",
+          "phoneNumber": "Phone number",
+          "message": "Message",
+          "copy": "Copy",
+          "closeButton": "Close",
+          "copySuccess": {
+            "part1": "Customer's",
+            "part2": "has been copied to your clipboard."
+          }
+        }
+      }
+    },
+    "Property": {
+      "heading": "Your Properties",
+      "addButton": "Add Property"
+    },
+    "propertiesComp": {
+      "_componentComment": "This relates to the Properties Component.",
+      "heading": "Properties",
+      "noProperties": "You have no properties. Let's go add one!"
+    },
+    "propertyFormComp": {
+      "formHeadComp": {
+        "backButton": "Back",
+        "createHeading": "Create Property",
+        "editHeading": "Edit Property",
+        "deleteButton": "Delete",
+        "deleteDialog": {
+          "title": "Warning! This is can not be undone.",
+          "description": "Deleting this image will be a permanent action, and can not be undone.",
+          "confirmMessage": "Are you sure you want to do this?",
+          "button": "Confirm Delete"
+        },
+        "saveButton": "Save",
+        "createButton": "Create"
+      },
+      "formFields": {
+        "core": {
+          "title": "Property Details",
+          "description": "Create your new property now!",
+          "titleField": {
+            "label": "Title",
+            "placeholder": "Give your property a title"
+          },
+          "priceField": {
+            "label": "Price"
+          },
+          "descriptionField": {
+            "label": "Description",
+            "placeholder": "Describe your property. Let your words flow"
+          },
+          "addressField": {
+            "label": "Address"
+          }
+        },
+        "meta": {
+          "title": "Meta Data",
+          "description": "Manage the Visability, and Sale Type.",
+          "visibilityField": {
+            "label": "Visability",
+            "options": {
+              "public": "Public",
+              "private": "Private"
+            }
+          },
+          "saleType": {
+            "label": "Sale Type"
+          }
+        },
+        "features": {
+          "title": "Features",
+          "description": "Unique features for your property!",
+          "squareMetersField": {
+            "label": "Square Meters"
+          },
+          "bedroomsField": {
+            "label": "Bedrooms",
+            "placeholder": "Number of Bedrooms"
+          },
+          "bathroomsField": {
+            "label": "Bathrooms",
+            "placeholder": "Number of Bathrooms"
+          },
+          "poolField": {
+            "label": "Pool"
+          },
+          "extraFeatures": {
+            "label": "Extra Features",
+            "placeholder": "Enter a feature",
+            "description": "Press Enter to add"
+          }
+        },
+        "images": {
+          "title": "Images",
+          "description": {
+            "part1": "Upload at least",
+            "part2": "image for your property."
+          },
+          "fileUploaderComp": {
+            "dropActive": "Drop the files here",
+            "heading": {
+              "part1": "Drag",
+              "part2": "drop files here, or click to select files"
+            },
+            "subHeading": {
+              "part1": "You can upload",
+              "part2": "files (up to",
+              "part3": "each)",
+              "part4": "a file with"
+            },
+            "removeFile": "Remove file",
+            "error": {
+              "main": "Ooops, you can't do that.",
+              "multipleError": "Cannot upload more than 1 file at a time",
+              "maxFiles": {
+                "part1": "Cannot upload more than",
+                "part2": "files"
+              },
+              "filesTooLarge": {
+                "title": {
+                  "part1": "Oh no! Images bigger than",
+                  "part2": "are not allowed."
+                },
+                "description": {
+                  "part1": "File",
+                  "part2": "was rejected."
+                }
+              },
+              "invalidType": {
+                "title": {
+                  "part1": "Oh no!",
+                  "part2": "are not allowed."
+                },
+                "description": {
+                  "part1": "File",
+                  "part2": "was rejected."
+                }
+              },
+              "defaultMessage": "Oops, something happened."
+            }
+          },
+          "uploadedFilesComp": {
+            "title": "Uploaded files",
+            "emptyCard": {
+              "title": "No files uploaded",
+              "description": "Upload some files to see them here"
+            },
+            "maxImages": {
+              "part1": "You have uploaded",
+              "part2": "images."
+            },
+            "empty": "You have no images uploaded yet."
+          }
+        }
+      },
+      "propertySchema": {
+        "title": {
+          "required": "Title is required",
+          "invalid": "Title must be a string",
+          "min": "Tile must be at least 5 character long"
+        },
+        "description": {
+          "required": "Description is required.",
+          "invalid": "Description must be a string.",
+          "min": "Description must be at least 10 characters long."
+        },
+        "price": {
+          "required": "Price is required.",
+          "invalid": "Price must be a number.",
+          "positive": "Price must be a positive number."
+        },
+        "bathrooms": {
+          "required": "Number of bathrooms is required.",
+          "invalid": "Bathrooms must be a number.",
+          "min": "There must be at least 1 bathroom."
+        },
+        "bedrooms": {
+          "required": "Number of bedrooms is required.",
+          "invalid": "Bedrooms must be a number.",
+          "min": "There must be at least 1 bedroom."
+        },
+        "pool": {
+          "required": "Pool information is required.",
+          "invalid": "Pool must be a boolean."
+        },
+        "squareMeter": {
+          "required": "Square Meter of property is required.",
+          "invalid": "Square meter must be a number.",
+          "min": "Property must be larger than 1 meter squared."
+        },
+        "address": {
+          "required": "Address is required",
+          "invalid": "Address must be a string",
+          "min": "Address must be at least 5 characters long"
+        },
+        "extraFeatures": {
+          "id": {
+            "required": "Feature ID is required.",
+            "invalid": "Feature ID must be a string."
+          },
+          "text": {
+            "required": "Feature text is required.",
+            "invalid": "Feature text must be a string."
+          },
+          "min": "There must be at least 3 extra feature."
+        },
+        "visibility": {
+          "required": "Pool information is required.",
+          "invalid": "Pool must be a boolean."
+        },
+        "saleType": {
+          "required": "Sale Type is required",
+          "invalid": "Sale type must be either Sale or Rent"
+        },
+        "images": {
+          "part1": "No more than",
+          "part2": "Images allowed."
+        }
+      },
+      "toasts": {
+        "error": {
+          "title": "Something unexpected happend.",
+          "description": "Please try again....",
+          "images": {
+            "part1": "There must be at least",
+            "part2": "Image."
+          }
+        },
+        "create": {
+          "imageRequired": {
+            "title": "Ooops! Looks like you forgot to add images.",
+            "description": "You must upload at least 2 Images for your post."
+          },
+          "unableToUpload": "Ooops! Something went wrong when uploading your images. Please try again",
+          "success": {
+            "title": "Your property has been posted!",
+            "description": "View your property at ...."
+          }
+        },
+        "update": {
+          "title": "Your property has been Updated!",
+          "description": "View your property at ...."
+        },
+        "delete": {
+          "title": "Your property has been Deleted!"
+        }
+      }
+    },
+    "EditProperty": {
+      "error": "Error while fetching the property details"
+    }
+  },
+  "NavbarComp": {
+    "signup": "Sign Up",
+    "home": "Home",
+    "search": "Search",
+    "favorites": "Favorites",
+    "property": "Property",
+    "usage": "Usage",
+    "pricing": "Pricing",
+    "sellYourProperty": "Sell your Property",
+    "dashboard": "Dashboard",
+    "contactUs": "Contact Us"
+  },
+  "Property": {
+    "Index": {
+      "orderBy": {
+        "error": {
+          "heading": "Oh no, it looks like no properties match you query.",
+          "subHeading": "Checkout our other properties"
+        },
+        "title": "Order by",
+        "options": {
+          "default": "Default",
+          "priceLow": "Price - low to high",
+          "priceHigh": "Price - high to low",
+          "mostRecent": "Most recent",
+          "size": "Size"
+        }
+      }
+    },
+    "Property": {
+      "errors": {
+        "fetchingError": "Error while fetching the property details"
+      },
+      "viewMore": {
+        "subHeading": "Related properties",
+        "heading": "Properties"
+      }
+    }
+  },
+  "Onboarding": {
+    "greeting": {
+      "welcome": "Welcome",
+      "subHeading": "Let's get started by setting up your account."
+    },
+    "unAuthed": {
+      "title": "First, let's create your account",
+      "subHeading": "Our agents are here to assist you",
+      "button": "Sign In"
+    },
+    "registerFormComp": {
+      "title": "Become an Agent today",
+      "description": "Our agents are here to assist you",
+      "formFields": {
+        "name": {
+          "label": "Name",
+          "placeholder": "Your name"
+        },
+        "surname": {
+          "label": "Surname",
+          "placeholder": "Your surname"
+        },
+        "email": {
+          "label": "Email address",
+          "placeholder": "Email address"
+        },
+        "company": {
+          "label": "Company (optional)",
+          "placeholder": "Company name"
+        },
+        "phonenumber": {
+          "label": "Phone number",
+          "placeholder": "Enter a phone number"
+        },
+        "isAgent": {
+          "label": "Interested in selling your property?",
+          "description": "You agree to our Sales team to contact you shortly via provided channels."
+        },
+        "submitButton": "Submit"
+      },
+      "toasts": {
+        "error": {
+          "title": "Something unexpected happend.",
+          "description": "Please try again....",
+          "alreadyRegisterd": {
+            "title": "Woops, looks like you've already registered.",
+            "description": "Please wait for our sales team to contact you via email or phone. Feel free to visit our Contact page."
+          }
+        },
+        "success": {
+          "title": "Aye! You are now registered.",
+          "description": "Thanks for registering, our sales team will be in contact with you shortly via provided channels."
+        }
+      },
+      "userFormSchema": {
+        "firstName": "Name must be at least 3 characters long.",
+        "lastName": "Surname must be at least 3 characters long.",
+        "email": "Email address must be valid.",
+        "phoneNumber": "Invalid phone number",
+        "userId": "User Id is required"
+      }
+    }
+  },
+  "Footer": {
+    "servicesTitle": "Services",
+    "servicesDescription": "This is our platform where we help you find your perfect home.",
+    "companyTitle": "Company",
+    "aboutUs": "About Us",
+    "contactUs": "Contact Us",
+    "signUp": "Sign Up",
+    "usefulLinksTitle": "Useful Links",
+    "properties": "Properties",
+    "favorites": "Favorites",
+    "pricing": "Pricing",
+    "sellYourProperty": "Sell Your Property",
+    "letterboxTitle": "Letterbox",
+    "emailPlaceholder": "Your Email",
+    "subscribeButton": "Subscribe",
+    "copyright": "© 2024. Hacienda. All rights reserved."
+  },
+  "bedrooms": "Bedroom",
+  "numberOfBedrooms": "Number of Bedrooms",
+  "bathrooms": "Bathrooms",
+  "numberOfBathrooms": "Number of Bathrooms",
+  "priceRange": "Price range",
+  "minPriceRange": "Min price range",
+  "minPrice": "Min Price",
+  "maxPriceRange": "Max price range",
+  "maxPrice": "Max Price",
+  "reset": "Reset",
+  "applyFilter": "Apply filter",
+  "priceRangeError": "Price range must be a number",
+  "bedroomsError": "Amount of Bedrooms must be a number",
+  "bathroomsError": "Amount of Bathrooms must be a number",
+  "propertyform": {
+    "contactAgent": "Contact Agent",
+    "agentDescription": "Our agents are here to assist you",
+    "name": "Name",
+    "yourName": "Your name",
+    "surname": "Surname",
+    "yourSurname": "Your surname",
+    "email": "Email address",
+    "emailPlaceholder": "Email address",
+    "phoneNumber": "Phone number",
+    "phonePlaceholder": "Enter a phone number",
+    "message": "Message",
+    "messagePlaceholder": "I'm interested in this property, please contact me.",
+    "submit": "Submit",
+    "nameError": "Name must be at least 3 characters long.",
+    "surnameError": "Surname must be at least 3 characters long.",
+    "emailError": "Email address must be valid.",
+    "messageError": "Please enter a short message, longer than 10 characters.",
+    "phoneError": "Invalid phone number",
+    "propertyIdError": "Property Id is required",
+    "agentIdError": "Agent Id is required",
+    "unexpectedError": "Something unexpected happened.",
+    "tryAgain": "Please try again....",
+    "leadPosted": "Your lead has been posted!",
+    "thankYou": "Thank you for enquiring. We will be reaching out soon."
+  },
+  "propertydetails": {
+    "aboutProperty": "About the property",
+    "posted": "Posted:",
+    "meetAgent": "Meet your agent",
+    "offerTitle": "What this place offers",
+    "bedrooms": "{count} Bedrooms",
+    "bathrooms": "{count} Bathrooms",
+    "squareMeters": "{count} m²",
+    "extraFeatures": "Extra Features"
+  }
+}

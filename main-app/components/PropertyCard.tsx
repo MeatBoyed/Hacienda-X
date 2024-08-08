@@ -1,97 +1,101 @@
-// Add Heart
-// "use client"
 import React from "react";
-import "./PropertyCard.css";
-import { AiFillHeart } from "react-icons/ai";
-import { truncate } from "lodash";
-// import Heart from "../Heart/Heart";
 import Link from "next/link";
-import { Property } from "@prisma/client";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import Image from "next/image";
-import { Bath, Bed } from "lucide-react";
-import { PropertyWithAddress } from "@/app/api/[[...route]]/utils";
+import { Bath, BedDouble, Bookmark, Ruler } from "lucide-react";
+import { PropertyWithAddress } from "@/Server/utils/utils";
+import { MdPool } from "react-icons/md";
+import { Card, CardContent } from "./ui/card";
+import { cn } from "@/components/ImagesInput/FileInputUtils";
+import { SavePropertyBTN } from "@/lib/bookmarksContext";
+import { Skeleton } from "./ui/skeleton";
 
-export default function PropertyCard({
+export function PropertyCard({
   property,
+  className,
 }: {
   property: PropertyWithAddress;
+  className?: string;
 }) {
   return (
-    <div className="min-w-[17rem] flex justify-center items-center flex-col gap-5 w-full">
-      <Link href={`../property-for-sale/${property.title}`}>
-        <Image
-          src={property.images[0]}
-          alt={property.title + " - thumbnail."}
-          className="w-full object-cover rounded-lg"
-          width={500}
-          height={700}
-          style={{
-            width: "100%",
-            height: "14rem",
-          }}
-        />
-      </Link>
-      <div className="w-full flex justify-center items-start flex-col gap-3">
-        {/* <p className="text-lg font-semibold">{property.title}</p> */}
-        <div className="flex justify-start items-center gap-4">
-          <Link href={`../property-for-sale/${property.title}`}>
-            <p className="text-lg font-medium">{property.title}</p>
-          </Link>
-          <Link href={`../property-for-sale/${property.title}`}>
-            <p className="text-lg font-semibold">
-              USD {property.price?.toLocaleString()}
-            </p>
-          </Link>
+    <Card className="border-0  md:min-w-fit min-w-max bg-transparent">
+      <div
+        className={cn(
+          "relative h-32 sm:h-48 md:h-52 w-full overflow-hidden rounded-xl  hover:cursor-pointer",
+          className
+        )}
+      >
+        <Link
+          href={`/property-for-sale/${property.title}`}
+          className="w-full h-full"
+        >
+          <Image
+            src={property.images[0]} // Assuming you have an array of images
+            alt={"yess"}
+            width={320}
+            height={300}
+            className="w-full h-full object-cover transform transition-transform duration-500 ease-in-out hover:scale-110"
+          />
+        </Link>
+        <div className="absolute flex justify-center items-center gap-3 top-0 right-0 pr-2 pt-2 ">
+          <p className="rounded-sm bg-[#1f93ff] px-2 py-1 text-xs font-semibold text-white">
+            {property.saleType}
+          </p>
+          <SavePropertyBTN property={property} />
         </div>
-
-        <div className="flex justify-start items-center w-full gap-3">
-          <div className="flex justify-center items-center gap-3">
-            <p className="text-sm font-medium leading-none">
-              {property.bathrooms}
-            </p>
-            <Bath size={15} />
-          </div>
-          <div className="flex justify-center items-center gap-3">
-            <p className="text-sm font-medium leading-none">
-              {property.bedrooms}
-            </p>
-            <Bed size={15} />
-          </div>
-        </div>
-
-        <p className="text-base text-muted-foreground">
-          {property.Address?.address}
-        </p>
       </div>
-    </div>
+      <CardContent className="px-1 flex flex-col gap-3 pt-4">
+        <div className="flex gap-3 justify-start items-center overflow-hidden">
+          <div className="flex justify-center items-center gap-2">
+            <BedDouble size={20} />
+            <p className="leading-7">{property.bedrooms}</p>
+          </div>
+          <div className="flex justify-center items-center gap-2">
+            <Bath size={20} />
+            <p className="leading-7">{property.bathrooms}</p>
+          </div>
+          {property.pool && (
+            <div className="flex justify-center items-center gap-2">
+              <MdPool size={20} />
+              <p className="leading-7">{property.pool && "Yes"}</p>
+            </div>
+          )}
+          {property.squareMeter && (
+            <div className="flex justify-center items-center gap-2">
+              <Ruler size={20} />
+              <p className="leading-7">
+                {property.squareMeter.toLocaleString()} m&#178;
+              </p>
+            </div>
+          )}
+        </div>
+
+        <Link
+          href={`/property-for-sale/${property.title}`}
+          className="w-full h-full"
+        >
+          <p className="line-clamp-1 text-sm font-medium leading-none">
+            {property.title}
+          </p>
+        </Link>
+        <p className="text-lg font-semibold">
+          R {property.price.toLocaleString()}
+        </p>
+      </CardContent>
+    </Card>
   );
 }
 
-function PropertyCard2({ property }: { property: Property }) {
+export function PropertyCardSkeleton({ className }: { className?: string }) {
   return (
-    <div className="flexColStart r-card">
-      {/* <Heart id={card?.id}/> */}
-      {/* <img src={property.image} alt="home" /> */}
-      <span className="secondaryText r-price">
-        <p className="">$ {property.price}</p>
-      </span>
-      <Link href={`../property-for-sale/${property.title}`}>
-        <p className="">
-          {/* {truncate(property.title, { length: 15 })} */}
-          {property.title}
+    <Card className="border-0  md:min-w-fit min-w-max bg-transparent">
+      <Skeleton className="w-56 h-[128px] sm:h-[192px] md:h-[208px]  rounded-xl" />
+      <CardContent className="px-1 flex flex-col gap-3 pt-4">
+        <Skeleton className="w-full h-5" />
+
+        <p className="line-clamp-1 text-sm font-medium leading-none">
+          <Skeleton className="w-full h-5" />
         </p>
-      </Link>
-      <p className="secondaryText">
-        {/* {truncate(property.description, { length: 80 })} */}
-      </p>
-    </div>
+      </CardContent>
+    </Card>
   );
 }

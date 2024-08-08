@@ -8,3 +8,5 @@ Full-stack-real-estate-youtube/node_modules/
 /node_modules
 /package.json
 /package-lock.json
+/main-app/.env
+main-app/.env
