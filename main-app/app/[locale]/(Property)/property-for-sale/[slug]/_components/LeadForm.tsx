@@ -1,21 +1,8 @@
 "use client";
 
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-} from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormControl,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -38,20 +25,12 @@ export const LeadFormSchema = z.object({
   message: z.string().min(10, {
     message: "propertyform.messageError",
   }),
-  phoneNumber: z
-    .string()
-    .refine(isValidPhoneNumber, { message: "propertyform.phoneError" }),
+  phoneNumber: z.string().refine(isValidPhoneNumber, { message: "propertyform.phoneError" }),
   propertyId: z.string().min(3, { message: "propertyform.propertyIdError" }),
   agentId: z.string().min(3, { message: "propertyform.agentIdError" }),
 });
 
-export default function LeadForm({
-  propertyId,
-  agentId,
-}: {
-  propertyId: string;
-  agentId: string;
-}) {
+export default function LeadForm({ propertyId, agentId }: { propertyId: string; agentId: string }) {
   const t = useTranslations();
   const user = useUser();
   const form = useForm<z.infer<typeof LeadFormSchema>>({
@@ -66,23 +45,22 @@ export default function LeadForm({
     },
   });
 
-  const { trigger: triggerCreate, isMutating: isMutatingCreate } =
-    useSWRMutation("/api/leads/create", PostLead /* options */, {
-      onError: (error) => {
-        console.log("Received Error (Plain): ", error);
-        toast.error(t("propertyform.unexpectedError"), {
-          description: t("propertyform.tryAgain"),
-        });
-      },
-      onSuccess: (data) => {
-        // Show message
-        console.log(data);
-        toast.success(t("propertyform.leadPosted"), {
-          description: t("propertyform.thankYou"),
-          duration: 10000,
-        });
-      },
-    });
+  const { trigger: triggerCreate, isMutating: isMutatingCreate } = useSWRMutation("/api/leads/create", PostLead /* options */, {
+    onError: (error) => {
+      console.log("Received Error (Plain): ", error);
+      toast.error(t("propertyform.unexpectedError"), {
+        description: t("propertyform.tryAgain"),
+      });
+    },
+    onSuccess: (data) => {
+      // Show message
+      console.log(data);
+      toast.success(t("propertyform.leadPosted"), {
+        description: t("propertyform.thankYou"),
+        duration: 10000,
+      });
+    },
+  });
 
   function onSubmit(values: z.infer<typeof LeadFormSchema>) {
     console.log(values);
@@ -109,11 +87,7 @@ export default function LeadForm({
                     <FormItem>
                       <FormLabel>{t("propertyform.name")}</FormLabel>
                       <FormControl>
-                        <Input
-                          type="text"
-                          placeholder={t("propertyform.yourName")}
-                          {...field}
-                        />
+                        <Input type="text" placeholder={t("propertyform.yourName")} {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -126,11 +100,7 @@ export default function LeadForm({
                     <FormItem>
                       <FormLabel>{t("propertyform.surname")}</FormLabel>
                       <FormControl>
-                        <Input
-                          type="text"
-                          placeholder={t("propertyform.yourSurname")}
-                          {...field}
-                        />
+                        <Input type="text" placeholder={t("propertyform.yourSurname")} {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -144,11 +114,7 @@ export default function LeadForm({
                   <FormItem>
                     <FormLabel>{t("propertyform.email")}</FormLabel>
                     <FormControl>
-                      <Input
-                        type="email"
-                        placeholder={t("propertyform.emailPlaceholder")}
-                        {...field}
-                      />
+                      <Input type="email" placeholder={t("propertyform.emailPlaceholder")} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -161,12 +127,7 @@ export default function LeadForm({
                   <FormItem>
                     <FormLabel>{t("propertyform.phoneNumber")}</FormLabel>
                     <FormControl>
-                      <PhoneInput
-                        placeholder={t("propertyform.phonePlaceholder")}
-                        {...field}
-                        defaultCountry="ZA"
-                        international
-                      />
+                      <PhoneInput placeholder={t("propertyform.phonePlaceholder")} {...field} defaultCountry="ZA" international />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -179,17 +140,13 @@ export default function LeadForm({
                   <FormItem>
                     <FormLabel>{t("propertyform.message")}</FormLabel>
                     <FormControl>
-                      <Textarea
-                        placeholder={t("propertyform.messagePlaceholder")}
-                        className="resize-none"
-                        {...field}
-                      />
+                      <Textarea placeholder={t("propertyform.messagePlaceholder")} className="resize-none" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              <Button type="submit" className="text-white bg-accent w-full">
+              <Button id="submitLead" type="submit" className="text-white hover:bg-blue-500 bg-accent w-full">
                 {t("propertyform.submit")}
               </Button>
             </form>
