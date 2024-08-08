@@ -4,13 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="96445ecf-43ab-44ef-af38-8a0337d7f7ea" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TestLead.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_08_08_2024_14_17__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_08_08_2024_14_17__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../main-app/app/[locale]/(Property)/property-for-sale/[slug]/_components/LeadForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../main-app/app/[locale]/(Property)/property-for-sale/[slug]/_components/LeadForm.tsx" afterDir="false" />
+    <list default="true" id="96445ecf-43ab-44ef-af38-8a0337d7f7ea" name="Changes" comment="Test Lead is Functional">
+      <change beforePath="$PROJECT_DIR$/TestLead.py" beforeDir="false" afterPath="$PROJECT_DIR$/TestLead.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,7 +63,7 @@
     "settings.editor.selected.configurable": "preferences.keymap"
   }
 }]]></component>
-  <component name="RunManager" selected="Python tests.Python tests for TestLead.TestLead">
+  <component name="RunManager" selected="Python tests.Python tests for TestLead.TestLead.test_form_submits">
     <configuration name="Python tests for TestLead.TestLead" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="SeleniumTesting" />
       <option name="ENV_FILES" value="" />
@@ -146,8 +141,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python tests.Python tests for TestLead.TestLead" />
         <item itemvalue="Python tests.Python tests for TestLead.TestLead.test_form_submits" />
+        <item itemvalue="Python tests.Python tests for TestLead.TestLead" />
         <item itemvalue="Python tests.Python tests for TestLead.TestLead.test_DB_captured_values" />
         <item itemvalue="Python tests.Python tests for TestLead.TestLead.test_form_values_capture" />
         <item itemvalue="Python tests.Python tests for Test_Lead.TestLead.test_form_submits_values" />
@@ -170,6 +165,20 @@
       <option name="presentableId" value="Default" />
       <updated>1723049832527</updated>
     </task>
+    <task id="LOCAL-00001" summary="Test Lead is Functional">
+      <option name="closed" value="true" />
+      <created>1723144136939</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1723144136939</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="feat: LeadForm Test Compatible" />
+    <MESSAGE value="Test Lead is Functional" />
+    <option name="LAST_COMMIT_MESSAGE" value="Test Lead is Functional" />
   </component>
 </project>

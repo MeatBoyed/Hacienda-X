@@ -14,7 +14,7 @@ from selenium.webdriver.chrome.webdriver import WebDriver
 def driver():
     driver = webdriver.Chrome()
     driver.implicitly_wait(20)
-    driver.get("http://localhost:3000/en/property-for-sale/Manchester%20Home")
+    driver.get("http://haciendax.com/en/property-for-sale/Manchester%20Home")
     # yield instance
     yield driver
     # Close instance
@@ -142,6 +142,8 @@ class TestLead:
         # Assert
         assert driver.find_element(By.ID, "formLoader").is_displayed()  # Assert form loader
         print("\nTest Form Content shows Loading State - OK")
+        assert driver.find_element(By.ID, "LeadForm").is_displayed()
+        print("Test Form Content shows Success State  - OK")
         assert driver.find_element(By.XPATH, "/html/section/ol/li").is_displayed()  # Assert success message
         print("Test Form Content shows Success State (Toast) - OK")
 
