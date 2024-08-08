@@ -16,6 +16,7 @@ import Loader from "@/components/ui/loader";
 import { isValidPhoneNumber } from "react-phone-number-input";
 import { useUser } from "@clerk/nextjs";
 import { useTranslations } from "next-intl";
+import { useEffect } from "react";
 
 // Lead Form UTILS
 export const LeadFormSchema = z.object({
@@ -50,6 +51,8 @@ export default function LeadForm({ propertyId, agentId }: { propertyId: string; 
       console.log("Received Error (Plain): ", error);
       toast.error(t("propertyform.unexpectedError"), {
         description: t("propertyform.tryAgain"),
+        duration: 10000,
+        id: "errorToast",
       });
     },
     onSuccess: (data) => {
@@ -58,6 +61,7 @@ export default function LeadForm({ propertyId, agentId }: { propertyId: string; 
       toast.success(t("propertyform.leadPosted"), {
         description: t("propertyform.thankYou"),
         duration: 10000,
+        id: "successToast",
       });
     },
   });
@@ -68,17 +72,22 @@ export default function LeadForm({ propertyId, agentId }: { propertyId: string; 
   }
 
   return (
-    <Card id="LeadForm" className="w-full sm:w-[70%] shadow-lg px-2">
+    <Card id="LeadForm" className="w-full min-h-[50vh] sm:w-[70%] shadow-lg px-2">
       <CardHeader className="flex justify-center items-center">
         <CardTitle>{t("propertyform.contactAgent")}</CardTitle>
         <CardDescription>{t("propertyform.agentDescription")}</CardDescription>
       </CardHeader>
       <CardContent>
-        {isMutatingCreate ? (
-          <Loader className="h-[30vh]" />
-        ) : (
+        {isMutatingCreate && (
+          <div id="formLoader" className=" w-full flex justify-center items-center min-h-[50vh] flex-col gap-4">
+            <Loader className="h-fit" />
+            <p className="text-md">Loading</p>
+          </div>
+        )}
+        {!isMutatingCreate && (
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+              {}
               <div className="flex justify-center items-center gap-3">
                 <FormField
                   control={form.control}
@@ -87,7 +96,7 @@ export default function LeadForm({ propertyId, agentId }: { propertyId: string; 
                     <FormItem>
                       <FormLabel>{t("propertyform.name")}</FormLabel>
                       <FormControl>
-                        <Input type="text" placeholder={t("propertyform.yourName")} {...field} />
+                        <Input type="text" id="name" placeholder={t("propertyform.yourName")} {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -100,7 +109,7 @@ export default function LeadForm({ propertyId, agentId }: { propertyId: string; 
                     <FormItem>
                       <FormLabel>{t("propertyform.surname")}</FormLabel>
                       <FormControl>
-                        <Input type="text" placeholder={t("propertyform.yourSurname")} {...field} />
+                        <Input type="text" id="surname" placeholder={t("propertyform.yourSurname")} {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -114,7 +123,7 @@ export default function LeadForm({ propertyId, agentId }: { propertyId: string; 
                   <FormItem>
                     <FormLabel>{t("propertyform.email")}</FormLabel>
                     <FormControl>
-                      <Input type="email" placeholder={t("propertyform.emailPlaceholder")} {...field} />
+                      <Input type="email" id="email" placeholder={t("propertyform.emailPlaceholder")} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -127,7 +136,13 @@ export default function LeadForm({ propertyId, agentId }: { propertyId: string; 
                   <FormItem>
                     <FormLabel>{t("propertyform.phoneNumber")}</FormLabel>
                     <FormControl>
-                      <PhoneInput placeholder={t("propertyform.phonePlaceholder")} {...field} defaultCountry="ZA" international />
+                      <PhoneInput
+                        id="phoneNumber"
+                        placeholder={t("propertyform.phonePlaceholder")}
+                        {...field}
+                        defaultCountry="ZA"
+                        international
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -140,7 +155,12 @@ export default function LeadForm({ propertyId, agentId }: { propertyId: string; 
                   <FormItem>
                     <FormLabel>{t("propertyform.message")}</FormLabel>
                     <FormControl>
-                      <Textarea placeholder={t("propertyform.messagePlaceholder")} className="resize-none" {...field} />
+                      <Textarea
+                        id="message"
+                        placeholder={t("propertyform.messagePlaceholder")}
+                        className="resize-none"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
