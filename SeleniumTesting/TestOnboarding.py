@@ -5,6 +5,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.webdriver import WebDriver
 
 URL_PATH = "http://localhost:3000/en/onboarding"
+# URL_PATH = "http://haciendax.com/en/onboarding"
 PASSWORD = "JanesTest$Passowrd+clerk_test"
 
 @pytest.fixture()
@@ -22,7 +23,7 @@ class TestOnboarding:
 
     def sign_in_user(self, driver: WebDriver, email: str, password: str):
         # Navigate to Sign In
-        driver.find_element(By.XPATH, "/html/body/div/div[2]/div[2]/p").click()
+        driver.find_element(By.ID, "SignInBtn").click()
         continueBtn = driver.find_element(By.CLASS_NAME, "cl-formButtonPrimary")
 
         # Enter Email & continue
@@ -48,7 +49,7 @@ class TestOnboarding:
 
         # Scroll to form
         action = webdriver.ActionChains(driver)
-        action.move_to_element(self.submitbtn).perform()
+        action.move_to_element(driver.find_element(By.TAG_NAME, "footer")).perform()
 
         # Act
         self.namefield.send_keys(name)

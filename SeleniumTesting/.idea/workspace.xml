@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="96445ecf-43ab-44ef-af38-8a0337d7f7ea" name="Changes" comment="test form Content is in succees state.">
+    <list default="true" id="96445ecf-43ab-44ef-af38-8a0337d7f7ea" name="Changes" comment="TestOnboarding created">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TestOnboarding.py" beforeDir="false" afterPath="$PROJECT_DIR$/TestOnboarding.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../main-app/app/[locale]/(Auth)/onboarding/_components/OnboardingForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../main-app/app/[locale]/(Auth)/onboarding/_components/OnboardingForm.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../main-app/lib/userContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../main-app/lib/userContext.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,7 +70,7 @@
     "settings.editor.selected.configurable": "preferences.keymap"
   }
 }]]></component>
-  <component name="RunManager" selected="Python tests.Python tests for TestOnboarding.TestOnboarding">
+  <component name="RunManager" selected="Python tests.Python tests for TestOnboarding.TestOnboarding.test_form_submits">
     <configuration name="Python tests for TestLead.TestLead.test_form_submits" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="SeleniumTesting" />
       <option name="ENV_FILES" value="" />
@@ -146,8 +148,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python tests.Python tests for TestOnboarding.TestOnboarding" />
         <item itemvalue="Python tests.Python tests for TestOnboarding.TestOnboarding.test_form_submits" />
+        <item itemvalue="Python tests.Python tests for TestOnboarding.TestOnboarding" />
         <item itemvalue="Python tests.Python tests for TestOnboarding.TestOnboarding.test_user_signin" />
         <item itemvalue="Python tests.Python tests for TestOnboarding.TestOnboarding.test_form_values_capture" />
         <item itemvalue="Python tests.Python tests for TestLead.TestLead.test_form_submits" />
@@ -186,13 +188,22 @@
       <option name="project" value="LOCAL" />
       <updated>1723144518188</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="TestOnboarding created">
+      <option name="closed" value="true" />
+      <created>1723193999861</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1723193999862</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="feat: LeadForm Test Compatible" />
     <MESSAGE value="Test Lead is Functional" />
     <MESSAGE value="test form Content is in succees state." />
-    <option name="LAST_COMMIT_MESSAGE" value="test form Content is in succees state." />
+    <MESSAGE value="TestOnboarding created" />
+    <option name="LAST_COMMIT_MESSAGE" value="TestOnboarding created" />
   </component>
 </project>
