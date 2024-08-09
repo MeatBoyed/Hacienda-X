@@ -1,0 +1,21 @@
+{
+  "id": "3b651194-9a82-4019-9d02-d61bbf030f0a",
+  "version": "2.0",
+  "name": "jh",
+  "url": "http://localhost:3000/onboarding",
+  "tests": [{
+    "id": "3e37e020-e613-4f6a-b4f5-aca87075a20e",
+    "name": "jh",
+    "commands": []
+  }],
+  "suites": [{
+    "id": "35873246-9f92-4f7a-b521-7d5f6e59f75a",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["3e37e020-e613-4f6a-b4f5-aca87075a20e"]
+  }],
+  "urls": ["http://localhost:3000/"],
+  "plugins": []
+}
