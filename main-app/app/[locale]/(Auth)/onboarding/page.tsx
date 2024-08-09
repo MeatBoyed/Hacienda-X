@@ -48,7 +48,10 @@ export default async function OnboardingPage({
               fallbackRedirectUrl={"/onboarding"}
               signUpFallbackRedirectUrl={"/onboarding"}
             >
-              <p className="text-base text-white bg-blue-500 hover:bg-blue-700 transition px-4 py-2 rounded min-w-[100px] text-center cursor-pointer">
+              <p
+                id="SignInBtn"
+                className="text-base text-white bg-blue-500 hover:bg-blue-700 transition px-4 py-2 rounded min-w-[100px] text-center cursor-pointer"
+              >
                 {t("unAuthed.button")}
               </p>
             </SignInButton>

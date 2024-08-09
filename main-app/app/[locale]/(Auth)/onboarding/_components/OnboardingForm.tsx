@@ -108,8 +108,6 @@ export default function OnboardingForm({
       <CardHeader className="flex justify-center items-center">
         <CardTitle>{t("title")}</CardTitle>
         <CardDescription>{t("description")}</CardDescription>
-
-        <SignOutButton redirectUrl="/onboarding" />
       </CardHeader>
       <CardContent>
         {isMutatingCreate && (

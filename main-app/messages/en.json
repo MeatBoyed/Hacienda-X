@@ -588,7 +588,8 @@
         },
         "success": {
           "title": "You are registered!",
-          "description": "Thanks for registering, our sales team will be in contact with you shortly via provided channels."
+          "description": "Thanks for registering, our sales team will be in contact with you shortly via provided channels.",
+          "link": "Checkout our Properties."
         }
       },
       "userFormSchema": {

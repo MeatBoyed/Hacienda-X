@@ -31,7 +31,7 @@ export const UserContextProvider: React.FC<{
   useEffect(() => {
     if (!isSignedIn && !currentUser) return;
     validateUser(currentUser.id).catch((err) => console.error("User Context Error: Fetching Server user failed"));
-  }, [isSignedIn]);
+  }, [isSignedIn, currentUser, validateUser]);
 
   return <UserContext.Provider value={{ user }}>{children}</UserContext.Provider>;
 };
