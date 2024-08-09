@@ -16,20 +16,8 @@ import { PhoneInput } from "@/components/PhoneInput";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { PostAgent } from "@/app/api/(userActions)/actions";
 import { useRouter } from "next/navigation";
-import { Switch } from "@/components/ui/switch";
 import { useTranslations } from "next-intl";
-import { Checkbox } from "@/components/ui/checkbox";
-
-// Lead Form UTILS
-// export const UserFormSchema = z.object({
-//   firstName: z.string().min(3, { message: "Name must be at least 3 characters long." }),
-//   lastName: z.string().min(3, { message: "Surname must be at least 3 characters long." }),
-//   email: z.string().email({ message: "Email address must be valid." }),
-//   company: z.string().optional(),
-//   phoneNumber: z.string().refine(isValidPhoneNumber, { message: "Invalid phone number" }).optional(),
-//   user_id: z.string().min(1, { message: "User Id is required" }),
-//   isAgent: z.boolean(),
-// });
+import { SignOutButton } from "@clerk/nextjs";
 
 const UserFormSchemaTranslated = (t: any) => {
   return z.object({
@@ -42,20 +30,21 @@ const UserFormSchemaTranslated = (t: any) => {
       .refine(isValidPhoneNumber, { message: t("userFormSchema.phoneNumber") })
       .optional(),
     user_id: z.string().min(1, { message: t("userFormSchema.userId") }),
-    isAgent: z.boolean(),
   });
 };
 
-export default function RegisterForm({
+export default function OnboardingForm({
   userId,
   firstName,
   lastName,
   email,
+  number,
 }: {
   userId: string;
   firstName: string | null;
   lastName: string | null;
   email?: string;
+  number?: string;
 }) {
   const t = useTranslations("Onboarding.registerFormComp");
   const router = useRouter();
@@ -69,7 +58,7 @@ export default function RegisterForm({
       firstName: firstName || "",
       lastName: lastName || "",
       email: email || "",
-      isAgent: false,
+      phoneNumber: number,
     },
   });
 
@@ -81,6 +70,8 @@ export default function RegisterForm({
         console.log("Received Error (Plain): ", error);
         toast.error(t("toasts.error.title"), {
           description: t("toasts.error.description"),
+          duration: 10000,
+          id: "errorToast",
         });
       },
       onSuccess: (data) => {
@@ -92,6 +83,7 @@ export default function RegisterForm({
           toast.info(t("toasts.error.alreadyRegisterd.title"), {
             description: t("toasts.error.alreadyRegisterd.description"),
             duration: 10000,
+            id: "alreadyRegisteredToast",
           });
           return;
         }
@@ -99,6 +91,7 @@ export default function RegisterForm({
         toast.success(t("toasts.success.title"), {
           description: t("toasts.success.description"),
           duration: 10000,
+          id: "successToast",
         });
       },
     }
@@ -107,21 +100,27 @@ export default function RegisterForm({
   function onSubmit(values: z.infer<typeof UserFormSchema>) {
     console.log("Submitted Form Values: ", values);
     triggerCreate();
-    router.push("/property-for-sale");
+    router.replace("/onboarding?registered=true");
   }
 
   return (
-    <Card className="">
+    <Card id="OnboardingCard" className=" min-h-[50vh] gap-5 shadow-lg px-2">
       <CardHeader className="flex justify-center items-center">
         <CardTitle>{t("title")}</CardTitle>
         <CardDescription>{t("description")}</CardDescription>
+
+        <SignOutButton redirectUrl="/onboarding" />
       </CardHeader>
       <CardContent>
-        {isMutatingCreate ? (
-          <Loader className="h-[30vh]" />
-        ) : (
+        {isMutatingCreate && (
+          <div id="formLoader" className=" w-full flex justify-center items-center min-h-[50vh] flex-col gap-4">
+            <Loader className="h-fit" />
+            <p className="text-md">Loading</p>
+          </div>
+        )}
+        {!isMutatingCreate && (
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-10">
+            <form id="OnboardingForm" onSubmit={form.handleSubmit(onSubmit)} className="space-y-10">
               <div className="flex justify-center items-center flex-col gap-5 w-full">
                 <div className="flex w-full justify-between items-center gap-3">
                   <FormField
@@ -131,7 +130,7 @@ export default function RegisterForm({
                       <FormItem className="w-full">
                         <FormLabel>{t("formFields.name.label")}</FormLabel>
                         <FormControl>
-                          <Input type="text" placeholder={t("formFields.name.placeholder")} {...field} />
+                          <Input type="text" id="firstName" placeholder={t("formFields.name.placeholder")} {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -144,7 +143,7 @@ export default function RegisterForm({
                       <FormItem className="w-full">
                         <FormLabel>{t("formFields.surname.label")}</FormLabel>
                         <FormControl>
-                          <Input type="text" placeholder={t("formFields.surname.placeholder")} {...field} />
+                          <Input type="text" id="lastName" placeholder={t("formFields.surname.placeholder")} {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -159,7 +158,7 @@ export default function RegisterForm({
                       <FormItem className="w-full">
                         <FormLabel>{t("formFields.email.label")}</FormLabel>
                         <FormControl>
-                          <Input type="email" placeholder={t("formFields.email.placeholder")} {...field} />
+                          <Input type="email" id="email" placeholder={t("formFields.email.placeholder")} {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -172,7 +171,7 @@ export default function RegisterForm({
                       <FormItem className="w-full">
                         <FormLabel>{t("formFields.company.label")}</FormLabel>
                         <FormControl>
-                          <Input type="text" placeholder={t("formFields.company.placeholder")} {...field} />
+                          <Input type="text" id="company" placeholder={t("formFields.company.placeholder")} {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -190,28 +189,29 @@ export default function RegisterForm({
                             {...field}
                             defaultCountry="ZA"
                             international
+                            id="phoneNumber"
                           />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
                     )}
                   />
-                  <FormField
+                  {/* <FormField
                     control={form.control}
                     name="isAgent"
-                    render={({ field }) => (
-                      <FormItem className="w-full flex justify-start items-center gap-5">
-                        {/* <FormLabel>{t("formFields.isAgent.label")}</FormLabel>
+                    render={({ field }) => ( */}
+                  {/* // <FormItem className="w-full flex justify-start items-center gap-5"> */}
+                  {/* <FormLabel>{t("formFields.isAgent.label")}</FormLabel>
                         <FormDescription>{t("")}</FormDescription> */}
-                        <FormControl className="">
-                          {/* <Switch
+                  {/* <FormControl className=""> */}
+                  {/* <Switch
                             checked={field.value}
                             onCheckedChange={field.onChange}
                             style={{ backgroundColor: "#3b82f6", margin: "0" }}
                           /> */}
-                          <div className="items-top flex mt-2 space-x-3">
-                            <Checkbox
-                              id="terms1"
+                  {/* <div className="items-top flex mt-2 space-x-3"> */}
+                  {/* <Checkbox
+                              id="isAgent"
                               className="data-[state=checked]:border-green-500 data-[state=checked]:bg-green-500 w-6 h-6"
                               checked={field.value}
                               onCheckedChange={field.onChange}
@@ -224,17 +224,17 @@ export default function RegisterForm({
                                 {t("formFields.isAgent.label")}
                               </label>
                               <p className="text-sm text-muted-foreground">{t("formFields.isAgent.description")}</p>
-                            </div>
-                          </div>
+                            </div> */}
+                  {/* </div>
                         </FormControl>
                         <FormMessage />
                       </FormItem>
                     )}
-                  />
+                  /> */}
                 </div>
               </div>
 
-              <Button type="submit" className="text-white bg-accent w-full">
+              <Button type="submit" id="submitForm" className="text-white bg-accent w-full">
                 {t("formFields.submitButton")}
               </Button>
             </form>

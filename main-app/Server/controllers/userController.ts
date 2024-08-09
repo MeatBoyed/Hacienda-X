@@ -40,7 +40,6 @@ const app = new Hono()
         email: z.string().email({ message: "Email address must be valid." }),
         company: z.string().optional(),
         phoneNumber: z.string().optional(),
-        isAgent: z.boolean(),
       })
     ),
     async (c) => {
@@ -54,14 +53,15 @@ const app = new Hono()
       endDate.setDate(startDate.getDate() + 30);
 
       // Create User
-      await db.user.create({
-        data: {
+      await db.user.upsert({
+        where: { public_id: userForm.user_id },
+        create: {
           email: userForm.email,
           company: userForm.company,
           public_id: userForm.user_id,
           lastName: userForm.lastName,
           firstName: userForm.firstName,
-          role: userForm.isAgent ? "agent" : "viewer",
+          role: "agent",
           subscriptions: {
             create: {
               start_date: startDate,
@@ -70,6 +70,14 @@ const app = new Hono()
               payment_status: "Unpaid",
             },
           },
+        },
+        update: {
+          email: userForm.email,
+          company: userForm.company,
+          public_id: userForm.user_id,
+          lastName: userForm.lastName,
+          firstName: userForm.firstName,
+          role: "agent",
         },
       });
     }

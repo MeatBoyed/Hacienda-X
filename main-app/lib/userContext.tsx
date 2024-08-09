@@ -6,7 +6,7 @@ import { getServerUser } from "@/app/api/(userActions)/actions";
 
 // Enabling TS features
 export type UserContextType = {
-  user?: ServerUser;
+  user: ServerUser | null;
 };
 
 export const UserContext = createContext<UserContextType | null>(null);
@@ -14,7 +14,7 @@ export const UserContext = createContext<UserContextType | null>(null);
 export const UserContextProvider: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
-  const [user, setUser] = useState<ServerUser>();
+  const [user, setUser] = useState<ServerUser | null>(null);
   const { user: currentUser, isSignedIn } = useUser();
 
   const validateUser = useCallback(async (userId: string) => {

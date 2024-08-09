@@ -587,7 +587,7 @@
           }
         },
         "success": {
-          "title": "Aye! You are now registered.",
+          "title": "You are registered!",
           "description": "Thanks for registering, our sales team will be in contact with you shortly via provided channels."
         }
       },
