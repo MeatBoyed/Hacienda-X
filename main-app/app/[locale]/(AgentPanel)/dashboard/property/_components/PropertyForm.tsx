@@ -37,7 +37,7 @@ import PropertyFormHead from "./PropertyFormHead";
 import { UploadShad } from "@/components/UploadShad/main";
 
 // TODO: Make Select translated & make Schema follow translations
-export default function PropertyForm({ initProperty, locale }: { initProperty?: PropertyWithAddress; locale?: string }) {
+export default function PropertyForm({ initProperty }: { initProperty?: PropertyWithAddress }) {
   const t = useTranslations("Dashboard.propertyFormComp");
   const router = useRouter();
   const { user } = useContext(UserContext) as UserContextType;
