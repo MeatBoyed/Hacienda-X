@@ -33,7 +33,7 @@ export default async function NotFoundPage({ locale }: { locale: string }) {
               <CardTitle>Page Not Found</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
-              <CardDescription>Woops! Looks like this page doesn't exist</CardDescription>
+              <CardDescription>Woops! Looks like this page doesn&apos;t exist</CardDescription>
               <Link href="/">Return Home</Link>
             </CardContent>
           </Card>
