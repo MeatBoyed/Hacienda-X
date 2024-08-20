@@ -5,7 +5,7 @@ import PropertyForm from "../_components/PropertyForm";
 import { PropertyWithAddress } from "@/Server/utils/utils";
 import { PuffLoader } from "react-spinners";
 import { useTranslations } from "next-intl";
-import { fetcher } from "@/components/Upload-Shad/main/FileInputUtils";
+import { fetcher } from "@/lib/RequestUtils";
 
 // Allow user's to request property features for us to add
 export default function ManageProperty() {

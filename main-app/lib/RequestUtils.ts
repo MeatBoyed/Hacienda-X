@@ -4,6 +4,8 @@ import { DeletePropertyPayload, PropertySchema } from "./FormUtils";
 import { PropertyWithAddress } from "@/Server/utils/utils";
 import { LeadFormSchema } from "@/app/[locale]/(Property)/property-for-sale/[slug]/_components/LeadForm";
 
+export const fetcher = (url: string) => fetch(url).then((res) => res.json());
+
 export interface PostPropertyResponse {
   results: PropertyWithAddress;
   status: number;
