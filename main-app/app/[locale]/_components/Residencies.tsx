@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import PropertyCarousel from "@/components/PropertyCarousel";
 import { PropertyCard } from "@/components/PropertyCard";
-import { cn } from "@/components/UploadShad/FileInputUtils";
+import { cn } from "@/lib/utils";
 
 import { getTranslations } from "next-intl/server";
 import { getProperties } from "@/lib/RequestService";

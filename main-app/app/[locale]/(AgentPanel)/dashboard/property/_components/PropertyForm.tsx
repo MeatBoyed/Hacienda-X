@@ -35,6 +35,8 @@ import { Badge } from "@/components/ui/badge";
 import { useTranslations } from "next-intl";
 import PropertyFormHead from "./PropertyFormHead";
 import { UploadShad } from "@/components/UploadShad/main";
+import FilesPreview from "@/components/UploadShad/FilesPreview";
+import { FileInput } from "@/components/UploadShad/FileInput";
 
 // TODO: Make Select translated & make Schema follow translations
 export default function PropertyForm({ initProperty }: { initProperty?: PropertyWithAddress }) {
@@ -71,29 +73,16 @@ export default function PropertyForm({ initProperty }: { initProperty?: Property
         description: t("toasts.error.description"),
       });
     },
-    onSuccess: (data) => {
-      console.log(data);
-      if (data.error === "Image is required") {
-        toast.error(t("toasts.create.imageRequired.title"), {
-          description: t("toasts.create.imageRequired.description"),
-          duration: 500000,
-        });
-        return;
-      }
-      if (data.error === "Unable to upload image") {
-        toast.error(t("toasts.create.unableToUpload"), {
-          duration: 500000,
-        });
-        return;
-      }
+    onSuccess: (res) => {
+      console.log(res);
 
-      if (data) {
-        // Show message
-        toast.success(t("toasts.create.success.title"), {
-          description: t("toasts.create.success.description"),
-        });
-        router.replace(`/dashboard/property/${data.property_id}`);
-      }
+      // Show message
+      toast.success(t("toasts.create.success.title"), {
+        description: t("toasts.create.success.description"),
+      });
+      // TODO: Navigatae to "/property-forsale/[slug]?state=created"
+      // router.replace(`/dashboard/property/${data.property_id}`);
+      router.refresh();
     },
   });
 
@@ -108,40 +97,18 @@ export default function PropertyForm({ initProperty }: { initProperty?: Property
         description: t("toasts.error.description"),
       });
     },
-    onSuccess: (data: PropertyWithAddress) => {
-      const createdProp: z.infer<typeof PropSchema> = {
-        property_id: data.property_id,
-        title: data.title,
-        price: data.price,
-        description: data.description,
-        bathrooms: data.bathrooms,
-        bedrooms: data.bedrooms,
-        squareMeter: data.squareMeter ? data.squareMeter : 0, // TODO: Remove Square Meter being an optional field
-        pool: data.pool,
-        images: data.images,
-        extraFeatures: data.extraFeatures.map((feat, i) => ({
-          id: i.toString(),
-          text: feat,
-        })),
-        address: data.Address ? data.Address.address : "",
-        lat: data.Address ? data.Address.latitude : 0,
-        lng: data.Address ? data.Address.longitude : 0,
-        visibility: data.visibility,
-        saleType: data.saleType,
-      };
-
-      // Set result (property) value to the Form's state, convert object values..
-      form.reset(createdProp);
-
+    onSuccess: (res) => {
       // Show message
       toast.success(t("toasts.update.title"), {
         description: t("toasts.update.description"),
       });
+      // TODO: Navigate to similar Post route
+      router.refresh();
     },
   });
 
   const { trigger: triggerDelete, isMutating: isMutatingDelete } = useSWRMutation(
-    `/api/dashboard/property/delete/${initProperty?.property_id || ""}`,
+    `/api/dashboard/property/delete`,
     DeleteProperty /* options */,
     {
       onError: () => {
@@ -159,40 +126,22 @@ export default function PropertyForm({ initProperty }: { initProperty?: Property
   async function submitHandler(values: z.infer<typeof PropSchema>) {
     console.log("Submitted Form: ", values);
 
-    if (!initProperty) {
-      if (values.images.length < MINFILES) {
-        setError("images", {
-          message: `${t("toasts.error.images.part1")} ${MINFILES} ${t("toasts.error.images.part2")}`,
-        });
-        return;
-      }
-
-      await triggerCreate({ property: values });
-    } else {
-      if (values.imagesOrder && values.imagesOrder.length < MINFILES) {
-        setError("images", {
-          message: `${t("toasts.error.images.part1")} ${MINFILES} ${t("toasts.error.images.part2")}`,
-        });
-        return;
-      }
-
+    if (!initProperty) await triggerCreate({ property: values });
+    else
       await triggerUpdate({
         property: values,
       });
-    }
   }
 
   async function deleteHandler() {
     if (!initProperty || !user) return;
-
     await triggerDelete({
       payload: {
+        agentId: user.public_id,
         propertyId: initProperty.property_id,
-        userId: user.public_id,
-        images: initProperty.images,
+        images: [...initProperty.images, ...getValues("images")],
       },
     });
-
     router.push("/dashboard/property");
   }
 
@@ -319,18 +268,27 @@ export default function PropertyForm({ initProperty }: { initProperty?: Property
                           <FormMessage />
                           <FormControl className="px-2 pb-4">
                             <UploadShad
-                              maxFiles={MAXFILES}
-                              maxSize={5 * 1024 * 1024}
-                              defaultValues={initProperty ? field.value : []}
-                              handleChange={(uploadedImages, deletedImages) => {
-                                console.log("Images: ", uploadedImages);
-                                if (initProperty) {
-                                  if (deletedImages) setValue("deletedImages", deletedImages);
-                                  setValue("imagesOrder", uploadedImages.order); // Store File Order
-                                }
-                                setValue("images", uploadedImages.newImages); // Stores Uploaded Files
+                              defaultValues={field.value}
+                              // folderId={}
+                              // metadata={{}}
+                              handleChange={(files) => {
+                                setValue("images", files); // Stores Uploaded Files
+                                console.log("Formstate updated: ", form.getValues("images"));
                               }}
-                            />
+                            >
+                              <FileInput maxfiles={10} maxsize={5 * 1024 * 1024} />
+                              <FilesPreview>
+                                <FilesPreview.Head>
+                                  <h3 className="text-xl font-semibold">Uploaded files</h3>
+                                  <CardDescription>
+                                    {/* {uploadedImages && uploadedImages?.length > 0
+              ? `You have uploaded ${uploadedImages?.length} images.`
+              : `You have no images uploaded yet.`} */}
+                                    You have no images uploaded yet
+                                  </CardDescription>
+                                </FilesPreview.Head>
+                              </FilesPreview>
+                            </UploadShad>
                           </FormControl>
                         </FormItem>
                       )}
@@ -575,22 +533,22 @@ export default function PropertyForm({ initProperty }: { initProperty?: Property
 function getDefaultVaules(initProperty: PropertyWithAddress | undefined) {
   return {
     property_id: initProperty?.property_id || "",
-    title: initProperty?.title || "",
-    price: initProperty?.price || 0,
-    description: initProperty?.description || "",
-    bathrooms: initProperty?.bathrooms || 0,
-    bedrooms: initProperty?.bedrooms || 0,
-    squareMeter: initProperty?.squareMeter || 0,
+    title: initProperty?.title || "askdakjd ajdaaksdf",
+    price: initProperty?.price || 1000000,
+    description: initProperty?.description || "kasjdf aksdjf akdf aksfj",
+    bathrooms: initProperty?.bathrooms || 2,
+    bedrooms: initProperty?.bedrooms || 4,
+    squareMeter: initProperty?.squareMeter || 4,
     pool: initProperty?.pool || false,
-    images: initProperty?.images || [],
+    images: initProperty?.images || ["https://dstilezauto.s3.af-south-1.amazonaws.com/haciendaXTest/asd.png"],
     extraFeatures:
       initProperty?.extraFeatures.map((feature, index) => ({
         id: index.toString(),
         text: feature,
       })) || [],
-    address: initProperty?.Address?.address || "",
-    lat: initProperty?.Address?.latitude || 0,
-    lng: initProperty?.Address?.longitude || 0,
+    address: initProperty?.Address?.address || "aksdj aksdjf askdfj aksdfj",
+    lat: initProperty?.Address?.latitude || -239,
+    lng: initProperty?.Address?.longitude || 123,
     visibility: initProperty?.visibility || "Public",
     saleType: initProperty?.saleType || "Sale",
   };

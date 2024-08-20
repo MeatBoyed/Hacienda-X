@@ -16,11 +16,16 @@ export const env = createEnv({
     PRIVATE_POSTHOG_KEY: z.string().min(1),
 
     // AWS
-    S3_ACCESS_KEY: z.string().min(1),
-    S3_SECRET_ACCESS_KEY: z.string().min(1),
+    S3_ACCESS_KEY: z.string().min(1), // TODO Remove
+    S3_SECRET_ACCESS_KEY: z.string().min(1), // TODO Remove
+    AWS_BUCKET_NAME: z.string().min(1),
+    AWS_BUCKET_REGION: z.string().min(1),
+    AWS_BUCKET_ACCESS_KEY: z.string().min(1),
+    AWS_BUCKET_SECRET_ACCESS_KEY: z.string().min(1),
+    AWS_BUCKET_PRODUCTION_FOLDER: z.string().min(1),
   },
   client: {
-    NEXT_PUBLIC_SITE_URL: z.string().url(),
+    NEXT_PUBLIC_HOST_URL: z.string().url(),
 
     // Clerk
     NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: z.string().min(1),
@@ -38,13 +43,16 @@ export const env = createEnv({
     NEXT_PUBLIC_GOOGLE_MAPS_API_KEY: z.string().min(1),
 
     // AWS
-    NEXT_PUBLIC_S3_BUCKET_NAME: z.string().min(1),
-    NEXT_PUBLIC_S3_BUCKET_LOCATION: z.string().min(1),
-    NEXT_PUBLIC_AWS_S3_BASE_URL: z.string().url(),
+
+    // TODO: Remove!
+    NEXT_PUBLIC_S3_BUCKET_NAME: z.string().min(1), // TODO: Remove
+    NEXT_PUBLIC_S3_BUCKET_LOCATION: z.string().min(1), // TODO: Remove
+    NEXT_PUBLIC_AWS_S3_BASE_URL: z.string().url(), // TODO: Remove
+    NEXT_PUBLIC_AWS_BASE_URL: z.string().min(1),
   },
   //   For Next.js >= 13.4.4, you only need to destructure client variables:
   experimental__runtimeEnv: {
-    NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
+    NEXT_PUBLIC_HOST_URL: process.env.NEXT_PUBLIC_SITE_URL,
     NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,
     NEXT_PUBLIC_CLERK_SIGN_IN_URL: process.env.NEXT_PUBLIC_CLERK_SIGN_IN_URL,
     NEXT_PUBLIC_CLERK_SIGN_UP_URL: process.env.NEXT_PUBLIC_CLERK_SIGN_UP_URL,
@@ -56,6 +64,7 @@ export const env = createEnv({
     NEXT_PUBLIC_GOOGLE_MAPS_API_KEY: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
     NEXT_PUBLIC_S3_BUCKET_NAME: process.env.NEXT_PUBLIC_S3_BUCKET_NAME,
     NEXT_PUBLIC_S3_BUCKET_LOCATION: process.env.NEXT_PUBLIC_S3_BUCKET_LOCATION,
-    NEXT_PUBLIC_AWS_S3_BASE_URL: process.env.NEXT_PUBLIC_AWS_S3_BASE_URL,
+    NEXT_PUBLIC_AWS_S3_BASE_URL: process.env.NEXT_PUBLIC_AWS_S3_BASE_URL, // TODO: Remove
+    NEXT_PUBLIC_AWS_BASE_URL: process.env.NEXT_PUBLIC_AWS_BASE_URL,
   },
 });

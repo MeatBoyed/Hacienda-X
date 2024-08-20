@@ -4,8 +4,8 @@ import { Inter } from "next/font/google";
 import Providers from "@/components/Providers/Providers";
 import PostHogClient from "@/components/Posthog";
 import { auth } from "@clerk/nextjs/server";
-import { cn } from "@/components/UploadShad/FileInputUtils";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import { cn } from "@/lib/utils";
 
 const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {

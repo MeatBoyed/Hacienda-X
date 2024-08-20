@@ -1,83 +1,66 @@
-import { clerkMiddleware, getAuth } from "@hono/clerk-auth";
-import { zValidator } from "@hono/zod-validator";
-import { Hono } from "hono";
+import { Context, Hono } from "hono";
+import { getAuth } from "@hono/clerk-auth";
 import { HTTPException } from "hono/http-exception";
-import { z } from "zod";
-import { deleteImages, uploadFilesToS3 } from "./uploadFile";
-import { validator } from "hono/validator";
-import { parseImageUploadFormData } from "@/lib/FormUtils";
-import { AWS_S3_BASE_URL, AWS_S3_PRODUCTION_FOLDER_NAME } from "../utils/utils";
+import S3Service from "@/components/UploadShad/server/S3Service";
+import { FilePayloadSchema } from "@/components/UploadShad/types";
+import { zValidator } from "@hono/zod-validator";
 
-const app = new Hono();
+const acceptedTypes = ["image/png", "image/jpeg"];
+const maxFileSize = 10 * 1024 * 1024; // 10MB
 
-app.use(clerkMiddleware());
+const s3Service = new S3Service();
 
-export const PreSignRequest = z.object({
-  images: z.array(z.instanceof(File)),
-});
-export const DeleteImagesRequestSchema = z.object({
-  deletedImage: z.string(),
-});
+const app = new Hono()
+  .post("/", async (c) => {
+    console.log("Hello youu");
 
-app.post(
-  "/upload",
-  validator("form", (value, c) => {
-    const parsed = parseImageUploadFormData(value);
-    if (!parsed) {
-      return c.text("Invalid!", 401);
-    }
-    return parsed;
-  }),
-  async (c) => {
-    // Get the current user
-    const auth = getAuth(c);
+    const raw = await c.req.raw.json();
+    const filePayload = FilePayloadSchema.safeParse(raw);
+    if (!filePayload.success || !filePayload.data) throw new HTTPException(405, { message: "Missing payload values" });
 
-    // Ensure user is signed in
-    if (!auth?.userId) {
-      console.log("Unable to authenticate user");
-      throw new HTTPException(401);
-    }
+    const signedURLResult = await s3Service.getSignedURL(filePayload.data, { acceptedTypes, maxFileSize });
 
-    const images = c.req.valid("form").images;
+    if (signedURLResult.failure)
+      throw new HTTPException(400, { message: "Failed to generate signed URL.", cause: signedURLResult.failure });
 
-    const res = await uploadFilesToS3(auth.userId, images);
+    return c.json(signedURLResult);
+  })
+  .post("/delete", async (c) => {
+    await authenticateUser(c);
 
-    if (!res) {
-      return c.json({ message: "unable to upload" }, { status: 500 });
-    }
+    const { url } = c.req.query();
+    if (!url) throw new HTTPException(400, { message: "Missing query values" });
 
-    const imageUrls: string[] = images.map(
-      (image) =>
-        `${AWS_S3_BASE_URL}/${AWS_S3_PRODUCTION_FOLDER_NAME}/${image.name}`
-    );
-    console.log("Image URLs: ", imageUrls);
+    const deleteResult = await s3Service.deleteFile(url);
 
-    return c.json({ result: imageUrls }, { status: 200 });
+    if (deleteResult.failure || deleteResult.success === false)
+      throw new HTTPException(400, { message: "Failed to delete file.", cause: deleteResult.failure });
+    console.log("Result: ", deleteResult);
+
+    return c.json(deleteResult);
+  });
+
+/**
+ *
+ * @param c API Context
+ * @returns Authenticated user
+ */
+export function authenticateUser(c: Context) {
+  // Get the current user
+  const auth = getAuth(c);
+
+  // Ensure user is signed in
+  if (!auth?.userId) {
+    const errorResponse = new Response("Unauthorized Request", {
+      status: 401,
+      headers: {
+        Authenticate: 'error="invalid_token"',
+      },
+    });
+    throw new HTTPException(401, { res: errorResponse });
   }
-);
 
-// app.post(
-//   "/delete",
-//   zValidator("json", DeleteImagesRequestSchema),
-//   async (c) => {
-//     // Get the current user
-//     const auth = getAuth(c);
-
-//     // Ensure user is signed in
-//     if (!auth?.userId) {
-//       console.log("Unable to authenticate user");
-//       throw new HTTPException(401);
-//     }
-
-//     const image = c.req.valid("json");
-//     console.log("Images: ", image);
-
-//     const res = await deleteImages(image.deletedImage);
-
-//     if (!res) throw new Error("Unable to Delete Image");
-
-//     return c.json({ result: res }, { status: 200 });
-//   }
-// );
+  return auth;
+}
 
 export default app;

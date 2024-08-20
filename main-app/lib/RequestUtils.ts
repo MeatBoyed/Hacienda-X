@@ -1,5 +1,6 @@
+"use client";
 import { z } from "zod";
-import { DeletePropertyRequestSchema, PropertySchemaBackEnd, propertyToFormData } from "./FormUtils";
+import { DeletePropertyPayload, PropertySchema } from "./FormUtils";
 import { PropertyWithAddress } from "@/Server/utils/utils";
 import { LeadFormSchema } from "@/app/[locale]/(Property)/property-for-sale/[slug]/_components/LeadForm";
 
@@ -65,13 +66,16 @@ export async function PostProperty(
     arg,
   }: {
     arg: {
-      property: z.infer<typeof PropertySchemaBackEnd>;
+      property: PropertySchema;
     };
   }
 ) {
   return fetch(url, {
     method: "POST",
-    body: propertyToFormData(arg.property),
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify(arg.property),
   }).then((res) => res.json());
 }
 
@@ -81,7 +85,7 @@ export async function DeleteProperty(
     arg,
   }: {
     arg: {
-      payload: z.infer<typeof DeletePropertyRequestSchema>;
+      payload: DeletePropertyPayload;
     };
   }
 ) {

@@ -1,7 +1,7 @@
 "use client";
 import { ReactNode, useState } from "react";
 import Link from "next/link";
-import { cn } from "@/components/UploadShad/FileInputUtils";
+import { cn } from "@/lib/utils";
 
 interface PricingCardProps {
   children: ReactNode;

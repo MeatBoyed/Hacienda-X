@@ -6,7 +6,7 @@ import { PropertyWithAddress } from "@/Server/utils/utils";
 import PropertyInsightCard, { PropertyInsightCardSkeleton } from "../../_components/PropertyInsightCard";
 import { useMemo } from "react";
 import { useTranslations } from "next-intl";
-import { cn } from "@/components/UploadShad/FileInputUtils";
+import { cn } from "@/lib/utils";
 
 export default function Properties({ className }: { className?: string }) {
   const t = useTranslations("Dashboard.propertiesComp");
@@ -24,10 +24,8 @@ export default function Properties({ className }: { className?: string }) {
 
   if (!data) {
     return (
-      <div className="flex flex-col justify-center items-center py-20 gap-5">
-        {/* <h1>{t("Index.Residencies.error")}</h1> */}
-      </div>
-    )
+      <div className="flex flex-col justify-center items-center py-20 gap-5">{/* <h1>{t("Index.Residencies.error")}</h1> */}</div>
+    );
   }
 
   return (

@@ -1,3 +1,4 @@
+"use client";
 import { InferRequestType } from "hono";
 import { honoClient } from "../[[...route]]/route";
 

@@ -1,34 +1,14 @@
 import { Context, Hono } from "hono";
-import { AWS_S3_BASE_URL } from "../utils/utils";
 import db from "../utils/db";
 import { clerkMiddleware, getAuth } from "@hono/clerk-auth";
 import { HTTPException } from "hono/http-exception";
-import { validator } from "hono/validator";
-import { deleteImages, uploadFilesToS3 } from "./uploadFile";
-import { DeletePropertyRequestSchema, parseFormData } from "@/lib/FormUtils";
+import { DeletePropertyPayload, PropertySchema } from "@/lib/FormUtils";
 import { zValidator } from "@hono/zod-validator";
+import PropertyService from "../lib/PropertyService";
 
-// Checks Clerk auth & returns logged in User
-export function authenticateUser(c: Context) {
-  // Get the current user
-  const auth = getAuth(c);
+const propertyService = new PropertyService();
 
-  // Ensure user is signed in
-  if (!auth?.userId) {
-    const errorResponse = new Response("Unauthorized Request", {
-      status: 401,
-      headers: {
-        Authenticate: 'error="invalid_token"',
-      },
-    });
-    throw new HTTPException(401, { res: errorResponse });
-  }
-
-  return auth;
-}
-const app = new Hono();
-
-app.use(clerkMiddleware());
+const app = new Hono().use(clerkMiddleware());
 
 // Checks user exists (True: Exist, False: Doesn't)
 app.get("/authuser", async (c) => {
@@ -69,189 +49,58 @@ app.get("/property/:propertyid", async (c) => {
   );
 });
 
-// Images are Uploaded via the backend to better Identify
 // Create Product - Private Endpoint
-app.post(
-  "/property/create",
-  // Validates the Incoming data is the correct type through Zod validation schema
-  validator("form", (value, c) => {
-    const parsed = parseFormData(value);
-    if (!parsed) {
-      return c.text("Invalid!", 401);
-    }
-    return parsed;
-  }),
-  async (c) => {
-    const user = authenticateUser(c);
-    const prop = c.req.valid("form");
-    console.log("Your Submitted form data: ", prop);
+app.post("/property/create", zValidator("json", PropertySchema), async (c) => {
+  const user = authenticateUser(c); // Auth user
+  const payload = c.req.valid("json"); // Get Payload
 
-    if (prop.images.length === 0) return c.json({ error: "Image is required" });
+  const response = await propertyService.Create(payload, user.userId); // Offload to Business Layer
+  if (response.failure || !response.success) throw new HTTPException(500, { message: response.message });
 
-    // Upload image process
-    const imageUpload = await uploadFilesToS3(user.userId, prop.images); // Url format: https:<aws-domain>/<userId>/<unique-uuid>
-
-    if (imageUpload.failedImages.length > 0) {
-      await deleteImages(imageUpload.uploadedImages.map((im) => im.url));
-      // throw new HTTPException(504, { message: "Image uploading Failed." });
-      return c.json({ error: "Unable to upload image" });
-    }
-
-    // Database query (obvs)
-    return c.json(
-      await db.property.create({
-        data: {
-          title: prop.title,
-          description: prop.description,
-          price: prop.price,
-          bathrooms: prop.bathrooms,
-          bedrooms: prop.bedrooms,
-          squareMeter: prop.squareMeter,
-          pool: prop.pool,
-          saleType: prop.saleType,
-          visibility: prop.visibility,
-          agent_id: user.userId,
-          images: imageUpload.uploadedImages.map((image) => image.url),
-          sold: false,
-          extraFeatures: prop.extraFeatures,
-          Address: {
-            create: {
-              address: prop.address,
-              latitude: prop.lat,
-              longitude: prop.lng,
-            },
-          },
-        },
-        include: { Address: true },
-      })
-    );
-  }
-);
+  return c.json(response.success);
+});
 
 // Update Product - Private Endpoint
-app.post(
-  "/property/update",
-  // Validates the Incoming data is the correct type through Zod validation schema
-  validator("form", (value, c) => {
-    const parsed = parseFormData(value);
+app.post("/property/update", zValidator("json", PropertySchema), async (c) => {
+  const user = authenticateUser(c); // Auth user
 
-    if (!parsed) return c.text("Invalid!", 401);
-    if (parsed.property_id === "") return c.text("Invalid! Prop.", 401);
+  const prop = c.req.valid("json"); // Get Payload
+  const response = await propertyService.Update(prop, user.userId); // Offload to Business Layer
+  if (response.failure || !response.success) throw new HTTPException(500, { message: response.message });
 
-    return parsed;
-  }),
-  async (c) => {
-    // Get the current user
-    const user = authenticateUser(c);
-
-    const prop = c.req.valid("form");
-    console.log("Your Submitted form data: ", prop);
-
-    if (prop.deletedImages) {
-      try {
-        await deleteImages(prop.deletedImages);
-      } catch (err) {
-        throw new HTTPException(500, {
-          message: `Unable to delete images. Error: ${err as Error}`,
-        });
-      }
-    }
-
-    // Upload image process
-    let images: string[] = [];
-    if (prop.images && prop.imagesOrder) {
-      try {
-        const res = await uploadFilesToS3(user.userId, prop.images); // Url format: https:<aws-domain>/<userId>/<unique-uuid>
-        if (res.failedImages.length > 0) {
-          await deleteImages(res.uploadedImages.map((image) => image.url));
-          throw new HTTPException(500, {
-            message: "Failed objects found in upload",
-          });
-        }
-        prop.imagesOrder.forEach((imageId) => {
-          if (imageId.startsWith(AWS_S3_BASE_URL)) {
-            return images.push(imageId);
-          }
-          res.uploadedImages.forEach((image) => {
-            if (image.fileName === imageId) return images.push(image.url);
-          });
-        });
-      } catch (err) {
-        throw new HTTPException(500, {
-          message: `Unable to Upload images. Error: ${err as Error}`,
-        });
-      }
-    }
-
-    return c.json(
-      await db.property.update({
-        where: { property_id: prop.property_id },
-        data: {
-          title: prop.title,
-          description: prop.description,
-          price: prop.price,
-          bathrooms: prop.bathrooms,
-          bedrooms: prop.bedrooms,
-          squareMeter: prop.squareMeter,
-          pool: prop.pool,
-          saleType: prop.saleType,
-          visibility: prop.visibility,
-          agent_id: user.userId,
-          images: images,
-          sold: false,
-          extraFeatures: prop.extraFeatures,
-          Address: {
-            update: {
-              address: prop.address,
-              latitude: prop.lat,
-              longitude: prop.lng,
-            },
-          },
-        },
-        include: { Address: true },
-      })
-    );
-  }
-);
+  return c.json(response.success);
+});
 
 // Delete Product - Private Endpoint
-app.post(
-  "/property/delete/:slug",
-  // Validates the Incoming data is the correct type through Zod validation schema
-  zValidator("json", DeletePropertyRequestSchema),
-  async (c) => {
-    // Get the current user
-    const user = authenticateUser(c);
+app.post("/property/delete", zValidator("json", DeletePropertyPayload), async (c) => {
+  const user = authenticateUser(c); // Auth
 
-    const slug = c.req.param("slug"); // PropertyId
-    const deletePayload = c.req.valid("json");
+  const deletePayload = c.req.valid("json"); // Get Payload
+  if (user.userId !== deletePayload.agentId) throw new HTTPException(403, { message: "Unable to verify request" });
 
-    if (
-      user.userId !== deletePayload.userId &&
-      deletePayload.propertyId === "" &&
-      slug !== deletePayload.propertyId
-    )
-      throw new HTTPException(401, { message: "Unable to verify request" });
+  const response = await propertyService.Delete(deletePayload); // Offload to Business Layer
+  if (response.failure || !response.success) throw new HTTPException(500, { message: response.message });
 
-    try {
-      await deleteImages(deletePayload.images);
-    } catch (error) {
-      throw new HTTPException(500, {
-        message: "Unable to delete images.",
-        cause: error,
-      });
-    }
-
-    return c.json(
-      await db.property.update({
-        where: {
-          property_id: slug,
-          agent_id: user.userId,
-        },
-        data: { visibility: "Deleted" },
-      })
-    );
-  }
-);
+  return c.json(response.success);
+});
 
 export default app;
+
+// Checks Clerk auth & returns logged in User
+export function authenticateUser(c: Context) {
+  // Get the current user
+  const auth = getAuth(c);
+
+  // Ensure user is signed in
+  if (!auth?.userId) {
+    const errorResponse = new Response("Unauthorized Request", {
+      status: 401,
+      headers: {
+        Authenticate: 'error="invalid_token"',
+      },
+    });
+    throw new HTTPException(401, { res: errorResponse });
+  }
+
+  return auth;
+}
