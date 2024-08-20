@@ -22,6 +22,14 @@ export default function Properties({ className }: { className?: string }) {
     [data]
   );
 
+  if (!data) {
+    return (
+      <div className="flex flex-col justify-center items-center py-20 gap-5">
+        {/* <h1>{t("Index.Residencies.error")}</h1> */}
+      </div>
+    )
+  }
+
   return (
     <>
       {isLoading && <PropertiesSkeleton />}

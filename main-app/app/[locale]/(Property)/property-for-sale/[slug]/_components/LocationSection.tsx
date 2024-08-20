@@ -1,11 +1,9 @@
 import { MapComp } from "@/components/Map";
-import { GenericPropertyResponse, PropertyWithAddress } from "@/Server/utils/utils";
-import Residencies from "@/app/[locale]/_components/Residencies";
-import useSWR from "swr";
-import { fetcher } from "@/components/UploadShad/FileInputUtils";
+import { PropertyWithAddress } from "@/Server/utils/utils";
+import { getProperties } from "@/lib/RequestService";
 
-export default function LocationSection({ property }: { property: PropertyWithAddress }) {
-  const { data } = useSWR<PropertyWithAddress[]>("/api/properties", fetcher);
+export default async function LocationSection({ property }: { property: PropertyWithAddress }) {
+  const data = await getProperties();
 
   return (
     <section className="flex justify-center items-center w-full flex-col">

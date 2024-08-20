@@ -171,23 +171,7 @@ export const PropertySchemaBackEnd = z.object({
 });
 
 export const PropertySchemaTranslated = (t: any) => {
-  // const visibility = z.enum(
-  //   [
-  //     t("formFields.meta.visibilityField.options.public"),
-  //     t("formFields.meta.visibilityField.options.private"),
-  //     t("formFields.meta.visibilityField.options.draft"),
-  //     t("formFields.meta.visibilityField.options.deleted"),
-  //   ],
-  //   {
-  //     required_error: t("propertySchema.visibility.required"),
-  //     invalid_type_error: t("propertySchema.visibility.invalid"),
-  //   }
-  // );
-
-  // const saleType = z.enum([t("formFields.meta.saleTypeField.options.rent"), t("formFields.meta.saleTypeField.options.sale")], {
-  //   required_error: t("propertySchema.saleType.required"),
-  //   invalid_type_error: t("propertySchema.saleType.invalid"),
-  // });
+  
   return z.object({
     property_id: z.string(),
     title: z

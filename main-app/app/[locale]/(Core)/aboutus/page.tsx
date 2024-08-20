@@ -1,15 +1,16 @@
 // TODO: Half done
-"use client";
 import React, { useState } from "react";
 import "react-accessible-accordion/dist/fancy-example.css";
 import "./aboutus.css";
 import Image from "next/image";
-import { useTranslations } from "next-intl";
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 // Demo styles, see 'Styles' section below for some notes on use.
 
-export default function Value() {
-  const t = useTranslations("AboutUs");
+export const dynamic = "force-static";
+
+export default async function Value() {
+  const t = await getTranslations("AboutUs");
   return (
     <div className="bg-white dark:bg-gray-800 overflow-hidden relative lg:flex lg:items-center">
       <div className="w-full mt-9 py-12 px-4 sm:px-6 lg:py-16 lg:px-8 z-20">

@@ -1,12 +1,6 @@
+"use client";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselPrevious,
-  CarouselNext,
-  CarouselApi,
-} from "@/components/ui/carousel";
+import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext, CarouselApi } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import { X, ArrowLeft, ArrowRight } from "lucide-react";
 import Image from "next/image";
@@ -20,9 +14,7 @@ export default function PropertyCarousel({ images }: { images: string[] }) {
     isOpen: false,
     currentImg: 0,
   });
-  const plugin = React.useRef(
-    Autoplay({ delay: 4000, stopOnInteraction: true })
-  );
+  const plugin = React.useRef(Autoplay({ delay: 4000, stopOnInteraction: true }));
 
   return (
     <div className="w-full flex justify-center items-center flex-col gap-3">
@@ -36,17 +28,9 @@ export default function PropertyCarousel({ images }: { images: string[] }) {
       >
         <CarouselContent>
           {images.map((image, index) => (
-            <CarouselItem
-              key={index}
-              onClick={() => setModal({ isOpen: true, currentImg: index })}
-            >
+            <CarouselItem key={index} onClick={() => setModal({ isOpen: true, currentImg: index })}>
               <AspectRatio ratio={16 / 9}>
-                <Image
-                  src={image}
-                  alt={`Thumbnail ${image}`}
-                  fill
-                  className="rounded-md object-cover"
-                />
+                <Image src={image} alt={`Thumbnail ${image}`} fill className="rounded-md object-cover" />
               </AspectRatio>
             </CarouselItem>
           ))}
@@ -58,36 +42,18 @@ export default function PropertyCarousel({ images }: { images: string[] }) {
       {/* Smaller Images */}
       <div className="w-full flex justify-center items-center gap-3 flex-wrap">
         {images.slice(0, 3).map((image, index) => (
-          <div
-            key={index}
-            className="w-full h-full max-w-16 md:max-w-20"
-            onClick={() => api && api.scrollTo(index)}
-          >
+          <div key={index} className="w-full h-full max-w-16 md:max-w-20" onClick={() => api && api.scrollTo(index)}>
             <AspectRatio ratio={1 / 1} className="">
-              <Image
-                src={image}
-                alt={`Thumbnail ${image}`}
-                fill
-                className="rounded-md object-cover"
-              />
+              <Image src={image} alt={`Thumbnail ${image}`} fill className="rounded-md object-cover" />
             </AspectRatio>
           </div>
         ))}
         {showMore ? (
           <>
             {images.slice(3).map((image, index) => (
-              <div
-                key={index}
-                className="w-full h-full max-w-16 md:max-w-20"
-                onClick={() => api && api.scrollTo(index)}
-              >
+              <div key={index} className="w-full h-full max-w-16 md:max-w-20" onClick={() => api && api.scrollTo(index)}>
                 <AspectRatio ratio={1 / 1} className="">
-                  <Image
-                    src={image}
-                    alt={`Thumbnail ${image}`}
-                    fill
-                    className="rounded-md object-cover"
-                  />
+                  <Image src={image} alt={`Thumbnail ${image}`} fill className="rounded-md object-cover" />
                 </AspectRatio>
               </div>
             ))}
@@ -137,8 +103,7 @@ export default function PropertyCarousel({ images }: { images: string[] }) {
                 onClick={() =>
                   setModal((prev) => ({
                     ...prev,
-                    currentImg:
-                      (prev.currentImg - 1 + images.length) % images.length,
+                    currentImg: (prev.currentImg - 1 + images.length) % images.length,
                   }))
                 }
                 className="text-blue-600 rounded-full bg-white p-1 shadow-md hover:cursor-pointer hover:text-blue-700"

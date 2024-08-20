@@ -1,8 +1,10 @@
 import React from "react";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 
-export default function ContactUs() {
-  const t = useTranslations("Contact");
+export const dynamic = "force-static";
+
+export default async function ContactUs() {
+  const t = await getTranslations("Contact");
 
   return (
     <div className="bg-gray-900 min-h-screen">

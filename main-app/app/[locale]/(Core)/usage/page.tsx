@@ -1,8 +1,10 @@
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import React from "react";
 
-export default function Usage() {
-  const t = useTranslations("Usage");
+export const dynamic = "force-static";
+
+export default async function Usage() {
+  const t = await getTranslations("Usage");
   return (
     <section className="bg-white dark:bg-gray-900">
       <div className="container px-6 py-24 mx-auto">

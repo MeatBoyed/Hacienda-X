@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { DeletePropertyRequestSchema, PropertySchema, propertyToFormData } from "./FormUtils";
+import { DeletePropertyRequestSchema, PropertySchemaBackEnd, propertyToFormData } from "./FormUtils";
 import { PropertyWithAddress } from "@/Server/utils/utils";
 import { LeadFormSchema } from "@/app/[locale]/(Property)/property-for-sale/[slug]/_components/LeadForm";
 
@@ -65,7 +65,7 @@ export async function PostProperty(
     arg,
   }: {
     arg: {
-      property: z.infer<typeof PropertySchema>;
+      property: z.infer<typeof PropertySchemaBackEnd>;
     };
   }
 ) {
