@@ -1,3 +1,4 @@
+"use client";
 import { CardContent } from "@/components/ui/card";
 import { PropsWithChildren, useMemo } from "react";
 import { EmptyCard } from "./lib/EmptyCard";

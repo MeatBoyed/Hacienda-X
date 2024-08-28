@@ -1,3 +1,4 @@
+"use client";
 import React, { useState, createContext, useContext, useCallback } from "react";
 import { toast } from "sonner";
 import { handleDeleteFile, handleFetchSignedURL, handleUploadFile } from "../lib/ControllerLayer";
