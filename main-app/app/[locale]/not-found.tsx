@@ -1,4 +1,4 @@
-import "../app/[locale]/globals.css";
+import "./globals.css";
 import { cn } from "@/components/ImagesInput/FileInputUtils";
 import PostHogClient from "@/components/Posthog";
 import Providers from "@/components/Providers/Providers";
@@ -12,12 +12,6 @@ import Link from "next/link";
 const inter = Inter({ subsets: ["latin"] });
 
 export default async function NotFoundPage({ locale }: { locale: string }) {
-  const { userId } = await auth();
-
-  if (userId) {
-    const posthog = PostHogClient();
-    posthog.identify({ distinctId: userId });
-  }
   return (
     <html lang={locale}>
       <head>

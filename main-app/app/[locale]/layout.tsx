@@ -19,12 +19,12 @@ interface LocaleRootLayoutProps {
 }
 
 export default async function LocaleRootLayout({ children, params: { locale } }: Readonly<LocaleRootLayoutProps>) {
-  const { userId } = await auth();
+  // const { userId } = await auth();
 
-  if (userId) {
-    const posthog = PostHogClient();
-    posthog.identify({ distinctId: userId });
-  }
+  // if (userId) {
+  //   const posthog = PostHogClient();
+  //   posthog.identify({ distinctId: userId });
+  // }
 
   return (
     <html lang={locale}>

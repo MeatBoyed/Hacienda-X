@@ -1,31 +1,17 @@
 import { Button } from "@/components/ui/button";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselPrevious,
-  CarouselNext,
-} from "@/components/ui/carousel";
+import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "@/components/ui/carousel";
 import { Heart, Share } from "lucide-react";
 import Image from "next/image";
 import { toast } from "@/components/ui/use-toast";
 import handleCopyClick from "@/components/CopyToClipboard";
+import { env } from "@/env";
 
-export default function Head({
-  title,
-  images,
-}: {
-  title?: string;
-  images?: string[];
-}) {
-  const siteurl = process.env.NEXT_PUBLIC_SITE_URL;
+export default function Head({ title, images }: { title?: string; images?: string[] }) {
+  const siteurl = env.NEXT_PUBLIC_HOST_URL;
   const url = siteurl + "/property-for-sale/" + encodeURIComponent(title || "");
 
   return (
-    <section
-      id="head"
-      className="flex justify-center items-center w-full gap-6 flex-col-reverse sm:flex-col sm:pt-5"
-    >
+    <section id="head" className="flex justify-center items-center w-full gap-6 flex-col-reverse sm:flex-col sm:pt-5">
       {/* Title, Share & Links */}
       <div className="w-full px-4 sm:max-w-3xl sm:px-4 sm:pt-0 lg:max-w-5xl">
         <div className="w-full flex justify-center items-start sm:items-end flex-col gap-3 sm:flex-row sm:justify-between">
@@ -43,22 +29,17 @@ export default function Head({
                 (await handleCopyClick(url))
                   ? toast({
                       title: "Saved to clipboard!",
-                      description:
-                        "Share the link on your favourite social media.",
+                      description: "Share the link on your favourite social media.",
                     })
                   : toast({
                       title: "Couldn't save to clipboard.",
-                      description:
-                        "Sorry, something went wrong. Please try again.",
+                      description: "Sorry, something went wrong. Please try again.",
                     })
               }
             >
               <Share size={15} /> Share
             </Button>
-            <Button
-              className="text-text bg-transparent gap-3 p-0 underline"
-              size={"sm"}
-            >
+            <Button className="text-text bg-transparent gap-3 p-0 underline" size={"sm"}>
               <Heart size={15} /> Save
             </Button>
           </div>

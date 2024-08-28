@@ -4,8 +4,6 @@ import "reactjs-popup/dist/index.css";
 import { AccordionItem, List, PricingCard } from "../_components/PricingCard";
 import { getTranslations } from "next-intl/server";
 
-export const dynamic = "force-static";
-
 export default async function PricingPage() {
   const t = await getTranslations("Pricing");
   return (

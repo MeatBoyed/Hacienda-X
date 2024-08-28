@@ -1,8 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import React from "react";
 
-export const dynamic = "force-static";
-
 export default async function Usage() {
   const t = await getTranslations("Usage");
   return (

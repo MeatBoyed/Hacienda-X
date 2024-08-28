@@ -3,8 +3,6 @@ import { SearchBar } from "@/components/SearchBar";
 import { getProperties } from "@/lib/RequestService";
 import { notFound } from "next/navigation";
 
-export const dynamic = "force-static";
-
 export default async function MapSearchView() {
   const data = await getProperties();
 

@@ -10,9 +10,6 @@ import Contact from "../_components/Contact";
 import { getDictionary } from "@/messages/dictionaries";
 import { Messages } from "@/global";
 import Loader from "@/components/ui/loader";
-import { locales } from "@/i18n";
-
-export const dynamic = "force-static";
 
 // Translated
 export default async function Home({ params: { locale } }: { params: { locale: string } }) {

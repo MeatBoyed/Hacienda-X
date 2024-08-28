@@ -7,8 +7,6 @@ import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 // Demo styles, see 'Styles' section below for some notes on use.
 
-export const dynamic = "force-static";
-
 export default async function Value() {
   const t = await getTranslations("AboutUs");
   return (
