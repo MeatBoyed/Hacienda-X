@@ -106,9 +106,6 @@ function MainNavSlider({
         <Link href="/pricing">
           <p className="text-xl">{pricing}</p>
         </Link>
-        <Link href="/pricing">
-          <p className="text-xl text-blue-500">{sellYourProperty}</p>
-        </Link>
         <Link href="/dashboard">
           <p className="text-xl">{dashboard}</p>
         </Link>
@@ -166,17 +163,11 @@ function MainNavlinks({
 }) {
   return (
     <div className="flex justify-center gap-8 items-center">
-      <Link href="/">
-        <p className="text-base text-black hover:text-gray-700 transition">{home}</p>
-      </Link>
       <Link href="/property-for-sale">
         <p className="text-base text-black hover:text-gray-700 transition">{search}</p>
       </Link>
       <Link href="/pricing">
         <p className="text-base text-black hover:text-gray-700 transition">{pricing}</p>
-      </Link>
-      <Link href="/pricing">
-        <p className="text-base text-black hover:text-gray-700 transition">{sellYourProperty}</p>
       </Link>
       {userId && (
         <Link href="/dashboard">
