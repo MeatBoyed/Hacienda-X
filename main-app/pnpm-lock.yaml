@@ -228,8 +228,8 @@ importers:
         specifier: ^1.5.0
         version: 1.5.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       svix:
-        specifier: ^1.30.0
-        version: 1.30.0
+        specifier: ^1.31.0
+        version: 1.31.0
       swiper:
         specifier: ^11.1.10
         version: 11.1.10
@@ -4652,8 +4652,8 @@ packages:
   svix-fetch@3.0.0:
     resolution: {integrity: sha512-rcADxEFhSqHbraZIsjyZNh4TF6V+koloX1OzZ+AQuObX9mZ2LIMhm1buZeuc5BIZPftZpJCMBsSiBaeszo9tRw==}
 
-  svix@1.30.0:
-    resolution: {integrity: sha512-Osc+W9Xa3AsV9JEea6Bt6XuFzkUidhhgBItQzGffPeD6oWB0P6Ft82uDOdOyUjF+vdxos7F2Csyh7YlOl4N0bQ==}
+  svix@1.31.0:
+    resolution: {integrity: sha512-sBSFoEWklpLqJP6tZZ8r8IcjYCAJOIiHgFSGBHo/AhmjcMfuE7qTuD5XsAXSgqZxSbFUM6CIHjbdV0QgdN1LtA==}
 
   swiper@11.1.10:
     resolution: {integrity: sha512-pAVM6vCb6bumj2B9aSh67l3wP1j5YR8dPQM1YhQKMpnBc33vs+RpyVz6NZYZl/ZopCBSYbbWK5nvESwbmU0QXQ==}
@@ -10153,7 +10153,7 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  svix@1.30.0:
+  svix@1.31.0:
     dependencies:
       '@stablelib/base64': 1.0.1
       es6-promise: 4.2.8

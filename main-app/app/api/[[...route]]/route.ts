@@ -14,7 +14,7 @@ import { clerkMiddleware } from "@hono/clerk-auth";
 // Increase performance by using either Drizzle, or Prisma Accelerate
 // export const runtime = "edge";
 
-const app = new Hono().basePath("/api").use(logger()).use(clerkMiddleware());
+const app = new Hono().basePath("/api").use(logger())
 
 // Allows RPC features for User route
 // TODO: Make all routes RPC
