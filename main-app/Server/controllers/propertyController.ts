@@ -1,51 +1,39 @@
 import { Hono } from "hono";
 import db from "../utils/db";
 import { clerkMiddleware } from "@hono/clerk-auth";
+import PropertyService from "../lib/PropertyService";
+import { HTTPException } from "hono/http-exception";
+import { StatusCode } from "hono/utils/http-status";
+
+const propertyService = new PropertyService();
 
 const app = new Hono()
-  .use(clerkMiddleware())
   // Fetch All Products - Public Endpoint
   .get("/", async (c) => {
-    return c.json(
-      await db.property.findMany({
-        where: { visibility: { not: "Deleted" } },
-        include: { Address: true },
-      })
-    );
+    const response = await propertyService.GetAll();
+    if (response.err) throw new HTTPException((response.val.status as StatusCode) || 500, { message: response.val.message });
+    return c.json(response.val);
   })
   .get("/search", async (c) => {
     const { minPrice, maxPrice, bathrooms, bedrooms } = c.req.query();
-
-    const minP = parseInt(minPrice);
-    const maxP = parseInt(maxPrice);
-    const baths = parseInt(bathrooms);
-    const beds = parseInt(bedrooms);
-
-    return c.json(
-      await db.property.findMany({
-        where: {
-          visibility: { not: "Deleted" },
-          bathrooms: { equals: baths > 0 ? baths : undefined },
-          bedrooms: { equals: beds > 0 ? beds : undefined },
-          price: {
-            lte: maxP > 100000 ? maxP : undefined,
-            gte: minP > 100000 ? minP : undefined,
-          },
-        },
-        include: { Address: true },
-      })
-    );
+    const response = await propertyService.Search({
+      bathrooms: { equals: parseInt(bathrooms) > 0 ? parseInt(bathrooms) : undefined },
+      bedrooms: { equals: parseInt(bedrooms) > 0 ? parseInt(bedrooms) : undefined },
+      price: {
+        lte: parseInt(maxPrice) > 100000 ? parseInt(maxPrice) : undefined,
+        gte: parseInt(minPrice) > 100000 ? parseInt(minPrice) : undefined,
+      },
+    });
+    if (response.err) throw new HTTPException((response.val.status as StatusCode) || 500, { message: response.val.message });
+    return c.json(response.val);
   })
   // Fetch Specific Product - Public Endpoint
   .get("/:slug", async (c) => {
     const slug = c.req.param("slug");
 
-    return c.json(
-      await db.property.findFirstOrThrow({
-        where: { title: slug, visibility: { not: "Deleted" } }, // TODO: Property needs a Slug field in DB
-        include: { Address: true, agent: true },
-      })
-    );
+    const response = await propertyService.Get(undefined, slug);
+    if (response.err) throw new HTTPException((response.val.status as StatusCode) || 500, { message: response.val.message });
+    return c.json(response.val);
   });
 
 export type AppType = typeof app;

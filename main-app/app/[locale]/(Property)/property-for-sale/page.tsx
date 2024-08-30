@@ -14,6 +14,7 @@ import { MapComp } from "@/components/Map";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, SelectLabel } from "@/components/ui/select";
 import { SelectGroup } from "@radix-ui/react-select";
 import { useTranslations } from "next-intl";
+import { PropertyServiceResponse } from "@/Server/lib/PropertyService";
 
 export default function PropertiesSearch() {
   const t = useTranslations("Property.Index");
@@ -23,7 +24,7 @@ export default function PropertiesSearch() {
   const [itemWidth, setItemWidth] = useState(0);
   const [orderBy, setOrderBy] = useState("Default");
 
-  const { data, isLoading, error } = useSWR<PropertyWithAddress[]>(
+  const { data, isLoading, error } = useSWR<PropertyServiceResponse>(
     `/api/properties/search?${searchP.toString()}`,
     GetPropertySearch
   );
@@ -37,7 +38,7 @@ export default function PropertiesSearch() {
   const orderProperties = useCallback(() => {
     switch (orderBy) {
       case "PriceH": // Descending (Highest first)
-        return data?.sort((a, b) => {
+        return data?.properties?.sort((a, b) => {
           var key1 = a.price;
           var key2 = b.price;
 
@@ -50,7 +51,7 @@ export default function PropertiesSearch() {
           }
         });
       case "PriceL": // Ascending (Lowest first)
-        return data?.sort((a, b) => {
+        return data?.properties?.sort((a, b) => {
           var key1 = a.price;
           var key2 = b.price;
 
@@ -63,7 +64,7 @@ export default function PropertiesSearch() {
           }
         });
       case "MostRecent": // Descending (Earliest first)
-        return data?.sort((a, b) => {
+        return data?.properties?.sort((a, b) => {
           var key1 = a.updatedAt;
           var key2 = b.updatedAt;
 
@@ -76,7 +77,7 @@ export default function PropertiesSearch() {
           }
         });
       case "Size": // Descending (Largest first)
-        return data?.sort((a, b) => {
+        return data?.properties?.sort((a, b) => {
           var key1 = a.squareMeter;
           var key2 = b.squareMeter;
 
@@ -89,10 +90,8 @@ export default function PropertiesSearch() {
           }
         });
       default:
-        return data;
+        return data?.properties;
     }
-
-    console.log("Sorted Properties (", orderBy, "): ", properties);
   }, [orderBy, data]);
 
   const properties = useMemo(
@@ -146,7 +145,7 @@ export default function PropertiesSearch() {
                       </div>
                     )}
 
-                    {!isLoading && !error && data && data.length === 0 && (
+                    {!isLoading && !error && data && data.properties.length === 0 && (
                       <div className="flex flex-col justify-center items-center gap-1 mb-5">
                         <p className="text-lg font-semibold ">{t("orderBy.error.heading")}</p>
                         <p className="text-base font-normal ">{t("orderBy.error.subHeading")}</p>
@@ -158,7 +157,9 @@ export default function PropertiesSearch() {
                   </ResizablePanel>
                   <ResizableHandle withHandle />
                   <ResizablePanel minSize={35} maxSize={62} defaultSize={55}>
-                    {data && !isLoading && !error && <MapComp height={"100%"} properties={data} focusedProperty={data[0]} />}
+                    {data && !isLoading && !error && (
+                      <MapComp height={"100%"} properties={data.properties} focusedProperty={data.properties[0]} />
+                    )}
                   </ResizablePanel>
                 </ResizablePanelGroup>
               )}
@@ -188,7 +189,7 @@ export default function PropertiesSearch() {
                     </div>
                   )}
 
-                  {!isLoading && !error && data && data.length === 0 && (
+                  {!isLoading && !error && data && data.total === 0 && (
                     <div className="flex flex-col justify-center items-center gap-1 mb-5">
                       <p className="text-lg font-semibold ">{t("orderBy.error.heading")}</p>
                       <p className="text-base font-normal ">{t("orderBy.error.subHeading")}</p>

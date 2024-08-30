@@ -2,7 +2,7 @@
 import { z } from "zod";
 import { DeletePropertyPayload, PropertySchema } from "./FormUtils";
 import { PropertyWithAddress } from "@/Server/utils/utils";
-import { LeadFormSchema } from "@/app/[locale]/(Property)/property-for-sale/[slug]/_components/LeadForm";
+import { LeadFormSchema } from "@/components/LeadForm/LeadForm";
 
 export const fetcher = (url: string) => fetch(url).then((res) => res.json());
 

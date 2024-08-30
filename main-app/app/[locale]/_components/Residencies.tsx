@@ -24,6 +24,7 @@ type ResidenciesHeadProps = PropsWithChildren & {
 export default async function Residencies({ className, margin, children }: ResidenciesProps) {
   const dict = await getTranslations();
   const data = await getProperties();
+  // console.log("Data: ", data);
 
   if (!data) {
     return (
@@ -38,7 +39,7 @@ export default async function Residencies({ className, margin, children }: Resid
       <div className={cn("px-4 flex justify-center items-center flex-col w-full gap-5 sm:px-5 xl:px-32 ", className)}>
         {children}
         <PropertyCarousel className="">
-          {data && data.map((property, index) => <PropertyCard key={index} property={property} />)}
+          {data && data.properties.map((property, index) => <PropertyCard key={index} property={property} />)}
         </PropertyCarousel>
       </div>
     </section>

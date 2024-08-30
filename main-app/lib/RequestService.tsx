@@ -1,14 +1,20 @@
 import { env } from "@/env";
-import { PropertyWithAddress, PropertyWithAddressAndAgent } from "@/Server/utils/utils";
+import { PropertyServiceResponse } from "@/Server/lib/PropertyService";
 import { auth } from "@clerk/nextjs/server";
 
 // Handles calling Fetch API (This is an example, it has been extracted into the Utils file)
+// Assumes  auth isn't needed
 export async function getProperties() {
-  const { getToken } = auth();
+  const user = auth();
+  const token = await user.getToken();
+
+  // if (!token || token === null) throw new Error("No token found");
+  // console.log("Token: ", token);
+
   const res = await fetch(`${env.NEXT_PUBLIC_HOST_URL}/api/properties`, {
     method: "GET",
     headers: {
-      Authorization: `Bearer ${await getToken()}`,
+      Authorization: `Bearer ${token}`,
     },
   });
 
@@ -17,7 +23,7 @@ export async function getProperties() {
     return undefined;
   }
 
-  return (await res.json()) as PropertyWithAddress[];
+  return (await res.json()) as PropertyServiceResponse;
 }
 
 export async function getProperty(slug: string) {
@@ -28,5 +34,5 @@ export async function getProperty(slug: string) {
     return undefined;
   }
 
-  return (await res.json()) as PropertyWithAddressAndAgent;
+  return (await res.json()) as PropertyServiceResponse;
 }
