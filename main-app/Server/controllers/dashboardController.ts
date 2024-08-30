@@ -5,6 +5,7 @@ import { HTTPException } from "hono/http-exception";
 import { DeletePropertyPayload, PropertySchema } from "@/lib/FormUtils";
 import { zValidator } from "@hono/zod-validator";
 import PropertyService from "../lib/PropertyService";
+import { SignedInAuthObject } from "@clerk/backend/internal";
 
 const propertyService = new PropertyService();
 
@@ -87,20 +88,32 @@ app.post("/property/delete", zValidator("json", DeletePropertyPayload), async (c
 export default app;
 
 // Checks Clerk auth & returns logged in User
+// TODO: Check metadata validation is functional (within clerk)
 export function authenticateUser(c: Context) {
   // Get the current user
   const auth = getAuth(c);
+  const sessionClaims = auth?.sessionClaims;
 
   // Ensure user is signed in
-  if (!auth?.userId) {
-    const errorResponse = new Response("Unauthorized Request", {
-      status: 401,
-      headers: {
-        Authenticate: 'error="invalid_token"',
-      },
-    });
-    throw new HTTPException(401, { res: errorResponse });
+  if (!auth?.userId || !sessionClaims) {
+    // throwUnauthorized();
+    throw throwUnauthorized();
   }
 
+  // Ensure user is an agent or admin
+  if (sessionClaims?.metadata === undefined) throw throwUnauthorized();
+  if (sessionClaims?.metadata.role === undefined) throw throwUnauthorized();
+
+  if (sessionClaims?.metadata.role === "viewer") throw throwUnauthorized();
   return auth;
+}
+
+function throwUnauthorized() {
+  const errorResponse = new Response("Unauthorized Request", {
+    status: 401,
+    headers: {
+      Authenticate: 'error="invalid_token"',
+    },
+  });
+  throw new HTTPException(401, { res: errorResponse });
 }

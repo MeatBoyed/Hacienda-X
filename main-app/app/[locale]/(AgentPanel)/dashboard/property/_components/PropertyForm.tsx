@@ -12,7 +12,7 @@ import { XCircle } from "lucide-react";
 import { PuffLoader } from "react-spinners";
 
 import { z } from "zod";
-import { useContext, useState, use, useEffect } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import {
   // PropertySchema,
@@ -29,8 +29,7 @@ import { toast } from "sonner";
 import { AddressInput } from "../../../../../../components/AddressInput";
 import { DeleteProperty, PostProperty } from "@/lib/RequestUtils";
 import { PropertyWithAddress } from "@/Server/utils/utils";
-import { usePathname, useRouter } from "next/navigation";
-import { UserContext, UserContextType } from "@/lib/userContext";
+import { useRouter } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
 import { useTranslations } from "next-intl";
 import PropertyFormHead from "./PropertyFormHead";
@@ -42,7 +41,6 @@ import { FileInput } from "@/components/UploadShad/FileInput";
 export default function PropertyForm({ initProperty }: { initProperty?: PropertyWithAddress }) {
   const t = useTranslations("Dashboard.propertyFormComp");
   const router = useRouter();
-  const { user } = useContext(UserContext) as UserContextType;
 
   const PropSchema = PropertySchemaTranslated(t);
 
@@ -134,10 +132,10 @@ export default function PropertyForm({ initProperty }: { initProperty?: Property
   }
 
   async function deleteHandler() {
-    if (!initProperty || !user) return;
+    if (!initProperty) return;
     await triggerDelete({
       payload: {
-        agentId: user.public_id,
+        agentId: initProperty.agent_id,
         propertyId: initProperty.property_id,
         images: [...initProperty.images, ...getValues("images")],
       },

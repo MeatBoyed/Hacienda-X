@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Suspense } from "react";
 import { Toaster } from "@/components/ui/toaster";
-import Navbar from "./_components/Navbar";
 import { Toaster as SonnerToaster } from "sonner";
 import Loader from "@/components/ui/loader";
 import "mapbox-gl/dist/mapbox-gl.css";
-import { UserContextProvider } from "@/lib/userContext";
 import { Header } from "@/components/Header";
+import { checkDashboardRole, checkRole } from "@/lib/roles";
+import { redirect } from "next/navigation";
 
 const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
@@ -20,6 +20,9 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  if (!checkDashboardRole("agent")) {
+    redirect("/pricing");
+  }
   return (
     <div className="overflow-hidden bg-white">
       {/* <Navbar /> */}
@@ -28,9 +31,7 @@ export default async function RootLayout({
         id="dashboard"
         className=""
       > */}
-      <Suspense fallback={<Loader />}>
-        <UserContextProvider>{children}</UserContextProvider>
-      </Suspense>
+      <Suspense fallback={<Loader />}>{children}</Suspense>
       {/* </section> */}
       <Toaster />
       <SonnerToaster expand richColors />
