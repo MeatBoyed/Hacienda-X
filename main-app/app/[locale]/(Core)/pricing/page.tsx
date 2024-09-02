@@ -8,7 +8,7 @@ import PricingCalculator from "./(components)/PricingCalculator";
 
 export default function PricingPage() {
   return (
-    <div className="container mx-auto px-4 py-16 mt-16 max-w-5xl space-y-3">
+    <div className="container mx-auto px-4 py-16 mt-16 max-w-5xl space-y-20">
       <div className="text-center">
         <h1 className="text-4xl font-bold tracking-tight sm:text-5xl mb-4">
           List your property on HaciendaX for free
