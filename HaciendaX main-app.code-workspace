@@ -1,0 +1,14 @@
+{
+  "folders": [
+    {
+      "path": "main-app"
+    },
+    {
+      "path": "../DstilezAutoAdmin/client"
+    }
+  ],
+  "settings": {
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "i18n-ally.keystyle": "nested"
+  }
+}

@@ -1,24 +1,19 @@
+import { env } from "@/env";
+import { GetUser, UserServiceResponse } from "@/Server/lib/UserService";
 import { Roles } from "@/types/globals";
-import { auth } from "@clerk/nextjs/server";
+import { auth, currentUser } from "@clerk/nextjs/server";
 
-export const checkRole = (role: Roles) => {
-  const { sessionClaims } = auth();
+export const verifyUser = async (): Promise<Boolean> => {
+  // Check if user is logged in (clerk)
+  const user = await currentUser();
+  if (!user) {
+    return false;
+  }
 
-  console.log("User role: ", sessionClaims?.metadata);
+  // Call API using user's ID
+  // const serverUser = await fetchUser(user.id);
+  const userResponse = await GetUser(user.id);
+  if (userResponse.err) return false;
 
-  if (sessionClaims?.metadata === undefined) return false;
-  if (sessionClaims?.metadata.role === undefined) return false;
-
-  return sessionClaims?.metadata.role === role;
-};
-
-export const checkDashboardRole = (role: Roles) => {
-  const { sessionClaims } = auth();
-
-  console.log("User's Metadata: ", sessionClaims?.metadata);
-
-  if (sessionClaims?.metadata === undefined) return false;
-  if (sessionClaims?.metadata.role === undefined) return false;
-
-  return sessionClaims?.metadata.role === "agent" || sessionClaims?.metadata.role === "admin";
+  return true;
 };

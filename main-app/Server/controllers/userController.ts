@@ -6,6 +6,7 @@ import { clerkMiddleware, getAuth } from "@hono/clerk-auth";
 import { HTTPException } from "hono/http-exception";
 import { authenticateUser } from "./dashboardController";
 import { Prisma, Role, User } from "@prisma/client";
+import { Create, GetUser } from "../lib/UserService";
 
 export const RoleEnum = z.enum(["viewer", "agent", "admin", "dev"]);
 const RoleRequestSchema = z.object({
@@ -26,62 +27,29 @@ export type ServerUser = z.infer<typeof serverUserSchema>;
 export type RoleRequest = z.infer<typeof RoleRequestSchema>;
 export type ValidUserRes = z.infer<typeof validUserSchema>;
 
+export const userPayloadSchema = z.object({
+  user_id: z.string(),
+  firstName: z.string(),
+  lastName: z.string(),
+  email: z.string(),
+  company: z.string().optional(),
+  phoneNumber: z.string().optional(),
+});
+export type UserPayload = z.infer<typeof userPayloadSchema>;
+
 const app = new Hono()
   .use(clerkMiddleware())
   // Update the User's Role
-  .post(
-    "/create",
-    zValidator(
-      "json",
-      z.object({
-        user_id: z.string().min(10, { message: "User id is required" }),
-        firstName: z.string().min(3, { message: "Name must be at least 3 characters long." }),
-        lastName: z.string().min(3, { message: "Surname must be at least 3 characters long." }),
-        email: z.string().email({ message: "Email address must be valid." }),
-        company: z.string().optional(),
-        phoneNumber: z.string().optional(),
-      })
-    ),
-    async (c) => {
-      const { userId } = await authenticateUser(c);
-      const userForm = c.req.valid("json");
+  .post("/", zValidator("json", userPayloadSchema), async (c) => {
+    await authenticateUser(c);
+    const userForm = c.req.valid("json");
 
-      if (userId !== userForm.user_id) throw new HTTPException(401, { message: "Unable to Authenticate" });
-
-      const startDate = new Date();
-      const endDate = startDate;
-      endDate.setDate(startDate.getDate() + 30);
-
-      // Create User
-      await db.user.upsert({
-        where: { public_id: userForm.user_id },
-        create: {
-          email: userForm.email,
-          company: userForm.company,
-          public_id: userForm.user_id,
-          lastName: userForm.lastName,
-          firstName: userForm.firstName,
-          role: "agent",
-          subscriptions: {
-            create: {
-              start_date: startDate,
-              end_date: endDate,
-              plan_type: "Trail",
-              payment_status: "Unpaid",
-            },
-          },
-        },
-        update: {
-          email: userForm.email,
-          company: userForm.company,
-          public_id: userForm.user_id,
-          lastName: userForm.lastName,
-          firstName: userForm.firstName,
-          role: "agent",
-        },
-      });
+    const res = await Create(userForm);
+    if (res.err) {
+      throw new HTTPException(500, { message: res.val.message });
     }
-  )
+    return c.json(res.val);
+  })
   .post(
     "/updateRole",
     // Validates the Incoming data is the correct type through Zod validation schema
@@ -145,28 +113,13 @@ const app = new Hono()
 
     if (userId !== publicId) throw new HTTPException(401);
 
-    // TODO: Implement client side handling
-    return c.json(
-      await db.user.findUniqueOrThrow({
-        where: { public_id: publicId },
-        select: {
-          firstName: true,
-          lastName: true,
-          email: true,
-          public_id: true,
-          subscriptions: {
-            where: {
-              plan_type: { not: "Pending" },
-              end_date: {
-                not: {
-                  gt: new Date(),
-                },
-              },
-            },
-          },
-        },
-      })
-    );
+    console.log("Getting User: ", publicId);
+    const res = await GetUser(publicId);
+    if (res.err) {
+      throw new HTTPException(500, { message: res.val.message });
+    }
+
+    return c.json(res.val);
   });
 
 export default app;

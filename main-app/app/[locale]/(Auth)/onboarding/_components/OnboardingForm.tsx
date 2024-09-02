@@ -3,7 +3,15 @@
 // Failure to do so will lead to a reduction in Equity
 "use client";
 import { Button } from "@/components/ui/button";
-import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage, FormDescription } from "@/components/ui/form";
+import {
+  Form,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormMessage,
+  FormDescription,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -18,6 +26,9 @@ import { PostAgent } from "@/app/api/(userActions)/actions";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { SignOutButton } from "@clerk/nextjs";
+import { useState } from "react";
+import { env } from "@/env";
+import { UserServiceResponse } from "@/Server/lib/UserService";
 
 const UserFormSchemaTranslated = (t: any) => {
   return z.object({
@@ -33,6 +44,8 @@ const UserFormSchemaTranslated = (t: any) => {
   });
 };
 
+export type UserFormSchema = z.infer<ReturnType<typeof UserFormSchemaTranslated>>;
+
 export default function OnboardingForm({
   userId,
   firstName,
@@ -46,10 +59,10 @@ export default function OnboardingForm({
   email?: string;
   number?: string;
 }) {
-  const t = useTranslations("Onboarding.registerFormComp");
   const router = useRouter();
-
+  const t = useTranslations("Onboarding.registerFormComp");
   const UserFormSchema = UserFormSchemaTranslated(t);
+  const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<z.infer<typeof UserFormSchema>>({
     resolver: zodResolver(UserFormSchema),
@@ -62,45 +75,29 @@ export default function OnboardingForm({
     },
   });
 
-  const { trigger: triggerCreate, isMutating: isMutatingCreate } = useSWRMutation(
-    "post-agent",
-    PostAgent({ json: form.getValues() }) /* options */,
-    {
-      onError: (error) => {
-        console.log("Received Error (Plain): ", error);
-        toast.error(t("toasts.error.title"), {
-          description: t("toasts.error.description"),
-          duration: 10000,
-          id: "errorToast",
-        });
-      },
-      onSuccess: (data) => {
-        console.log("Response Data: ", data);
-        const responseSchema = z.object({ status: z.string() });
-        const res = responseSchema.safeParse(data);
-
-        if (res.data?.status === "P2002") {
-          toast.info(t("toasts.error.alreadyRegisterd.title"), {
-            description: t("toasts.error.alreadyRegisterd.description"),
-            duration: 10000,
-            id: "alreadyRegisteredToast",
-          });
-          return;
-        }
-
-        toast.success(t("toasts.success.title"), {
-          description: t("toasts.success.description"),
-          duration: 10000,
-          id: "successToast",
-        });
-      },
-    }
-  );
-
   function onSubmit(values: z.infer<typeof UserFormSchema>) {
     console.log("Submitted Form Values: ", values);
-    triggerCreate();
-    router.replace("/onboarding?registered=true");
+    setIsLoading(true);
+    toast.promise(createAgent(form.getValues()), {
+      loading: "Creating your account...",
+      error: (error) => {
+        console.log("Received Error (Plain): ", error);
+        return t("toasts.error.title") + t("toasts.error.description");
+      },
+      success: (data) => {
+        console.log("Response Data: ", data);
+        if (data.status === 409) {
+          router.push("/dashboard");
+          return (
+            t("toasts.error.alreadyRegisterd.title") +
+            t("toasts.error.alreadyRegisterd.description")
+          );
+        }
+        router.replace("/onboarding?registered=true");
+        return t("toasts.success.title") + t("toasts.success.description");
+      },
+    });
+    setIsLoading(false);
   }
 
   return (
@@ -110,13 +107,16 @@ export default function OnboardingForm({
         <CardDescription>{t("description")}</CardDescription>
       </CardHeader>
       <CardContent>
-        {isMutatingCreate && (
-          <div id="formLoader" className=" w-full flex justify-center items-center min-h-[50vh] flex-col gap-4">
+        {isLoading && (
+          <div
+            id="formLoader"
+            className=" w-full flex justify-center items-center min-h-[50vh] flex-col gap-4"
+          >
             <Loader className="h-fit" />
             <p className="text-md">Loading</p>
           </div>
         )}
-        {!isMutatingCreate && (
+        {!isLoading && (
           <Form {...form}>
             <form id="OnboardingForm" onSubmit={form.handleSubmit(onSubmit)} className="space-y-10">
               <div className="flex justify-center items-center flex-col gap-5 w-full">
@@ -128,7 +128,12 @@ export default function OnboardingForm({
                       <FormItem className="w-full">
                         <FormLabel>{t("formFields.name.label")}</FormLabel>
                         <FormControl>
-                          <Input type="text" id="firstName" placeholder={t("formFields.name.placeholder")} {...field} />
+                          <Input
+                            type="text"
+                            id="firstName"
+                            placeholder={t("formFields.name.placeholder")}
+                            {...field}
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -141,7 +146,12 @@ export default function OnboardingForm({
                       <FormItem className="w-full">
                         <FormLabel>{t("formFields.surname.label")}</FormLabel>
                         <FormControl>
-                          <Input type="text" id="lastName" placeholder={t("formFields.surname.placeholder")} {...field} />
+                          <Input
+                            type="text"
+                            id="lastName"
+                            placeholder={t("formFields.surname.placeholder")}
+                            {...field}
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -156,7 +166,12 @@ export default function OnboardingForm({
                       <FormItem className="w-full">
                         <FormLabel>{t("formFields.email.label")}</FormLabel>
                         <FormControl>
-                          <Input type="email" id="email" placeholder={t("formFields.email.placeholder")} {...field} />
+                          <Input
+                            type="email"
+                            id="email"
+                            placeholder={t("formFields.email.placeholder")}
+                            {...field}
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -169,7 +184,12 @@ export default function OnboardingForm({
                       <FormItem className="w-full">
                         <FormLabel>{t("formFields.company.label")}</FormLabel>
                         <FormControl>
-                          <Input type="text" id="company" placeholder={t("formFields.company.placeholder")} {...field} />
+                          <Input
+                            type="text"
+                            id="company"
+                            placeholder={t("formFields.company.placeholder")}
+                            {...field}
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -241,4 +261,21 @@ export default function OnboardingForm({
       </CardContent>
     </Card>
   );
+}
+
+export async function createAgent(user: UserFormSchema) {
+  const res = await fetch(`${env.NEXT_PUBLIC_HOST_URL}/api/users`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(user),
+  });
+
+  if (!res.ok) {
+    console.log("Residencies: Creating Agent failed: ", res);
+    throw new Error("Onboarding Failed: Creating Agent failed");
+  }
+
+  return (await res.json()) as UserServiceResponse;
 }

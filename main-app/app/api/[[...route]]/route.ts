@@ -21,7 +21,7 @@ const app = new Hono().basePath("/api").use(logger())
 const routes = new Hono().route("/user", userController).route("/properties", propertyController);
 
 // app.use(clerkMiddleware());
-app.route("/user", userController);
+app.route("/users", userController);
 app.route("/leads", leadsController);
 app.route("/images", imagesController);
 app.route("/insights", insightsController);

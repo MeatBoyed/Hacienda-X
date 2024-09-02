@@ -20,7 +20,7 @@ export default function PropertyLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <Suspense fallback={<Loader />}>
+      <>
       <div style={{ background: "bg-white", overflow: "hidden" }}>
         <Header />
         {children}
@@ -28,6 +28,6 @@ export default function PropertyLayout({
         <SonnerToaster expand richColors />
       </div>
       <Footer />
-    </Suspense>
+      </>
   );
 }

@@ -1,5 +1,7 @@
+import { UserFormSchema } from "@/app/[locale]/(Auth)/onboarding/_components/OnboardingForm";
 import { env } from "@/env";
 import { PropertyServiceResponse } from "@/Server/lib/PropertyService";
+import { UserServiceResponse } from "@/Server/lib/UserService";
 import { auth } from "@clerk/nextjs/server";
 
 // Handles calling Fetch API (This is an example, it has been extracted into the Utils file)
@@ -36,3 +38,5 @@ export async function getProperty(slug: string) {
 
   return (await res.json()) as PropertyServiceResponse;
 }
+
+

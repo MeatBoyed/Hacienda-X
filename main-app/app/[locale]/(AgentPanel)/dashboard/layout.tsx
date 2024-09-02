@@ -6,7 +6,7 @@ import { Toaster as SonnerToaster } from "sonner";
 import Loader from "@/components/ui/loader";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { Header } from "@/components/Header";
-import { checkDashboardRole, checkRole } from "@/lib/roles";
+import { verifyUser } from "@/lib/roles";
 import { redirect } from "next/navigation";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -20,8 +20,10 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  if (!checkDashboardRole("agent")) {
-    redirect("/pricing");
+  const verifyStatus = await verifyUser();
+
+  if (!verifyStatus) {
+    redirect("/onboarding");
   }
   return (
     <div className="overflow-hidden bg-white">

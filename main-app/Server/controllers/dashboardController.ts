@@ -98,11 +98,6 @@ export function authenticateUser(c: Context) {
     throw throwUnauthorized();
   }
 
-  // Ensure user is an agent or admin
-  if (sessionClaims?.metadata === undefined) throw throwUnauthorized();
-  if (sessionClaims?.metadata.role === undefined) throw throwUnauthorized();
-
-  if (sessionClaims?.metadata.role === "viewer") throw throwUnauthorized();
   return auth;
 }
 

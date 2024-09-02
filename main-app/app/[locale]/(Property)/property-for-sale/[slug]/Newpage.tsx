@@ -10,7 +10,6 @@ import ActionButtons from "./_components/ActionButtions";
 import { getProperty } from "@/lib/RequestService";
 import { PropertyWithAddressAndAgent } from "@/Server/utils/utils";
 import LeadForm from "@/components/LeadForm/OldLeadForm";
-import { CarouselCustomIndicator } from "./_components/ImageViewer";
 
 // (default): Dynamic segments not included in generateStaticParams are generated on demand.
 export const dynamicParams = true;
@@ -38,7 +37,6 @@ export default async function PropertyPage({ params }: { params: { slug: string 
       <ActionButtons data={data.properties[0]} />
       <div className="w-full h-full mt-5 md:mt-14 lg:mt-4">
         <PropertyCarousel images={data.properties[0].images} />
-        <CarouselCustomIndicator />
       </div>
       <div className="w-full flex justify-center items-start flex-wrap md:flex-nowrap gap-10 lg:gap-20 pt-5 px-4 sm:max-w-3xl lg:max-w-5xl">
         <PropertyDetails property={data.properties[0] as PropertyWithAddressAndAgent} />

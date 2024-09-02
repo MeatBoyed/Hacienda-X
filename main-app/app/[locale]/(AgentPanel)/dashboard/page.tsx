@@ -1,12 +1,12 @@
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import NewLeads from "./_components/NewLeads";
 import Properties from "./property/_components/Properties";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 
 // Tremor for Analytics Components - https://www.tremor.so/
 
-export default function Dashboard() {
-  const t = useTranslations("Dashboard.Index");
+export default async function Dashboard() {
+  const t = await getTranslations("Dashboard.Index");
   // Auth user via Clerk & in Dashboard
   // Track via Posthog & set role
 

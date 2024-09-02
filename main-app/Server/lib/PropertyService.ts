@@ -4,15 +4,11 @@ import { Result, Ok, Err } from "ts-results";
 import S3Service from "@/components/UploadShad/server/S3Service";
 import { Prisma } from "@prisma/client";
 import { PropertyWithAddress, PropertyWithAddressAndAgent } from "../utils/utils";
+import { handleError, ServiceError } from "./ErrorHandler";
 
 export interface PropertyServiceResponse {
   properties: PropertyWithAddress[] | PropertyWithAddressAndAgent[];
   total: number;
-}
-
-interface PropertyServiceError {
-  status: number;
-  message: string;
 }
 
 class PropertyService {
@@ -21,7 +17,7 @@ class PropertyService {
     this.s3Service = new S3Service();
   }
 
-  async GetAll(agentId?: string): Promise<Result<PropertyServiceResponse, PropertyServiceError>> {
+  async GetAll(agentId?: string): Promise<Result<PropertyServiceResponse, ServiceError>> {
     return await db.property
       .findMany({
         where: { agent_id: agentId, visibility: { not: "Deleted" } },
@@ -31,11 +27,15 @@ class PropertyService {
         return Ok({ properties: data, total: data.length });
       })
       .catch((error) => {
-        return Err(this.handleError(error, "GetAll"));
+        return Err(handleError(error, "PropertyService", "GetAll"));
       });
   }
 
-  async Get(propertyId?: string, slug?: string, agent?: boolean): Promise<Result<PropertyServiceResponse, PropertyServiceError>> {
+  async Get(
+    propertyId?: string,
+    slug?: string,
+    agent?: boolean
+  ): Promise<Result<PropertyServiceResponse, ServiceError>> {
     return await db.property
       .findFirstOrThrow({
         where: {
@@ -49,21 +49,29 @@ class PropertyService {
         return Ok({ properties: [data], total: 1 });
       })
       .catch((error) => {
-        return Err(this.handleError(error, "Get"));
+        return Err(handleError(error, "PropertyService", "Get"));
       });
   }
 
-  async Search(where: Prisma.PropertyWhereInput): Promise<Result<PropertyServiceResponse, PropertyServiceError>> {
-      return await db.property.findMany({
+  async Search(
+    where: Prisma.PropertyWhereInput
+  ): Promise<Result<PropertyServiceResponse, ServiceError>> {
+    return await db.property
+      .findMany({
         where: where,
-      include: { Address: true },
-    }).then((data) => {
-      return Ok({ properties: data, total: data.length });
-    }).catch((error) => {
-        return Err(this.handleError(error, "Search"));
+        include: { Address: true },
+      })
+      .then((data) => {
+        return Ok({ properties: data, total: data.length });
+      })
+      .catch((error) => {
+        return Err(handleError(error, "PropertyService", "Search"));
       });
   }
-  async Create(propertyPayload: PropertySchema, agentId: string): Promise<Result<PropertyServiceResponse, PropertyServiceError>> {
+  async Create(
+    propertyPayload: PropertySchema,
+    agentId: string
+  ): Promise<Result<PropertyServiceResponse, ServiceError>> {
     return await db.property
       .create({
         data: {
@@ -93,11 +101,14 @@ class PropertyService {
         return Ok({ properties: [], total: 1 });
       })
       .catch((error) => {
-        return Err(this.handleError(error, "Create"));
+        return Err(handleError(error, "PropertyService", "Create"));
       });
   }
 
-  async Update(propertyPayload: PropertySchema, agentId: string): Promise<Result<PropertyServiceResponse, PropertyServiceError>> {
+  async Update(
+    propertyPayload: PropertySchema,
+    agentId: string
+  ): Promise<Result<PropertyServiceResponse, ServiceError>> {
     return await db.property
       .update({
         where: { property_id: propertyPayload.property_id },
@@ -129,11 +140,13 @@ class PropertyService {
         return Ok({ properties: [data], total: 1 });
       })
       .catch((error) => {
-        return Err(this.handleError(error, "Update"));
+        return Err(handleError(error, "PropertyService", "Update"));
       });
   }
 
-  async Delete(payload: DeletePropertyPayload): Promise<Result<PropertyServiceResponse, PropertyServiceError>> {
+  async Delete(
+    payload: DeletePropertyPayload
+  ): Promise<Result<PropertyServiceResponse, ServiceError>> {
     try {
       await db.property.update({
         where: {
@@ -143,7 +156,7 @@ class PropertyService {
         data: { visibility: "Deleted" },
       });
     } catch (error) {
-      return Err(this.handleError(error, "Delete"));
+      return Err(handleError(error, "PropertyService", "Delete"));
     }
 
     // Delete Images
@@ -153,16 +166,8 @@ class PropertyService {
         return Ok({ properties: [], total: 0 });
       })
       .catch((error) => {
-        return Err(this.handleError(error, "Delete"));
+        return Err(handleError(error, "PropertyService", "Delete"));
       });
-  }
-
-  handleError(error: any, methodName: string): PropertyServiceError {
-    console.log(`Property Service | ${methodName}  Error: `, error);
-    if (error instanceof Prisma.PrismaClientKnownRequestError) {
-      return { status: parseInt(error.code), message: error.message };
-    }
-    return { status: 500, message: "Unable to delete property" };
   }
 }
 
