@@ -35,11 +35,13 @@ export default function NewLeads() {
   const leads = useMemo(
     () =>
       data && data.leads.length > 0 ? (
-        data.leads.map((lead, index) => <LeadCard lead={lead} propertyTitle={data.properties[index]} key={index} />)
+        data.leads.map((lead, index) => (
+          <LeadCard lead={lead} propertyTitle={data.properties[index]} key={index} />
+        ))
       ) : (
         <p>{t("noLeads")}</p>
       ),
-    [data]
+    [data, t]
   );
 
   return (
@@ -108,7 +110,12 @@ function LeadCard({ lead, propertyTitle }: { lead: Lead; propertyTitle: string }
             <Label>{t("email")}</Label>
             <div className="w-full flex justify-center items-center gap-3">
               <Input disabled type="text" value={lead.email} className="disabled:opacity-100" />
-              <Button size="sm" className="px-3" variant={"outline"} onClick={() => handleCopy(t("email"), lead.email)}>
+              <Button
+                size="sm"
+                className="px-3"
+                variant={"outline"}
+                onClick={() => handleCopy(t("email"), lead.email)}
+              >
                 <span className="sr-only">{t("copy")}</span>
                 <Copy className="h-4 w-4" color="black" />
               </Button>
@@ -117,7 +124,12 @@ function LeadCard({ lead, propertyTitle }: { lead: Lead; propertyTitle: string }
           <div className="flex justify-center items-start flex-col gap-3 w-full">
             <Label>{t("phoneNumber")}</Label>
             <div className="w-full flex justify-center items-center gap-3">
-              <Input disabled type="text" value={lead.phoneNumber} className="disabled:opacity-100" />
+              <Input
+                disabled
+                type="text"
+                value={lead.phoneNumber}
+                className="disabled:opacity-100"
+              />
               <Button
                 size="sm"
                 className="px-3"

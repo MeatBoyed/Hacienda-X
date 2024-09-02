@@ -16,7 +16,7 @@ export default function Bookmarks() {
       ) : (
         <p>{t("emptyMessage")}</p>
       ),
-    [bookmarks]
+    [bookmarks, t]
   );
 
   return (
@@ -24,7 +24,11 @@ export default function Bookmarks() {
       <div className="flex justify-center items-start flex-col gap-10 px-4 lg:max-w-4xl w-full">
         <p className="scroll-m-20 text-2xl font-semibold tracking-tight">{t("heading")}</p>
 
-        <div className={"grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 w-full"}>{properties}</div>
+        <div
+          className={"grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 w-full"}
+        >
+          {properties}
+        </div>
       </div>
     </div>
   );
