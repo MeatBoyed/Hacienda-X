@@ -13,21 +13,10 @@ import { z } from "zod";
 
 // Enabling TS features
 export type LeadFormContext = {
-  form: UseFormReturn<
-    {
-      message: string;
-      name: string;
-      surname: string;
-      email: string;
-      phoneNumber: string;
-      propertyId: string;
-      agentId: string;
-    },
-    any,
-    undefined
-  >;
   isMutatingCreate: boolean;
   onSubmit: (data: LeadForm) => void;
+  agentId: string
+  propertyId: string
 };
 
 export const LeadFormContext = createContext<LeadFormContext | null>(null);
@@ -45,21 +34,8 @@ export const LeadFormContextProvider: React.FC<{
   propertyId: string;
   children: React.ReactNode;
 }> = ({ agentId, propertyId, children }) => {
-  const { user } = useUser();
   const t = useTranslations();
-  const form = useForm<LeadForm>({
-    resolver: zodResolver(LeadFormSchema),
-    defaultValues: {
-      name: user?.firstName || "",
-      email: user?.primaryEmailAddress?.emailAddress || "",
-      surname: user?.lastName || "",
-      agentId: agentId,
-      propertyId: propertyId,
-      message: t("propertyform.messagePlaceholder"),
-      phoneNumber: user?.phoneNumbers[0].phoneNumber || "",
-    },
-  });
-
+ 
   const { trigger: triggerCreate, isMutating: isMutatingCreate } = useSWRMutation("/api/leads/create", PostLead /* options */, {
     onError: (error) => {
       console.log("Received Error (Plain): ", error);
@@ -85,9 +61,8 @@ export const LeadFormContextProvider: React.FC<{
     triggerCreate({ lead: data });
   }, []);
 
-  console.log(form.getValues("name"));
 
-  return <LeadFormContext.Provider value={{ form, onSubmit, isMutatingCreate }}>{children}</LeadFormContext.Provider>;
+  return <LeadFormContext.Provider value={{ onSubmit, isMutatingCreate, agentId, propertyId }}>{children}</LeadFormContext.Provider>;
 };
 
 export const LeadFormSchema = z.object({

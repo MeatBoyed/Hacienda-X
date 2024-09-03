@@ -16,13 +16,13 @@ export default async function Providers({ children, locale }: { children: React.
   return (
     <NextIntlClientProvider messages={messages}>
       <ClerkProvider localization={locale === "es" ? esES : enUS} appearance={{}}>
-        <BookmarksContextProvider>
+        {/* <BookmarksContextProvider> */}
           {/* <PHProvider> */}
           {/* <PostHogPageView /> */}
           {children}
           <Toaster richColors />
           {/* </PHProvider> */}
-        </BookmarksContextProvider>
+        {/* </BookmarksContextProvider> */}
       </ClerkProvider>
     </NextIntlClientProvider>
   );

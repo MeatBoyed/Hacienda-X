@@ -24,10 +24,7 @@ export function PropertyCard({
           className
         )}
       >
-        <Link
-          href={`/property-for-sale/${property.title}`}
-          className="w-full h-full"
-        >
+        <Link href={`/property-for-sale/${property.title}`} className="w-full h-full">
           <Image
             src={property.images[0]} // Assuming you have an array of images
             alt={"yess"}
@@ -40,7 +37,7 @@ export function PropertyCard({
           <p className="rounded-sm bg-[#1f93ff] px-2 py-1 text-xs font-semibold text-white">
             {property.saleType}
           </p>
-          <SavePropertyBTN property={property} />
+          {/* <SavePropertyBTN property={property} /> */}
         </div>
       </div>
       <CardContent className="px-1 flex flex-col gap-3 pt-4">
@@ -62,24 +59,15 @@ export function PropertyCard({
           {property.squareMeter && (
             <div className="flex justify-center items-center gap-2">
               <Ruler size={20} />
-              <p className="leading-7">
-                {property.squareMeter.toLocaleString()} m&#178;
-              </p>
+              <p className="leading-7">{property.squareMeter.toLocaleString()} m&#178;</p>
             </div>
           )}
         </div>
 
-        <Link
-          href={`/property-for-sale/${property.title}`}
-          className="w-full h-full"
-        >
-          <p className="line-clamp-1 text-sm font-medium leading-none">
-            {property.title}
-          </p>
+        <Link href={`/property-for-sale/${property.title}`} className="w-full h-full">
+          <p className="line-clamp-1 text-sm font-medium leading-none">{property.title}</p>
         </Link>
-        <p className="text-lg font-semibold">
-          R {property.price.toLocaleString()}
-        </p>
+        <p className="text-lg font-semibold">R {property.price.toLocaleString()}</p>
       </CardContent>
     </Card>
   );

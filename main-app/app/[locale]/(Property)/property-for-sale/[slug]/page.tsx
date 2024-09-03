@@ -1,59 +1,93 @@
-import React from "react";
-import PropertyDetails from "./_components/PropertyDetails";
-import BottomNavbar from "./_components/BottomNavbar";
-import LocationSection from "./_components/LocationSection";
-import PropertyCarousel from "./_components/ImageCarousel";
+import placeholderImage from "@/public/placeholder.svg";
+import InformationCard from "./_components/InformationCard";
+import ImageGallery from "./_components/ImageGallery";
+import LeadForm from "@/components/LeadForm/LeadForm";
 import Residencies from "@/app/[locale]/_components/Residencies";
-import { notFound } from "next/navigation";
-import { getTranslations } from "next-intl/server";
-import ActionButtons from "./_components/ActionButtions";
-import { getProperty } from "@/lib/RequestService";
-import { PropertyWithAddressAndAgent } from "@/Server/utils/utils";
-import LeadForm from "@/components/LeadForm/OldLeadForm";
-import { CarouselCustomIndicator } from "./_components/ImageViewer";
+import { ImageDialog } from "./(components)/ImageDialog";
+import { ImageGalleryContextProvider } from "./(components)/imageGalleryContext";
 
-// (default): Dynamic segments not included in generateStaticParams are generated on demand.
-export const dynamicParams = true;
+export interface Property {
+  title: string;
+  description: string;
+  price: string;
+  location: string;
+  bedrooms: number;
+  bathrooms: number;
+  squareFeet: number;
+  features: string[];
+  images: string[];
+  agent: {
+    name: string;
+    phone: string;
+    email: string;
+  };
+}
 
-// TODO: Generate static params for pages
-// export async function generateStaticParams() {
-//   const res = (await fetch(`${env.NEXT_PUBLIC_SITE_URL}/api/properties`).then((res) => res.json)) as PropertyWithAddress[];
-
-//   return res.map((property) => ({
-//     slug: property.title,
-//   }));
-// }
-
-// Handler for the API request (Server Side)
-export default async function PropertyPage({ params }: { params: { slug: string } }) {
-  const t = await getTranslations("Property.Property");
-  const data = await getProperty(params.slug);
-
-  if (!data) {
-    return notFound();
-  }
+export default function PropertyView() {
+  const property: Property = {
+    title: "Luxurious Beachfront Villa",
+    description:
+      "Experience the ultimate in coastal living with this stunning beachfront villa. Enjoy breathtaking ocean views, direct beach access, and top-of-the-line amenities.",
+    price: "$2,500,000",
+    location: "Malibu, California",
+    bedrooms: 4,
+    bathrooms: 3.5,
+    squareFeet: 3500,
+    features: [
+      "Ocean View",
+      "Private Beach Access",
+      "Gourmet Kitchen",
+      "Home Theater",
+      "Infinity Pool",
+    ],
+    images: [
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1475&q=80",
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+      "https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+    ],
+    agent: {
+      name: "Sarah Johnson",
+      phone: "+1 (555) 123-4567",
+      email: "sarah.johnson@realestate.com",
+    },
+  };
 
   return (
-    <section id={"view-property"} className="w-full flex flex-col justify-center items-center gap-2 py-16 bg-[#fff]">
-      <ActionButtons data={data.properties[0]} />
-      <div className="w-full h-full mt-5 md:mt-14 lg:mt-4">
-        <PropertyCarousel images={data.properties[0].images} />
-        <CarouselCustomIndicator />
-      </div>
-      <div className="w-full flex justify-center items-start flex-wrap md:flex-nowrap gap-10 lg:gap-20 pt-5 px-4 sm:max-w-3xl lg:max-w-5xl">
-        <PropertyDetails property={data.properties[0] as PropertyWithAddressAndAgent} />
+    <div className="container mx-auto px-4 py-8">
+      <h1 className="text-3xl font-bold mb-6">{property.title}</h1>
 
-        <LeadForm propertyId={data.properties[0].property_id} agentId={data.properties[0].agent_id} />
+      {/* Image Gallery */}
+      <ImageGallery defaultImages={property.images} />
+
+      {/* Property Information */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <InformationCard property={property} />
+
+        {/* <Card>
+          <CardHeader>
+            <CardTitle>Contact Agent</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="mb-4">
+              <h3 className="font-semibold mb-2">{property.agent.name}</h3>
+              <div className="flex items-center mb-2">
+                <Phone className="mr-2 h-5 w-5" />
+                <span>{property.agent.phone}</span>
+              </div>
+              <div className="flex items-center">
+                <Mail className="mr-2 h-5 w-5" />
+                <span>{property.agent.email}</span>
+              </div>
+            </div>
+            <Button className="w-full">Contact Agent</Button>
+          </CardContent>
+        </Card> */}
+        {/* <LeadForm agentId="kasjd" propertyId="aksjd" /> */}
       </div>
-      <div className="w-full flex justify-center items-start gap-10 lg:gap-20 pt-5 px-4 sm:max-w-3xl lg:max-w-5xl">
-        <LocationSection property={data.properties[0]} />
-      </div>
-      <div className="w-full flex justify-center items-start gap-10 lg:gap-20 pt-5 px-4 sm:max-w-3xl lg:max-w-5xl">
-        <Residencies className="px-1 sm:px-1 xl:px-1" margin="mb-0">
-          <Residencies.Head subHeading={t("viewMore.subHeading")} heading={t("viewMore.heading")} />
-        </Residencies>
-      </div>
-      <BottomNavbar price={data.properties[0].price} />
-    </section>
+
+      <Residencies />
+    </div>
   );
 }

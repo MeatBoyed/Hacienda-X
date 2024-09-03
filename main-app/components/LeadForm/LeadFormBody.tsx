@@ -1,17 +1,33 @@
 "use client";
 import { useTranslations } from "next-intl";
-import { Form } from "react-hook-form";
+import { Form, useForm } from "react-hook-form";
 import { PhoneInput } from "../PhoneInput";
 import { Button } from "../ui/button";
 import { FormField, FormItem, FormLabel, FormControl, FormMessage } from "../ui/form";
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
-import { useLeadFormContext } from "./LeadFormContext";
+import { LeadForm, LeadFormSchema, useLeadFormContext } from "./LeadFormContext";
 import Loader from "../ui/loader";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useUser } from "@clerk/nextjs";
 
 export function LeadFormBody() {
   const t = useTranslations();
-  const { form, onSubmit, isMutatingCreate } = useLeadFormContext();
+  const { user } = useUser();
+  const { onSubmit, isMutatingCreate, agentId, propertyId } = useLeadFormContext();
+ 
+ const form = useForm<LeadForm>({
+    resolver: zodResolver(LeadFormSchema),
+    defaultValues: {
+      name: user?.firstName || "",
+      email: user?.primaryEmailAddress?.emailAddress || "",
+      surname: user?.lastName || "",
+      agentId: agentId,
+      propertyId: propertyId,
+      message: t("propertyform.messagePlaceholder"),
+      phoneNumber: user?.phoneNumbers[0].phoneNumber || "",
+    },
+  });
   return (
     <>
       {/* {isMutatingCreate && (
