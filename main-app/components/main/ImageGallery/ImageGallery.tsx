@@ -2,18 +2,14 @@
 
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { PropsWithChildren,  } from "react";
-import {
-  useImageGalleryContext,
-  ImageGalleryContextProvider,
-} from "../(components)/imageGalleryContext";
-import { ImageDialog } from "../(components)/ImageDialog";
+import { PropsWithChildren } from "react";
+import { useImageGalleryContext, ImageGalleryContextProvider } from "./imageGalleryContext";
+import { ImageDialog } from "./ImageDialog";
 import { cn } from "@/lib/utils";
 
 export default function ImageGallery({ defaultImages }: { defaultImages: string[] }) {
   return (
     <ImageGalleryContextProvider defaultImages={defaultImages}>
-
       <ImageCarousel>
         <ImageDialog />
       </ImageCarousel>
@@ -21,7 +17,7 @@ export default function ImageGallery({ defaultImages }: { defaultImages: string[
   );
 }
 
-export function ImageCarousel( { children, className }: { className?: string} & PropsWithChildren) {
+export function ImageCarousel({ children, className }: { className?: string } & PropsWithChildren) {
   const { goBack, goNext, currentIndex, images } = useImageGalleryContext();
 
   return (

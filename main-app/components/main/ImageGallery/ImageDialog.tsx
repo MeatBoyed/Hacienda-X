@@ -9,7 +9,7 @@ import {
 import { XIcon } from "lucide-react";
 import { useImageGalleryContext } from "./imageGalleryContext";
 import { useMemo } from "react";
-import ImageGallery, { ImageCarousel } from "../_components/ImageGallery";
+import ImageGallery, { ImageCarousel } from "./ImageGallery";
 
 // Copied from DialogBasicImage "motion-primative"
 export function ImageDialog() {
@@ -29,10 +29,10 @@ export function ImageDialog() {
   const fullscreenImageRender = useMemo(() => {
     return (
       <DialogImage
-            src={currentImage}
-            alt={`Property image ${currentIndex + 1}`}
-            className="h-auto w-full max-w-[90vw] rounded-[4px] object-cover lg:h-[90vh]"
-          /> 
+        src={currentImage}
+        alt={`Property image ${currentIndex + 1}`}
+        className="h-auto w-full max-w-[90vw] rounded-[4px] object-cover lg:h-[90vh]"
+      />
     );
   }, [currentImage, currentIndex]);
 
@@ -46,7 +46,6 @@ export function ImageDialog() {
       <DialogTrigger>{inGalleryImageRender}</DialogTrigger>
       <DialogContainer>
         <DialogContent className="relative">
-         
           {/* {imageRender} */}
           <ImageCarousel>{fullscreenImageRender}</ImageCarousel>
         </DialogContent>

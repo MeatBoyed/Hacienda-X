@@ -1,12 +1,12 @@
-import InformationCard from "./_components/InformationCard";
-import ImageGallery from "./_components/ImageGallery";
+import InformationCard from "./(components)/InformationCard";
+import ImageGallery from "../../../../../components/main/ImageGallery/ImageGallery";
 import LeadForm from "@/components/LeadForm/LeadForm";
 import Residencies from "@/app/[locale]/_components/Residencies";
 import { getTranslations } from "next-intl/server";
-import { MapCard } from "../../../../../components/main/Maps/Map";
 import { getProperties, getProperty } from "@/lib/RequestService";
 import { PropertyWithAddress } from "@/Server/utils/utils";
 import { User } from "@prisma/client";
+import { MapCard } from "@/components/main/Maps/MapCard";
 
 export default async function PropertyView({ params: { slug } }: { params: { slug: string } }) {
   const t = await getTranslations("Property.Property");
