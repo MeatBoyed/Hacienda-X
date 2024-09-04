@@ -24,29 +24,38 @@ type ResidenciesHeadProps = PropsWithChildren & {
 export default async function Residencies({ className, margin, children }: ResidenciesProps) {
   const dict = await getTranslations();
   const data = await getProperties();
-  // console.log("Data: ", data);
-
-  if (!data) {
-    return (
-      <div className="flex flex-col justify-center items-center py-20 gap-5">
-        <h1>{dict("Index.Residencies.error")}</h1>
-      </div>
-    );
-  }
+  console.log("Property 1: ", data?.properties[0]);
 
   return (
     <section id="residencies" className={cn("my-12 w-full", margin)}>
-      <div className={cn("px-4 flex justify-center items-center flex-col w-full gap-5 sm:px-5 xl:px-32 ", className)}>
+      <div
+        className={cn(
+          "px-4 flex justify-center items-center flex-col w-full gap-5 sm:px-5 xl:px-32 ",
+          className
+        )}
+      >
         {children}
+        {!data && (
+          <div className="flex flex-col justify-center items-center py-20 gap-5">
+            <h1>{dict("Index.Residencies.error")}</h1>
+          </div>
+        )}
         <PropertyCarousel className="">
-          {data && data.properties.map((property, index) => <PropertyCard key={index} property={property} />)}
+          {data &&
+            data.properties.map((property, index) => (
+              <PropertyCard key={index} property={property} />
+            ))}
         </PropertyCarousel>
       </div>
     </section>
   );
 }
 
-Residencies.Head = async function ResidenciesHead({ subHeading, heading, className }: ResidenciesHeadProps) {
+Residencies.Head = async function ResidenciesHead({
+  subHeading,
+  heading,
+  className,
+}: ResidenciesHeadProps) {
   const dict = await getTranslations();
   return (
     <div className={cn("flex justify-between items-center w-full", className)}>

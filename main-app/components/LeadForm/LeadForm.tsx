@@ -15,7 +15,7 @@ export default async function LeadForm({
 
   return (
     <LeadFormContextProvider agentId={agentId} propertyId={propertyId}>
-      <Card id="LeadForm" className="w-full min-h-[50vh] sm:w-[70%] shadow-lg px-2">
+      <Card id="LeadForm" className="w-full min-h-full shadow-lg px-2">
         <CardHeader className="flex justify-center items-center">
           <CardTitle>{t("propertyform.contactAgent")}</CardTitle>
           <CardDescription>{t("propertyform.agentDescription")}</CardDescription>

@@ -8,6 +8,7 @@ import {
   ImageGalleryContextProvider,
 } from "../(components)/imageGalleryContext";
 import { ImageDialog } from "../(components)/ImageDialog";
+import { cn } from "@/lib/utils";
 
 export default function ImageGallery({ defaultImages }: { defaultImages: string[] }) {
   return (
@@ -20,11 +21,11 @@ export default function ImageGallery({ defaultImages }: { defaultImages: string[
   );
 }
 
-export function ImageCarousel( { children }: PropsWithChildren) {
+export function ImageCarousel( { children, className }: { className?: string} & PropsWithChildren) {
   const { goBack, goNext, currentIndex, images } = useImageGalleryContext();
 
   return (
-    <div className="relative mb-8">
+    <div className={cn("relative mb-8", className)}>
       {/* V0 Image sizing width: 600px height: 400px */}
       {children}
 

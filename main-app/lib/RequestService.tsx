@@ -38,5 +38,3 @@ export async function getProperty(slug: string) {
 
   return (await res.json()) as PropertyServiceResponse;
 }
-
-
