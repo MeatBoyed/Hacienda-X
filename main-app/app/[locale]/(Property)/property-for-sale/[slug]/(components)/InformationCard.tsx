@@ -1,10 +1,10 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Bed, Bath, Square, MapPin } from "lucide-react";
+import { Bed, Bath, Square, MapPin, Bookmark } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { PropertyWithAddress } from "@/Server/utils/utils";
 import { User } from "@prisma/client";
-
 import { getProperties } from "@/lib/RequestService";
+import { Button } from "@/components/ui/button";
 
 export const revalidate = 18000; // 5 hours in seconds
 
@@ -27,9 +27,9 @@ export default function InformationCard({
 }) {
   return (
     <Card className="md:col-span-2">
-      <CardHeader>
-        <CardTitle>Property Details</CardTitle>
-        <CardDescription>{property.description}</CardDescription>
+      <CardHeader className="">
+          <CardTitle>Property Details</CardTitle>
+          <CardDescription>{property.description}</CardDescription>
       </CardHeader>
       <CardContent>
         <div className="grid grid-cols-2 gap-4 mb-8">

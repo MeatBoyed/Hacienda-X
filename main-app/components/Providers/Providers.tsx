@@ -1,6 +1,5 @@
 import { ClerkProvider } from "@clerk/nextjs";
 import dynamic from "next/dynamic";
-import { BookmarksContextProvider } from "@/lib/bookmarksContext";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { Toaster } from "sonner";
@@ -20,7 +19,7 @@ export default async function Providers({ children, locale }: { children: React.
           {/* <PHProvider> */}
           {/* <PostHogPageView /> */}
           {children}
-          <Toaster richColors />
+          <Toaster richColors position="top-center" />
           {/* </PHProvider> */}
         {/* </BookmarksContextProvider> */}
       </ClerkProvider>

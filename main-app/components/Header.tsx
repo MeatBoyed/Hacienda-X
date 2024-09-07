@@ -27,7 +27,12 @@ export const Header = ({ isDashboard }: { isDashboard?: boolean }) => {
             {/* <NavLinks /> */}
             {isDashboard ? (
               <DashboardNavlinks
-                dict={{ dashboard: t("dashboard"), property: t("property"), usage: t("usage"), contact: t("contactUs") }}
+                dict={{
+                  dashboard: t("dashboard"),
+                  property: t("property"),
+                  usage: t("usage"),
+                  contact: t("contactUs"),
+                }}
               />
             ) : (
               <MainNavlinks
@@ -57,7 +62,10 @@ export const Header = ({ isDashboard }: { isDashboard?: boolean }) => {
               <UserButton />
             )}
             <Link href="/bookmarks">
-              <Bookmark className="p-2 border rounded-full text-pink-500 hover:bg-pink-500 hover:text-white" size={35} />
+              <Bookmark
+                className="p-2 border rounded-full text-black hover:bg-slate-900 hover:text-white"
+                size={35}
+              />
             </Link>
           </div>
 
@@ -65,7 +73,12 @@ export const Header = ({ isDashboard }: { isDashboard?: boolean }) => {
           <div className="md:hidden">
             {isDashboard ? (
               <DashboardNavSlider
-                dict={{ dashboard: t("dashboard"), property: t("property"), usage: t("usage"), contact: t("contactUs") }}
+                dict={{
+                  dashboard: t("dashboard"),
+                  property: t("property"),
+                  usage: t("usage"),
+                  contact: t("contactUs"),
+                }}
               />
             ) : (
               <MainNavSlider
@@ -89,7 +102,14 @@ export const Header = ({ isDashboard }: { isDashboard?: boolean }) => {
 function MainNavSlider({
   dict: { search, favorites, pricing, sellYourProperty, dashboard, contact },
 }: {
-  dict: { search: string; favorites: string; pricing: string; sellYourProperty: string; dashboard: string; contact: string };
+  dict: {
+    search: string;
+    favorites: string;
+    pricing: string;
+    sellYourProperty: string;
+    dashboard: string;
+    contact: string;
+  };
 }) {
   return (
     <Sheet>

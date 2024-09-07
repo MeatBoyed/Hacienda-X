@@ -88,6 +88,8 @@
   },
   "Bookmarks": {
     "heading": "Your saved properties",
+    "subHeading": "You have",
+    "subHeadingEnd": "saved properties",
     "emptyMessage": "You have no properties. Let's go add one!"
   },
   "Pricing": {

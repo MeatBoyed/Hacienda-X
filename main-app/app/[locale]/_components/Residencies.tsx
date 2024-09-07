@@ -3,8 +3,7 @@ import "swiper/css";
 import "./Residencies.css";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import PropertyCarousel from "@/components/PropertyCarousel";
-import { PropertyCard } from "@/components/PropertyCard";
+import PropertyCarousel from "@/components/main/PropertyCarousel";
 import { cn } from "@/lib/utils";
 
 import { getTranslations } from "next-intl/server";
@@ -40,12 +39,7 @@ export default async function Residencies({ className, margin, children }: Resid
             <h1>{dict("Index.Residencies.error")}</h1>
           </div>
         )}
-        <PropertyCarousel className="">
-          {data &&
-            data.properties.map((property, index) => (
-              <PropertyCard key={index} property={property} />
-            ))}
-        </PropertyCarousel>
+        {data && <PropertyCarousel properties={data.properties} />}
       </div>
     </section>
   );

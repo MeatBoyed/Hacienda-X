@@ -1,35 +1,28 @@
 "use client";
-import { PropertyWithAddress } from "@/Server/utils/utils";
-import { PropertyCard } from "@/components/PropertyCard";
-import { BookmarksContext, BookmarksContextType } from "@/lib/bookmarksContext";
+
+import PropertyCard from "@/components/main/PropertyCard";
+import { useBookmarkService } from "@/lib/services/BookmarkService";
 import { useTranslations } from "next-intl";
-import React, { useContext, useMemo } from "react";
+import { useMemo } from "react";
 
-export default function Bookmarks() {
-  const t = useTranslations("Bookmarks");
-  const { bookmarks } = useContext(BookmarksContext) as BookmarksContextType;
-
+export default function BookmarksPage() {
+  const { bookmarks } = useBookmarkService();
   const properties = useMemo(
     () =>
-      bookmarks.length > 0 ? (
-        bookmarks.map((property, index) => <PropertyCard property={property} key={index} />)
-      ) : (
-        <p>{t("emptyMessage")}</p>
-      ),
-    [bookmarks, t]
+      bookmarks.map((property) => <PropertyCard key={property.property_id} property={property} />),
+    [bookmarks]
   );
-
+  const t = useTranslations("Bookmarks");
   return (
-    <div className="py-24 bg-white w-full flex justify-center items-center">
-      <div className="flex justify-center items-start flex-col gap-10 px-4 lg:max-w-4xl w-full">
-        <p className="scroll-m-20 text-2xl font-semibold tracking-tight">{t("heading")}</p>
+    <div className="container mx-auto px-4 py-24 max-w-6xl">
+      <header className="mb-8">
+        <h1 className="text-3xl font-bold mb-2">{t("heading")}</h1>
+        <p className="text-muted-foreground">
+          {t("subHeading")} {bookmarks.length} {t("subHeadingEnd")}
+        </p>
+      </header>
 
-        <div
-          className={"grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 w-full"}
-        >
-          {properties}
-        </div>
-      </div>
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">{properties}</div>
     </div>
   );
 }

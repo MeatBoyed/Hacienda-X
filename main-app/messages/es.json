@@ -88,6 +88,8 @@
   },
   "Bookmarks": {
     "heading": "Tus propiedades guardadas",
+    "subHeading": "Tienes",
+    "subHeadingEnd": "propiedades guardadas",
     "emptyMessage": "No tienes propiedades. ¡Vamos a agregar una!"
   },
   "Pricing": {
