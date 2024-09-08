@@ -1,19 +1,26 @@
 "use client";
 
-import { useBookmarkService } from "@/lib/services/BookmarkService";
+import { useBookmarkService } from "@/lib/Hooks/useBookmarkService";
 import { PropertyWithAddress } from "@/Server/utils/utils";
 import { Bed, Bath, Square, Mail, Bookmark } from "lucide-react";
-import { MdPool } from "react-icons/md";
-import { cn } from "../ImagesInput/FileInputUtils";
 import { Button } from "../ui/button";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter, CardDescription } from "../ui/card";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 
-export default function PropertyCard({ property, className }: { property: PropertyWithAddress, className?: string }) {
-  const { isBookmarked, addBookmark, removeBookmark } = useBookmarkService();
+export default function PropertyCard({
+  property,
+  className,
+}: {
+  property: PropertyWithAddress;
+  className?: string;
+}) {
   const link = `/property-for-sale/${property.title}`;
   return (
-    <Card key={property.property_id} className={cn("overflow-hidden min-w-fit max-w-lg", className)}>
+    <Card
+      key={property.property_id}
+      className={cn("overflow-hidden min-w-fit max-w-lg", className)}
+    >
       <Link href={link}>
         <img
           src={property.images[0]}
@@ -27,25 +34,33 @@ export default function PropertyCard({ property, className }: { property: Proper
         </CardTitle>
         <CardDescription>{property.Address?.address}</CardDescription>
       </CardHeader>
-      <CardContent className="px-4  justify-between ">
-        <p className="font-semibold text-lg mb-4">$ {property.price.toLocaleString()}</p>
-        <div className="grid grid-cols-2 gap-2 text-sm">
-          <div className="flex items-center">
-            <Bed className="w-4 h-4 mr-2" />
-            <span>{property.bedrooms?.toLocaleString()} beds</span>
-          </div>
-          <div className="flex items-center">
-            <Bath className="w-4 h-4 mr-2" />
-            <span>{property.bathrooms} baths</span>
-          </div>
-          <div className="flex items-center">
-            <Square className="w-4 h-4 mr-2" />
-            <span>{property.squareMeter?.toLocaleString()} sqm</span>
-          </div>
-          <div className="flex items-center">
-            <MdPool className="w-4 h-4 mr-2" />
-            <span>{property.pool}</span>
-          </div>
+      <CardContent className="px-4 pt-0 flex flex-col justify-between items-start gap-3 w-full ">
+        <p className="font-semibold text-lg ">$ {property.price.toLocaleString()}</p>
+        {/* Core Features */}
+        <div className="flex justify-between">
+          <span className="flex items-center">
+            <Bed className="w-4 h-4 mr-1" />
+            {property.bedrooms} Beds
+          </span>
+          <span className="flex items-center">
+            <Bath className="w-4 h-4 mr-1" />
+            {property.bathrooms} Baths
+          </span>
+          <span className="flex items-center">
+            <Square className="w-4 h-4 mr-1" />
+            {property.squareMeter?.toLocaleString()} sqft
+          </span>
+        </div>
+        {/* Features */}
+        <div className="flex flex-wrap gap-2">
+          {property.extraFeatures.map((amenity) => (
+            <span
+              key={amenity}
+              className="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs"
+            >
+              {amenity.charAt(0).toUpperCase() + amenity.slice(1)}
+            </span>
+          ))}
         </div>
       </CardContent>
       <CardFooter className="flex justify-center items-center gap-3 px-3">

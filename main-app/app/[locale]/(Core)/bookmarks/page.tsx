@@ -1,7 +1,7 @@
 "use client";
 
 import PropertyCard from "@/components/main/PropertyCard";
-import { useBookmarkService } from "@/lib/services/BookmarkService";
+import { useBookmarkService } from "@/lib/Hooks/useBookmarkService";
 import { useTranslations } from "next-intl";
 import { useMemo } from "react";
 

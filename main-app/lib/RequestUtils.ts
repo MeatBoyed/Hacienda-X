@@ -2,7 +2,7 @@
 import { z } from "zod";
 import { DeletePropertyPayload, PropertySchema } from "./FormUtils";
 import { PropertyWithAddress } from "@/Server/utils/utils";
-import { LeadFormSchema } from "@/components/LeadForm/LeadForm";
+import { LeadFormSchema } from "@/components/LeadForm/LeadFormContext";
 
 export const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
@@ -10,58 +10,12 @@ export interface PostPropertyResponse {
   results: PropertyWithAddress;
   status: number;
 }
-
-export interface DeleteImageResponse {
-  results: boolean;
-  status: number;
-}
-
 export interface GetUsersPropertyResponse {
   results: PropertyWithAddress;
   status: number;
 }
 
 // Property Requests
-export async function PostUploadImages(
-  url: string,
-  {
-    arg,
-  }: {
-    arg: {
-      images: File[];
-    };
-  }
-) {
-  const formData = new FormData();
-  for (let i = 0; i < arg.images.length; i++) {
-    formData.append(`images[${i}]`, arg.images[i] as File);
-  }
-
-  return fetch(url, {
-    method: "POST",
-    body: formData,
-  }).then((res) => res.json());
-}
-
-export async function DeleteImage(
-  url: string,
-  {
-    arg,
-  }: {
-    arg: {
-      deletedImage: string;
-    };
-  }
-) {
-  return fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-type": "application/json",
-    },
-    body: JSON.stringify(arg),
-  }).then((res) => res.json());
-}
-
 export async function PostProperty(
   url: string,
   {
@@ -126,8 +80,8 @@ export async function PostLead(
   }).then((res) => res.json());
 }
 
-export async function GetPropertySearch(url: string) {
-  return fetch(`${url}`, {
-    method: "GET",
-  }).then((res) => res.json());
-}
+// export async function GetPropertySearch(url: string) {
+//   return fetch(`${url}`, {
+//     method: "GET",
+//   }).then((res) => res.json());
+// }

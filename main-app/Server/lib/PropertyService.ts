@@ -4,7 +4,7 @@ import { Result, Ok, Err } from "ts-results";
 import S3Service from "@/components/UploadShad/server/S3Service";
 import { Prisma } from "@prisma/client";
 import { PropertyWithAddress, PropertyWithAddressAndAgent } from "../utils/utils";
-import { handleError, ServiceError } from "./ErrorHandler";
+import { handleError, ServiceError } from "../utils/ErrorHandler";
 
 export interface PropertyServiceResponse {
   properties: PropertyWithAddress[] | PropertyWithAddressAndAgent[];
@@ -12,12 +12,7 @@ export interface PropertyServiceResponse {
 }
 
 class PropertyService {
-  private s3Service: S3Service;
-  constructor() {
-    this.s3Service = new S3Service();
-  }
-
-  async GetAll(agentId?: string): Promise<Result<PropertyServiceResponse, ServiceError>> {
+  static async GetAll(agentId?: string): Promise<Result<PropertyServiceResponse, ServiceError>> {
     return await db.property
       .findMany({
         where: { agent_id: agentId, visibility: { not: "Deleted" } },
@@ -31,7 +26,7 @@ class PropertyService {
       });
   }
 
-  async Get(
+  static async Get(
     propertyId?: string,
     slug?: string,
     agent?: boolean
@@ -53,12 +48,14 @@ class PropertyService {
       });
   }
 
-  async Search(
-    where: Prisma.PropertyWhereInput
+  static async Search(
+    where: Prisma.PropertyWhereInput,
+    orderBy?: Prisma.PropertyOrderByWithRelationInput
   ): Promise<Result<PropertyServiceResponse, ServiceError>> {
     return await db.property
       .findMany({
         where: where,
+        orderBy: orderBy,
         include: { Address: true },
       })
       .then((data) => {
@@ -68,12 +65,13 @@ class PropertyService {
         return Err(handleError(error, "PropertyService", "Search"));
       });
   }
-  async Create(
+
+  static async Create(
     propertyPayload: PropertySchema,
     agentId: string
   ): Promise<Result<PropertyServiceResponse, ServiceError>> {
-    return await db.property
-      .create({
+    try {
+      const property = await db.property.create({
         data: {
           title: propertyPayload.title,
           description: propertyPayload.description,
@@ -96,16 +94,14 @@ class PropertyService {
             },
           },
         },
-      })
-      .then((data) => {
-        return Ok({ properties: [], total: 1 });
-      })
-      .catch((error) => {
-        return Err(handleError(error, "PropertyService", "Create"));
       });
+      return Ok({ properties: [], total: 1 });
+    } catch (error) {
+      return Err(handleError(error, "PropertyService", "Create"));
+    }
   }
 
-  async Update(
+  static async Update(
     propertyPayload: PropertySchema,
     agentId: string
   ): Promise<Result<PropertyServiceResponse, ServiceError>> {
@@ -144,7 +140,7 @@ class PropertyService {
       });
   }
 
-  async Delete(
+  static async Delete(
     payload: DeletePropertyPayload
   ): Promise<Result<PropertyServiceResponse, ServiceError>> {
     try {
@@ -160,7 +156,8 @@ class PropertyService {
     }
 
     // Delete Images
-    return await this.s3Service
+    const s3Service = new S3Service();
+    return await s3Service
       .deleteFiles(payload.images)
       .then(() => {
         return Ok({ properties: [], total: 0 });

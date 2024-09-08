@@ -8,7 +8,9 @@ export default async function Head() {
     <header className="flex justify-between items-center mb-8 w-full">
       <div>
         <h1 className="text-4xl font-bold text-gray-800">Welcome back, {user?.firstName}!</h1>
-        <p className="text-gray-600">Here's what's happening with your properties today.</p>
+        <p className="text-gray-600">
+          Here&apos;s what&apos;s happening with your properties today.
+        </p>
       </div>
       <div className="flex items-center gap-4">
         <Button

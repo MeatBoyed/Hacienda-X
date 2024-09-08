@@ -13,26 +13,17 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import Link from "next/link";
-import { cn } from "@/components/ImagesInput/FileInputUtils";
+import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 
-export function SearchBar({
-  classname,
-  mapView,
-}: {
-  classname?: string;
-  mapView?: boolean;
-}) {
+export function SearchBar({ classname, mapView }: { classname?: string; mapView?: boolean }) {
   const [filterOpen, setFilterOpen] = useState(false);
   const t = useTranslations("Index.SearchBar");
 
   return (
     <div
       id="searchbar"
-      className={cn(
-        "w-full flex justify-center items-center flex-col gap-2",
-        classname
-      )}
+      className={cn("w-full flex justify-center items-center flex-col gap-2", classname)}
     >
       <div className="flex justify-center w-full items-center gap-3 flex-col sm:flex-row">
         <Dialog open={filterOpen} onOpenChange={setFilterOpen}>
@@ -62,18 +53,12 @@ export function SearchBar({
             size={"sm"}
             className="bg-white w-full lg:hidden text-black hover:border-background hover:bg-accent hover:text-white shadow-md gap-3 hover: rounded-md"
           >
-            <Link
-              href="/property-for-sale/map"
-              className="flex justify-center items-center gap-3"
-            >
+            <Link href="/property-for-sale/map" className="flex justify-center items-center gap-3">
               <MapPin size={15} /> {t("button1")}
             </Link>
           </Button>
         ) : (
-          <Link
-            href="/property-for-sale"
-            className="flex justify-center items-center gap-3 w-full"
-          >
+          <Link href="/property-for-sale" className="flex justify-center items-center gap-3 w-full">
             <Button
               size={"sm"}
               className="bg-white w-full text-black hover:border-background hover:bg-accent hover:text-white shadow-md gap-3 hover: rounded-md"
@@ -91,10 +76,7 @@ export function HomePageSearchBar() {
   const t = useTranslations("Index.Hero");
 
   return (
-    <div
-      id="searchbar"
-      className={cn("w-full flex justify-center items-center flex-col gap-2")}
-    >
+    <div id="searchbar" className={cn("w-full flex justify-center items-center flex-col gap-2")}>
       <div className="flex justify-center w-full items-center gap-3 flex-col sm:flex-row">
         <Link
           href="/property-for-sale/map"

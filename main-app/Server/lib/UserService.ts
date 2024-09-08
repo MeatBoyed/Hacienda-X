@@ -1,7 +1,7 @@
 import db from "@/Utils/db";
 import { UserPayload } from "../controllers/userController";
 import { Err, Ok, Result } from "ts-results";
-import { handleError, ServiceError } from "./ErrorHandler";
+import { handleError, ServiceError } from "../utils/ErrorHandler";
 import { User } from "@prisma/client";
 
 export interface UserServiceResponse {

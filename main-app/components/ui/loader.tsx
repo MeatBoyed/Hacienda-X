@@ -1,4 +1,4 @@
-import { cn } from "@/components/ImagesInput/FileInputUtils";
+import { cn } from "@/lib/utils";
 import React from "react";
 import { PuffLoader } from "react-spinners";
 
@@ -18,10 +18,7 @@ const Loader = React.forwardRef<HTMLDivElement, InputProps>(
       <div
         ref={ref}
         {...props}
-        className={cn(
-          "w-full h-[100vh] flex justify-center items-center",
-          className
-        )}
+        className={cn("w-full h-[100vh] flex justify-center items-center", className)}
       >
         <PuffLoader color="blue" />
       </div>

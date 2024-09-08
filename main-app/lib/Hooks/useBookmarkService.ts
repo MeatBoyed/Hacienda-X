@@ -59,8 +59,3 @@ export function useBookmarkService() {
     isBookmarked,
   };
 }
-
-export function addToBookmarks(property: PropertyWithAddress) {
-  const { bookmarks, addBookmark } = useBookmarkService();
-  addBookmark(property);
-}

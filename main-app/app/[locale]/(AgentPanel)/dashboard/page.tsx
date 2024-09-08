@@ -1,10 +1,10 @@
 // Tremor for Analytics Components - https://www.tremor.so/
 
-import { LeadsCard, PropertyListCard } from "./_components/DashboardCards";
+import { LeadsCard, PropertyListCard } from "./(components)/DashboardCards";
 import { getPropertiesForAgent } from "@/lib/RequestService";
-import Head from "./_components/Head";
+import Head from "./(components)/Head";
 import { Lead } from "@prisma/client";
-import Insights from "./_components/Insights";
+import Insights from "./(components)/Insights";
 
 export default async function DashboardPage() {
   const response = await getPropertiesForAgent();

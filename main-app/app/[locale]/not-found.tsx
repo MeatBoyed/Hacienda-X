@@ -1,9 +1,9 @@
 import "./globals.css";
-import { cn } from "@/components/ImagesInput/FileInputUtils";
 import PostHogClient from "@/components/Posthog";
 import Providers from "@/components/Providers/Providers";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 import { auth } from "@clerk/nextjs/server";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { Inter } from "next/font/google";
@@ -21,7 +21,12 @@ export default async function NotFoundPage({ locale }: { locale: string }) {
         ></script>
       </head>
       <Providers locale={locale}>
-        <body className={cn("min-h-screen bg-background font-sans antialiased flex justify-center items-center flex-col", inter)}>
+        <body
+          className={cn(
+            "min-h-screen bg-background font-sans antialiased flex justify-center items-center flex-col",
+            inter
+          )}
+        >
           <Card>
             <CardHeader>
               <CardTitle>Page Not Found</CardTitle>

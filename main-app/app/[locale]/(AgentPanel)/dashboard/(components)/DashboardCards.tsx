@@ -1,5 +1,5 @@
 "use client";
-import ErrorView, { EmptyView, MessageView } from "@/components/main/Views/ErrorView";
+import { MessageView } from "@/components/main/Views/Views";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
 import { PropertyWithAddress } from "@/Server/utils/utils";

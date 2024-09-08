@@ -1,4 +1,4 @@
-import PropertyForm from "../_components/PropertyForm";
+import PropertyForm from "../(components)/PropertyForm";
 
 // Allow user's to request property features for us to add
 // params: { locale: string };

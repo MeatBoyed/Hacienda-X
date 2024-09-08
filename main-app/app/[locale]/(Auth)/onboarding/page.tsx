@@ -1,9 +1,9 @@
 import { currentUser } from "@clerk/nextjs/server";
-import OnboardingForm from "./_components/OnboardingForm";
+import OnboardingForm from "./(components)/OnboardingForm";
 import { SignInButton } from "@clerk/nextjs";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { getTranslations } from "next-intl/server";
-import SuccessCard from "./_components/SuccessCard";
+import SuccessCard from "./(components)/SuccessCard";
 
 // Allow user to navigate with just Clerk auth
 // Auto-create user with default values on restricted actions
@@ -20,10 +20,14 @@ export default async function OnboardingPage({
     <div className="bg-background flex justify-center items-center flex-col px-4 pt-14 pb-28 w-full gap-8">
       <div className="flex justify-center items-center flex-col w-full gap-1">
         <h1 className="text-center text-3xl">
-          {user ? `${t("greeting.welcome")} ${user.firstName} ${user.lastName} 👋` : `${t("greeting.welcome")}!`}
+          {user
+            ? `${t("greeting.welcome")} ${user.firstName} ${user.lastName} 👋`
+            : `${t("greeting.welcome")}!`}
         </h1>
 
-        <h2 className="mt-4 text-center text-base text-muted-foreground">{t("greeting.subHeading")}</h2>
+        <h2 className="mt-4 text-center text-base text-muted-foreground">
+          {t("greeting.subHeading")}
+        </h2>
       </div>
       {user && searchParams?.registered === "true" && <SuccessCard />}
       {user && searchParams?.registered !== "true" && (

@@ -1,9 +1,9 @@
 "use client";
-import { cn } from "@/components/ImagesInput/FileInputUtils";
 import { useRef, useState, useEffect } from "react";
 import { Autocomplete, useJsApiLoader } from "@react-google-maps/api";
 import { Library } from "@googlemaps/js-api-loader";
 import React from "react";
+import { cn } from "@/lib/utils";
 
 const libs: Library[] = ["core", "places"];
 
@@ -13,8 +13,7 @@ interface AddressResult {
   lng: number;
 }
 
-export interface InputProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   defaultValue?: string;
   handleChange: (result: AddressResult) => void;
 }
@@ -22,8 +21,7 @@ export interface InputProps
 const AddressInput = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, type, defaultValue, handleChange, ...props }, ref) => {
     // Address Input's AutoComplete
-    const [autoComplete, setAutoComplete] =
-      useState<google.maps.places.Autocomplete | null>(null);
+    const [autoComplete, setAutoComplete] = useState<google.maps.places.Autocomplete | null>(null);
     const { isLoaded } = useJsApiLoader({
       googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY as string,
       libraries: libs,

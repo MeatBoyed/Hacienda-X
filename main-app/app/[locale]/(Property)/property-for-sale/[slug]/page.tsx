@@ -3,23 +3,31 @@ import ImageGallery from "../../../../../components/main/ImageGallery/ImageGalle
 import LeadForm from "@/components/LeadForm/LeadForm";
 import Residencies from "@/app/[locale]/_components/Residencies";
 import { getTranslations } from "next-intl/server";
-import {  getProperty } from "@/lib/RequestService";
 import { MapCard } from "@/components/main/Maps/MapCard";
-import ErrorView from "./(components)/ErrorView";
 import { PropertyWithAddressAndAgent } from "@/Server/utils/utils";
 import { BookmarkButton } from "@/components/main/PropertyCard";
+import { NotFoundViewCard } from "@/components/main/Views/Views";
+import { GetRequestService } from "@/lib/services/GetRequestService";
+
+export const revalidate = 18000; // 5 hours in seconds
+
+export async function generateStaticParams() {
+  const response = await GetRequestService.getProperties();
+  if (!response) return [];
+
+  const { properties } = response;
+  return properties.map((property) => ({
+    slug: property.title.toLowerCase().replace(/ /g, "-"),
+  }));
+}
 
 export default async function PropertyView({ params: { slug } }: { params: { slug: string } }) {
   const t = await getTranslations("Property.Property");
-  const response = await getProperty(slug);
+  const response = await GetRequestService.getProperty(slug);
 
   if (!response) {
     // Redirect to 404 or show message
-    return (
-      // <div className="container mx-auto px-4 py-8 max-w-6xl mt-12 md:mt-14">
-      <ErrorView />
-      // </div>
-    );
+    return <NotFoundViewCard className="min-h-screen py-16 " />;
   }
   const { properties } = response;
   const property = properties[0] as PropertyWithAddressAndAgent;

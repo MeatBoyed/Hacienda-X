@@ -7,7 +7,7 @@ import PropertyCarousel from "@/components/main/PropertyCarousel";
 import { cn } from "@/lib/utils";
 
 import { getTranslations } from "next-intl/server";
-import { getProperties } from "@/lib/RequestService";
+import { GetRequestService } from "@/lib/services/GetRequestService";
 
 type ResidenciesProps = PropsWithChildren & {
   className?: string;
@@ -22,8 +22,7 @@ type ResidenciesHeadProps = PropsWithChildren & {
 
 export default async function Residencies({ className, margin, children }: ResidenciesProps) {
   const dict = await getTranslations();
-  const data = await getProperties();
-  console.log("Property 1: ", data?.properties[0]);
+  const data = await GetRequestService.getProperties();
 
   return (
     <section id="residencies" className={cn("my-12 w-full", margin)}>
