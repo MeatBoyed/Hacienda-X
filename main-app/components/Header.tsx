@@ -212,9 +212,6 @@ function DashboardNavlinks({
       <Link href="/dashboard">
         <p className="text-base text-black hover:text-gray-700 transition">{dashboard}</p>
       </Link>
-      <Link href="/dashboard/property">
-        <p className="text-base text-black hover:text-gray-700 transition">{property}</p>
-      </Link>
       <Link href="/usage">
         <p className="text-base text-black hover:text-gray-700 transition">{usage}</p>
       </Link>

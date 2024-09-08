@@ -1,49 +1,25 @@
-import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import NewLeads from "./_components/NewLeads";
-import Properties from "./property/_components/Properties";
-import { getTranslations } from "next-intl/server";
-
 // Tremor for Analytics Components - https://www.tremor.so/
 
-export default async function Dashboard() {
-  const t = await getTranslations("Dashboard.Index");
-  // Auth user via Clerk & in Dashboard
-  // Track via Posthog & set role
+import { LeadsCard, PropertyListCard } from "./_components/DashboardCards";
+import { getPropertiesForAgent } from "@/lib/RequestService";
+import Head from "./_components/Head";
+import { Lead } from "@prisma/client";
+import Insights from "./_components/Insights";
+
+export default async function DashboardPage() {
+  const response = await getPropertiesForAgent();
+  const leads: Lead[] = [];
 
   return (
-    <div className="w-full flex justify-center items-center pb-20 md:px-10 lg:px-10 xl:px-32 my-24 px-4">
-      <section className="w-full flex justify-center flex-col-reverse md:flex-row md:justify-between gap-10 md:gap-16 items-start">
-        {/* Left Side */}
-        <div className="flex justify-center items-start flex-col gap-5 w-full">
-          <p className="scroll-m-20 text-2xl font-semibold tracking-tight">{t("heading")}</p>
-          <Properties className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-5" />
+    <div className="min-h-screen p-8 bg-gray-50 mt-16">
+      <main className="max-w-6xl mx-auto">
+        <Head />
+        <Insights />
+        <div className="grid gap-6 md:grid-cols-2 w-full">
+          <LeadsCard leads={leads} />
+          <PropertyListCard properties={response ? response.properties : undefined} />
         </div>
-
-        <div className="border w-full border-gray-600 md:hidden" />
-
-        {/* Right */}
-        <NewLeads />
-      </section>
+      </main>
     </div>
-  );
-}
-
-function LeadInsightCard() {
-  const views = 3500;
-  return (
-    <Card className="flex justify-center items-center w-full">
-      <CardHeader className="sm:gap-2 justify-center items-center">
-        <CardTitle className="text-2xl sm:text-4xl">{views.toLocaleString()}</CardTitle>
-        <CardDescription>Unread</CardDescription>
-      </CardHeader>
-      <CardHeader className="sm:gap-2 justify-center items-center">
-        <CardTitle className="text-2xl sm:text-4xl">{views.toLocaleString()}</CardTitle>
-        <CardDescription>Open</CardDescription>
-      </CardHeader>
-      <CardHeader className="sm:gap-2 justify-center items-center">
-        <CardTitle className="text-2xl sm:text-4xl">{views.toLocaleString()}</CardTitle>
-        <CardDescription>Closed</CardDescription>
-      </CardHeader>
-    </Card>
   );
 }

@@ -38,3 +38,14 @@ export async function getProperty(slug: string) {
 
   return (await res.json()) as PropertyServiceResponse;
 }
+
+export async function getPropertiesForAgent() {
+  const res = await fetch(`${env.NEXT_PUBLIC_HOST_URL}/api/dashboard/property`);
+
+  if (!res.ok) {
+    console.log("Residencies: Fetching Properties failed: ", res);
+    return undefined;
+  }
+
+  return (await res.json()) as PropertyServiceResponse;
+}

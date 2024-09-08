@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Suspense } from "react";
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as SonnerToaster } from "sonner";
 import Loader from "@/components/ui/loader";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { Header } from "@/components/Header";
@@ -27,16 +25,8 @@ export default async function RootLayout({
   }
   return (
     <div className="overflow-hidden bg-white">
-      {/* <Navbar /> */}
       <Header isDashboard />
-      {/* <section
-        id="dashboard"
-        className=""
-      > */}
       <Suspense fallback={<Loader />}>{children}</Suspense>
-      {/* </section> */}
-      <Toaster />
-      <SonnerToaster expand richColors />
     </div>
   );
 }
