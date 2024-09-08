@@ -4,8 +4,8 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.webdriver import WebDriver
 
-URL_PATH = "http://localhost:3000/en/onboarding"
-# URL_PATH = "http://haciendax.com/en/onboarding"
+# URL_PATH = "http://localhost:3000/en/onboarding"
+URL_PATH = "http://haciendax.com/en/onboarding"
 PASSWORD = "JanesTest$Passowrd+clerk_test"
 
 @pytest.fixture()

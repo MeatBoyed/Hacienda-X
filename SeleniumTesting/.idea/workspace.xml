@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="96445ecf-43ab-44ef-af38-8a0337d7f7ea" name="Changes" comment="Onboarding Test functional" />
+    <list default="true" id="96445ecf-43ab-44ef-af38-8a0337d7f7ea" name="Changes" comment="Onboarding Test functional">
+      <change afterPath="$PROJECT_DIR$/.idea/SeleniumTesting.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SeleniumIDE Tests/HaciendaX.side" beforeDir="false" afterPath="$PROJECT_DIR$/SeleniumIDE Tests/HaciendaX.side" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestOnboarding.py" beforeDir="false" afterPath="$PROJECT_DIR$/TestOnboarding.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -25,18 +30,18 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "MeatBoyed"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;MeatBoyed&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/MeatBoyed/Hacienda-X.git",
-    "accountId": "0fc2b63b-e160-44dc-999b-5286ef742f14"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/MeatBoyed/Hacienda-X.git&quot;,
+    &quot;accountId&quot;: &quot;0fc2b63b-e160-44dc-999b-5286ef742f14&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
 }</component>
@@ -60,13 +65,14 @@
     "Python tests.Python tests for Test_Lead.TestLead.executor": "Run",
     "Python tests.Python tests for Test_Lead.TestLead.test_form_submits_values.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "main",
     "last_opened_file_path": "C:/Users/Charl/Code/Hacienda-X/SeleniumTesting",
     "settings.editor.selected.configurable": "preferences.keymap"
   }
 }]]></component>
-  <component name="RunManager" selected="Python tests.Python tests for TestOnboarding.TestOnboarding.test_form_submits">
-    <configuration name="Python tests for TestLead.TestLead.test_form_submits" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python tests.Python tests for TestOnboarding.TestOnboarding">
+    <configuration name="Python tests for TestLead.TestLead" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="SeleniumTesting" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -77,7 +83,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;TestLead.TestLead.test_form_submits&quot;" />
+      <option name="_new_target" value="&quot;TestLead.TestLead&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
@@ -143,11 +149,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python tests.Python tests for TestOnboarding.TestOnboarding.test_form_submits" />
         <item itemvalue="Python tests.Python tests for TestOnboarding.TestOnboarding" />
+        <item itemvalue="Python tests.Python tests for TestLead.TestLead" />
+        <item itemvalue="Python tests.Python tests for TestOnboarding.TestOnboarding.test_form_submits" />
         <item itemvalue="Python tests.Python tests for TestOnboarding.TestOnboarding.test_user_signin" />
         <item itemvalue="Python tests.Python tests for TestOnboarding.TestOnboarding.test_form_values_capture" />
-        <item itemvalue="Python tests.Python tests for TestLead.TestLead.test_form_submits" />
       </list>
     </recent_temporary>
   </component>
@@ -199,7 +205,15 @@
       <option name="project" value="LOCAL" />
       <updated>1723196365350</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Onboarding Test functional">
+      <option name="closed" value="true" />
+      <created>1723196420224</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1723196420225</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">

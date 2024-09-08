@@ -24,7 +24,7 @@ export async function Create(
         role: "agent",
       },
     });
-    return Ok({ status: 200, User: null });
+    return Ok({ status: 200, User: user });
   } catch (err) {
     const error = handleError(err, "UserService", "Create");
     if (error.status === 409) {
