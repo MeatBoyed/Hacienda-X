@@ -9,17 +9,17 @@ import { BookmarkButton } from "@/components/main/PropertyCard";
 import { NotFoundViewCard } from "@/components/main/Views/Views";
 import { GetRequestService } from "@/lib/services/GetRequestService";
 
-export const revalidate = 18000; // 5 hours in seconds
+// export const revalidate = 18000; // 5 hours in seconds
 
-export async function generateStaticParams() {
-  const response = await GetRequestService.getProperties();
-  if (!response) return [];
+// export async function generateStaticParams() {
+//   const response = await GetRequestService.getProperties();
+//   if (!response) return [];
 
-  const { properties } = response;
-  return properties.map((property) => ({
-    slug: property.title.toLowerCase().replace(/ /g, "-"),
-  }));
-}
+//   const { properties } = response;
+//   return properties.map((property) => ({
+//     slug: property.title.toLowerCase().replace(/ /g, "-"),
+//   }));
+// }
 
 export default async function PropertyView({ params: { slug } }: { params: { slug: string } }) {
   const t = await getTranslations("Property.Property");

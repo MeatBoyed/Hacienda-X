@@ -15,7 +15,7 @@ class PropertyService {
   static async GetAll(agentId?: string): Promise<Result<PropertyServiceResponse, ServiceError>> {
     return await db.property
       .findMany({
-        where: { agent_id: agentId, visibility: { not: "Deleted" } },
+        where: { agent: { public_id: agentId }, visibility: { not: "Deleted" } },
         include: { Address: true },
       })
       .then((data) => {

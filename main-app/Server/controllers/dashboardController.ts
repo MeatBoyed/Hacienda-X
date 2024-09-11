@@ -8,8 +8,6 @@ import PropertyService from "../lib/PropertyService";
 import { SignedInAuthObject } from "@clerk/backend/internal";
 import { StatusCode } from "hono/utils/http-status";
 
-const propertyService = new PropertyService();
-
 const app = new Hono()
   .use(clerkMiddleware())
   // Checks user exists (True: Exist, False: Doesn't)
@@ -26,8 +24,11 @@ const app = new Hono()
   .get("/property", async (c) => {
     const user = authenticateUser(c);
 
-    const response = await propertyService.GetAll(user.userId);
-    if (response.err) throw new HTTPException((response.val.status as StatusCode) || 500, { message: response.val.message });
+    const response = await PropertyService.GetAll(user.userId);
+    if (response.err)
+      throw new HTTPException((response.val.status as StatusCode) || 500, {
+        message: response.val.message,
+      });
 
     return c.json(response.val);
   })
@@ -38,8 +39,11 @@ const app = new Hono()
     const user = authenticateUser(c);
     const propertyId = c.req.param("propertyid");
 
-    const response = await propertyService.Get(propertyId); // Get specific property
-    if (response.err) throw new HTTPException((response.val.status as StatusCode) || 500, { message: response.val.message });
+    const response = await PropertyService.Get(propertyId); // Get specific property
+    if (response.err)
+      throw new HTTPException((response.val.status as StatusCode) || 500, {
+        message: response.val.message,
+      });
 
     // Ensure user is the owner of the property
     if (response.val.properties[0].agent_id !== user.userId)
@@ -53,8 +57,11 @@ const app = new Hono()
     const user = authenticateUser(c); // Auth user
     const payload = c.req.valid("json"); // Get Payload
 
-    const response = await propertyService.Create(payload, user.userId); // Offload to Business Layer
-    if (response.err) throw new HTTPException((response.val.status as StatusCode) || 500, { message: response.val.message });
+    const response = await PropertyService.Create(payload, user.userId); // Offload to Business Layer
+    if (response.err)
+      throw new HTTPException((response.val.status as StatusCode) || 500, {
+        message: response.val.message,
+      });
 
     return c.json(response.val);
   })
@@ -64,8 +71,11 @@ const app = new Hono()
     const user = authenticateUser(c); // Auth user
 
     const prop = c.req.valid("json"); // Get Payload
-    const response = await propertyService.Update(prop, user.userId); // Offload to Business Layer
-    if (response.err) throw new HTTPException((response.val.status as StatusCode) || 500, { message: response.val.message });
+    const response = await PropertyService.Update(prop, user.userId); // Offload to Business Layer
+    if (response.err)
+      throw new HTTPException((response.val.status as StatusCode) || 500, {
+        message: response.val.message,
+      });
 
     return c.json(response.val);
   })
@@ -75,10 +85,14 @@ const app = new Hono()
     const user = authenticateUser(c); // Auth
 
     const deletePayload = c.req.valid("json"); // Get Payload
-    if (user.userId !== deletePayload.agentId) throw new HTTPException(403, { message: "Unable to verify request" });
+    if (user.userId !== deletePayload.agentId)
+      throw new HTTPException(403, { message: "Unable to verify request" });
 
-    const response = await propertyService.Delete(deletePayload); // Offload to Business Layer
-    if (response.err) throw new HTTPException((response.val.status as StatusCode) || 500, { message: response.val.message });
+    const response = await PropertyService.Delete(deletePayload); // Offload to Business Layer
+    if (response.err)
+      throw new HTTPException((response.val.status as StatusCode) || 500, {
+        message: response.val.message,
+      });
 
     return c.json(response.val);
   });

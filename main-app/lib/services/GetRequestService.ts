@@ -40,7 +40,7 @@ export class GetRequestService {
   }
 
   private static handleError(method: string, response: Response) {
-    console.log(`Get Request Service | Fetch error occured at ${method}`);
+    console.log(`Get Request Service | Fetch error occured at ${method} | Response - ${response}`);
     if (this.verboseLog) console.log(`Error & Response: ${response}`);
   }
 }
