@@ -34,8 +34,6 @@ export const SearchParamSchema = z.object({
 
 export class BussinessLogicHandler {
   static async searchProperties(searchParams: z.infer<typeof SearchParamSchema>) {
-    const propertyService = new PropertyService();
-
     const bathrooms = searchParams.bathrooms || 0;
     const bedrooms = searchParams.bedrooms || 0;
     const amenities = searchParams.amenities?.split(",") || undefined;
@@ -44,7 +42,7 @@ export class BussinessLogicHandler {
       ? getPriceRangeValues(searchParams.priceRange)
       : undefined;
 
-    return await propertyService.Search(
+    return await PropertyService.Search(
       {
         bathrooms: { equals: bathrooms > 0 ? bathrooms : undefined },
         bedrooms: { equals: bedrooms > 0 ? bedrooms : undefined },
