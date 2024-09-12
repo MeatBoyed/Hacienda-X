@@ -1,0 +1,669 @@
+{
+  "Index": {
+    "Hero": {
+      "heading": "Encuentra tu Hogar Perfecto",
+      "subHeading": "Descubre Propiedades que Se Adaptan a Tu Estilo de Vida",
+      "button1": "Búsqueda en el mapa",
+      "button2": "Buscar propiedades"
+    },
+    "SearchBar": {
+      "filterButton": "Filtrar",
+      "filterDialogTitle": "Filtra tu búsqueda",
+      "propertySearchButton": "Búsqueda de Propiedades",
+      "button1": "Búsqueda en el mapa",
+      "button2": "Buscar propiedades"
+    },
+    "Residencies": {
+      "heading": "Residencias Populares",
+      "subHeading": "Propiedades Destacadas",
+      "button": "Ver más",
+      "error": "Ocurrió un error. Por favor, inténtelo de nuevo."
+    },
+    "HowItWorks": {
+      "sellPropertyCard": {
+        "heading": "Vender Propiedad",
+        "content": "¡Vende Tu Propiedad Ahora! Creación de propiedades personalizada. Controla todas tus propiedades desde la punta de tus dedos.",
+        "content2": "No te pierdas la oportunidad de vender tu hogar – ¡Vende hoy!",
+        "button": "Regístrate"
+      },
+      "buyPropertyCard": {
+        "heading": "¡Compra Propiedad Ahora!",
+        "content": "¿Listo para hacer realidad tus sueños de ser propietario? Explora una amplia gama de propiedades adaptadas a tus preferencias y presupuesto.",
+        "button": "Buscar Propiedades"
+      },
+      "discoverCard": {
+        "heading": "¡Descubre Nuestra Historia!",
+        "content": "Somos tus socios de confianza para encontrar tu hogar perfecto. Descubre nuestra historia y permítenos ayudarte a escribir el próximo capítulo de la tuya.",
+        "button": "Aprende más"
+      }
+    },
+    "AboutUs": {
+      "heading": "Sobre HaciendaX",
+      "sub-heading": "Sobre nosotros",
+      "content-heading": "Nuestra Misión:",
+      "content": "En Hacienda, nuestra misión es empoderar a compradores y vendedores con conocimiento, apoyo y servicio personalizado. Impulsados por una pasión por las personas y las propiedades, nos esforzamos por superar las expectativas y construir relaciones duraderas. Nuestras listas cuentan con precios inmejorables y ofertas increíbles, lo que facilita encontrar tu hogar perfecto sin gastar de más. Ya sea que busques una acogedora casa inicial o una lujosa mansión, Hacienda combina asequibilidad con calidad. Estamos comprometidos con la excelencia en cada transacción, enfocándonos en la integridad, la transparencia y el profesionalismo para alcanzar tus objetivos inmobiliarios y ganar tu confianza. Descubre lo que nos diferencia en Hacienda.",
+      "button": "Aprende más"
+    },
+    "Offer": {
+      "tag": "¿Por qué elegirnos?",
+      "heading": "Somos Hacienda",
+      "sub-heading": "Sabemos cómo atender tus necesidades para encontrar un nuevo hogar. Nos preocupamos por ti y tus necesidades.",
+      "offer1": {
+        "heading": "Búsqueda de Hogar Personalizada",
+        "content": "Nuestro equipo ofrece una experiencia de búsqueda de hogar personalizada, asegurando que te emparejemos con la propiedad perfecta que se adapte a tu estilo de vida y preferencias. Escuchamos tus necesidades y usamos nuestra extensa red para encontrar tu hogar soñado."
+      },
+      "offer2": {
+        "heading": "Análisis de Mercado Experto",
+        "content": "Proporcionamos un análisis de mercado profundo para ayudarte a tomar decisiones informadas. Nuestros expertos analizan las tendencias actuales del mercado, los valores de las propiedades y las percepciones del vecindario para guiarte con confianza durante el proceso de compra de tu hogar."
+      },
+      "offer3": {
+        "heading": "Proceso de Transacción Sin Problemas",
+        "content": "En Hacienda, simplificamos el proceso de compra de hogar. Nuestros agentes experimentados manejan todos los detalles, desde las negociaciones hasta el cierre, asegurando una transacción fluida y sin estrés. Priorizamos tu conveniencia y satisfacción."
+      },
+      "offer4": {
+        "heading": "Servicios de Apoyo Integral",
+        "content": "Nuestro compromiso contigo va más allá de solo encontrar un hogar. Ofrecemos servicios de apoyo integral, incluyendo asesoría hipotecaria, asistencia legal y apoyo post-compra, para hacer tu transición lo más fluida posible."
+      }
+    },
+    "CallToAction": {
+      "heading": "¿Quieres Vender Tu Propiedad?",
+      "content": "Vende Tus Propiedades Con Hacienda. Haz clic ahora para comenzar.",
+      "button": "Comenzar"
+    },
+    "Contact": {
+      "subHeading": "Contáctanos",
+      "heading": "Ponte en contacto hoy",
+      "content": "Siempre estamos listos para ayudar, brindándote los mejores servicios. Creemos que un buen lugar para vivir puede mejorar tu vida.",
+      "Call": "Llamar",
+      "phone-number": "021 123 145 14",
+      "CopyToClipboard": "Copiar al Portapapeles",
+      "email": "Correo Electrónico",
+      "businessEmail": "Hacienda@gmail.com"
+    }
+  },
+  "AboutUs": {
+    "heading": "HaciendaX Bienes Raíces",
+    "content1": "Estamos comprometidos a empoderar a compradores y vendedores con conocimiento, apoyo y servicio personalizado. En Hacienda, nuestra pasión por las personas y las propiedades nos impulsa a superar las expectativas y crear relaciones duraderas.",
+    "content2": "Descubre lo que nos distingue en Hacienda. Nos esforzamos por la excelencia en cada transacción, con el objetivo de superar los estándares de la industria y las expectativas de los clientes. Con un enfoque en la integridad, la transparencia y el profesionalismo, nos dedicamos a alcanzar tus objetivos inmobiliarios y ganarnos tu confianza."
+  },
+  "Bookmarks": {
+    "heading": "Tus propiedades guardadas",
+    "subHeading": "Tienes",
+    "subHeadingEnd": "propiedades guardadas",
+    "emptyMessage": "No tienes propiedades. ¡Vamos a agregar una!"
+  },
+  "Pricing": {
+    "subHeading": "Tabla de Precios",
+    "heading": "Nuestro Plan de Precios",
+    "content": "Elige el plan que mejor se adapte a tus necesidades.",
+    "enterprisePlan": {
+      "type": "Empresarial",
+      "price": "$499",
+      "subscription": "año",
+      "description": "Ideal para grandes empresas inmobiliarias que necesitan características integrales.",
+      "button": "Elegir Empresarial",
+      "feature1": "Listados de Propiedades Ilimitados",
+      "feature2": "Exposición Máxima",
+      "feature3": "Gerente de Cuenta Dedicado",
+      "feature4": "Informe Diario de Analíticas",
+      "feature5": "Listados Destacados Premium",
+      "feature6": "Opciones de Marca Personalizadas"
+    },
+    "proPlan": {
+      "type": "Plan Pro",
+      "price": "$99",
+      "subscription": "mes",
+      "description": "Perfecto para pequeños equipos inmobiliarios.",
+      "button": "Elegir Pro",
+      "feature1": "10 Listados de Propiedades",
+      "feature2": "Exposición Mejorada",
+      "feature3": "Soporte Prioritario por Email",
+      "feature4": "Informe Semanal de Analíticas",
+      "feature5": "Listados Destacados"
+    },
+    "basicPlan": {
+      "type": "Básico",
+      "price": "$29",
+      "subscription": "mes",
+      "description": "Ideal para agentes individuales que están empezando.",
+      "button": "Elegir Básico",
+      "feature1": "1 Listado de Propiedad",
+      "feature2": "Exposición Estándar",
+      "feature3": "Soporte por Email",
+      "feature4": "Informe Mensual de Analíticas"
+    },
+    "PricingTable": {
+      "Information": {
+        "feature1": "Listados de Propiedades",
+        "feature2": "Exposición",
+        "feature3": "Soporte",
+        "feature4": "Informe de Analíticas",
+        "feature5": "Listados Destacados",
+        "feature6": "Opciones de Branding Personalizado"
+      },
+      "basic": {
+        "type": "Básico",
+        "price": "$29",
+        "subscription": "mes",
+        "feature1": "1",
+        "feature2": "Estándar",
+        "feature3": "Soporte por Correo Electrónico",
+        "feature4": "Mensual"
+      },
+      "pro": {
+        "type": "Pro",
+        "price": "$99",
+        "subscription": "mes",
+        "feature1": "10",
+        "feature2": "Mejorado",
+        "feature3": "Soporte Prioritario por Correo Electrónico",
+        "feature4": "Semanal"
+      },
+      "enterprise": {
+        "type": "Enterprise",
+        "price": "$499",
+        "subscription": "año",
+        "feature1": "Ilimitado",
+        "feature2": "Máximo",
+        "feature3": "Gerente de Cuenta Dedicado",
+        "feature4": "Diario"
+      }
+    },
+    "FAQ": {
+      "subHeading": "Preguntas Frecuentes",
+      "heading": "¿Alguna Pregunta? Mira Aquí",
+      "content": "En Hacienda, estamos más que dispuestos a responder cualquier pregunta que puedas tener!",
+      "question1": {
+        "question": "¿Cuál es el proceso para comprar una propiedad?",
+        "answer": "Respuesta: El proceso para comprar una propiedad generalmente implica obtener una preaprobación para una hipoteca, trabajar con un agente inmobiliario para encontrar una propiedad adecuada, hacer una oferta, realizar una inspección de la vivienda, asegurar el financiamiento y, finalmente, cerrar el trato. Cada paso tiene sus propios detalles y requisitos, por lo que es importante trabajar de cerca con profesionales durante todo el proceso."
+      },
+      "question2": {
+        "question": "¿Qué debo considerar al elegir un vecindario?",
+        "answer": "Respuesta: Al elegir un vecindario, considera factores como la proximidad al trabajo o la escuela, la seguridad, servicios como parques y centros comerciales, el transporte público y el ambiente general de la comunidad. Investigar los distritos escolares, las tasas de criminalidad locales y los planes de desarrollo futuro también puede proporcionar información valiosa sobre la idoneidad de un vecindario para tus necesidades."
+      },
+      "question3": {
+        "question": "¿Cuál es el papel de un agente inmobiliario en el proceso de compra de una vivienda?",
+        "answer": "Respuesta: Un agente inmobiliario actúa como intermediario entre compradores y vendedores. Ayudan a los compradores a encontrar propiedades que se ajusten a sus necesidades y presupuesto, negocian ofertas y navegan por el papeleo involucrado en la compra. También proporcionan información valiosa sobre las condiciones del mercado y pueden recomendar profesionales como inspectores de viviendas y abogados. Su experiencia puede hacer que el proceso de compra de una vivienda sea más fluido y eficiente."
+      },
+      "question4": {
+        "question": "¿Cómo puedo determinar el valor de mi casa?",
+        "answer": "Respuesta: El valor de tu casa puede determinarse mediante una tasación profesional, un análisis comparativo del mercado (CMA) realizado por un agente inmobiliario o herramientas de valoración en línea. Estos métodos tienen en cuenta factores como el estado de tu casa, las ventas recientes de propiedades similares en tu área y las tendencias actuales del mercado."
+      },
+      "question5": {
+        "question": "¿Cuáles son los costos asociados con la compra de una casa?",
+        "answer": "Respuesta: Los costos asociados con la compra de una casa incluyen el pago inicial, los costos de cierre (que pueden oscilar entre el 2% y el 5% del precio de compra), las tarifas de inspección de la vivienda, las tarifas de tasación, el seguro hipotecario (si corresponde) y los gastos de mudanza. Es importante presupuestar estos costos además del precio de compra de la casa."
+      },
+      "question6": {
+        "question": "¿Puedo comprar una propiedad si tengo mal crédito?",
+        "answer": "Respuesta: Sí, es posible comprar una propiedad con mal crédito, pero puede ser más desafiante. Las opciones incluyen asegurar un préstamo a través de un prestamista especializado, hacer un pago inicial más grande, encontrar un co-firmante o mejorar tu puntaje crediticio antes de solicitar una hipoteca. Consultar con un asesor hipotecario puede ayudarte a entender tus opciones y encontrar el mejor camino a seguir."
+      }
+    }
+  },
+  "Contact": {
+    "companyName": "Hacienda",
+    "mission": "En Hacienda, nuestra misión es capacitar a compradores y vendedores con conocimientos, apoyo y servicio personalizado. Impulsados por una pasión por las personas y las propiedades, nos esforzamos por superar las expectativas y construir relaciones duraderas.",
+    "contactUs": "Contáctenos",
+    "contactMessage": "No dude en ponerse en contacto con nosotros. Si tiene una pregunta, comentarios o una propuesta de colaboración, nos encantaría saber de usted.",
+    "emailLabel": "Correo electrónico",
+    "email": "hacienda@gmail.com",
+    "phoneLabel": "Número de teléfono",
+    "phone": "(555) 555-5555",
+    "enquiryPrompt": "Escriba su consulta a continuación",
+    "assistanceMessage": "Estamos aquí para ayudarle",
+    "formLabels": {
+      "name": "Nombre",
+      "email": "Correo electrónico",
+      "subject": "Asunto",
+      "message": "Mensaje",
+      "submit": "Enviar"
+    }
+  },
+  "Usage": {
+    "heading": "Cómo calculamos tu uso",
+    "subHeading": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nostrum quam voluptatibus. Cómo usar.",
+    "card1": {
+      "title": "Uso #1",
+      "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident ab nulla quod dignissimos vel non corrupti doloribus voluptatum eveniet"
+    },
+    "card2": {
+      "title": "Uso #2",
+      "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident ab nulla quod dignissimos vel non corrupti doloribus voluptatum eveniet"
+    },
+    "card3": {
+      "title": "Uso #3",
+      "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident ab nulla quod dignissimos vel non corrupti doloribus voluptatum eveniet"
+    }
+  },
+  "_dashboardPagesComment": "Se relaciona con el contenido del Panel de Control, siguiendo un formato similar al anterior. Los objetos con Comp son para contenido específico de Componentes (ver clave: _componentComment).",
+  "Dashboard": {
+    "Index": {
+      "heading": "Propiedades",
+      "Leads": {
+        "heading": "Prospectos",
+        "subHeading": "Ver todos tus prospectos.",
+        "noLeads": "Actualmente no tienes prospectos, pero no te preocupes, ¡te notificaremos sobre nuevos prospectos!",
+        "leadCard": {
+          "title": "Tu Prospecto para",
+          "description": "Usa estos detalles para contactar al cliente y cerrar tu trato.",
+          "name": "Nombre",
+          "surname": "Apellido",
+          "email": "Correo Electrónico",
+          "phoneNumber": "Número de Teléfono",
+          "message": "Mensaje",
+          "copy": "Copiar",
+          "closeButton": "Cerrar",
+          "copySuccess": {
+            "part1": "El",
+            "part2": "del cliente ha sido copiado a tu portapapeles."
+          }
+        }
+      }
+    },
+    "Property": {
+      "heading": "Tus Propiedades",
+      "addButton": "Agregar Propiedad"
+    },
+    "propertiesComp": {
+      "_componentComment": "Esto se relaciona con el Componente de Propiedades.",
+      "heading": "Propiedades",
+      "noProperties": "No tienes propiedades. ¡Vamos a agregar una!"
+    },
+    "propertyFormComp": {
+      "formHeadComp": {
+        "backButton": "Atrás",
+        "createHeading": "Crear Propiedad",
+        "editHeading": "Editar Propiedad",
+        "deleteButton": "Eliminar",
+        "deleteDialog": {
+          "title": "¡Advertencia! Esto no se puede deshacer.",
+          "description": "Eliminar esta imagen será una acción permanente y no se podrá deshacer.",
+          "confirmMessage": "¿Estás seguro de que quieres hacer esto?",
+          "button": "Confirmar Eliminación"
+        },
+        "saveButton": "Guardar",
+        "createButton": "Crear"
+      },
+      "formFields": {
+        "core": {
+          "title": "Detalles de la Propiedad",
+          "description": "¡Crea tu nueva propiedad ahora!",
+          "titleField": {
+            "label": "Título",
+            "placeholder": "Dale un título a tu propiedad"
+          },
+          "priceField": {
+            "label": "Precio"
+          },
+          "descriptionField": {
+            "label": "Descripción",
+            "placeholder": "Describe tu propiedad. Deja que fluyan tus palabras"
+          },
+          "addressField": {
+            "label": "Dirección"
+          }
+        },
+        "meta": {
+          "title": "Metadatos",
+          "description": "Gestiona la Visibilidad y el Tipo de Venta.",
+          "visibilityField": {
+            "label": "Visibilidad",
+            "options": {
+              "public": "Público",
+              "private": "Privado"
+            }
+          },
+          "saleType": {
+            "label": "Tipo de Venta"
+          }
+        },
+
+        "features": {
+          "title": "Características",
+          "description": "¡Características únicas para tu propiedad!",
+          "squareMetersField": {
+            "label": "Metros Cuadrados"
+          },
+          "bedroomsField": {
+            "label": "Habitaciones",
+            "placeholder": "Número de Habitaciones"
+          },
+          "bathroomsField": {
+            "label": "Baños",
+            "placeholder": "Número de Baños"
+          },
+          "poolField": {
+            "label": "Piscina"
+          },
+          "extraFeatures": {
+            "label": "Características Adicionales",
+            "placeholder": "Ingresa una característica",
+            "description": "Presiona Enter para añadir"
+          }
+        },
+        "images": {
+          "title": "Imágenes",
+          "description": {
+            "part1": "Sube al menos",
+            "part2": "imagen para tu propiedad."
+          },
+          "fileUploaderComp": {
+            "dropActive": "Suelta los archivos aquí",
+            "heading": {
+              "part1": "Arrastra y",
+              "part2": "suelta archivos aquí, o haz clic para seleccionar archivos"
+            },
+            "subHeading": {
+              "part1": "Puedes subir",
+              "part2": "archivos (hasta",
+              "part3": "cada uno)",
+              "part4": "un archivo con"
+            },
+            "removeFile": "Eliminar archivo",
+            "error": {
+              "main": "Ooops, no puedes hacer eso.",
+              "multipleError": "No se puede subir más de 1 archivo a la vez",
+              "maxFiles": {
+                "part1": "No se pueden subir más de",
+                "part2": "archivos"
+              },
+              "filesTooLarge": {
+                "title": {
+                  "part1": "¡Oh no! Imágenes mayores de",
+                  "part2": "no están permitidas."
+                },
+                "description": {
+                  "part1": "El archivo",
+                  "part2": "fue rechazado."
+                }
+              },
+              "invalidType": {
+                "title": {
+                  "part1": "¡Oh no!",
+                  "part2": "no están permitidos."
+                },
+                "description": {
+                  "part1": "El archivo",
+                  "part2": "fue rechazado."
+                }
+              },
+              "defaultMessage": "Oops, algo pasó."
+            }
+          },
+          "uploadedFilesComp": {
+            "title": "Archivos subidos",
+            "emptyCard": {
+              "title": "No se han subido archivos",
+              "description": "Sube algunos archivos para verlos aquí"
+            },
+            "maxImages": {
+              "part1": "Has subido",
+              "part2": "imágenes."
+            },
+            "empty": "Aún no has subido imágenes."
+          }
+        }
+      },
+      "propertySchema": {
+        "title": {
+          "required": "El título es obligatorio",
+          "invalid": "El título debe ser una cadena de texto",
+          "min": "El título debe tener al menos 5 caracteres"
+        },
+        "description": {
+          "required": "La descripción es obligatoria.",
+          "invalid": "La descripción debe ser una cadena de texto.",
+          "min": "La descripción debe tener al menos 10 caracteres."
+        },
+        "price": {
+          "required": "El precio es obligatorio.",
+          "invalid": "El precio debe ser un número.",
+          "positive": "El precio debe ser un número positivo."
+        },
+        "bathrooms": {
+          "required": "El número de baños es obligatorio.",
+          "invalid": "Los baños deben ser un número.",
+          "min": "Debe haber al menos 1 baño."
+        },
+        "bedrooms": {
+          "required": "El número de habitaciones es obligatorio.",
+          "invalid": "Las habitaciones deben ser un número.",
+          "min": "Debe haber al menos 1 habitación."
+        },
+        "pool": {
+          "required": "La información sobre la piscina es obligatoria.",
+          "invalid": "La piscina debe ser un valor booleano."
+        },
+        "squareMeter": {
+          "required": "Los metros cuadrados de la propiedad son obligatorios.",
+          "invalid": "Los metros cuadrados deben ser un número.",
+          "min": "La propiedad debe tener más de 1 metro cuadrado."
+        },
+        "address": {
+          "required": "La dirección es obligatoria",
+          "invalid": "La dirección debe ser una cadena de texto",
+          "min": "La dirección debe tener al menos 5 caracteres"
+        },
+        "extraFeatures": {
+          "id": {
+            "required": "El ID de la característica es obligatorio.",
+            "invalid": "El ID de la característica debe ser una cadena de texto."
+          },
+          "text": {
+            "required": "El texto de la característica es obligatorio.",
+            "invalid": "El texto de la característica debe ser una cadena de texto."
+          },
+          "min": "Debe haber al menos 3 características adicionales."
+        },
+        "visibility": {
+          "required": "La información sobre la visibilidad es obligatoria.",
+          "invalid": "La visibilidad debe ser un valor booleano."
+        },
+        "saleType": {
+          "required": "El tipo de venta es obligatorio",
+          "invalid": "El tipo de venta debe ser Venta o Alquiler"
+        },
+        "images": {
+          "part1": "No más de",
+          "part2": "imágenes permitidas."
+        }
+      },
+      "toasts": {
+        "error": {
+          "title": "Algo inesperado sucedió.",
+          "description": "Por favor, intente nuevamente....",
+          "images": {
+            "part1": "Debe haber al menos",
+            "part2": "Imagen."
+          }
+        },
+        "create": {
+          "imageRequired": {
+            "title": "¡Vaya! Parece que olvidaste agregar imágenes.",
+            "description": "Debes subir al menos 2 imágenes para tu publicación."
+          },
+          "unableToUpload": "¡Vaya! Algo salió mal al subir tus imágenes. Por favor, intenta nuevamente.",
+          "success": {
+            "title": "¡Tu propiedad ha sido publicada!",
+            "description": "Ver tu propiedad en ...."
+          }
+        },
+        "update": {
+          "title": "¡Tu propiedad ha sido actualizada!",
+          "description": "Ver tu propiedad en ...."
+        },
+        "delete": {
+          "title": "¡Tu propiedad ha sido eliminada!"
+        }
+      }
+    }
+  },
+  "NavbarComp": {
+    "signup": "Registrarse",
+    "home": "Inicio",
+    "search": "Buscar",
+    "favorites": "Favoritos",
+    "property": "Propiedad",
+    "usage": "Uso",
+    "pricing": "Precios",
+    "sellYourProperty": "Vender tu Propiedad",
+    "dashboard": "Panel de Control",
+    "contactUs": "Contáctanos"
+  },
+  "Property": {
+    "Index": {
+      "orderBy": {
+        "error": {
+          "heading": "Oh no, parece que no hay propiedades que coincidan con tu consulta.",
+          "subHeading": "Consulta nuestras otras propiedades"
+        },
+        "title": "Ordenar por",
+        "options": {
+          "default": "Por defecto",
+          "priceLow": "Precio - de menor a mayor",
+          "priceHigh": "Precio - de mayor a menor",
+          "mostRecent": "Más recientes",
+          "size": "Tamaño"
+        }
+      }
+    },
+    "Property": {
+      "errors": {
+        "fetchingError": "Error while fetching the property details"
+      },
+      "viewMore": {
+        "subHeading": "Propiedades relacionadas",
+        "heading": "Propiedades"
+      }
+    }
+  },
+  "Onboarding": {
+    "greeting": {
+      "welcome": "Bienvenido",
+      "subHeading": "Comencemos configurando tu cuenta."
+    },
+    "unAuthed": {
+      "title": "Primero, creemos tu cuenta",
+      "subHeading": "Nuestros agentes están aquí para asistirte",
+      "button": "Iniciar sesión"
+    },
+    "registerFormComp": {
+      "title": "Conviértete en un Agente hoy",
+      "description": "Nuestros agentes están aquí para asistirte",
+      "formFields": {
+        "name": {
+          "label": "Nombre",
+          "placeholder": "Tu nombre"
+        },
+        "surname": {
+          "label": "Apellido",
+          "placeholder": "Tu apellido"
+        },
+        "email": {
+          "label": "Dirección de correo electrónico",
+          "placeholder": "Dirección de correo electrónico"
+        },
+        "company": {
+          "label": "Empresa (opcional)",
+          "placeholder": "Nombre de la empresa"
+        },
+        "phonenumber": {
+          "label": "Número de teléfono",
+          "placeholder": "Ingresa un número de teléfono"
+        },
+        "isAgent": {
+          "label": "¿Interesado en vender tu propiedad?",
+          "description": "Nuestro equipo de ventas te contactará en breve."
+        },
+        "submitButton": "Enviar"
+      },
+      "toasts": {
+        "error": {
+          "title": "Algo inesperado ocurrió.",
+          "description": "Por favor, inténtalo de nuevo....",
+          "alreadyRegisterd": {
+            "title": "Vaya, parece que ya te has registrado.",
+            "description": "Por favor, espera a que nuestro equipo de ventas te contacte por correo electrónico o teléfono. No dudes en visitar nuestra página de contacto."
+          }
+        },
+        "success": {
+          "title": "¡Sí! Ahora estás registrado.",
+          "description": "Gracias por registrarte, nuestro equipo de ventas se pondrá en contacto contigo en breve a través de los canales proporcionados."
+        }
+      },
+      "userFormSchema": {
+        "firstName": "El nombre debe tener al menos 3 caracteres.",
+        "lastName": "El apellido debe tener al menos 3 caracteres.",
+        "email": "La dirección de correo electrónico debe ser válida.",
+        "phoneNumber": "Número de teléfono inválido",
+        "userId": "Se requiere el ID de usuario"
+      }
+    }
+  },
+  "Footer": {
+    "servicesTitle": "Servicios",
+    "servicesDescription": "Esta es nuestra plataforma donde te ayudamos a encontrar tu hogar perfecto.",
+    "companyTitle": "Compañía",
+    "aboutUs": "Sobre Nosotros",
+    "contactUs": "Contáctenos",
+    "signUp": "Regístrate",
+    "usefulLinksTitle": "Enlaces Útiles",
+    "properties": "Propiedades",
+    "favorites": "Favoritos",
+    "pricing": "Precios",
+    "sellYourProperty": "Vende Tu Propiedad",
+    "letterboxTitle": "Buzón",
+    "emailPlaceholder": "Tu Correo Electrónico",
+    "subscribeButton": "Suscribirse",
+    "copyright": "© 2024. Hacienda. Todos los derechos reservados."
+  },
+  "bedrooms": "Dormitorio",
+  "numberOfBedrooms": "Número de dormitorios",
+  "bathrooms": "Baños",
+  "numberOfBathrooms": "Número de baños",
+  "priceRange": "Rango de precios",
+  "minPriceRange": "Rango de precio mínimo",
+  "minPrice": "Precio mínimo",
+  "maxPriceRange": "Rango de precio máximo",
+  "maxPrice": "Precio máximo",
+  "reset": "Restablecer",
+  "applyFilter": "Aplicar filtro",
+  "priceRangeError": "El rango de precios debe ser un número",
+  "bedroomsError": "La cantidad de dormitorios debe ser un número",
+  "bathroomsError": "La cantidad de baños debe ser un número",
+  "propertyform": {
+    "contactAgent": "Contactar al agente",
+    "agentDescription": "Nuestros agentes están aquí para ayudarte",
+    "name": "Nombre",
+    "yourName": "Tu nombre",
+    "surname": "Apellido",
+    "yourSurname": "Tu apellido",
+    "email": "Correo electrónico",
+    "emailPlaceholder": "Correo electrónico",
+    "phoneNumber": "Número de teléfono",
+    "phonePlaceholder": "Ingrese un número de teléfono",
+    "message": "Mensaje",
+    "messagePlaceholder": "Estoy interesado en esta propiedad, por favor contácteme.",
+    "submit": "Enviar",
+    "nameError": "El nombre debe tener al menos 3 caracteres.",
+    "surnameError": "El apellido debe tener al menos 3 caracteres.",
+    "emailError": "La dirección de correo electrónico debe ser válida.",
+    "messageError": "Por favor, ingrese un mensaje breve, de más de 10 caracteres.",
+    "phoneError": "Número de teléfono no válido",
+    "propertyIdError": "Se requiere Id de propiedad",
+    "agentIdError": "Se requiere Id de agente",
+    "unexpectedError": "Algo inesperado sucedió.",
+    "tryAgain": "Por favor, inténtalo de nuevo....",
+    "leadPosted": "¡Tu contacto ha sido enviado!",
+    "thankYou": "Gracias por tu consulta. Nos pondremos en contacto pronto."
+  },
+  "propertydetails": {
+    "aboutProperty": "Sobre la propiedad",
+    "posted": "Publicado:",
+    "meetAgent": "Conoce a tu agente",
+    "offerTitle": "Lo que este lugar ofrece",
+    "bedrooms": "{count} Dormitorios",
+    "bathrooms": "{count} Baños",
+    "squareMeters": "{count} m²",
+    "extraFeatures": "Características adicionales"
+  }
+}

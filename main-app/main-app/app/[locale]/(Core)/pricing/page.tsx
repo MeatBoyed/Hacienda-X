@@ -1,0 +1,38 @@
+import { Button } from "@/components/ui/button";
+
+import InfoCardSection from "./(components)/InfoCardSection";
+import FaqSection from "./(components)/FaqSection";
+import TestimonialSection from "./(components)/TestimonialSection";
+import WhyChooseUsSection from "./(components)/WhyChooseUsSection";
+import PricingCalculator from "./(components)/PricingCalculator";
+
+export default function PricingPage() {
+  return (
+    <div className="container mx-auto px-4 py-16 mt-16 max-w-5xl space-y-20">
+      <div className="text-center">
+        <h1 className="text-4xl font-bold tracking-tight sm:text-5xl mb-4">
+          List your property on HaciendaX for free
+        </h1>
+        <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          Our pricing scales to fit your needs with no commitments, termination fees, or usage
+          limits.
+        </p>
+      </div>
+      <InfoCardSection />
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full">
+        <PricingCalculator />
+        <WhyChooseUsSection />
+      </div>
+      <TestimonialSection />
+      <FaqSection />
+      <div className="text-center">
+        <Button size="lg" className="text-lg px-8 bg-blue-500 hover:bg-blue-800">
+          Start Your Free Trial
+        </Button>
+        <p className="mt-4 text-muted-foreground">
+          Experience the power of our platform risk-free.
+        </p>
+      </div>
+    </div>
+  );
+}
