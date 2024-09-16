@@ -4,15 +4,21 @@ import { SearchFilterCard } from "./(components)/SearchFilterCard";
 import { PropertyList } from "./(components)/PropertyList";
 import { MessageView } from "@/components/main/Views/Views";
 import { GetRequestService } from "@/lib/services/GetRequestService";
+import { generateWebsiteConfig } from "@/config/siteConfig";
+import { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
+
+export async function generateMetadata({ params: { locale } }: { params: { locale: string } }): Promise<Metadata> {
+  const t = await getTranslations("WebsiteConfig.search");
+  return await generateWebsiteConfig(t);
+}
 
 export default async function SearchPropertiesPage({
   searchParams,
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
-  const response = await GetRequestService.getSearchProperties(
-    new URLSearchParams(searchParams as Record<string, string>)
-  );
+  const response = await GetRequestService.getSearchProperties(new URLSearchParams(searchParams as Record<string, string>));
 
   if (!response)
     return (

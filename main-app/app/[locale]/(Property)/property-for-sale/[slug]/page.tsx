@@ -8,6 +8,9 @@ import { PropertyWithAddressAndAgent } from "@/Server/utils/utils";
 import { BookmarkButton } from "@/components/main/PropertyCard";
 import { NotFoundViewCard } from "@/components/main/Views/Views";
 import { GetRequestService } from "@/lib/services/GetRequestService";
+import { generatePropertyPageMetaData } from "@/config/siteConfig";
+import { Metadata } from "next";
+import { generateJSONLD } from "@/config/jsonLD";
 
 // export const revalidate = 18000; // 5 hours in seconds
 
@@ -21,26 +24,29 @@ import { GetRequestService } from "@/lib/services/GetRequestService";
 //   }));
 // }
 
+export async function generateMetadata({ params: { slug } }: { params: { slug: string } }): Promise<Metadata> {
+  return await generatePropertyPageMetaData(slug);
+}
+
 export default async function PropertyView({ params: { slug } }: { params: { slug: string } }) {
   const t = await getTranslations("Property.Property");
-  const response = await GetRequestService.getProperty(slug);
+  const property = await GetRequestService.getProperty(slug);
 
-  if (!response) {
+  if (!property) {
     // Redirect to 404 or show message
     return <NotFoundViewCard className="min-h-screen py-16 " />;
   }
-  const { properties } = response;
-  const property = properties[0] as PropertyWithAddressAndAgent;
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-6xl mt-12 md:mt-14">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(generateJSONLD) }} />
       <div className="flex justify-between items-center gap-4">
-        <h1 className="text-3xl font-bold mb-6">{properties[0].title}</h1>
+        <h1 className="text-3xl font-bold mb-6">{property.title}</h1>
         <BookmarkButton property={property} />
       </div>
 
       {/* Image Gallery */}
-      <ImageGallery defaultImages={properties[0].images} />
+      <ImageGallery defaultImages={property.images} />
 
       {/* Property Information */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-8">

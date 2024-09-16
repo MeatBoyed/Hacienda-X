@@ -5,7 +5,14 @@ import "./aboutus.css";
 import Image from "next/image";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
+import { generateWebsiteConfig } from "@/config/siteConfig";
+import { Metadata } from "next";
 // Demo styles, see 'Styles' section below for some notes on use.
+
+export async function generateMetadata({ params: { locale } }: { params: { locale: string } }): Promise<Metadata> {
+  const t = await getTranslations("WebsiteConfig.aboutus");
+  return await generateWebsiteConfig(t);
+}
 
 export default async function Value() {
   const t = await getTranslations("AboutUs");

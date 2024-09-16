@@ -1,31 +1,27 @@
 import "./globals.css";
-import type { Metadata } from "next";
+import type { Metadata, ResolvingMetadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import Providers from "@/components/Providers/Providers";
-import PostHogClient from "@/components/Posthog";
-import { auth } from "@clerk/nextjs/server";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { cn } from "@/lib/utils";
+import { generateStaticMetaData, generateWebsiteConfig } from "@/config/siteConfig";
+import { env } from "@/env";
+import { getTranslations } from "next-intl/server";
 
 const inter = Inter({ subsets: ["latin"] });
-export const metadata: Metadata = {
-  title: "Hacienda X",
-  description: "....",
-};
 
 interface LocaleRootLayoutProps {
   children: React.ReactNode;
   params: { locale: string };
 }
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#ffffff",
+};
+
 export default async function LocaleRootLayout({ children, params: { locale } }: Readonly<LocaleRootLayoutProps>) {
-  // const { userId } = await auth();
-
-  // if (userId) {
-  //   const posthog = PostHogClient();
-  //   posthog.identify({ distinctId: userId });
-  // }
-
   return (
     <html lang={locale}>
       <head>

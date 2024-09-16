@@ -1,5 +1,6 @@
 import { env } from "@/env";
 import { PropertyServiceResponse } from "@/Server/lib/PropertyService";
+import { PropertyWithAddressAndAgent } from "@/Server/utils/utils";
 
 // 1 - Fetch from url
 // 2 - Handle failed response
@@ -20,18 +21,22 @@ export class GetRequestService {
   }
 
   static async getProperty(slug: string) {
-    const res = await fetch(`${env.NEXT_PUBLIC_HOST_URL}/api/properties/${slug}`);
+    const res = await fetch(`${env.NEXT_PUBLIC_HOST_URL}/api/properties/${slug}`, {
+      method: "GET",
+      next: {
+        revalidate: 60 * 60 * 24,
+      },
+    });
     if (!res.ok) {
       this.handleError("getProperty", res);
       return undefined;
     }
-    return (await res.json()) as PropertyServiceResponse;
+    const response = (await res.json()) as PropertyServiceResponse;
+    return response.properties[0] as PropertyWithAddressAndAgent;
   }
 
   static async getSearchProperties(searchParams: URLSearchParams) {
-    const res = await fetch(
-      `${env.NEXT_PUBLIC_HOST_URL}/api/properties/search?${searchParams.toString()}`
-    );
+    const res = await fetch(`${env.NEXT_PUBLIC_HOST_URL}/api/properties/search?${searchParams.toString()}`);
     if (!res.ok) {
       this.handleError("getSearchProperties", res);
       return undefined;

@@ -665,5 +665,37 @@
     "bathrooms": "{count} Baños",
     "squareMeters": "{count} m²",
     "extraFeatures": "Características adicionales"
+  },
+  "WebsiteConfig": {
+    "title": "HaciendaX - Encuentra propiedades en Bolivia",
+    "description": "Bienvenido a HaciendaX, la principal plataforma inmobiliaria en Bolivia. Encuentra tu casa soñada o anuncia tu propiedad para una mayor visibilidad.",
+    "image": "https://haciendax.com/image-es.jpg",
+    "logo": "https://haciendax.com/logo-es.png",
+    "favicon": "https://haciendax.com/favicon-es.ico",
+    "themeColor": "#ffffff",
+    "backgroundColor": "#ffffff",
+    "siteLanguage": "es",
+    "siteLocale": "es-ES",
+    "twitterUsername": "@haciendax",
+    "facebookAppId": "1234567890",
+    "googleSiteVerification": "codigo-verificacion-google",
+    "openGraph": {
+      "type": "website",
+      "locale": "es-ES",
+      "url": "https://haciendax.com",
+      "title": "HaciendaX",
+      "description": "Bienvenido a HaciendaX, la principal plataforma inmobiliaria en Bolivia. Encuentra tu casa soñada o anuncia tu propiedad para una mayor visibilidad.",
+      "image": "https://haciendax.com/image-es.jpg",
+      "imageAlt": "Logo de HaciendaX",
+      "site_name": "HaciendaX"
+    },
+    "twitter": {
+      "card": "summary_large_image",
+      "site": "@haciendax",
+      "title": "HaciendaX",
+      "description": "Bienvenido a HaciendaX, la principal plataforma inmobiliaria en Bolivia. Encuentra tu casa soñada o anuncia tu propiedad para una mayor visibilidad.",
+      "image": "https://haciendax.com/image-es.jpg",
+      "imageAlt": "Logo de HaciendaX"
+    }
   }
 }

@@ -10,6 +10,14 @@ import Contact from "../_components/Contact";
 import { getDictionary } from "@/messages/dictionaries";
 import { Messages } from "@/global";
 import Loader from "@/components/ui/loader";
+import { generateWebsiteConfig } from "@/config/siteConfig";
+import { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
+
+export async function generateMetadata({ params: { locale } }: { params: { locale: string } }): Promise<Metadata> {
+  const t = await getTranslations("WebsiteConfig.home");
+  return await generateWebsiteConfig(t);
+}
 
 // Translated
 export default async function Home({ params: { locale } }: { params: { locale: string } }) {

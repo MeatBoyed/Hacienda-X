@@ -1,5 +1,12 @@
+import { generateWebsiteConfig } from "@/config/siteConfig";
+import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import React from "react";
+
+export async function generateMetadata({ params: { locale } }: { params: { locale: string } }): Promise<Metadata> {
+  const t = await getTranslations("WebsiteConfig.usage");
+  return await generateWebsiteConfig(t);
+}
 
 export default async function Usage() {
   const t = await getTranslations("Usage");

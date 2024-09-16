@@ -669,5 +669,69 @@
     "bathrooms": "{count} Bathrooms",
     "squareMeters": "{count} m²",
     "extraFeatures": "Extra Features"
+  },
+  "WebsiteConfig": {
+    "static": {},
+    "home": {
+      "url": "https://haciendax.com/en/",
+      "title": "HaciendaX - Find Properties in Bolivia",
+      "description": "Welcome to HaciendaX, the leading real estate platform in Bolivia. Find your dream home or list your property for greater discovery."
+    },
+    "aboutus": {
+      "url": "https://haciendax.com/en/about-us",
+      "title": "About HaciendaX - Your Real Estate Partner in Bolivia",
+      "description": "Learn more about our mission, team, and the values that drive our commitment to connecting buyers and sellers in Bolivia's vibrant real estate market."
+    },
+    "bookmarks": {
+      "url": "https://haciendax.com/en/my-bookmarks",
+      "title": "Saved Properties - My Bookmarks",
+      "description": "Manage your saved properties, revisit listings you're interested in, and stay organized in your search for your dream property in Bolivia."
+    },
+    "contactus": {
+      "url": "https://haciendax.com/en/contact",
+      "title": "Contact HaciendaX - Get in Touch",
+      "description": "Have a question? Need assistance with a listing? Contact our team for personalized support and expert guidance in your Bolivian real estate journey."
+    },
+    "pricing": {
+      "url": "https://haciendax.com/en/pricing",
+      "title": "HaciendaX Pricing Plans & Services",
+      "description": "Explore our flexible pricing plans for sellers and buyers. Discover how HaciendaX can help"
+    },
+    "usage": {
+      "url": "https://haciendax.com/en/usage",
+      "title": "HaciendaX Usage",
+      "description": "Explore our flexible pricing plans for sellers and buyers. Discover how HaciendaX can help"
+    },
+    "search": {
+      "url": "https://haciendax.com/en/property-for-sale",
+      "title": "HaciendaX Search",
+      "description": "Explore our flexible pricing plans for sellers and buyers. Discover how HaciendaX can help"
+    },
+    "baseUrl": "https://haciendax.com/en",
+    "image": "/image-en.jpg",
+    "logo": "/logo-en.png",
+    "favicon": "/favicon-en.ico",
+    "appleIcon57": "/apple-icon-57x57.png",
+    "appleIcon60": "/apple-icon-60x60.png",
+    "themeColor": "#ffffff",
+    "backgroundColor": "#ffffff",
+    "siteLanguage": "en",
+    "siteLocale": "en-US",
+    "facebookAppId": "1234567890",
+    "googleSiteVerification": "google-verification-code",
+    "site_name": "HaciendaX",
+    "openGraph": {
+      "url": "https://haciendax.com/en",
+      "description": "Welcome to HaciendaX, the leading real estate platform in Bolivia. Find your dream home or list your property for greater discovery.",
+      "image": "/image-en.jpg",
+      "imageAlt": "HaciendaX logo"
+    },
+    "twitter": {
+      "username": "@haciendax",
+      "site": "@haciendax",
+      "description": "Welcome to HaciendaX, the leading real estate platform in Bolivia. Find your dream home or list your property for greater discovery.",
+      "image": "/image-en.jpg",
+      "imageAlt": "HaciendaX logo"
+    }
   }
 }
