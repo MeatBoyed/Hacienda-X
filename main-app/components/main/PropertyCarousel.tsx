@@ -8,7 +8,7 @@ export default function PropertyCarousel({ properties: defaultProperties }: { pr
   const properties = useMemo(() => {
     return defaultProperties.map((property, index) => {
       return (
-        <CarouselItem key={index} className="pl-4 min-h-full">
+        <CarouselItem key={index} className="pl-4 min-h-full md:basis-1/2 lg:basis-1/3 xl:basis-1/4">
           <PropertyCard property={property} className="min-w-full" />
         </CarouselItem>
       );

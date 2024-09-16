@@ -13,7 +13,7 @@ import { AspectRatio } from "../ui/aspect-ratio";
 export default function PropertyCard({ property, className }: { property: PropertyWithAddress; className?: string }) {
   const link = `/property-for-sale/${property.title}`;
   return (
-    <Card key={property.property_id} className={cn("overflow-hidden min-h-56 min-w-full max-w-lg", className)}>
+    <Card key={property.property_id} className={cn("overflow-hidden min-h-[30rem] min-w-full max-w-lg", className)}>
       <Link href={link} className="max-h-48">
         <AspectRatio ratio={16 / 9}>
           <Image src={property.images[0]} alt={`${property.title} | thumbnail`} fill className="w-full object-cover" />
