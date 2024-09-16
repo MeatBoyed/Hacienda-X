@@ -19,11 +19,10 @@ export default function CoreLayout({
 }>) {
   return (
     <div style={{ background: "bg-white", overflow: "hidden" }}>
-      <Suspense fallback={<Loader />}>
-        <Header />
-        {children}
-        <Footer />
-      </Suspense>
+      <Header />
+      {/* <Suspense fallback={<Loader />}>{children}</Suspense> */}
+      {children}
+      <Footer />
     </div>
   );
 }

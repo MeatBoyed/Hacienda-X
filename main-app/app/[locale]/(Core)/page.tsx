@@ -28,7 +28,7 @@ export default async function Home({ params: { locale } }: { params: { locale: s
         <div className="white-gradient" />
         <Hero dict={dict.Index.Hero} />
       </div>
-      <Suspense fallback={<Loader />}>
+      <Suspense fallback={<Loader className="max-h-24" />}>
         <Residencies margin="mb-0">
           <Residencies.Head subHeading={dict.Index.Residencies.subHeading} heading={dict.Index.Residencies.heading} />
         </Residencies>

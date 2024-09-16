@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 
 import { getTranslations } from "next-intl/server";
 import { GetRequestService } from "@/lib/services/GetRequestService";
+import { ErrorView } from "@/components/main/Views/Views";
 
 type ResidenciesProps = PropsWithChildren & {
   className?: string;
@@ -21,22 +22,17 @@ type ResidenciesHeadProps = PropsWithChildren & {
 };
 
 export default async function Residencies({ className, margin, children }: ResidenciesProps) {
-  const dict = await getTranslations();
   const data = await GetRequestService.getProperties();
 
   return (
     <section id="residencies" className={cn("my-12 w-full", margin)}>
-      <div
-        className={cn(
-          "px-4 flex justify-center items-center flex-col w-full gap-5 sm:px-5 xl:px-32 ",
-          className
-        )}
-      >
+      <div className={cn("px-3 flex justify-center items-center flex-col w-full gap-5 sm:px-5 xl:px-32 ", className)}>
         {children}
         {!data && (
-          <div className="flex flex-col justify-center items-center py-20 gap-5">
-            <h1>{dict("Index.Residencies.error")}</h1>
-          </div>
+          // <div className="flex flex-col justify-center items-center py-20 gap-5">
+          //   <h1>{dict("Index.Residencies.error")}</h1>
+          // </div>
+          <ErrorView />
         )}
         {data && <PropertyCarousel properties={data.properties} />}
       </div>
@@ -44,11 +40,7 @@ export default async function Residencies({ className, margin, children }: Resid
   );
 }
 
-Residencies.Head = async function ResidenciesHead({
-  subHeading,
-  heading,
-  className,
-}: ResidenciesHeadProps) {
+Residencies.Head = async function ResidenciesHead({ subHeading, heading, className }: ResidenciesHeadProps) {
   const dict = await getTranslations();
   return (
     <div className={cn("flex justify-between items-center w-full", className)}>
