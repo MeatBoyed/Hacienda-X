@@ -1,22 +1,18 @@
 "use client";
 
-import React from "react";
+import React, { PropsWithChildren, useState } from "react";
 import { useSearch } from "./SearchContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Search, Map } from "lucide-react";
 import { SearchParams } from "@/Server/controllers/propertyController";
-import { PriceRanges, SortByOptions } from "@/Server/lib/BussinessLogicHandler";
+import { PriceRanges, PropertyType, SortByOptions } from "@/Server/lib/BussinessLogicHandler";
+import { useRouter } from "next/navigation";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 
 const priceRanges: { label: string; value: PriceRanges }[] = [
   { label: "Any", value: "any" },
@@ -26,7 +22,13 @@ const priceRanges: { label: string; value: PriceRanges }[] = [
   { label: "$600,000 - $800,000", value: "600000-800000" },
   { label: "$800,000+", value: "800000-1000000" },
 ];
-
+const propertyTypeOptions: { label: string; value: PropertyType }[] = [
+  { label: "All Types", value: "any" },
+  { label: "Apartment", value: "apartment" },
+  { label: "House", value: "house" },
+  { label: "Villa", value: "villa" },
+  { label: "Studio", value: "studio" },
+];
 const bedBathRoomOptions = [
   { label: "Any", value: "0" },
   { label: "1", value: "1" },
@@ -44,19 +46,12 @@ const sortByOptions: { label: string; value: SortByOptions }[] = [
 ];
 
 export const SearchFilterCard: React.FC = () => {
-  const {
-    searchTerm,
-    propertyType,
-    priceRange,
-    bedrooms,
-    bathrooms,
-    amenities,
-    sortBy,
-    updateSearch,
-  } = useSearch();
+  const router = useRouter();
+  const [open, setOpen] = useState(false);
+  const { searchTerm, propertyType, priceRange, bedrooms, bathrooms, amenities, sortBy, updateSearch } = useSearch();
 
   const handleMapSearch = () => {
-    console.log("Navigating to map search...");
+    router.push("/property-for-sale/map");
   };
 
   return (
@@ -64,10 +59,7 @@ export const SearchFilterCard: React.FC = () => {
       <CardHeader>
         <CardTitle className="flex justify-between items-center">
           <span>Search and Filter</span>
-          <Button
-            onClick={handleMapSearch}
-            className="flex items-center gap-2 text-white bg-blue-500 hover:bg-blue-800"
-          >
+          <Button onClick={handleMapSearch} className="flex items-center gap-2 text-white bg-blue-500 hover:bg-blue-800">
             <Map className="w-4 h-4" />
             Map Search
           </Button>
@@ -76,6 +68,7 @@ export const SearchFilterCard: React.FC = () => {
       <CardContent>
         <div className="grid gap-6">
           <div className="flex flex-col md:flex-row gap-4">
+            {/* Search Box */}
             <div className="flex-grow">
               <Label htmlFor="search" className="mb-2 block">
                 Search
@@ -92,136 +85,126 @@ export const SearchFilterCard: React.FC = () => {
                 />
               </div>
             </div>
-            <div>
-              <Label htmlFor="sort" className="mb-2 block">
-                Sort By
-              </Label>
-              <Select
-                value={sortBy}
-                onValueChange={(value) => updateSearch(SearchParams.sortBy, value)}
-              >
-                <SelectTrigger id="sort" className="w-[180px]">
-                  <SelectValue placeholder="Sort By" />
-                </SelectTrigger>
-                <SelectContent>
-                  {sortByOptions.map((option) => (
-                    <SelectItem key={option.value} value={option.value}>
-                      {option.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
+            <SearchSelector
+              label="Sort By"
+              id="sortyBy"
+              value={sortBy}
+              onValueChange={(value) => updateSearch(SearchParams.sortBy, value)}
+            >
+              {sortByOptions.map((option) => (
+                <SelectItem key={option.value} value={option.value}>
+                  {option.label}
+                </SelectItem>
+              ))}
+            </SearchSelector>
           </div>
-          <div className="grid gap-4 md:grid-cols-4">
-            <div>
-              <Label htmlFor="property-type" className="mb-2 block">
-                Property Type
-              </Label>
-              <Select
-                value={propertyType}
-                onValueChange={(value) => updateSearch(SearchParams.propertyType, value)}
-              >
-                <SelectTrigger id="property-type">
-                  <SelectValue placeholder="Property Type" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="any">All Types</SelectItem>
-                  <SelectItem value="Apartment">Apartment</SelectItem>
-                  <SelectItem value="House">House</SelectItem>
-                  <SelectItem value="Villa">Villa</SelectItem>
-                  <SelectItem value="Studio">Studio</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <div>
-              <Label htmlFor="bedrooms" className="mb-2 block">
-                Bedrooms
-              </Label>
-              <Select
-                value={bedrooms}
-                onValueChange={(value) => updateSearch(SearchParams.bedrooms, value)}
-              >
-                <SelectTrigger id="bedrooms">
-                  <SelectValue placeholder="Bedrooms" />
-                </SelectTrigger>
-                <SelectContent>
+          <Collapsible open={open} onOpenChange={() => setOpen(!open)}>
+            <CollapsibleTrigger>More settings</CollapsibleTrigger>
+            <CollapsibleContent className="mt-5">
+              <div className="grid gap-4 md:grid-cols-4">
+                <SearchSelector
+                  label="Property Type"
+                  id="propertyType"
+                  value={propertyType}
+                  onValueChange={(value) => updateSearch(SearchParams.propertyType, value)}
+                >
+                  {propertyTypeOptions.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
+                    </SelectItem>
+                  ))}
+                </SearchSelector>
+                <SearchSelector
+                  label="Bedrooms"
+                  id="bedrooms"
+                  value={bedrooms}
+                  onValueChange={(value) => updateSearch(SearchParams.bedrooms, value)}
+                >
                   {bedBathRoomOptions.map((option) => (
                     <SelectItem key={option.value} value={option.value}>
                       {option.label}
                     </SelectItem>
                   ))}
-                </SelectContent>
-              </Select>
-            </div>
-            <div>
-              <Label htmlFor="bathrooms" className="mb-2 block">
-                Bathrooms
-              </Label>
-              <Select
-                value={bathrooms}
-                onValueChange={(value) => updateSearch(SearchParams.bathrooms, value)}
-              >
-                <SelectTrigger id="bathrooms">
-                  <SelectValue placeholder="Bathrooms" />
-                </SelectTrigger>
-                <SelectContent>
+                </SearchSelector>
+                <SearchSelector
+                  label="Bathrooms"
+                  id="bathrooms"
+                  value={bathrooms}
+                  onValueChange={(value) => updateSearch(SearchParams.bathrooms, value)}
+                >
                   {bedBathRoomOptions.map((option) => (
                     <SelectItem key={option.value} value={option.value}>
                       {option.label}
                     </SelectItem>
                   ))}
-                </SelectContent>
-              </Select>
-            </div>
-            <div>
-              <Label htmlFor="price-range" className="mb-2 block">
-                Price Range
-              </Label>
-              <Select
-                value={priceRange}
-                onValueChange={(value) => updateSearch(SearchParams.priceRange, value)}
-              >
-                <SelectTrigger id="price-range">
-                  <SelectValue placeholder="Price Range" />
-                </SelectTrigger>
-                <SelectContent>
+                </SearchSelector>
+                <SearchSelector
+                  label="Price Range"
+                  id="priceRange"
+                  value={priceRange}
+                  onValueChange={(value) => updateSearch(SearchParams.priceRange, value)}
+                >
                   {priceRanges.map((range) => (
                     <SelectItem key={range.value} value={range.value}>
                       {range.label}
                     </SelectItem>
                   ))}
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
-          <div>
-            <Label className="mb-2 block">Amenities</Label>
-            <div className="flex flex-wrap gap-4">
-              {amenities.split(",").map((amenity) => (
-                <div key={amenity} className="flex items-center space-x-2">
-                  <Checkbox
-                    id={amenity}
-                    checked={amenities.includes(amenity)}
-                    onCheckedChange={(checked) => {
-                      const newAmenities = checked
-                        ? [...amenities.split(","), amenity]
-                        : amenities.split(",").filter((a) => a !== amenity);
-                      updateSearch(SearchParams.amenities, newAmenities.join(","));
-                    }}
-                  />
-                  <label
-                    htmlFor={amenity}
-                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                  >
-                    {amenity.charAt(0).toUpperCase() + amenity.slice(1)}
-                  </label>
+                </SearchSelector>
+                <div>
+                  <Label className="mb-2 block">Amenities</Label>
+                  <div className="flex flex-wrap gap-4">
+                    {amenities.map((amenity) => (
+                      <div key={amenity} className="flex items-center space-x-2">
+                        <Checkbox
+                          id={amenity}
+                          checked={amenities.includes(amenity)}
+                          onCheckedChange={(checked) => {
+                            // const newAmenities = checked
+                            //   ? [...amenities.split(","), amenity]
+                            //   : amenities.split(",").filter((a) => a !== amenity);
+                            // updateSearch(SearchParams.amenities, newAmenities.join(","));
+                          }}
+                        />
+                        <label
+                          htmlFor={amenity}
+                          className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                        >
+                          {amenity.charAt(0).toUpperCase() + amenity.slice(1)}
+                        </label>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              ))}
-            </div>
-          </div>
+                <p className="text-sm text-muted-foreground hover:cursor-pointer" onClick={() => setOpen(false)}>
+                  Less Settings
+                </p>
+              </div>
+            </CollapsibleContent>
+          </Collapsible>
         </div>
       </CardContent>
     </Card>
   );
 };
+
+function SearchSelector({
+  id,
+  label,
+  value,
+  children,
+  onValueChange,
+}: { onValueChange: (value: string) => void; value: string; label: string; id: string } & PropsWithChildren) {
+  return (
+    <div>
+      <Label htmlFor="bedrooms" className="mb-2 block">
+        {label}
+      </Label>
+      <Select value={value} onValueChange={onValueChange}>
+        <SelectTrigger id={id}>
+          <SelectValue placeholder={label} />
+        </SelectTrigger>
+        <SelectContent>{children}</SelectContent>
+      </Select>
+    </div>
+  );
+}

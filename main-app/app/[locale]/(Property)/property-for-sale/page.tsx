@@ -31,7 +31,7 @@ export default async function SearchPropertiesPage({
 
   return (
     <SearchProvider initialProperties={response.properties}>
-      <div className="container mx-auto px-4 pt-8 pb-32 max-w-6xl">
+      <div className="container mx-auto px-4 pt-24 md:pt-10 pb-32 max-w-6xl">
         <h1 className="text-3xl font-bold mb-8 text-center">Find Your Dream Property</h1>
         <div className="mb-8">
           <SearchFilterCard />

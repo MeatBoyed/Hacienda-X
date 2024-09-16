@@ -2,25 +2,14 @@ import { z } from "zod";
 import PropertyService from "./PropertyService";
 import { Prisma } from "@prisma/client";
 
-export const SortByEnum = z.enum([
-  "recommended",
-  "recent",
-  "price-asc",
-  "price-dsc",
-  "size-asc",
-  "size-dsc",
-]);
+export const SortByEnum = z.enum(["recommended", "recent", "price-asc", "price-dsc", "size-asc", "size-dsc"]);
 export type SortByOptions = z.infer<typeof SortByEnum>;
 
-export const PriceRangeEnum = z.enum([
-  "any",
-  "0-200000",
-  "200000-400000",
-  "400000-600000",
-  "600000-800000",
-  "800000-1000000",
-]);
+export const PriceRangeEnum = z.enum(["any", "0-200000", "200000-400000", "400000-600000", "600000-800000", "800000-1000000"]);
 export type PriceRanges = z.infer<typeof PriceRangeEnum>;
+
+export const PropertyTypeEnum = z.enum(["any", "apartment", "house", "villa", "studio"]);
+export type PropertyType = z.infer<typeof PropertyTypeEnum>;
 
 export const Amenities = z.enum(["Pool"]);
 
@@ -38,9 +27,7 @@ export class BussinessLogicHandler {
     const bedrooms = searchParams.bedrooms || 0;
     const amenities = searchParams.amenities?.split(",") || undefined;
     const sortBy = searchParams.sortBy;
-    const priceRange = searchParams.priceRange
-      ? getPriceRangeValues(searchParams.priceRange)
-      : undefined;
+    const priceRange = searchParams.priceRange ? getPriceRangeValues(searchParams.priceRange) : undefined;
 
     return await PropertyService.Search(
       {
@@ -58,9 +45,7 @@ export class BussinessLogicHandler {
   }
 }
 
-export function getPriceRangeValues(
-  priceRange: PriceRanges
-): Prisma.FloatFilter<"Property"> | undefined {
+export function getPriceRangeValues(priceRange: PriceRanges): Prisma.FloatFilter<"Property"> | undefined {
   switch (priceRange) {
     case "any":
       return undefined;

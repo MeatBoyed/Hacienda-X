@@ -6,12 +6,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { PropertyWithAddress } from "@/Server/utils/utils";
 import { PropertyServiceResponse } from "@/Server/lib/PropertyService";
 import { SearchParams } from "@/Server/controllers/propertyController";
-import {
-  PriceRangeEnum,
-  PriceRanges,
-  SortByEnum,
-  SortByOptions,
-} from "@/Server/lib/BussinessLogicHandler";
+import { PriceRangeEnum, PriceRanges, SortByEnum, SortByOptions } from "@/Server/lib/BussinessLogicHandler";
 import { env } from "@/env";
 
 type SearchContextType = {
@@ -20,7 +15,7 @@ type SearchContextType = {
   priceRange: PriceRanges;
   bedrooms: string;
   bathrooms: string;
-  amenities: string;
+  amenities: string[];
   sortBy: SortByOptions;
   updateSearch: (key: SearchParams, value: string) => void;
   properties: PropertyWithAddress[];
@@ -37,9 +32,10 @@ export const useSearch = () => {
   return context;
 };
 
-export const SearchProvider: React.FC<
-  React.PropsWithChildren<{ initialProperties: PropertyWithAddress[] }>
-> = ({ children, initialProperties }) => {
+export const SearchProvider: React.FC<React.PropsWithChildren<{ initialProperties: PropertyWithAddress[] }>> = ({
+  children,
+  initialProperties,
+}) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [properties, setProperties] = useState<PropertyWithAddress[]>(initialProperties);
@@ -47,13 +43,11 @@ export const SearchProvider: React.FC<
 
   const searchTerm = searchParams.get(SearchParams.searchTerm) || "";
   const propertyType = searchParams.get(SearchParams.propertyType) || "any";
-  const priceRange =
-    (searchParams.get(SearchParams.priceRange) as PriceRanges) || PriceRangeEnum.Enum.any;
+  const priceRange = (searchParams.get(SearchParams.priceRange) as PriceRanges) || PriceRangeEnum.Enum.any;
   const bedrooms = searchParams.get(SearchParams.bedrooms) || "0";
   const bathrooms = searchParams.get(SearchParams.bathrooms) || "0";
-  const amenities = searchParams.get(SearchParams.amenities) || "";
-  const sortBy =
-    (searchParams.get(SearchParams.sortBy) as SortByOptions) || SortByEnum.Enum.recommended;
+  const amenities: string[] = searchParams.get(SearchParams.amenities)?.split(",") || [];
+  const sortBy = (searchParams.get(SearchParams.sortBy) as SortByOptions) || SortByEnum.Enum.recommended;
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
@@ -75,14 +69,19 @@ export const SearchProvider: React.FC<
     const fetchProperties = async () => {
       setIsLoading(true);
       try {
-        const response = await fetch(
-          `${env.NEXT_PUBLIC_HOST_URL}/api/properties/search?${searchParams.toString()}`
-        );
+        const response = await fetch(`${env.NEXT_PUBLIC_HOST_URL}/api/properties/search?${searchParams.toString()}`);
         if (!response.ok) {
           throw new Error("Failed to fetch properties");
         }
         const data = (await response.json()) as PropertyServiceResponse;
         setProperties(data.properties);
+        data.properties.map((property) => {
+          property.extraFeatures.map((feature) => {
+            if (!amenities.find((amenity) => amenity === feature)) {
+              amenities.push(feature);
+            }
+          });
+        });
       } catch (error) {
         console.error("Error fetching properties:", error);
         // Here you might want to set an error state and display it to the user
