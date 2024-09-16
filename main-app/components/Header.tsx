@@ -39,10 +39,9 @@ export const Header = ({ isDashboard }: { isDashboard?: boolean }) => {
                 userId={!!userId}
                 dict={{
                   dashboard: t("dashboard"),
-                  home: t("home"),
                   search: t("search"),
                   pricing: t("pricing"),
-                  sellYourProperty: t("sellYourProperty"),
+                  aboutus: t("aboutus"),
                   contactUs: t("contactUs"),
                 }}
               />
@@ -62,10 +61,7 @@ export const Header = ({ isDashboard }: { isDashboard?: boolean }) => {
               <UserButton />
             )}
             <Link href="/bookmarks">
-              <Bookmark
-                className="p-2 border rounded-full text-black hover:bg-slate-900 hover:text-white"
-                size={35}
-              />
+              <Bookmark className="p-2 border rounded-full text-black hover:bg-slate-900 hover:text-white" size={35} />
             </Link>
           </div>
 
@@ -86,7 +82,7 @@ export const Header = ({ isDashboard }: { isDashboard?: boolean }) => {
                   search: t("search"),
                   favorites: t("favorites"),
                   pricing: t("pricing"),
-                  sellYourProperty: t("sellYourProperty"),
+                  aboutus: t("aboutus"),
                   dashboard: t("dashboard"),
                   contact: t("contactUs"),
                 }}
@@ -100,13 +96,13 @@ export const Header = ({ isDashboard }: { isDashboard?: boolean }) => {
 };
 
 function MainNavSlider({
-  dict: { search, favorites, pricing, sellYourProperty, dashboard, contact },
+  dict: { search, favorites, pricing, aboutus, dashboard, contact },
 }: {
   dict: {
     search: string;
     favorites: string;
     pricing: string;
-    sellYourProperty: string;
+    aboutus: string;
     dashboard: string;
     contact: string;
   };
@@ -120,11 +116,14 @@ function MainNavSlider({
         <Link href="/property-for-sale">
           <p className="text-xl">{search}</p>
         </Link>
-        <Link href="/bookmarks">
-          <p className="text-xl">{favorites}</p>
-        </Link>
         <Link href="/pricing">
           <p className="text-xl">{pricing}</p>
+        </Link>
+        <Link href="/aboutus">
+          <p className="text-xl">{aboutus}</p>
+        </Link>
+        <Link href="/bookmarks">
+          <p className="text-xl">{favorites}</p>
         </Link>
         <Link href="/dashboard">
           <p className="text-xl">{dashboard}</p>
@@ -169,14 +168,13 @@ function DashboardNavSlider({
 
 function MainNavlinks({
   userId,
-  dict: { home, search, pricing, sellYourProperty, dashboard, contactUs },
+  dict: { search, pricing, aboutus, dashboard, contactUs },
 }: {
   userId: boolean;
   dict: {
-    home: string;
     search: string;
     pricing: string;
-    sellYourProperty: string;
+    aboutus: string;
     dashboard: string;
     contactUs: string;
   };
@@ -185,6 +183,9 @@ function MainNavlinks({
     <div className="flex justify-center gap-8 items-center">
       <Link href="/property-for-sale">
         <p className="text-base text-black hover:text-gray-700 transition">{search}</p>
+      </Link>
+      <Link href="/aboutus">
+        <p className="text-xl">{aboutus}</p>
       </Link>
       <Link href="/pricing">
         <p className="text-base text-black hover:text-gray-700 transition">{pricing}</p>
