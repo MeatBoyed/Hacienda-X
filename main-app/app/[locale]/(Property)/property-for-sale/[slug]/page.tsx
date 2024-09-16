@@ -30,16 +30,18 @@ export async function generateMetadata({ params: { slug } }: { params: { slug: s
 
 export default async function PropertyView({ params: { slug } }: { params: { slug: string } }) {
   const t = await getTranslations("Property.Property");
-  const property = await GetRequestService.getProperty(slug);
+  const response = await GetRequestService.getProperty(slug);
 
-  if (!property) {
+  if (!response) {
     // Redirect to 404 or show message
     return <NotFoundViewCard className="min-h-screen py-16 " />;
   }
 
+  const property = response.properties[0] as PropertyWithAddressAndAgent;
+
   return (
     <div className="container mx-auto px-4 py-8 max-w-6xl mt-12 md:mt-14">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(generateJSONLD) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(generateJSONLD(property)) }} />
       <div className="flex justify-between items-center gap-4">
         <h1 className="text-3xl font-bold mb-6">{property.title}</h1>
         <BookmarkButton property={property} />

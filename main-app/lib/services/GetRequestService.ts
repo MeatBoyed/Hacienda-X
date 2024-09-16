@@ -31,8 +31,7 @@ export class GetRequestService {
       this.handleError("getProperty", res);
       return undefined;
     }
-    const response = (await res.json()) as PropertyServiceResponse;
-    return response.properties[0] as PropertyWithAddressAndAgent;
+    return (await res.json()) as PropertyServiceResponse;
   }
 
   static async getSearchProperties(searchParams: URLSearchParams) {

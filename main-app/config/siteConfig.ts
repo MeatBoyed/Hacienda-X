@@ -78,8 +78,10 @@ export async function generateWebsiteConfig(pageT: any): Promise<Metadata> {
 
 export async function generatePropertyPageMetaData(slug: string): Promise<Metadata> {
   const t = await getTranslations("WebsiteConfig");
-  const property = await GetRequestService.getProperty(slug);
-  if (!property) throw new Error("Property not found");
+  const response = await GetRequestService.getProperty(slug);
+  if (!response) throw new Error("Property not found");
+
+  const property = response.properties[0] as PropertyWithAddressAndAgent;
   const title = property.title + " | " + t("site_name");
   const url = `${t("baseUrl")}/property-for-sale/${property.title}`;
 
@@ -108,8 +110,8 @@ export async function generatePropertyPageMetaData(slug: string): Promise<Metada
       description: property.description,
       type: "article",
       url: `${t("baseUrl")}/property-for-sale/${property.title}`,
-      publishedTime: property.createdAt.toLocaleDateString(),
-      modifiedTime: property.updatedAt.toLocaleTimeString(),
+      publishedTime: property.createdAt.toString(),
+      modifiedTime: property.updatedAt.toString(),
       authors: [`${t("site_name")}/aboutus`],
       tags: property.extraFeatures,
       images: [
