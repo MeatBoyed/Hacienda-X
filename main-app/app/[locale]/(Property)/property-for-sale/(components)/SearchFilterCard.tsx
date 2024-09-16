@@ -175,10 +175,10 @@ export const SearchFilterCard: React.FC = () => {
                     ))}
                   </div>
                 </div>
-                <p className="text-sm text-muted-foreground hover:cursor-pointer" onClick={() => setOpen(false)}>
-                  Less Settings
-                </p>
               </div>
+              <p className="text-sm text-muted-foreground hover:cursor-pointer" onClick={() => setOpen(false)}>
+                Less Settings
+              </p>
             </CollapsibleContent>
           </Collapsible>
         </div>
