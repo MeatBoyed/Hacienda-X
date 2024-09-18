@@ -38,7 +38,7 @@ export default function PropertyMap({ style }: { style?: React.CSSProperties }) 
 }
 
 export function MapDisplayer() {
-  const [isMapActive, setIsMapActive] = useState(false);
+  const [isMapActive, setIsMapActive] = useState(true);
   return (
     <>
       {isMapActive ? (

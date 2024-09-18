@@ -1,7 +1,9 @@
-import { Home, Badge } from "lucide-react";
-import { useMemo } from "react";
+import { Home } from "lucide-react";
+import { useCallback, useMemo } from "react";
 import { Marker } from "react-map-gl";
 import { useMapContext } from "./MapContext";
+import { Badge } from "@/components/ui/badge";
+import Link from "next/link";
 
 export function Markers() {
   const { mainProperty, openProperty, properties } = useMapContext();
@@ -26,8 +28,22 @@ export function Markers() {
     [mainProperty]
   );
 
+  const validatedProperties = useCallback(() => {
+    return properties.filter((property) => {
+      if (property.Address) {
+        return (
+          property.Address.latitude >= -90 &&
+          property.Address.latitude <= 90 &&
+          property.Address.longitude >= -90 &&
+          property.Address.longitude <= 90
+        );
+      }
+      console.log("Property with Bad Address: ", property);
+      return false;
+    });
+  }, []);
   const propertyMarkers = useMemo(() => {
-    return properties.map((property, index) => {
+    return validatedProperties().map((property, index) => {
       return (
         property.Address && (
           <Marker
@@ -40,7 +56,11 @@ export function Markers() {
             }}
             key={index}
           >
-            <PropertyTagMarker price={property.price} saleType={property.saleType} />
+            <PropertyTagMarker
+              title={property.title}
+              price={property.price}
+              saleType={property.saleType}
+            />
           </Marker>
         )
       );
@@ -50,18 +70,29 @@ export function Markers() {
   return (
     <>
       {mainPropertyMarker}
-      {/* {propertyMarkers} */}
+      {propertyMarkers}
     </>
   );
 }
 
-function PropertyTagMarker({ price, saleType }: { price: number; saleType: string }) {
+function PropertyTagMarker({
+  title,
+  price,
+  saleType,
+}: {
+  title: string;
+  price: number;
+  saleType: string;
+}) {
   return (
-    <div className="bg-background px-3 py-2 rounded-full shadow-md flex justify-center items-center gap-2 hover:cursor-pointer">
+    <Link
+      href={`/property-for-sale/${title}`}
+      className="bg-background px-3 py-2 rounded-full shadow-md flex justify-center items-center gap-2 hover:cursor-pointer"
+    >
       <p className="text-base font-semibold">R {price.toLocaleString()}</p>
       <Badge className="text-white bg-[#1f93ff] hover:bg-[#1f93ff] hover:cursor-pointer">
         For {saleType}
       </Badge>
-    </div>
+    </Link>
   );
 }
