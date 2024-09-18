@@ -20,6 +20,12 @@
       "button": "See More",
       "error": "An error occurred. Please try again."
     },
+    "RentalProperties": {
+      "subHeading": "Best Choices",
+      "heading": "Popular Rental Properties",
+      "error": "Error loading rental properties",
+      "button": "View All Rentals"
+    },
     "HowItWorks": {
       "sellPropertyCard": {
         "heading": "Sell Property",
@@ -733,6 +739,14 @@
       "description": "Welcome to HaciendaX, the leading real estate platform in Bolivia. Find your dream home or list your property for greater discovery.",
       "image": "/image-en.jpg",
       "imageAlt": "HaciendaX logo"
+    },
+    "PropertyForRent": {
+      "title": "Properties for Rent"
+    },
+    "WebsiteConfig": {
+      "PropertyForRent": {
+        "title": "Properties for Rent | Your Website Name"
+      }
     }
   }
 }
