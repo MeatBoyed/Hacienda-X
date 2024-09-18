@@ -8,6 +8,9 @@ import Map, {
 import { env } from "@/env";
 import { useMapContext } from "./MapContext";
 import { Markers } from "./MapMarkers";
+import { useState } from "react";
+import { CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 export default function PropertyMap({ style }: { style?: React.CSSProperties }) {
   const { mainProperty } = useMapContext();
@@ -31,5 +34,36 @@ export default function PropertyMap({ style }: { style?: React.CSSProperties }) 
       <ScaleControl />
       <Markers />
     </Map>
+  );
+}
+
+export function MapDisplayer() {
+  const [isMapActive, setIsMapActive] = useState(false);
+  return (
+    <>
+      {isMapActive ? (
+        <PropertyMap
+          style={{
+            width: "100%",
+            height: "100%",
+            borderRadius: 10,
+            gridColumn: "",
+          }}
+        />
+      ) : (
+        <div className="h-full flex flex-col justify-center items-center gap-8 bg-blend-overlay">
+          <CardTitle>Find more properties in the area</CardTitle>
+          <Button
+            className="bg-blue-500 hover:bg-blue-600"
+            onClick={() => {
+              console.log("changed");
+              setIsMapActive(true);
+            }}
+          >
+            Open Map
+          </Button>
+        </div>
+      )}
+    </>
   );
 }

@@ -50,7 +50,7 @@ export function Markers() {
   return (
     <>
       {mainPropertyMarker}
-      {propertyMarkers}
+      {/* {propertyMarkers} */}
     </>
   );
 }
