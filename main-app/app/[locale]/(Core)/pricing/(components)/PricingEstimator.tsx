@@ -73,8 +73,8 @@ function PricingAlertCard() {
   return (
     <Alert>
       <AlertDescription>
-        You're growing fast! 🎉 Our Enterprise plan offers unlimited leads and custom features to
-        help you scale your business. Contact our sales team for a personalized quote.
+        You&apos;re growing fast! 🎉 Our Enterprise plan offers unlimited leads and custom features
+        to help you scale your business. Contact our sales team for a personalized quote.
       </AlertDescription>
     </Alert>
   );
