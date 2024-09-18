@@ -11,6 +11,7 @@ import { GetRequestService } from "@/lib/services/GetRequestService";
 import { generatePropertyPageMetaData } from "@/config/siteConfig";
 import { Metadata } from "next";
 import { generateJSONLD } from "@/config/jsonLD";
+import { PropertyServiceResponse } from "@/Server/lib/PropertyService";
 
 // export const revalidate = 18000; // 5 hours in seconds
 
@@ -49,7 +50,7 @@ export default async function PropertyView({ params: { slug } }: { params: { slu
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(generateJSONLD(property)) }}
       />
-      <div className="flex justify-between items-center gap-4">
+      <div className="flex justify-between items-center gap-4 mb-8">
         <h1 className="text-3xl font-bold mb-6">{property.title}</h1>
         <BookmarkButton property={property} />
       </div>

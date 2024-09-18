@@ -17,9 +17,9 @@ export async function generateJSONLD(property: PropertyWithAddressAndAgent) {
     headline: title,
     description: property.description,
     image: property.images[0],
-    dateCreated: property.createdAt.toISOString(),
-    datePublished: property.createdAt.toISOString(),
-    dateModified: property.updatedAt.toISOString(),
+    dateCreated: property.createdAt.toString(),
+    datePublished: property.createdAt.toString(),
+    dateModified: property.updatedAt.toString(),
     author: {
       "@type": "Person",
       name: property.agent.firstName + property.agent.lastName || t("site_name"),
