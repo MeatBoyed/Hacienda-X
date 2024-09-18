@@ -1,6 +1,5 @@
 import React from 'react';
 import PropertyCard from '@/components/main/PropertyCard';
-import { Property } from '@/app/types';
 import { PropertyWithAddress } from '@/Server/utils/utils';
 
 interface PropertyListProps {
