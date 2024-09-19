@@ -93,7 +93,7 @@ function PricingInfoCard() {
         <li className="font-medium text-gray-700">Real-time reporting</li>
         <li className="font-medium text-gray-700">Custom features available</li>
       </ul>
-      <Button className="w-full mt-8 bg-blue-400 text-white hover:bg-blue-600" variant="default">
+      <Button className="w-full mt-8 bg-blue-500 text-white hover:bg-blue-600" variant="default">
         <PhoneCall className="w-4 h-4 mr-2" />
         Contact Sales for Enterprise Plan
       </Button>
