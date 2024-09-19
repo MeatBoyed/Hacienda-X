@@ -7,7 +7,6 @@ import Residencies from "../_components/Residencies";
 import Value from "../_components/Value";
 import Contact from "../_components/Contact";
 import CategoryGrid from "../_components/CategoryGrid";
-
 import { getDictionary } from "@/messages/dictionaries";
 import { Messages } from "@/global";
 import Loader from "@/components/ui/loader";
@@ -40,7 +39,7 @@ export default async function Home({ params: { locale } }: { params: { locale: s
           <Residencies.Head subHeading={dict.Index.RentalProperties.subHeading} heading={dict.Index.RentalProperties.heading} />
         </RentalProperties>
       </Suspense>
-      <HowItWorks />
+      <CategoryGrid />
       <Value />
       <OfferedSection />
       <CallToAction />
