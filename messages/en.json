@@ -1,0 +1,13 @@
+{
+  "Index": {
+    "CategoryGrid": {
+      "heading": "Explore Our Properties",
+      "categories": {
+        "apartments": "Apartments",
+        "villa": "Villa",
+        "townhouse": "Townhouse",
+        "condo": "Condo"
+      }
+    }
+  }
+}
