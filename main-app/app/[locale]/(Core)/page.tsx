@@ -14,6 +14,7 @@ import Loader from "@/components/ui/loader";
 import { generateWebsiteConfig } from "@/config/siteConfig";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import RentalProperties from "../_components/RentalProperties";
 
 export async function generateMetadata({ params: { locale } }: { params: { locale: string } }): Promise<Metadata> {
   const t = await getTranslations("WebsiteConfig.home");
@@ -34,7 +35,11 @@ export default async function Home({ params: { locale } }: { params: { locale: s
           <Residencies.Head subHeading={dict.Index.Residencies.subHeading} heading={dict.Index.Residencies.heading} />
         </Residencies>
       </Suspense>
-      <CategoryGrid />
+      <Suspense fallback={<Loader className="max-h-24 mt-10" />}>
+        <RentalProperties margin="mb-0">
+          <Residencies.Head subHeading={dict.Index.RentalProperties.subHeading} heading={dict.Index.RentalProperties.heading} />
+        </RentalProperties>
+      </Suspense>
       <HowItWorks />
       <Value />
       <OfferedSection />

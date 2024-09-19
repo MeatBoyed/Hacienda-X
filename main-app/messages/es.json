@@ -19,6 +19,12 @@
       "button": "Ver más",
       "error": "Ocurrió un error. Por favor, inténtelo de nuevo."
     },
+    "RentalProperties": {
+      "subHeading": "Mejores Opciones",
+      "heading": "Propiedades de Alquiler Populares",
+      "error": "Error al cargar propiedades de alquiler",
+      "button": "Ver Todos los Alquileres"
+    },
     "HowItWorks": {
       "sellPropertyCard": {
         "heading": "Vender Propiedad",
@@ -697,6 +703,9 @@
       "description": "Bienvenido a HaciendaX, la principal plataforma inmobiliaria en Bolivia. Encuentra tu casa soñada o anuncia tu propiedad para una mayor visibilidad.",
       "image": "https://haciendax.com/image-es.jpg",
       "imageAlt": "Logo de HaciendaX"
+    },
+    "PropertyForRent": {
+      "title": "Propiedades en Alquiler"
     }
   }
 }
