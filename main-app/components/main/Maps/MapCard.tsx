@@ -1,29 +1,31 @@
 import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { PropertyWithAddress } from "@/Server/utils/utils";
-import PropertyMap from "./Map";
+import PropertyMap, { MapDisplayer } from "./Map";
 import { MapContextProvider } from "./MapContext";
+import { GetRequestService } from "@/lib/services/GetRequestService";
 
-export function MapCard({
+export async function MapCard({
   className,
-  properties,
+  mainProperty,
 }: {
   className?: string;
-  properties: PropertyWithAddress[];
+  mainProperty: string;
 }) {
+  // Fetching Properties from API
+  const propertiesRes = await GetRequestService.getProperties();
+  if (!propertiesRes) {
+    console.log("Failed to get properties!");
+    return <p>Failed to Load properties</p>;
+  }
+  const properties = propertiesRes.properties as PropertyWithAddress[];
+
   return (
-    <MapContextProvider properties={properties}>
+    <MapContextProvider focusProperty={mainProperty} properties={properties}>
       <div className="flex justify-between items-start w-full gap-3">
         {/* <PropertyInfoCard /> */}
         <Card className={cn(className, "w-full h-[40vh] md:h-[50vh]")}>
-          <PropertyMap
-            style={{
-              width: "100%",
-              height: "100%",
-              borderRadius: 10,
-              gridColumn: "",
-            }}
-          />
+          <MapDisplayer />
         </Card>
       </div>
     </MapContextProvider>

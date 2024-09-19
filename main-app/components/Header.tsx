@@ -61,7 +61,10 @@ export const Header = ({ isDashboard }: { isDashboard?: boolean }) => {
               <UserButton />
             )}
             <Link href="/bookmarks">
-              <Bookmark className="p-2 border rounded-full text-black hover:bg-slate-900 hover:text-white" size={35} />
+              <Bookmark
+                className="p-2 border rounded-full text-black hover:bg-slate-900 hover:text-white"
+                size={35}
+              />
             </Link>
           </div>
 
@@ -184,11 +187,11 @@ function MainNavlinks({
       <Link href="/property-for-sale">
         <p className="text-base text-black hover:text-gray-700 transition">{search}</p>
       </Link>
-      <Link href="/aboutus">
-        <p className="text-base text-black hover:text-gray-700 transition">{aboutus}</p>
-      </Link>
       <Link href="/pricing">
         <p className="text-base text-black hover:text-gray-700 transition">{pricing}</p>
+      </Link>
+      <Link href="/aboutus">
+        <p className="text-base text-black hover:text-gray-700 transition">{aboutus}</p>
       </Link>
       {userId && (
         <Link href="/dashboard">
