@@ -5,7 +5,13 @@ import { useSearch } from "./SearchContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Search, Map } from "lucide-react";
@@ -13,6 +19,7 @@ import { SearchParams } from "@/Server/controllers/propertyController";
 import { PriceRanges, PropertyType, SortByOptions } from "@/Server/lib/BussinessLogicHandler";
 import { useRouter } from "next/navigation";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import Link from "next/link";
 
 const priceRanges: { label: string; value: PriceRanges }[] = [
   { label: "Any", value: "any" },
@@ -48,21 +55,28 @@ const sortByOptions: { label: string; value: SortByOptions }[] = [
 export const SearchFilterCard: React.FC = () => {
   const router = useRouter();
   const [open, setOpen] = useState(false);
-  const { searchTerm, propertyType, priceRange, bedrooms, bathrooms, amenities, sortBy, updateSearch } = useSearch();
-
-  const handleMapSearch = () => {
-    router.push("/property-for-sale/map");
-  };
+  const {
+    searchTerm,
+    propertyType,
+    priceRange,
+    bedrooms,
+    bathrooms,
+    amenities,
+    sortBy,
+    updateSearch,
+  } = useSearch();
 
   return (
     <Card>
       <CardHeader>
         <CardTitle className="flex justify-between items-center">
           <span>Search and Filter</span>
-          <Button onClick={handleMapSearch} className="flex items-center gap-2 text-white bg-blue-500 hover:bg-blue-800">
-            <Map className="w-4 h-4" />
-            Map Search
-          </Button>
+          <Link href={`/property-for-sale/map`}>
+            <Button className="flex items-center gap-2 text-white bg-blue-500 hover:bg-blue-800">
+              <Map className="w-4 h-4" />
+              Map Search
+            </Button>
+          </Link>
         </CardTitle>
       </CardHeader>
       <CardContent>
@@ -176,7 +190,10 @@ export const SearchFilterCard: React.FC = () => {
                   </div>
                 </div>
               </div>
-              <p className="text-sm text-muted-foreground hover:cursor-pointer" onClick={() => setOpen(false)}>
+              <p
+                className="text-sm text-muted-foreground hover:cursor-pointer"
+                onClick={() => setOpen(false)}
+              >
                 Less Settings
               </p>
             </CollapsibleContent>
@@ -193,7 +210,12 @@ function SearchSelector({
   value,
   children,
   onValueChange,
-}: { onValueChange: (value: string) => void; value: string; label: string; id: string } & PropsWithChildren) {
+}: {
+  onValueChange: (value: string) => void;
+  value: string;
+  label: string;
+  id: string;
+} & PropsWithChildren) {
   return (
     <div>
       <Label htmlFor="bedrooms" className="mb-2 block">

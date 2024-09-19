@@ -20,8 +20,9 @@ export default function PropertyMap({ style }: { style?: React.CSSProperties }) 
       initialViewState={{
         longitude: mainProperty.Address?.longitude || 20,
         latitude: mainProperty.Address?.latitude || -20,
-        zoom: 15, // 3.5 in example
+        zoom: 12, // 3.5 in example
       }}
+      // interactive={false}
       style={style}
       // mapStyle="mapbox://styles/mapbox/streets-v9"
       mapStyle="mapbox://styles/haciendax/clykm2gp5011601pn7nvjanc3"
