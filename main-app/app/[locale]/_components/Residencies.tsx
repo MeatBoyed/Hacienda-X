@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from "react";
+import React, { PropsWithChildren, Suspense } from "react";
 import "swiper/css";
 import "./Residencies.css";
 import { Button } from "@/components/ui/button";
@@ -9,10 +9,12 @@ import { cn } from "@/lib/utils";
 import { getTranslations } from "next-intl/server";
 import { GetRequestService } from "@/lib/services/GetRequestService";
 import { ErrorView } from "@/components/main/Views/Views";
+import Loader from "@/components/ui/loader";
 
 type ResidenciesProps = PropsWithChildren & {
-  className?: string;
   margin?: string;
+  searchQuery?: URLSearchParams;
+  className?: string;
 };
 
 type ResidenciesHeadProps = PropsWithChildren & {
@@ -21,26 +23,47 @@ type ResidenciesHeadProps = PropsWithChildren & {
   className?: string;
 };
 
-export default async function Residencies({ className, margin, children }: ResidenciesProps) {
-  const data = await GetRequestService.getProperties();
+export default async function Residencies({
+  searchQuery,
+  className,
+  margin,
+  children,
+}: ResidenciesProps) {
+  let response;
+  if (!searchQuery) {
+    response = await GetRequestService.getProperties();
+  } else {
+    response = await GetRequestService.getSearchProperties(searchQuery);
+  }
 
   return (
     <section id="residencies" className={cn("my-12 w-full", margin)}>
-      <div className={cn("px-3 flex justify-center items-center flex-col w-full gap-5 sm:px-5 xl:px-32 ", className)}>
+      <div
+        className={cn(
+          "px-3 flex justify-center items-center flex-col w-full gap-5 sm:px-5 xl:px-32 ",
+          className
+        )}
+      >
         {children}
-        {!data && (
+        {!response && (
           // <div className="flex flex-col justify-center items-center py-20 gap-5">
           //   <h1>{dict("Index.Residencies.error")}</h1>
           // </div>
           <ErrorView />
         )}
-        {data && <PropertyCarousel properties={data.properties} />}
+        <Suspense fallback={<Loader className="max-h-24 mt-10" />}>
+          {response && <PropertyCarousel properties={response.properties} />}
+        </Suspense>
       </div>
     </section>
   );
 }
 
-Residencies.Head = async function ResidenciesHead({ subHeading, heading, className }: ResidenciesHeadProps) {
+Residencies.Head = async function ResidenciesHead({
+  subHeading,
+  heading,
+  className,
+}: ResidenciesHeadProps) {
   const dict = await getTranslations();
   return (
     <div className={cn("flex justify-between items-center w-full", className)}>

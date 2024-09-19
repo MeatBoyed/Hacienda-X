@@ -11,6 +11,7 @@ import { GetRequestService } from "@/lib/services/GetRequestService";
 import { generatePropertyPageMetaData } from "@/config/siteConfig";
 import { Metadata } from "next";
 import { generateJSONLD } from "@/config/jsonLD";
+import { PropertyServiceResponse } from "@/Server/lib/PropertyService";
 
 // export const revalidate = 18000; // 5 hours in seconds
 
@@ -24,25 +25,32 @@ import { generateJSONLD } from "@/config/jsonLD";
 //   }));
 // }
 
-export async function generateMetadata({ params: { slug } }: { params: { slug: string } }): Promise<Metadata> {
+export async function generateMetadata({
+  params: { slug },
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
   return await generatePropertyPageMetaData(slug);
 }
 
 export default async function PropertyView({ params: { slug } }: { params: { slug: string } }) {
   const t = await getTranslations("Property.Property");
-  const response = await GetRequestService.getProperty(slug);
+  const propertyRes = await GetRequestService.getProperty(slug);
 
-  if (!response) {
+  if (!propertyRes) {
     // Redirect to 404 or show message
     return <NotFoundViewCard className="min-h-screen py-16 " />;
   }
 
-  const property = response.properties[0] as PropertyWithAddressAndAgent;
+  const property = propertyRes.properties[0] as PropertyWithAddressAndAgent;
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-6xl mt-12 md:mt-14">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(generateJSONLD(property)) }} />
-      <div className="flex justify-between items-center gap-4">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(generateJSONLD(property)) }}
+      />
+      <div className="flex justify-between items-center gap-4 mb-8">
         <h1 className="text-3xl font-bold mb-6">{property.title}</h1>
         <BookmarkButton property={property} />
       </div>
@@ -57,7 +65,7 @@ export default async function PropertyView({ params: { slug } }: { params: { slu
         <LeadForm agentId={property.agent.user_id} propertyId={property.property_id} />
       </div>
 
-      <MapCard className="mb-8" properties={[]} />
+      <MapCard className="mb-8" mainProperty={property.property_id} />
 
       <Residencies className="w-full xl:px-0">
         <Residencies.Head subHeading={t("viewMore.subHeading")} heading={t("viewMore.heading")} />

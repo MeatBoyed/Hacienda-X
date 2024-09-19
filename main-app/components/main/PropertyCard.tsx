@@ -10,13 +10,27 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { AspectRatio } from "../ui/aspect-ratio";
 
-export default function PropertyCard({ property, className }: { property: PropertyWithAddress; className?: string }) {
+export default function PropertyCard({
+  property,
+  className,
+}: {
+  property: PropertyWithAddress;
+  className?: string;
+}) {
   const link = `/property-for-sale/${property.title}`;
   return (
-    <Card key={property.property_id} className={cn("overflow-hidden min-h-[30rem] min-w-full max-w-lg", className)}>
+    <Card
+      key={property.property_id}
+      className={cn("overflow-hidden min-h-[30rem] min-w-full max-w-lg", className)}
+    >
       <Link href={link} className="max-h-48">
         <AspectRatio ratio={16 / 9}>
-          <Image src={property.images[0]} alt={`${property.title} | thumbnail`} fill className="w-full object-cover" />
+          <Image
+            src={property.images[0]}
+            alt={`${property.title} | thumbnail`}
+            fill
+            className="w-full object-cover"
+          />
         </AspectRatio>
       </Link>
       <CardHeader className="px-3 pb-4">
@@ -45,15 +59,20 @@ export default function PropertyCard({ property, className }: { property: Proper
         {/* Features */}
         <div className="flex flex-wrap gap-2">
           {property.extraFeatures.map((amenity) => (
-            <span key={amenity} className="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs">
-              {amenity.charAt(0).toUpperCase() + amenity.slice(1)}
-            </span>
+            <AmenityBadge key={amenity} amenity={amenity} />
           ))}
         </div>
       </CardContent>
       <CardFooter className="flex justify-center items-center gap-3 px-3">
-        <Button variant="default" size="sm" className="w-full bg-blue-500 text-white hover:bg-blue-600 ">
-          <Link href={`/contact-agent/${property.property_id}`} className="w-full flex items-center justify-center">
+        <Button
+          variant="default"
+          size="sm"
+          className="w-full bg-blue-500 text-white hover:bg-blue-600 "
+        >
+          <Link
+            href={`/property-for-sale/${property.title}`}
+            className="w-full flex items-center justify-center"
+          >
             <Mail className="w-4 h-4 mr-2" />
             Contact Agent
           </Link>
@@ -61,6 +80,14 @@ export default function PropertyCard({ property, className }: { property: Proper
         <BookmarkButton property={property} />
       </CardFooter>
     </Card>
+  );
+}
+
+export function AmenityBadge({ amenity }: { amenity: string }) {
+  return (
+    <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs" key={amenity}>
+      {amenity.charAt(0).toUpperCase() + amenity.slice(1)}
+    </span>
   );
 }
 
@@ -77,10 +104,16 @@ export function BookmarkButton({ property }: { property: PropertyWithAddress }) 
           addBookmark(property);
         }
       }}
-      className={cn("bg-white  border", isBookmarked(property.property_id) ? "bg-red-500" : "bg-white")}
+      className={cn(
+        "bg-white  border",
+        isBookmarked(property.property_id) ? "bg-red-500" : "bg-white"
+      )}
     >
       <Bookmark
-        className={cn("w-4 h-4 hover:text-white", isBookmarked(property.property_id) ? "text-white" : "text-muted-foreground")}
+        className={cn(
+          "w-4 h-4 hover:text-white",
+          isBookmarked(property.property_id) ? "text-white" : "text-muted-foreground"
+        )}
       />
     </Button>
   );
