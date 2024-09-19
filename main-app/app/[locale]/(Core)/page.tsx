@@ -6,6 +6,7 @@ import OfferedSection from "../_components/OfferedSection";
 import Residencies from "../_components/Residencies";
 import Value from "../_components/Value";
 import Contact from "../_components/Contact";
+import CategoryGrid from "../_components/CategoryGrid";
 
 import { getDictionary } from "@/messages/dictionaries";
 import { Messages } from "@/global";
@@ -33,6 +34,7 @@ export default async function Home({ params: { locale } }: { params: { locale: s
           <Residencies.Head subHeading={dict.Index.Residencies.subHeading} heading={dict.Index.Residencies.heading} />
         </Residencies>
       </Suspense>
+      <CategoryGrid />
       <HowItWorks />
       <Value />
       <OfferedSection />
