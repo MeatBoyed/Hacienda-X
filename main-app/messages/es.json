@@ -25,6 +25,15 @@
       "error": "Error al cargar propiedades de alquiler",
       "button": "Ver Todos los Alquileres"
     },
+    "CategoryGrid": {
+      "heading": "Explora Nuestras Propiedades",
+      "categories": {
+        "apartments": "Apartamentos",
+        "villa": "Villa",
+        "townhouse": "Casa Adosada",
+        "condo": "Condominio"
+      }
+    },
     "HowItWorks": {
       "sellPropertyCard": {
         "heading": "Vender Propiedad",

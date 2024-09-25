@@ -26,6 +26,15 @@
       "error": "Error loading rental properties",
       "button": "View All Rentals"
     },
+    "CategoryGrid": {
+      "heading": "Explore Our Properties",
+      "categories": {
+        "apartments": "Apartments",
+        "villa": "Villa",
+        "townhouse": "Townhouse",
+        "condo": "Condo"
+      }
+    },
     "HowItWorks": {
       "sellPropertyCard": {
         "heading": "Sell Property",
