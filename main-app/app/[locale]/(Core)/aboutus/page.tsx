@@ -1,11 +1,12 @@
 // TODO: Half done
-import React, { useState } from "react";
+import React from "react";
 import "react-accessible-accordion/dist/fancy-example.css";
 import "./aboutus.css";
 import Image from "next/image";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { generateWebsiteConfig } from "@/config/siteConfig";
+import Values from "../../_components/Value";
 import { Metadata } from "next";
 // Demo styles, see 'Styles' section below for some notes on use.
 
@@ -17,7 +18,9 @@ export async function generateMetadata({ params: { locale } }: { params: { local
 export default async function Value() {
   const t = await getTranslations("AboutUs");
   return (
-    <div className="bg-white dark:bg-gray-800 overflow-hidden relative lg:flex lg:items-center">
+    
+    <><div className="bg-white dark:bg-gray-800 overflow-hidden relative lg:flex lg:items-center">
+
       <div className="w-full mt-9 py-12 px-4 sm:px-6 lg:py-16 lg:px-8 z-20">
         <h2 className="text-3xl font-bold text-black dark:text-white sm:text-4xl ">
           <span className="block">{t("heading")}</span>
@@ -42,7 +45,12 @@ export default async function Value() {
           <Image src="/r2.png" className="rounded-lg" width={500} height={500} alt="House Image" />
         </div>
       </div>
-      <div></div>
-    </div>
+      <div>
+
+      </div>
+
+
+    </div><div><Values /> </div></>
+   
   );
 }

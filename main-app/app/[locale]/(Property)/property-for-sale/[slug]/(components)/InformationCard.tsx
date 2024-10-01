@@ -3,6 +3,7 @@ import { Bed, Bath, Square, MapPin, Bookmark } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { PropertyWithAddress } from "@/Server/utils/utils";
 import { User } from "@prisma/client";
+import { AmenityBadge } from "@/components/main/PropertyCard";
 
 export default function InformationCard({
   property,
@@ -41,10 +42,8 @@ export default function InformationCard({
         <div className="mb-8">
           <h3 className="font-semibold mb-2">Features</h3>
           <div className="flex flex-wrap gap-2">
-            {property.extraFeatures.map((feature, index) => (
-              <Badge key={index} variant="outline" className="">
-                {feature}
-              </Badge>
+            {property.extraFeatures.map((amenity ) => (
+            <AmenityBadge key={amenity} amenity={amenity} />
             ))}
           </div>
         </div>

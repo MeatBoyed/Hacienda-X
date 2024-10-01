@@ -9,7 +9,7 @@ const whyChooseUs = [
 
 export default function WhyChooseUsSection() {
   return (
-    <div className="">
+    <div className="px-2 md:px-0">
       <h2 className="text-3xl font-bold text-center mb-8">Why Choose Us</h2>
       <div className="grid gap-6 md:grid-cols-2 max-w-4xl mx-auto">
         {whyChooseUs.map((reason, index) => (

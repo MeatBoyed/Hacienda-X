@@ -31,7 +31,7 @@ export default function Value() {
               </h2>
               <div className="space-y-2">
                 <h4 className="font-bold">{t("content-heading")}</h4>
-                <p className="text-gray-700">{t("content")}</p>
+                <h3 className="text-gray-700">{t("content")}</h3>
               </div>
               <Link href="/aboutus" className=" bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">
                 {t("button")}
