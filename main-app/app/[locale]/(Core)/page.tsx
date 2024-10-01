@@ -12,12 +12,10 @@ import { Messages } from "@/global";
 import { generateWebsiteConfig } from "@/config/siteConfig";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import Loader from "@/components/ui/loader";
+import RentalProperties from "../_components/RentalProperties";
 
-export async function generateMetadata({
-  params: { locale },
-}: {
-  params: { locale: string };
-}): Promise<Metadata> {
+export async function generateMetadata({ params: { locale } }: { params: { locale: string } }): Promise<Metadata> {
   const t = await getTranslations("WebsiteConfig.home");
   return await generateWebsiteConfig(t);
 }
@@ -51,16 +49,10 @@ export default async function Home({ params: { locale } }: { params: { locale: s
       <CategoryGrid />
       {/* Ensure you pass the searchQuery to the comp */}
       <Residencies margin="mb-0">
-        <Residencies.Head
-          subHeading={dict.Index.Residencies.subHeading}
-          heading={dict.Index.Residencies.heading}
-        />
+        <Residencies.Head subHeading={dict.Index.Residencies.subHeading} heading={dict.Index.Residencies.heading} />
       </Residencies>
       <Residencies margin="mb-0" searchQuery={searchQuery}>
-        <Residencies.Head
-          subHeading={dict.Index.Residencies.subHeading}
-          heading={dict.Index.Residencies.heading}
-        />
+        <Residencies.Head subHeading={dict.Index.Residencies.subHeading} heading={dict.Index.Residencies.heading} />
       </Residencies>
       <HowItWorks />
       <Value />
