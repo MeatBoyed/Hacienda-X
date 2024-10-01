@@ -207,6 +207,9 @@ function MainNavlinks({
           {aboutus}
         </p>
       </Link>
+      <Link href="/aboutus">
+        <p className="text-base text-black hover:text-gray-700 transition">{aboutus}</p>
+      </Link>
       {userId && (
         <Link href="/dashboard">
           <p className="text-base text-black hover:text-gray-700 transition">

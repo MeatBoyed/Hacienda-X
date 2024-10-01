@@ -12,8 +12,8 @@ import { Messages } from "@/global";
 import { generateWebsiteConfig } from "@/config/siteConfig";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import Loader from "@/components/ui/loader";
 import RentalProperties from "../_components/RentalProperties";
-import { Loader } from "lucide-react";
 
 export async function generateMetadata({
   params: { locale },
