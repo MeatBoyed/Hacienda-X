@@ -36,7 +36,7 @@ export default function PricingPage() {
         <PricingEstimator />
         <WhyChooseUsSection />
       </div>
-      <TestimonialSection />
+      {/* <TestimonialSection /> */}
       <FaqSection />
       <div className="text-center">
         <SignInButton mode="modal">
