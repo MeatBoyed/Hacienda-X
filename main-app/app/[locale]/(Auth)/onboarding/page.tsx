@@ -4,6 +4,8 @@ import { SignInButton } from "@clerk/nextjs";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { getTranslations } from "next-intl/server";
 import SuccessCard from "./(components)/SuccessCard";
+import { getUser } from "./actions";
+import { redirect } from "next/navigation";
 
 // Allow user to navigate with just Clerk auth
 // Auto-create user with default values on restricted actions

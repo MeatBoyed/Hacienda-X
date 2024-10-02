@@ -1,146 +1,89 @@
 "use client";
-
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, SelectGroup, SelectLabel } from "@/components/ui/select";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
-import { Tag, TagInput } from "emblor";
-import { Input } from "@/components/ui/input";
-import { Switch } from "@/components/ui/switch";
-import { Textarea } from "@/components/ui/textarea";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { XCircle } from "lucide-react";
-import { PuffLoader } from "react-spinners";
-
-import { z } from "zod";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useTranslations } from "next-intl";
 import {
-  // PropertySchema,
-  SelectBedroomsOptions,
-  SelectBathroomsOptions,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormMessage,
+  Form,
+  FormDescription,
+} from "../ui/form";
+import { Input } from "../ui/input";
+import { Textarea } from "../ui/textarea";
+import { usePropertyFormContext } from "./PropertyFormContext";
+import { PuffLoader } from "react-spinners";
+import PropertyFormHead from "@/components/PropertyForm/PropertyFormHead";
+import {
+  MINFILES,
   SelectVisibilityOptions,
   SelectSaleTypeOptions,
-  MAXFILES,
-  MINFILES,
-  PropertySchemaTranslated,
-} from "../../../../../../lib/FormUtils";
-import useSWRMutation from "swr/mutation";
-import { toast } from "sonner";
-import { AddressInput } from "../../../../../../components/AddressInput";
-import { DeleteProperty, PostProperty } from "@/lib/RequestUtils";
-import { PropertyWithAddress } from "@/Server/utils/utils";
-import { useRouter } from "next/navigation";
-import { Badge } from "@/components/ui/badge";
-import { useTranslations } from "next-intl";
-import PropertyFormHead from "./PropertyFormHead";
+  SelectBedroomsOptions,
+  SelectBathroomsOptions,
+  PropertyFormSchema,
+} from "@/lib/FormUtils";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectGroup,
+  SelectLabel,
+  SelectItem,
+} from "@/components/ui/select";
+import { Switch } from "@radix-ui/react-switch";
+import { TagInput, Tag } from "emblor";
+import { AddressInput } from "../AddressInput";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "../ui/card";
 import { UploadShad } from "@/components/UploadShad/main";
 import FilesPreview from "@/components/UploadShad/FilesPreview";
 import { FileInput } from "@/components/UploadShad/FileInput";
+import { useState } from "react";
+import { toast } from "sonner";
+import { Badge } from "../ui/badge";
+import { XCircle } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { PropertyServiceResponse } from "@/Server/lib/PropertyService";
 
-// TODO: Make Select translated & make Schema follow translations
-export default function PropertyForm({ initProperty }: { initProperty?: PropertyWithAddress }) {
-  const t = useTranslations("Dashboard.propertyFormComp");
+export function PropertyFormBody() {
   const router = useRouter();
-
-  const PropSchema = PropertySchemaTranslated(t);
-
-  const defaultValues = getDefaultVaules(initProperty);
-  const form = useForm<z.infer<typeof PropSchema>>({
-    resolver: zodResolver(PropSchema),
-    defaultValues: defaultValues,
-  });
+  const t = useTranslations("Dashboard.propertyFormComp");
   const {
-    setValue,
-    getValues,
-    setError,
-    formState: { errors, isDirty, isSubmitted },
-  } = form;
-  // console.log("Values: ", getValues());
+    form,
+    initProperty,
+    triggerCreate,
+    triggerUpdate,
+    isMutatingCreate,
+    isMutatingUpdate,
+    isMutatingDelete,
+  } = usePropertyFormContext();
+
+  const { setValue } = form;
 
   // Extra Features's Tag management
   const [activeExtraTagIndex, setActiveExtraTagIndex] = useState<number | null>(null);
 
-  const {
-    trigger: triggerCreate,
-    isMutating: isMutatingCreate,
-    error: createError,
-  } = useSWRMutation("/api/dashboard/property/create", PostProperty /* options */, {
-    onError: (error) => {
-      console.log("Server Error Occured: ", error);
-      toast.error(t("toasts.error.title"), {
-        description: t("toasts.error.description"),
+  function submitHandler(values: PropertyFormSchema) {
+    if (!initProperty) {
+      toast.promise(triggerCreate({ property: values }), {
+        loading: "Creating your new listing...",
+        success: (data: PropertyServiceResponse) => {
+          console.log("SUccess data: ", data);
+          router.push(`/property-for-sale/${data.properties[0].title}?listing=new`);
+          return "Congrats! Your property is now listed on HaciendaX.";
+        },
+        error: "Error!",
       });
-    },
-    onSuccess: (res) => {
-      console.log(res);
-
-      // Show message
-      toast.success(t("toasts.create.success.title"), {
-        description: t("toasts.create.success.description"),
+    } else {
+      toast.promise(triggerUpdate({ property: values }), {
+        loading: "Updating your listing...",
+        success: (data: PropertyServiceResponse) => {
+          console.log("Success data: ", data);
+          router.push(`/property-for-sale/${data.properties[0].title}?listing=edited`);
+          return "Congrats! Your listing is now updated on HaciendaX.";
+        },
       });
-      // TODO: Navigatae to "/property-forsale/[slug]?state=created"
-      // router.replace(`/dashboard/property/${data.property_id}`);
-      router.refresh();
-    },
-  });
-
-  const {
-    trigger: triggerUpdate,
-    isMutating: isMutatingUpdate,
-    error: updateError,
-  } = useSWRMutation("/api/dashboard/property/update", PostProperty /* options */, {
-    onError: (error) => {
-      console.log("SERVER RESPONSE ERROR: ", error);
-      toast.error(t("toasts.error.title"), {
-        description: t("toasts.error.description"),
-      });
-    },
-    onSuccess: (res) => {
-      // Show message
-      toast.success(t("toasts.update.title"), {
-        description: t("toasts.update.description"),
-      });
-      // TODO: Navigate to similar Post route
-      router.refresh();
-    },
-  });
-
-  const { trigger: triggerDelete, isMutating: isMutatingDelete } = useSWRMutation(
-    `/api/dashboard/property/delete`,
-    DeleteProperty /* options */,
-    {
-      onError: () => {
-        toast.error(t("toasts.error.title"), {
-          description: t("toasts.error.description"),
-        });
-      },
-      onSuccess: (data) => {
-        // Show message
-        toast.success(t("toasts.delete.title"));
-      },
     }
-  );
-
-  async function submitHandler(values: z.infer<typeof PropSchema>) {
-    console.log("Submitted Form: ", values);
-
-    if (!initProperty) await triggerCreate({ property: values });
-    else
-      await triggerUpdate({
-        property: values,
-      });
-  }
-
-  async function deleteHandler() {
-    if (!initProperty) return;
-    await triggerDelete({
-      payload: {
-        agentId: initProperty.agent_id,
-        propertyId: initProperty.property_id,
-        images: [...initProperty.images, ...getValues("images")],
-      },
-    });
-    router.push("/dashboard/property");
   }
 
   return (
@@ -156,8 +99,7 @@ export default function PropertyForm({ initProperty }: { initProperty?: Property
             className="h-full w-full flex justify-start items-center flex-col gap-12"
           >
             {/* Head (Action Btns) */}
-            <PropertyFormHead deleteHandler={deleteHandler} initProperty={!!initProperty} />
-
+            <PropertyFormHead />
             {/* Form Inputs */}
             {/* <div className="flex justify-start items-center w-full gap-10 flex-col sm:flex-row sm:items-start  sm:px-5 lg:max-w-7xl"> */}
             <div className="grid grid-cols-1 w-full gap-10 sm:grid-cols-2 sm:items-start sm:px-5 lg:max-w-7xl">
@@ -253,7 +195,8 @@ export default function PropertyForm({ initProperty }: { initProperty?: Property
                   <CardHeader>
                     <CardTitle>{t("formFields.images.title")}</CardTitle>
                     <CardDescription>
-                      {t("formFields.images.description.part1")} {MINFILES} {t("formFields.images.description.part2")}
+                      {t("formFields.images.description.part1")} {MINFILES}{" "}
+                      {t("formFields.images.description.part2")}
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="grid gap-6">
@@ -322,7 +265,9 @@ export default function PropertyForm({ initProperty }: { initProperty?: Property
                                 </SelectTrigger>
                                 <SelectContent className="w-full">
                                   <SelectGroup>
-                                    <SelectLabel>{t("formFields.meta.visibilityField.label")}</SelectLabel>
+                                    <SelectLabel>
+                                      {t("formFields.meta.visibilityField.label")}
+                                    </SelectLabel>
                                     {SelectVisibilityOptions.map((option) => (
                                       <SelectItem key={option.key} value={option.value}>
                                         {option.value}
@@ -404,11 +349,15 @@ export default function PropertyForm({ initProperty }: { initProperty?: Property
                           <FormControl>
                             <Select value={field.value.toString()} onValueChange={field.onChange}>
                               <SelectTrigger className="">
-                                <SelectValue placeholder={t("formFields.features.bedroomsField.placeholder")} />
+                                <SelectValue
+                                  placeholder={t("formFields.features.bedroomsField.placeholder")}
+                                />
                               </SelectTrigger>
                               <SelectContent className="">
                                 <SelectGroup>
-                                  <SelectLabel>{t("formFields.features.bedroomsField.label")}</SelectLabel>
+                                  <SelectLabel>
+                                    {t("formFields.features.bedroomsField.label")}
+                                  </SelectLabel>
                                   {SelectBedroomsOptions.map((option) => (
                                     <SelectItem key={option.key} value={option.value}>
                                       {option.value}
@@ -430,13 +379,21 @@ export default function PropertyForm({ initProperty }: { initProperty?: Property
                         <FormItem>
                           <FormLabel>{t("formFields.features.bathroomsField.label")}</FormLabel>
                           <FormControl>
-                            <Select key="bathrooms" value={field.value.toString()} onValueChange={field.onChange}>
+                            <Select
+                              key="bathrooms"
+                              value={field.value.toString()}
+                              onValueChange={field.onChange}
+                            >
                               <SelectTrigger className="w-full">
-                                <SelectValue placeholder={t("formFields.features.bathroomsField.placeholder")} />
+                                <SelectValue
+                                  placeholder={t("formFields.features.bathroomsField.placeholder")}
+                                />
                               </SelectTrigger>
                               <SelectContent className="w-full">
                                 <SelectGroup>
-                                  <SelectLabel>{t("formFields.features.bathroomsField.label")}</SelectLabel>
+                                  <SelectLabel>
+                                    {t("formFields.features.bathroomsField.label")}
+                                  </SelectLabel>
                                   {SelectBathroomsOptions.map((option) => (
                                     <SelectItem key={option.key} value={option.value}>
                                       {option.value}
@@ -490,7 +447,9 @@ export default function PropertyForm({ initProperty }: { initProperty?: Property
                                     onClick={() =>
                                       setValue(
                                         "extraFeatures",
-                                        form.getValues("extraFeatures").filter((t) => tag.id != t.id)
+                                        form
+                                          .getValues("extraFeatures")
+                                          .filter((t) => tag.id != t.id)
                                       )
                                     }
                                     size={18}
@@ -512,7 +471,9 @@ export default function PropertyForm({ initProperty }: { initProperty?: Property
                               }}
                             />
                           </FormControl>
-                          <FormDescription>({t("formFields.features.extraFeatures.description")})</FormDescription>
+                          <FormDescription>
+                            ({t("formFields.features.extraFeatures.description")})
+                          </FormDescription>
                           <FormMessage />
                         </FormItem>
                       )}
@@ -526,28 +487,4 @@ export default function PropertyForm({ initProperty }: { initProperty?: Property
       )}
     </>
   );
-}
-
-function getDefaultVaules(initProperty: PropertyWithAddress | undefined) {
-  return {
-    property_id: initProperty?.property_id || "",
-    title: initProperty?.title || "askdakjd ajdaaksdf",
-    price: initProperty?.price || 1000000,
-    description: initProperty?.description || "kasjdf aksdjf akdf aksfj",
-    bathrooms: initProperty?.bathrooms || 2,
-    bedrooms: initProperty?.bedrooms || 4,
-    squareMeter: initProperty?.squareMeter || 4,
-    pool: initProperty?.pool || false,
-    images: initProperty?.images || ["https://dstilezauto.s3.af-south-1.amazonaws.com/haciendaXTest/asd.png"],
-    extraFeatures:
-      initProperty?.extraFeatures.map((feature, index) => ({
-        id: index.toString(),
-        text: feature,
-      })) || [],
-    address: initProperty?.Address?.address || "aksdj aksdjf askdfj aksdfj",
-    lat: initProperty?.Address?.latitude || -239,
-    lng: initProperty?.Address?.longitude || 123,
-    visibility: initProperty?.visibility || "Public",
-    saleType: initProperty?.saleType || "Sale",
-  };
 }

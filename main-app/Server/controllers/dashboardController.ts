@@ -58,10 +58,12 @@ const app = new Hono()
     const payload = c.req.valid("json"); // Get Payload
 
     const response = await PropertyService.Create(payload, user.userId); // Offload to Business Layer
-    if (response.err)
+    if (response.err) {
+      console.log("Error Occured: ", response.val);
       throw new HTTPException((response.val.status as StatusCode) || 500, {
         message: response.val.message,
       });
+    }
 
     return c.json(response.val);
   })
@@ -85,8 +87,7 @@ const app = new Hono()
     const user = authenticateUser(c); // Auth
 
     const deletePayload = c.req.valid("json"); // Get Payload
-    if (user.userId !== deletePayload.agentId)
-      throw new HTTPException(403, { message: "Unable to verify request" });
+    if (user.userId !== deletePayload.agentId) throw new HTTPException(403, { message: "Unable to verify request" });
 
     const response = await PropertyService.Delete(deletePayload); // Offload to Business Layer
     if (response.err)

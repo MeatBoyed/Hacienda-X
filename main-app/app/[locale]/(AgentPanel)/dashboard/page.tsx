@@ -1,23 +1,33 @@
 // Tremor for Analytics Components - https://www.tremor.so/
-
 import { LeadsCard, PropertyListCard } from "./(components)/DashboardCards";
-import { getPropertiesForAgent } from "@/lib/RequestService";
 import Head from "./(components)/Head";
-import { Lead } from "@prisma/client";
 import Insights from "./(components)/Insights";
+import { currentUser } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
+import { getUsersDashboard } from "./property/actions";
 
 export default async function DashboardPage() {
-  const response = await getPropertiesForAgent();
-  const leads: Lead[] = [];
+  const user = await currentUser();
+  if (!user) redirect("/sign-in");
+
+  const response = await getUsersDashboard(user.id);
 
   return (
     <div className="min-h-screen p-8 bg-gray-50 mt-16">
       <main className="max-w-6xl mx-auto">
         <Head />
-        <Insights />
+        {response.leads && response.properties && (
+          <Insights
+            insights={{
+              totalValue: response.totalValue,
+              activeLeads: response.leads.length,
+              totalListings: response.properties.length,
+            }}
+          />
+        )}
         <div className="grid gap-6 md:grid-cols-2 w-full">
-          <LeadsCard leads={leads} />
-          <PropertyListCard properties={response ? response.properties : undefined} />
+          <LeadsCard leads={response?.leads} />
+          <PropertyListCard properties={response?.properties} />
         </div>
       </main>
     </div>

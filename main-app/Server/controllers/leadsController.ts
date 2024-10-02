@@ -7,7 +7,6 @@ import { authenticateUser } from "./dashboardController";
 import LeadService, { LeadPayloadSchema } from "../lib/LeadService";
 import { StatusCode } from "hono/utils/http-status";
 
-const leadService = new LeadService();
 const app = new Hono();
 
 app.use(clerkMiddleware());
@@ -48,8 +47,11 @@ app.get("/:slug", async (c) => {
 app.post("/create", zValidator("json", LeadPayloadSchema), async (c) => {
   const leadPayload = c.req.valid("json");
 
-  const response = await leadService.Create(leadPayload);
-  if (response.err) throw new HTTPException((response.val.status as StatusCode) || 500, { message: response.val.message });
+  const response = await LeadService.Create(leadPayload);
+  if (response.err)
+    throw new HTTPException((response.val.status as StatusCode) || 500, {
+      message: response.val.message,
+    });
 
   return c.json(response.val);
 });

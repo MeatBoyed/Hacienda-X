@@ -1,10 +1,19 @@
 "use client";
 import { MessageView } from "@/components/main/Views/Views";
+import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
+import {
+  TableHeader,
+  TableRow,
+  TableHead,
+  TableBody,
+  TableCell,
+  Table,
+} from "@/components/ui/table";
 import { PropertyWithAddress } from "@/Server/utils/utils";
 import { Lead } from "@prisma/client";
-import { Table } from "lucide-react";
+import { Edit, Trash2 } from "lucide-react";
+import Link from "next/link";
 import { useMemo } from "react";
 
 export function PropertyListCard({
@@ -19,7 +28,15 @@ export function PropertyListCard({
           key={property.Address?.address}
           className="hover:bg-gray-50 transition-colors duration-200"
         >
-          <TableCell>{property.Address?.address}</TableCell>
+          <TableCell>
+            <Link
+              href={`/dashboard/property/${property.property_id}`}
+              className="w-full flex justify-start items-center gap-3"
+            >
+              <>{property.title}</>
+              <Edit className="w-4 h-4 text-blue-500" />
+            </Link>
+          </TableCell>
           <TableCell className="text-gray-800 font-medium">{property.price}</TableCell>
           <TableCell>
             <span
@@ -32,6 +49,11 @@ export function PropertyListCard({
               {property.visibility}
             </span>
           </TableCell>
+          {/* <TableCell>
+            <Button>
+              <Trash2 className="w-4 h-4 text-red-500" />
+            </Button>
+          </TableCell> */}
         </TableRow>
       )),
     [defaultProperties]
@@ -65,6 +87,7 @@ export function PropertyListCard({
                 <TableHead className="font-semibold">Address</TableHead>
                 <TableHead className="font-semibold">Price</TableHead>
                 <TableHead className="font-semibold">Status</TableHead>
+                <TableHead className="font-semibold"></TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>{properties}</TableBody>

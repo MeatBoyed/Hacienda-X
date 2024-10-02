@@ -1,7 +1,7 @@
 "use client";
 import useSWR from "swr";
 import { useParams } from "next/navigation";
-import PropertyForm from "../(components)/PropertyForm";
+import PropertyForm from "@/components/PropertyForm/PropertyForm";
 import { PropertyWithAddress } from "@/Server/utils/utils";
 import { PuffLoader } from "react-spinners";
 import { useTranslations } from "next-intl";
@@ -33,12 +33,12 @@ export default function ManageProperty() {
             <PuffLoader color="blue" />
           </div>
         )}
-        {error && (
+        {error && !data && (
           <div className="w-full flex justify-center items-center h-[100vh] bg-[#ffff]">
             <span>{t("error")}</span>
           </div>
         )}
-        {data && <PropertyForm initProperty={data} />}
+        {data && !error && <PropertyForm initProperty={data} />}
       </div>
     </section>
   );

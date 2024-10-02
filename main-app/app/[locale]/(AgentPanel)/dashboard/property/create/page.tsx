@@ -1,6 +1,6 @@
-import PropertyForm from "../(components)/PropertyForm";
-
 // Allow user's to request property features for us to add
+import PropertyForm from "@/components/PropertyForm/PropertyForm";
+
 // params: { locale: string };
 export default async function CreatePropertyPage() {
   return (

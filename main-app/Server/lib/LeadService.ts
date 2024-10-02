@@ -4,6 +4,7 @@ import { Result, Ok, Err } from "ts-results";
 import S3Service from "@/components/UploadShad/server/S3Service";
 import { Lead, Prisma } from "@prisma/client";
 import { z } from "zod";
+import { error } from "console";
 
 export interface LeadServiceResponse {
   leads: Lead[];
@@ -29,24 +30,39 @@ export const LeadPayloadSchema = z.object({
 export type LeadPayload = z.infer<typeof LeadPayloadSchema> & {};
 
 class LeadService {
-  private s3Service: S3Service;
-  constructor() {
-    this.s3Service = new S3Service();
+  static async GetAll(agentId?: string): Promise<Result<LeadServiceResponse, LeadServiceError>> {
+    return await db.lead
+      .findMany({
+        where: { agent: { public_id: agentId } },
+      })
+      .then((data) => {
+        return Ok({
+          leads: data,
+          total: data.length,
+        });
+      })
+      .catch((error) => {
+        return Err(this.handleError(error, "GetAll"));
+      });
   }
 
-  async GetAll(agentId?: string): Promise<Result<LeadServiceResponse, LeadServiceError>> {
+  static async Get(
+    propertyId?: string,
+    slug?: string,
+    agent?: boolean
+  ): Promise<Result<LeadServiceResponse, LeadServiceError>> {
     throw new Error("Not Implemented");
   }
 
-  async Get(propertyId?: string, slug?: string, agent?: boolean): Promise<Result<LeadServiceResponse, LeadServiceError>> {
+  static async Search(
+    where: Prisma.PropertyWhereInput
+  ): Promise<Result<LeadServiceResponse, LeadServiceError>> {
     throw new Error("Not Implemented");
   }
 
-  async Search(where: Prisma.PropertyWhereInput): Promise<Result<LeadServiceResponse, LeadServiceError>> {
-    throw new Error("Not Implemented");
-  }
-
-  async Create(leadPayload: LeadPayload): Promise<Result<LeadServiceResponse, LeadServiceError>> {
+  static async Create(
+    leadPayload: LeadPayload
+  ): Promise<Result<LeadServiceResponse, LeadServiceError>> {
     return await db.lead
       .create({
         data: {
@@ -73,15 +89,20 @@ class LeadService {
       });
   }
 
-  async Update(propertyPayload: PropertySchema, agentId: string): Promise<Result<LeadServiceResponse, LeadServiceError>> {
+  static async Update(
+    propertyPayload: PropertySchema,
+    agentId: string
+  ): Promise<Result<LeadServiceResponse, LeadServiceError>> {
     throw new Error("Not Implemented");
   }
 
-  async Delete(payload: DeletePropertyPayload): Promise<Result<LeadServiceResponse, LeadServiceError>> {
+  static async Delete(
+    payload: DeletePropertyPayload
+  ): Promise<Result<LeadServiceResponse, LeadServiceError>> {
     throw new Error("Not Implemented");
   }
 
-  handleError(error: any, methodName: string): LeadServiceError {
+  static handleError(error: any, methodName: string): LeadServiceError {
     console.log(`Lead Service | ${methodName}  Error: `, error);
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       return { status: parseInt(error.code), message: error.message };

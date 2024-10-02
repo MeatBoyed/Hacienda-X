@@ -12,16 +12,12 @@ import {
 import { ChevronLeft, Trash2, Save } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
+import { usePropertyFormContext } from "./PropertyFormContext";
 
-export default function PropertyFormHead({
-  initProperty,
-  deleteHandler,
-}: {
-  deleteHandler: () => Promise<void>;
-  initProperty: boolean;
-}) {
+export default function PropertyFormHead() {
   const t = useTranslations("Dashboard.propertyFormComp.formHeadComp");
   const router = useRouter();
+  const { initProperty, deleteHandler } = usePropertyFormContext();
 
   return (
     <div className="flex items-center justify-between w-full sm:px-5 lg:max-w-7xl flex-wrap gap-4">
@@ -41,6 +37,10 @@ export default function PropertyFormHead({
         </h1>
       </div>
       <div className="flex justify-center items-center gap-2">
+        <Button variant="outline" size="sm" type="submit" className="gap-2">
+          <Save size={16} />
+          {initProperty ? `${t("saveButton")}` : `${t("createButton")}`}
+        </Button>
         {initProperty && (
           <Dialog>
             <DialogTrigger asChild>
@@ -59,17 +59,17 @@ export default function PropertyFormHead({
                 className="flex p-0 m-0 justify-between items-center w-full"
               >
                 <p className="text-sm font-normal ">{t("deleteDialog.confirmMessage")}</p>
-                <Button variant={"destructive"} type="button" onClick={async () => await deleteHandler()}>
+                <Button
+                  variant={"destructive"}
+                  type="button"
+                  onClick={async () => await deleteHandler()}
+                >
                   {t("deleteDialog.button")}
                 </Button>
               </DialogFooter>
             </DialogContent>
           </Dialog>
         )}
-        <Button variant="outline" size="sm" type="submit" className="gap-2">
-          <Save size={16} />
-          {initProperty ? `${t("saveButton")}` : `${t("createButton")}`}
-        </Button>
       </div>
     </div>
   );

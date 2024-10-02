@@ -8,16 +8,14 @@ export default async function Head() {
     <header className="flex justify-between items-center mb-8 w-full">
       <div>
         <h1 className="text-4xl font-bold text-gray-800">Welcome back, {user?.firstName}!</h1>
-        <p className="text-gray-600">
-          Here&apos;s what&apos;s happening with your properties today.
-        </p>
+        <p className="text-gray-600">Here&apos;s what&apos;s happening with your properties today.</p>
       </div>
       <div className="flex items-center gap-4">
         <Button
           className={`bg-blue-500 text-white transition-all duration-300 ease-in-out transform hover:bg-blue-600`}
           variant={"link"}
         >
-          <Link href="/property/create">Add New Listing</Link>
+          <Link href="/dashboard/property/create">Add New Listing</Link>
         </Button>
         {/* <div className="relative">
           <Bell className="h-6 w-6 text-gray-600 cursor-pointer hover:text-gray-800 transition-colors duration-200" />

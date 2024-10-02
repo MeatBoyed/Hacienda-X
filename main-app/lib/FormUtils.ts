@@ -77,8 +77,14 @@ export const SelectSaleTypeOptions = [
 
 export const SelectProvider = (t: any) => {
   const visibilityOptions = [
-    { key: t("formFields.meta.visibilityField.options.public"), value: t("formFields.meta.visibilityField.options.public") },
-    { key: t("formFields.meta.visibilityField.options.private"), value: t("formFields.meta.visibilityField.options.private") },
+    {
+      key: t("formFields.meta.visibilityField.options.public"),
+      value: t("formFields.meta.visibilityField.options.public"),
+    },
+    {
+      key: t("formFields.meta.visibilityField.options.private"),
+      value: t("formFields.meta.visibilityField.options.private"),
+    },
   ];
 
   return visibilityOptions;
@@ -162,7 +168,7 @@ export const PropertySchema = z.object({
   }),
 });
 
-export const PropertySchemaTranslated = (t: any) => {
+export const createPropertyFormSchema = (t: any) => {
   return z.object({
     property_id: z.string(),
     title: z
@@ -216,7 +222,9 @@ export const PropertySchemaTranslated = (t: any) => {
     images: z
       .array(z.string().url({ message: "Invalid Url" }))
       // .min(1, { message: `There must be at least ${MINFILES} Image.` })
-      .max(MAXFILES, { message: `$t('propertySchema.images.part1') ${MAXFILES} $t('propertySchema.images.part2')` }),
+      .max(MAXFILES, {
+        message: `$t('propertySchema.images.part1') ${MAXFILES} $t('propertySchema.images.part2')`,
+      }),
     extraFeatures: z.array(
       z.object({
         id: z.string({
@@ -240,6 +248,7 @@ export const PropertySchemaTranslated = (t: any) => {
     }),
   });
 };
+export type PropertyFormSchema = z.infer<ReturnType<typeof createPropertyFormSchema>>;
 
 export const PropertyRequestSchema = z.object({
   property_id: z.string(),
@@ -253,8 +262,12 @@ export const PropertyRequestSchema = z.object({
   address: z.string().min(5, { message: "Address must be at least 5 characters long" }),
   lat: z.number(), // add Max and Min Val
   lng: z.number(),
-  images: z.array(z.instanceof(File)).max(MAXFILES, { message: `No more than ${MAXFILES} Images allowed.` }),
-  extraFeatures: z.array(z.string()).min(1, { message: "There must be at least one extra feature." }),
+  images: z
+    .array(z.instanceof(File))
+    .max(MAXFILES, { message: `No more than ${MAXFILES} Images allowed.` }),
+  extraFeatures: z
+    .array(z.string())
+    .min(1, { message: "There must be at least one extra feature." }),
   visibility: z.enum(["Public", "Private", "Draft", "Deleted"], {
     required_error: "Pool information is required.",
     invalid_type_error: "Pool must be a boolean.",

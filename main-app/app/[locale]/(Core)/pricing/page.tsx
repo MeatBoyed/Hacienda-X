@@ -8,12 +8,9 @@ import { generateWebsiteConfig } from "@/config/siteConfig";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import PricingEstimator from "./(components)/PricingEstimator";
+import { SignInButton } from "@clerk/nextjs";
 
-export async function generateMetadata({
-  params: { locale },
-}: {
-  params: { locale: string };
-}): Promise<Metadata> {
+export async function generateMetadata({ params: { locale } }: { params: { locale: string } }): Promise<Metadata> {
   const t = await getTranslations("WebsiteConfig.pricing");
   return await generateWebsiteConfig(t);
 }
@@ -22,12 +19,9 @@ export default function PricingPage() {
   return (
     <div className="container mx-auto px-4 py-16 mt-16 max-w-5xl space-y-20">
       <div className="text-center">
-        <h1 className="text-4xl font-bold tracking-tight sm:text-5xl mb-4">
-          List your property on HaciendaX for free
-        </h1>
+        <h1 className="text-4xl font-bold tracking-tight sm:text-5xl mb-4">List your property on HaciendaX for free</h1>
         <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-          Our pricing scales to fit your needs with no commitments, termination fees, or usage
-          limits.
+          Our pricing scales to fit your needs with no commitments, termination fees, or usage limits.
         </p>
       </div>
       <InfoCardSection />
@@ -38,12 +32,12 @@ export default function PricingPage() {
       <TestimonialSection />
       <FaqSection />
       <div className="text-center">
-        <Button size="lg" className="text-lg px-8 bg-blue-500 hover:bg-blue-800">
-          Start Your Free Trial
-        </Button>
-        <p className="mt-4 text-muted-foreground">
-          Experience the power of our platform risk-free.
-        </p>
+        <SignInButton mode="modal">
+          <Button size="lg" className="text-lg px-8 bg-blue-500 hover:bg-blue-800">
+            Get started Today
+          </Button>
+        </SignInButton>
+        <p className="mt-4 text-muted-foreground">Experience the power of our platform risk-free.</p>
       </div>
     </div>
   );
