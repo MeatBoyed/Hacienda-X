@@ -3,14 +3,24 @@ import { GetRequestService } from "@/lib/services/GetRequestService";
 import { MetadataRoute } from "next";
 
 async function getAllPostSlugsWithModifyTime() {
-  const response = await GetRequestService.getProperties();
-  if (!response) throw new Error("Error while fetching properties");
+  try {
+    const response = await GetRequestService.getProperties();
 
-  return response.properties.map((property) => ({
-    slug: property.title.toLowerCase().replace(/ /g, "-"),
-    modified_at: property.updatedAt,
-  }));
+    // Check if the response is valid JSON
+    if (!response || !response.properties) {
+      throw new Error("Invalid response while fetching properties");
+    }
+
+    return response.properties.map((property) => ({
+      slug: property.title.toLowerCase().replace(/ /g, "-"),
+      modified_at: property.updatedAt,
+    }));
+  } catch (error) {
+    console.error("Error fetching properties:", error);
+    return [];
+  }
 }
+
 
 type changeFrequency = "monthly" | "always" | "hourly" | "daily" | "weekly" | "yearly" | "never" | undefined;
 

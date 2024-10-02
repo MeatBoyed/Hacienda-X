@@ -10,7 +10,7 @@ export default function HowItWorks() {
         <div className="article-wrapper p-4">
           <figure className="mb-4">
             <img
-              src="./ctapic3.jpg"
+              src="../ctapic1.jpg"
               alt=""
               className="w-full h-24 md:h-auto object-cover rounded-md"
             />
@@ -26,7 +26,7 @@ export default function HowItWorks() {
             <Link
               href="/pricing"
               className="
-            button1 read-more inline-flex items-center justify-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 text-sm md:text-xs
+             read-more inline-flex items-center justify-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 text-sm md:text-xs
             "
             >
               {t("sellPropertyCard.button")}
@@ -38,7 +38,7 @@ export default function HowItWorks() {
         <div className="article-wrapper p-4">
           <figure className="mb-4">
             <img
-              src="./ctapic4.jpg"
+              src="../ctapic2.jpg"
               alt=""
               className="w-full h-24 md:h-auto object-cover rounded-md"
             />
@@ -52,9 +52,9 @@ export default function HowItWorks() {
             </p>
 
             <Link
-              href="/pricing"
+              href="/property-for-sale"
               className="
-            button1 read-more inline-flex items-center justify-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 text-sm md:text-xs
+            read-more inline-flex items-center justify-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 text-sm md:text-xs
             "
             >
               {t("buyPropertyCard.button")}
@@ -66,7 +66,7 @@ export default function HowItWorks() {
         <div className="article-wrapper p-4">
           <figure className="mb-4">
             <img
-              src="./ctapic5.jpg"
+              src="../ctapic5.jpg"
               alt=""
               className="w-full h-24 md:h-auto object-cover rounded-md"
             />
@@ -79,9 +79,9 @@ export default function HowItWorks() {
               {t("discoverCard.content")}
             </p>
             <Link
-              href="/pricing"
+              href="/aboutus"
               className="
-            button1 read-more inline-flex items-center justify-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 text-sm md:text-xs
+            read-more inline-flex items-center justify-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 text-sm md:text-xs
             "
             >
               {t("discoverCard.button")}
