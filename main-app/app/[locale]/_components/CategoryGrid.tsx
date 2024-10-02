@@ -8,7 +8,13 @@ interface CategoryCardProps {
 
 const CategoryCard: React.FC<CategoryCardProps> = ({ title, imageSrc }) => (
   <div className="relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 h-96">
-    <Image src={imageSrc} alt={title} width={300} height={400} className="w-full h-full object-cover" />
+    <Image
+      src={imageSrc}
+      alt={title}
+      layout="fill"
+      objectFit="cover"
+      quality={100}
+    />
     <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
       <h3 className="text-white text-2xl font-bold">{title}</h3>
     </div>
@@ -19,10 +25,10 @@ const CategoryGrid: React.FC = () => {
   const t = useTranslations('Index.CategoryGrid');
 
   const categories = [
-    { title: t('categories.apartments'), imageSrc: '/./apartmentimage.jpg' },
-    { title: t('categories.villa'), imageSrc: '/./villaimage.jpg' },
-    { title: t('categories.townhouse'), imageSrc: '/./townhouseimage.jpg' },
-    { title: t('categories.condo'), imageSrc: '/./condoimage.jpg' },
+    { title: t('categories.apartments'), imageSrc: '/apartmentimage.jpg' },
+    { title: t('categories.villa'), imageSrc: '/villaimage.jpg' },
+    { title: t('categories.townhouse'), imageSrc: '/townhouseimage.jpg' },
+    { title: t('categories.condo'), imageSrc: '/condoimage.jpg' },
   ];
 
   return (
