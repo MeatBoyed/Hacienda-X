@@ -126,12 +126,12 @@ export const PropertyFormContextProvider: React.FC<{
 function getDefaultVaules(initProperty: PropertyWithAddress | undefined) {
   return {
     property_id: initProperty?.property_id || "",
-    title: initProperty?.title || "askdakjd ajdaaksdf",
-    price: initProperty?.price || 1000000,
-    description: initProperty?.description || "kasjdf aksdjf akdf aksfj",
-    bathrooms: initProperty?.bathrooms || 2,
-    bedrooms: initProperty?.bedrooms || 4,
-    squareMeter: initProperty?.squareMeter || 4,
+    title: initProperty?.title || "",
+    price: initProperty?.price || 0,
+    description: initProperty?.description || "",
+    bathrooms: initProperty?.bathrooms || 0,
+    bedrooms: initProperty?.bedrooms || 0,
+    squareMeter: initProperty?.squareMeter || 0,
     pool: initProperty?.pool || false,
     images: initProperty?.images || [],
     extraFeatures: initProperty?.extraFeatures
@@ -140,9 +140,9 @@ function getDefaultVaules(initProperty: PropertyWithAddress | undefined) {
           text: feature,
         }))
       : [],
-    address: initProperty?.Address?.address || "aksdj aksdjf askdfj aksdfj",
-    lat: initProperty?.Address?.latitude || -239,
-    lng: initProperty?.Address?.longitude || 123,
+    address: initProperty?.Address?.address || "",
+    lat: initProperty?.Address?.latitude || 0,
+    lng: initProperty?.Address?.longitude || 0,
     visibility: initProperty?.visibility || "Public",
     saleType: initProperty?.saleType || "Sale",
   };
