@@ -7,6 +7,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { calculatePrice, MAX_LEADS, MAX_PROPERTIES } from "./pricingUtils";
 import { Button } from "@/components/ui/button";
 import { PhoneCall } from "lucide-react";
+import Link from "next/link";
 
 export default function PricingEstimator() {
   const [leads, setLeads] = useState(100);
@@ -93,10 +94,12 @@ function PricingInfoCard() {
         <li className="font-medium text-gray-700">Real-time reporting</li>
         <li className="font-medium text-gray-700">Custom features available</li>
       </ul>
-      <Button className="w-full mt-8 bg-blue-500 text-white hover:bg-blue-600" variant="default">
-        <PhoneCall className="w-4 h-4 mr-2" />
-        Contact Sales for Enterprise Plan
-      </Button>
+      <Link href="/contactus">
+        <Button className="w-full mt-8 bg-blue-500 text-white hover:bg-blue-600" variant="link">
+          <PhoneCall className="w-4 h-4 mr-2" />
+          Contact Sales for Enterprise Plan
+        </Button>
+      </Link>
     </div>
   );
 }

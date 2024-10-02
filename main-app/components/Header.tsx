@@ -75,7 +75,6 @@ export const Header = ({ isDashboard }: { isDashboard?: boolean }) => {
                 dict={{
                   dashboard: t("dashboard"),
                   property: t("property"),
-                  usage: t("usage"),
                   contact: t("contactUs"),
                 }}
               />
@@ -141,9 +140,9 @@ function MainNavSlider({
 }
 
 function DashboardNavSlider({
-  dict: { dashboard, property, usage, contact },
+  dict: { dashboard, property, contact },
 }: {
-  dict: { dashboard: string; property: string; usage: string; contact: string };
+  dict: { dashboard: string; property: string; contact: string };
 }) {
   return (
     <Sheet>
@@ -152,24 +151,13 @@ function DashboardNavSlider({
       </SheetTrigger>
       <SheetContent className="flex justify-between py-80 items-start flex-col shadow-lg">
         <Link href="/dashboard">
-          <p className="text-base text-black hover:text-gray-700 transition">
-            {dashboard}
-          </p>
+          <p className="text-base text-black hover:text-gray-700 transition">{dashboard}</p>
         </Link>
         <Link href="/dashboard/property">
-          <p className="text-base text-black hover:text-gray-700 transition">
-            {property}
-          </p>
-        </Link>
-        <Link href="/usage">
-          <p className="text-base text-black hover:text-gray-700 transition">
-            {usage}
-          </p>
+          <p className="text-base text-black hover:text-gray-700 transition">{property}</p>
         </Link>
         <Link href="/contactus">
-          <p className="text-base text-black hover:text-gray-700 transition">
-            {contact}
-          </p>
+          <p className="text-base text-black hover:text-gray-700 transition">{contact}</p>
         </Link>
         <LocalSwitcher />
       </SheetContent>
@@ -193,34 +181,24 @@ function MainNavlinks({
   return (
     <div className="flex justify-center gap-8 items-center">
       <Link href="/property-for-sale">
-        <p className="text-base text-black hover:text-gray-700 transition">
-          {search}
-        </p>
+        <p className="text-base text-black hover:text-gray-700 transition">{search}</p>
       </Link>
       <Link href="/pricing">
-        <p className="text-base text-black hover:text-gray-700 transition">
-          {pricing}
-        </p>
+        <p className="text-base text-black hover:text-gray-700 transition">{pricing}</p>
       </Link>
       <Link href="/aboutus">
-        <p className="text-base text-black hover:text-gray-700 transition">
-          {aboutus}
-        </p>
+        <p className="text-base text-black hover:text-gray-700 transition">{aboutus}</p>
       </Link>
       <Link href="/aboutus">
         <p className="text-base text-black hover:text-gray-700 transition">{aboutus}</p>
       </Link>
       {userId && (
         <Link href="/dashboard">
-          <p className="text-base text-black hover:text-gray-700 transition">
-            {dashboard}
-          </p>
+          <p className="text-base text-black hover:text-gray-700 transition">{dashboard}</p>
         </Link>
       )}
       <Link href="/contactus">
-        <p className="text-base text-black hover:text-gray-700 transition">
-          {contactUs}
-        </p>
+        <p className="text-base text-black hover:text-gray-700 transition">{contactUs}</p>
       </Link>
       <LocalSwitcher />
     </div>
@@ -235,19 +213,10 @@ function DashboardNavlinks({
   return (
     <div className="flex justify-center gap-8 items-center">
       <Link href="/dashboard">
-        <p className="text-base text-black hover:text-gray-700 transition">
-          {dashboard}
-        </p>
-      </Link>
-      <Link href="/pricing">
-        <p className="text-base text-black hover:text-gray-700 transition">
-          {usage}
-        </p>
+        <p className="text-base text-black hover:text-gray-700 transition">{dashboard}</p>
       </Link>
       <Link href="/contactus">
-        <p className="text-base text-black hover:text-gray-700 transition">
-          {contact}
-        </p>
+        <p className="text-base text-black hover:text-gray-700 transition">{contact}</p>
       </Link>
       <LocalSwitcher />
     </div>
