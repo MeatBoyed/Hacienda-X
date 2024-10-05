@@ -64,9 +64,9 @@ export default async function Home({ params: { locale } }: { params: { locale: s
           heading={dict.Index.Residencies.heading}
         />
       </Residencies> */}
-     <HowItWorks /> 
+     {/* <HowItWorks />  */}
       {/* <Value /> */}
-      <OfferedSection />
+      {/* <OfferedSection /> */}
       <CallToAction />
       <Contact />
     </div>
