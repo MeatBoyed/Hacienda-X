@@ -27,7 +27,7 @@ export default function Offered() {
                       <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-primary-500 text-white">
                         <HomeIcon size={32} className="text-blue-700" />
                       </div>
-                      <p className="font-heading ml-16 text-lg leading-6 font-bold text-gray-700">{t("offer1.heading")}</p>
+                      <h3 className="font-heading ml-16 text-lg leading-6 font-bold text-gray-700">{t("offer1.heading")}</h3>
                     </dt>
                     <dd className="mt-2 ml-16 text-base text-gray-500">{t("offer1.content")}</dd>
                   </div>
@@ -36,7 +36,7 @@ export default function Offered() {
                       <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-primary-500 text-white">
                         <MapPin size={32} className="text-blue-700" />
                       </div>
-                      <p className="font-heading ml-16 text-lg leading-6 font-bold text-gray-700">{t("offer2.heading")}</p>
+                      <h3 className="font-heading ml-16 text-lg leading-6 font-bold text-gray-700">{t("offer2.heading")}</h3>
                     </dt>
                     <dd className="mt-2 ml-16 text-base text-gray-500">{t("offer2.content")}</dd>
                   </div>
@@ -45,7 +45,7 @@ export default function Offered() {
                       <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-primary-500 text-white">
                         <CircleDollarSign size={32} className="text-blue-700" />
                       </div>
-                      <p className="font-heading ml-16 text-lg leading-6 font-bold text-gray-700">{t("offer3.heading")}</p>
+                      <h3 className="font-heading ml-16 text-lg leading-6 font-bold text-gray-700">{t("offer3.heading")}</h3>
                     </dt>
                     <dd className="mt-2 ml-16 text-base text-gray-500">{t("offer3.content")}</dd>
                   </div>
@@ -54,7 +54,7 @@ export default function Offered() {
                       <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-primary-500 text-white">
                         <Server size={32} className="text-blue-700" />
                       </div>
-                      <p className="font-heading ml-16 text-lg leading-6 font-bold text-gray-700">{t("offer4.heading")}</p>
+                      <h3 className="font-heading ml-16 text-lg leading-6 font-bold text-gray-700">{t("offer4.heading")}</h3>
                     </dt>
                     <dd className="mt-2 ml-16 text-base text-gray-500">{t("offer4.content")}</dd>
                   </div>

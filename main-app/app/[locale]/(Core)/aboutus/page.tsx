@@ -7,6 +7,7 @@ import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { generateWebsiteConfig } from "@/config/siteConfig";
 import Values from "../../_components/Value";
+import OfferedSection from "../../_components/OfferedSection";
 import { Metadata } from "next";
 // Demo styles, see 'Styles' section below for some notes on use.
 
@@ -50,7 +51,7 @@ export default async function Value() {
       </div>
 
 
-    </div><div><Values /> </div></>
+    </div><div><Values /> <OfferedSection />  </div></>
    
   );
 }
